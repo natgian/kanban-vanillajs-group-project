@@ -78,6 +78,11 @@ main,
   min-height: 100vh;
 }
 
+h1 {
+  font-size: 61px;
+  font-weight: 700;
+}
+
 header {
   position: fixed;
   top: 0;
