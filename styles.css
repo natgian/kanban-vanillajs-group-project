@@ -118,3 +118,76 @@ header {
 .user-profile-icon:hover {
   background-color: rgb(12, 46, 98, 0.12);
 }
+
+.logo {
+  margin-bottom: 50px;
+}
+
+.sidebar {
+  background-color: var(--primary-color);
+  color: var(--white-color);
+  width: 232px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 64px 0;
+}
+
+.sidebar-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 64px;
+}
+
+.sidebar-menu {
+  color: #cdcdcd;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.sidebar-menu-link img {
+  filter: brightness(0) saturate(100%) invert(85%) sepia(0%) saturate(1556%) hue-rotate(212deg) brightness(99%) contrast(89%);
+}
+
+.sidebar-menu-link {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 56px;
+}
+
+.sidebar-menu-link:hover {
+  background-color: #2a3d59;
+}
+
+.active-link {
+  pointer-events: none;
+  background-color: var(--active-color);
+  color: var(--white-color);
+}
+
+.active-link img {
+  filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(156deg) brightness(102%) contrast(102%);
+}
+
+.sidebar-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  padding-left: 56px;
+}
+
+.sidebar-footer-link {
+  font-weight: 400;
+  line-height: 1.2;
+  color: #a8a8a8;
+}
+.sidebar-footer-link:hover {
+  font-weight: 700;
+  color: #29abe2;
+}
