@@ -117,7 +117,7 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #29abe2;
+  color: var(--hover-color);
   background-color: var(--white-color);
   font-size: 20px;
   font-weight: 700;
@@ -197,5 +197,5 @@ header {
 }
 .sidebar-footer-link:hover {
   font-weight: 700;
-  color: #29abe2;
+  color: var(--hover-color);
 }
