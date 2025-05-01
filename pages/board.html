@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Board</title>
     <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="../styles/board.css" />
   </head>
   <body>
-    <main>
+    <main class="layout-container">
       <!-- Header -->
       <header>
         <span>Kanban Project Management Tool</span>
@@ -61,6 +62,16 @@
           </li>
         </ul>
       </nav>
+      <!-- Content -->
+      <div class="content">
+        <div class="board-header">
+          <h1>Board</h1>
+          <div>
+            <input type="search" name="search-task" id="search-task" />
+            <button>Add task</button>
+          </div>
+        </div>
+      </div>
     </main>
   </body>
 </html>

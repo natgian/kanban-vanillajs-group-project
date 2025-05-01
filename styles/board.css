@@ -1,0 +1,15 @@
+.content {
+  position: absolute;
+  top: 96px;
+  left: 232px;
+  width: calc(100% - 232px);
+  /* padding: 79.5px 88px 0 66px; */
+  padding: 79.5px 64px 0;
+  background-color: yellow;
+}
+
+.board-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

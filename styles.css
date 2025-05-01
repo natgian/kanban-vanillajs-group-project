@@ -74,7 +74,13 @@ body {
   background-color: #f6f7f8;
 }
 
-main,
+.layout-container {
+  position: relative;
+  width: 100%;
+  max-width: 1920px;
+}
+
+.layout-container,
 .sidebar {
   min-height: 100vh;
 }
@@ -85,7 +91,7 @@ h1 {
 }
 
 header {
-  position: fixed;
+  position: absolute;
   top: 0;
   right: 0;
   left: 232px;
