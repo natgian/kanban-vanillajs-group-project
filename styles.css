@@ -90,6 +90,41 @@ h1 {
   font-weight: 700;
 }
 
+/*-------- */
+/* BUTTONS */
+/*-------- */
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  background-color: var(--primary-color);
+  color: var(--white-color);
+  font-size: 21px;
+  line-height: 1.2;
+  font-weight: 700;
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 1px solid var(--primary-color);
+}
+
+.btn:hover {
+  background-color: var(--hover-color);
+  border: 1px solid var(--hover-color);
+  box-shadow: 0 4px 4px 0 rgb(0, 0, 0, 0.25);
+}
+
+.btn:active {
+  background-color: var(--active-color);
+  border: 1px solid var(--active-color);
+  box-shadow: 0 4px 4px 0 rgb(0, 0, 0, 0.25);
+}
+
+/*------- */
+/* HEADER */
+/*------- */
+
 header {
   position: absolute;
   top: 0;
@@ -132,6 +167,10 @@ header {
 .user-profile-icon:hover {
   background-color: rgb(12, 46, 98, 0.12);
 }
+
+/*-------- */
+/* SIDEBAR */
+/*-------- */
 
 .logo {
   margin-bottom: 50px;
