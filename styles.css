@@ -4,14 +4,14 @@
 
 @font-face {
   font-family: "Inter";
-  src: url("./assets/fonts/Inter/Inter-VariableFont_opsz,wght.ttf") format("truetype");
+  src: url("./assets/fonts/Inter-VariableFont_opsz,wght.ttf") format("truetype");
   font-weight: 100 900;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Inter";
-  src: url("./assets/fonts/Inter/Inter-Italic-VariableFont_opsz,wght.ttf") format("truetype");
+  src: url("./assets/fonts/Inter-Italic-VariableFont_opsz,wght.ttf") format("truetype");
   font-weight: 100 900;
   font-style: italic;
 }
@@ -73,10 +73,20 @@ body {
   font-family: "Inter", sans-serif;
   font-weight: 400;
   font-size: 16px;
+<<<<<<< HEAD
   width: 100dvw;
+=======
+  background-color: #f6f7f8;
+>>>>>>> 40ddbfda4e6340cf49f3c537ef747353fa1dfb71
 }
 
-main,
+.layout-container {
+  position: relative;
+  width: 100%;
+  max-width: 1920px;
+}
+
+.layout-container,
 .sidebar {
   min-height: 100vh;
 }
@@ -86,15 +96,59 @@ h1 {
   font-weight: 700;
 }
 
+/*-------- */
+/* BUTTONS */
+/*-------- */
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  background-color: var(--primary-color);
+  color: var(--white-color);
+  font-size: 21px;
+  line-height: 1.2;
+  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: 10px;
+  border: 1px solid var(--primary-color);
+}
+
+.btn:hover {
+  background-color: var(--hover-color);
+  border: 1px solid var(--hover-color);
+  box-shadow: 0 4px 4px 0 rgb(0, 0, 0, 0.25);
+}
+
+.btn:active {
+  background-color: var(--active-color);
+  border: 1px solid var(--active-color);
+  box-shadow: 0 4px 4px 0 rgb(0, 0, 0, 0.25);
+}
+
+/*------- */
+/* HEADER */
+/*------- */
+
 header {
+<<<<<<< HEAD
   width: calc(100dvw - 232px);
   max-height: 96px;
+=======
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 232px;
+>>>>>>> 40ddbfda4e6340cf49f3c537ef747353fa1dfb71
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 32px 40px 32px 116px;
+  padding: 20px 40px 20px 116px;
   color: var(--black-color);
   font-size: 20px;
+  background-color: var(--white-color);
+  box-shadow: 0 4px 4px rgb(0, 0, 0, 0.1);
 }
 
 .header-icons-container {
@@ -118,7 +172,7 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #29abe2;
+  color: var(--hover-color);
   background-color: var(--white-color);
   font-size: 20px;
   font-weight: 700;
@@ -127,6 +181,10 @@ header {
 .user-profile-icon:hover {
   background-color: rgb(12, 46, 98, 0.12);
 }
+
+/*-------- */
+/* SIDEBAR */
+/*-------- */
 
 .logo {
   margin-bottom: 50px;
@@ -199,5 +257,10 @@ header {
   color: #a8a8a8;
 }
 .sidebar-footer-link:hover {
+<<<<<<< HEAD
   color: #29abe2;
+=======
+  font-weight: 700;
+  color: var(--hover-color);
+>>>>>>> 40ddbfda4e6340cf49f3c537ef747353fa1dfb71
 }
