@@ -73,11 +73,8 @@ body {
   font-family: "Inter", sans-serif;
   font-weight: 400;
   font-size: 16px;
-<<<<<<< HEAD
   width: 100dvw;
-=======
   background-color: #f6f7f8;
->>>>>>> 40ddbfda4e6340cf49f3c537ef747353fa1dfb71
 }
 
 .layout-container {
@@ -132,15 +129,9 @@ h1 {
 /*------- */
 
 header {
-<<<<<<< HEAD
   width: calc(100dvw - 232px);
   max-height: 96px;
-=======
-  position: absolute;
-  top: 0;
-  right: 0;
   left: 232px;
->>>>>>> 40ddbfda4e6340cf49f3c537ef747353fa1dfb71
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -257,10 +248,5 @@ header {
   color: #a8a8a8;
 }
 .sidebar-footer-link:hover {
-<<<<<<< HEAD
   color: #29abe2;
-=======
-  font-weight: 700;
-  color: var(--hover-color);
->>>>>>> 40ddbfda4e6340cf49f3c537ef747353fa1dfb71
 }
