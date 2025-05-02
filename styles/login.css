@@ -18,13 +18,13 @@ main {
     justify-content: center;
     align-items: center;
 
-    h1{
+    h1 {
         font-size: 56px;
         border-bottom: 2px solid blue;
         margin-top: 0;
     }
 
-    input{
+    input {
         border-radius: 8px;
         border: 0.5px solid #aaa;
     }
@@ -45,6 +45,43 @@ main {
     min-height: auto;
 }
 
+.loginBtn {
+    border: none;
+    font-weight: bold;
+    background-color: #2a3647;
+    padding: 8px 16px;
+    color: white;
+    cursor: pointer;
+    border-radius: 6px;
+    font-size: 18px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.loginBtn:hover {
+    background-color: #29abe2;
+    transform: scale(1.01);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.guestLoginBtn{
+    border: 0.5px solid #2a3647;
+    font-weight: bold;
+    background-color: white;
+    padding: 8px 16px;
+    color: #2a3647;
+    cursor: pointer;
+    border-radius: 6px;
+    font-size: 18px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.guestLoginBtn:hover {
+    border: 0.5px solid #29abe2;
+    color: #29abe2;
+    transform: scale(1.01);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
 
 footer {
     display: flex;
@@ -52,7 +89,7 @@ footer {
     justify-content: center;
 }
 
-.pr-40{
+.pr-40 {
     padding-right: 40px;
 }
 
@@ -60,9 +97,9 @@ footer {
     position: relative;
     margin-bottom: 16px;
     width: 422px;
-  }
-  
-  .inputWrapper img {
+}
+
+.inputWrapper img {
     position: absolute;
     top: 50%;
     right: 16px;
@@ -70,12 +107,12 @@ footer {
     width: 20px;
     height: 20px;
     pointer-events: none;
-  }
-  
-  .inputWrapper input {
-    padding: 10px 10px 10px 10px; /* Platz für das Icon */
+}
+
+.inputWrapper input {
+    padding: 10px 10px 10px 10px;
+    /* Platz für das Icon */
     width: 100%;
     box-sizing: border-box;
     font-size: 16px;
-  }
-  
+}
