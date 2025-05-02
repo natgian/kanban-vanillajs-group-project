@@ -1,11 +1,44 @@
+/*----- */
+/* FONT */
+/*----- */
+
+@font-face {
+    font-family: "Inter";
+    src: url("./assets/fonts/Inter-VariableFont_opsz,wght.ttf") format("truetype");
+    font-weight: 100 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Inter";
+    src: url("./assets/fonts/Inter-Italic-VariableFont_opsz,wght.ttf") format("truetype");
+    font-weight: 100 900;
+    font-style: italic;
+}
+
+
+
+
 .loginHeader {
     display: flex;
     justify-content: space-between;
     align-items: start;
     padding: 72px;
+
+    span {
+        margin-right: 16px;
+        font-size: 20px;
+    }
+
+    div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 }
 
 body {
+    font-family: "Inter", sans-serif;
     background-color: #f6f7f8;
     display: flex;
     flex-direction: column;
@@ -20,7 +53,6 @@ main {
 
     h1 {
         font-size: 56px;
-        border-bottom: 2px solid blue;
         margin-top: 0;
     }
 
@@ -30,19 +62,56 @@ main {
     }
 }
 
+.headlineLine {
+    width: 136px;
+    height: 3px;
+    background-color: #29abe2;
+    border: none;
+    margin-top: -24px;
+    margin-bottom: 30px;
+}
+
 .loginBox {
     display: flex;
     flex-direction: column;
     align-items: center;
     position: relative;
     bottom: 100px;
-    border: 2px solid #333;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
     padding: 40px;
-    border-radius: 12px;
+    border-radius: 16px;
     background-color: #f9f9f9;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     min-width: 500px;
     min-height: auto;
+    background-color: white;
+
+    div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    button {
+        margin-top: 32px;
+    }
+}
+
+.singUpBtn {
+    border: none;
+    background-color: #2a3647;
+    padding: 12px 12px;
+    color: white;
+    cursor: pointer;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.singUpBtn:hover {
+    background-color: #29abe2;
+    transform: scale(1.01);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .loginBtn {
@@ -55,6 +124,7 @@ main {
     border-radius: 6px;
     font-size: 18px;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    margin-right: 30px;
 }
 
 .loginBtn:hover {
@@ -63,7 +133,7 @@ main {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-.guestLoginBtn{
+.guestLoginBtn {
     border: 0.5px solid #2a3647;
     font-weight: bold;
     background-color: white;
@@ -87,10 +157,27 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
+
+    a {
+        text-decoration: none;
+        color: #aaa;
+        cursor: pointer;
+        transition: color 0.2s ease, transform 0.2s ease;
+    }
+
+    a:hover {
+        color: #29abe2;
+        font-weight: bold;
+        transform: scale(1.03);
+    }
 }
 
 .pr-40 {
     padding-right: 40px;
+}
+
+.mb-12 {
+    margin-bottom: 12px;
 }
 
 .inputWrapper {
@@ -111,7 +198,6 @@ footer {
 
 .inputWrapper input {
     padding: 10px 10px 10px 10px;
-    /* Platz für das Icon */
     width: 100%;
     box-sizing: border-box;
     font-size: 16px;
