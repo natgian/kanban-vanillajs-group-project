@@ -74,16 +74,23 @@ body {
     border-color: var(--outline-color);
     box-sizing: border-box;
     line-height: normal;
+    background-color: white;
+    display: flex;
+    align-items: center;
 }
 .typeBars::placeholder{
     color: var(--outline-color);
 }
 input[type="date"]::-webkit-datetime-edit {
     color: var(--outline-color);
+    cursor: text;
+}
+.typeBars span{
+    padding-top: 5px;
 }
 .inputOrg span{
     font-size: 20px;
-    padding-bottom: 5px;
+    padding-bottom: 7px;
 }
 .spanGlue{
     display: flex;
@@ -100,9 +107,40 @@ input[type="date"]::-webkit-datetime-edit {
     height: 400px;
     max-width: 440px;
     display: flex;
+    justify-content: space-between;
     flex-grow: 1;
     flex-direction: column;
-    background-color: aquamarine;
+}
+.priorityArange{
+    display: flex;
+    justify-content: space-between;
+}
+.priorityBtns{
+    height: 56px;
+    width: 136px;
+    padding: 16px 10px 16px 8px;
+    border-radius: 10px;
+    border: none;
+    font-size: 20px;
+    background-color: white;
+    box-shadow: rgb(0, 0, 0, 0.1) 0px 0px 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.priorityMediumBtn{
+    height: 56px;
+    width: 136px;
+    padding: 16px 10px 16px 8px;
+    border-radius: 10px;
+    border: none;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    background-color: #FFA800;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .bottomButtons{
     background-color: blue;

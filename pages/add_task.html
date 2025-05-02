@@ -73,32 +73,87 @@
             <h1>Add Task</h1>
             <div class="inputOrg">
               <section class="taskInfomations">
-                <span>Task</span>
-                <input
-                  type="text"
-                  class="typeBars"
-                  placeholder="Enter a title"
-                />
-                <span>Description</span>
-                <textarea
-                  name=""
-                  id=""
-                  class="typeBars"
-                  placeholder="Enter a Discription"
-                  style="height: 120px"
-                ></textarea>
-                <span>Due date</span>
-                <input 
-                  type="text" 
-                  class="typeBars" 
-                  placeholder="dd/mm/yy" />
+                <div class="spanGlue">
+                  <span>Task</span>
+                  <input
+                    type="text"
+                    class="typeBars"
+                    placeholder="Enter a title"
+                  />
+                </div>
+                <div class="spanGlue">
+                  <span>Description</span>
+                  <textarea
+                    name=""
+                    id=""
+                    class="typeBars"
+                    placeholder="Enter a Discription"
+                    style="height: 120px; padding: 14px 15px"
+                  ></textarea>
+                </div>
+                <div class="spanGlue">
+                  <span>Due date</span>
+                  <input type="date" class="typeBars" placeholder="dd/mm/yy" />
+                </div>
               </section>
               <hr />
               <section class="taskCategorysation">
-                <!-- <h1>hallo ich bins wieder</h2> -->
+                <div class="spanGlue">
+                  <span>Priority</span>
+                  <div class="priorityArange" style="display: flex">
+                    <button class="priorityBtns">
+                      Urgent<img
+                        src="../assets/icons/Prio alta.png"
+                        style="width: 20px; height: 14.51px; margin-left: 10px"
+                      />
+                    </button>
+                    <button class="priorityMediumBtn">
+                      Medium<img
+                        src="../assets/icons/Prio media.png"
+                        style="width: 20px; height: 7.45px; margin-left: 10px"
+                      />
+                    </button>
+                    <button class="priorityBtns">
+                      Low<img
+                        src="../assets/icons/Prio baja.png"
+                        style="width: 20px; height: 14.51px; margin-left: 10px"
+                      />
+                    </button>
+                  </div>
+                </div>
+                <div class="spanGlue">
+                  <span>Assigned to</span>
+                  <div class="typeBars" style="display: flex; justify-content: space-between; cursor: pointer;">
+                    <span>select contacts to assign</span>
+                    <img
+                      src="../assets/icons/arrow_drop_downaa.png"
+                      alt="arrowDown"
+                    />
+                  </div>
+                </div>
+                <div class="spanGlue">
+                  <span>Category</span>
+                  <div class="typeBars" style="display: flex; justify-content: space-between; cursor: pointer;">
+                    <span>select task category</span>
+                    <img
+                      src="../assets/icons/arrow_drop_downaa.png"
+                      alt="arrowDown"
+                    />
+                  </div>
+                </div>
+                <div class="spanGlue">
+                  <span>Subtasks</span>
+                  <div class="typeBars" style="display: flex; justify-content: space-between; cursor: pointer;">
+                    <span style="color: var(--outline-color)"
+                      >Add new subtask</span>
+                      <img src="../assets/icons/Subtasks icons11.png" alt="cross">
+                  </div>
+                </div>
               </section>
             </div>
-            <div class="bottomButtons"></div>
+            <div class="bottomButtons">
+
+            </div>
           </div>
         </div>
       </div>
