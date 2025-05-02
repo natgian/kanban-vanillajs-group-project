@@ -54,21 +54,40 @@ body {
 }
 .inputOrg{
     display: flex;
+    padding-top: 40px;
 }
 .taskInfomations{
     height: 376px;
     max-width: 440px;
     flex-grow: 1;
     display: flex;
+    justify-content: space-between;
     flex-direction: column;
-    background-color: rgb(28, 148, 108);
 }
 .typeBars{
     min-height: 48px;
     border-radius: 10px;
     border-style: solid;
+    border-width: 1px;
     padding-left: 15px;
+    padding-right: 15px;
     border-color: var(--outline-color);
+    box-sizing: border-box;
+    line-height: normal;
+}
+.typeBars::placeholder{
+    color: var(--outline-color);
+}
+input[type="date"]::-webkit-datetime-edit {
+    color: var(--outline-color);
+}
+.inputOrg span{
+    font-size: 20px;
+    padding-bottom: 5px;
+}
+.spanGlue{
+    display: flex;
+    flex-direction: column;
 }
 .inputOrg hr{
     height: 424px;
