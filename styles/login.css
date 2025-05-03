@@ -73,6 +73,7 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
+    padding-bottom: 42px;
 
     a {
         text-decoration: none;
