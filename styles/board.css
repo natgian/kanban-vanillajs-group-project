@@ -159,6 +159,12 @@
 }
 
 .task-card-description {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  line-clamp: 2; /* for future support */
   color: #a8a8a8;
   margin-top: 8px;
 }
