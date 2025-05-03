@@ -91,8 +91,34 @@
                 </svg>
               </button>
             </div>
-            <div class="no-task">No tasks to do</div>
-            <div class="task-card"></div>
+
+            <div class="cards-container">
+              <div class="no-task">No tasks to do</div>
+
+              <div class="task-card">
+                <span class="task-category technical-category">Technical Task</span>
+                <div>
+                  <h3 class="task-card-title">HTML Base Template Creation</h3>
+                  <p class="task-card-description">Create reusable HTML base tempaltes...</p>
+                </div>
+                <div class="subtasks-container">
+                  <div class="progress-bar">
+                    <div class="progress-fill" style="width: 50%"></div>
+                  </div>
+                  <p><span>1/2</span> Subtasks</p>
+                </div>
+                <div class="assignedto-priority-container">
+                  <div class="task-card-assignedto-container">
+                    <div class="task-card-avatar" style="background-color: #ff7a00">AM</div>
+                    <div class="task-card-avatar" style="background-color: #1fd7c1">BZ</div>
+                    <div class="task-card-avatar" style="background-color: #462f8a">AS</div>
+                  </div>
+                  <div class="task-card-priority">
+                    <img src="../assets/icons/low_priority_icon.svg" alt="priority icon" />
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           <!-- In progress -->
           <div class="board-column" id="in-progress">
@@ -106,8 +132,9 @@
                 </svg>
               </button>
             </div>
-            <div class="no-task">No tasks in progress</div>
-            <div class="task-card"></div>
+            <div class="cards-container">
+              <div class="no-task">No tasks in progress</div>
+            </div>
           </div>
           <!-- Await feedback -->
           <div class="board-column" id="in-progress">
@@ -121,16 +148,18 @@
                 </svg>
               </button>
             </div>
-            <div class="no-task">No awaiting feedback</div>
-            <div class="task-card"></div>
+            <div class="cards-container">
+              <div class="no-task">No awaiting feedback</div>
+            </div>
           </div>
           <!-- Done -->
           <div class="board-column" id="in-progress">
             <div class="column-header">
               <h2 class="task-title">Done</h2>
             </div>
-            <div class="no-task">No tasks done</div>
-            <div class="task-card"></div>
+            <div class="cards-container">
+              <div class="no-task">No tasks done</div>
+            </div>
           </div>
         </section>
       </div>
