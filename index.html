@@ -5,11 +5,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Join</title>
+  <link rel="icon" type="image/x-icon" href="./assets/img/join_logo_white.svg">
 
   <link rel="stylesheet" href="/styles/login.css">
 </head>
 
-<body>
+<body onload="init()">
+
+  <div id="loader">
+    <img id="logo" src="./assets/img/join_logo_dark.svg" alt="Logo">
+  </div>
+
   <header class="loginHeader">
     <img src="./assets/img/join_logo_dark.svg" alt="Join Logo">
     <div>
@@ -26,7 +32,7 @@
       <form action="">
         <div class="inputWrapper">
           <input required class="mb-12" type="email" name="Email" placeholder="Email">
-          <img src="./assets/icons/mail_icon.svg" alt="Email Icon">
+          <img style="top: 40%;" src="./assets/icons/mail_icon.svg" alt="Email Icon">
         </div>
         <div class="inputWrapper">
           <input required type="password" name="Password" placeholder="Password">
@@ -46,5 +52,6 @@
     <a href="http://">Legal notice</a>
   </footer>
 </body>
+<script src="./scripts/login.js"></script>
 
 </html>

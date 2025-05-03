@@ -17,7 +17,22 @@
 }
 
 
+/*----- */
+/* GENERAL */
+/*----- */
 
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    font-family: "Inter", sans-serif;
+    background-color: #f6f7f8;
+    display: flex;
+    flex-direction: column;
+    min-height: 96vh;
+}
 
 .loginHeader {
     display: flex;
@@ -37,14 +52,6 @@
     }
 }
 
-body {
-    font-family: "Inter", sans-serif;
-    background-color: #f6f7f8;
-    display: flex;
-    flex-direction: column;
-    min-height: 96vh;
-}
-
 main {
     flex-grow: 1;
     display: flex;
@@ -61,6 +68,78 @@ main {
         border: 0.5px solid #aaa;
     }
 }
+
+footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    a {
+        text-decoration: none;
+        color: #aaa;
+        cursor: pointer;
+        transition: color 0.2s ease, transform 0.2s ease;
+    }
+
+    a:hover {
+        color: #29abe2;
+        font-weight: bold;
+        transform: scale(1.03);
+    }
+}
+
+.pr-40 {
+    padding-right: 40px;
+}
+
+.mb-12 {
+    margin-bottom: 12px;
+}
+
+
+/*----- */
+/* LOADINGSCREEN */
+/*----- */
+
+#loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease;
+}
+
+#logo {
+    height: 122px;
+    transition: transform 1s ease, top 1s ease, left 1s ease;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10000;
+}
+
+#logo.fly {
+    top: 72px;
+    left: 72px;
+    transform: translate(0, 0);
+}
+
+#loader.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+
+/*----- */
+/* ASSETS */
+/*----- */
 
 .headlineLine {
     width: 136px;
@@ -151,34 +230,6 @@ main {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-
-footer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    a {
-        text-decoration: none;
-        color: #aaa;
-        cursor: pointer;
-        transition: color 0.2s ease, transform 0.2s ease;
-    }
-
-    a:hover {
-        color: #29abe2;
-        font-weight: bold;
-        transform: scale(1.03);
-    }
-}
-
-.pr-40 {
-    padding-right: 40px;
-}
-
-.mb-12 {
-    margin-bottom: 12px;
-}
-
 .inputWrapper {
     position: relative;
     margin-bottom: 16px;
@@ -205,4 +256,4 @@ footer {
 input:focus {
     border: 2px solid #29abe2;
     outline: none;
-  }
+}
