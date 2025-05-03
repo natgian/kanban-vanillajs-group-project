@@ -77,7 +77,6 @@ main {
     align-items: center;
     position: relative;
     bottom: 100px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
     padding: 40px;
     border-radius: 16px;
     background-color: #f9f9f9;
@@ -202,3 +201,8 @@ footer {
     box-sizing: border-box;
     font-size: 16px;
 }
+
+input:focus {
+    border: 2px solid #29abe2;
+    outline: none;
+  }
