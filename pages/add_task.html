@@ -50,7 +50,7 @@
         </li>
       </ul>
     </nav>
-    <main>
+    <main class="main">
       <!-- Header -->
       <header>
         <span>Kanban Project Management Tool</span>
@@ -93,7 +93,7 @@
                 </div>
                 <div class="spanGlue">
                   <span>Due date</span>
-                  <input type="date" class="typeBars" placeholder="dd/mm/yy" />
+                  <input type="date" id="date-input" class="typeBars" placeholder="dd/mm/yy" />
                 </div>
               </section>
               <hr />
@@ -123,7 +123,7 @@
                 </div>
                 <div class="spanGlue">
                   <span>Assigned to</span>
-                  <div class="typeBars" style="display: flex; justify-content: space-between; cursor: pointer;">
+                  <div class="typeBars typePriorityBars" style="display: flex; justify-content: space-between; cursor: pointer;">
                     <span>select contacts to assign</span>
                     <img
                       src="../assets/icons/arrow_drop_downaa.png"
@@ -133,7 +133,7 @@
                 </div>
                 <div class="spanGlue">
                   <span>Category</span>
-                  <div class="typeBars" style="display: flex; justify-content: space-between; cursor: pointer;">
+                  <div class="typeBars typePriorityBars" style="display: flex; justify-content: space-between; cursor: pointer;">
                     <span>select task category</span>
                     <img
                       src="../assets/icons/arrow_drop_downaa.png"
@@ -143,7 +143,7 @@
                 </div>
                 <div class="spanGlue">
                   <span>Subtasks</span>
-                  <div class="typeBars" style="display: flex; justify-content: space-between; cursor: pointer;">
+                  <div class="typeBars typePriorityBars" style="display: flex; justify-content: space-between; cursor: pointer;">
                     <span style="color: var(--outline-color)"
                       >Add new subtask</span>
                       <img src="../assets/icons/Subtasks icons11.png" alt="cross">
@@ -152,11 +152,16 @@
               </section>
             </div>
             <div class="bottomButtons">
-
+              <span>This field is required</span>
+              <div class="bottomButtonsSplice">
+                <button class="bottomButton1">Clear<img src="../assets/icons/iconoir_cancel.png" alt="X"></button>
+                <button class="bottomButton2">Creakte Task<img src="../assets/icons/check.png" alt="Check"></button>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </main>
+    <script src="../script.js"></script>
   </body>
-</html>
+</html> <img src="" alt="">
