@@ -64,7 +64,7 @@
       </nav>
       <!-- Content -->
       <div class="content">
-        <div class="board-header">
+        <section class="board-header">
           <h1>Board</h1>
           <div class="board-search-add-wrapper">
             <div class="search-container">
@@ -76,7 +76,63 @@
             </div>
             <button class="btn">Add task <img src="../assets/icons/add_icon.svg" alt="add icon" /></button>
           </div>
-        </div>
+        </section>
+
+        <section class="board-columns">
+          <!-- To do -->
+          <div class="board-column" id="to-do">
+            <div class="column-header">
+              <h2 class="task-title">To do</h2>
+              <button class="add-btn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="1" y="1" width="22" height="22" rx="7" stroke="currentColor" stroke-width="2" />
+                  <path d="M12 8V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                  <path d="M16 12.0754L8 12.0754" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                </svg>
+              </button>
+            </div>
+            <div class="no-task">No tasks to do</div>
+            <div class="task-card"></div>
+          </div>
+          <!-- In progress -->
+          <div class="board-column" id="in-progress">
+            <div class="column-header">
+              <h2 class="task-title">In progress</h2>
+              <button class="add-btn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="1" y="1" width="22" height="22" rx="7" stroke="currentColor" stroke-width="2" />
+                  <path d="M12 8V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                  <path d="M16 12.0754L8 12.0754" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                </svg>
+              </button>
+            </div>
+            <div class="no-task">No tasks in progress</div>
+            <div class="task-card"></div>
+          </div>
+          <!-- Await feedback -->
+          <div class="board-column" id="in-progress">
+            <div class="column-header">
+              <h2 class="task-title">Await feedback</h2>
+              <button class="add-btn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="1" y="1" width="22" height="22" rx="7" stroke="currentColor" stroke-width="2" />
+                  <path d="M12 8V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                  <path d="M16 12.0754L8 12.0754" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                </svg>
+              </button>
+            </div>
+            <div class="no-task">No awaiting feedback</div>
+            <div class="task-card"></div>
+          </div>
+          <!-- Done -->
+          <div class="board-column" id="in-progress">
+            <div class="column-header">
+              <h2 class="task-title">Done</h2>
+            </div>
+            <div class="no-task">No tasks done</div>
+            <div class="task-card"></div>
+          </div>
+        </section>
       </div>
     </main>
   </body>

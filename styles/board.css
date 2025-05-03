@@ -33,7 +33,7 @@
 
 #find-task:focus {
   outline: 1px solid var(--hover-color);
-  border: none;
+  border: 1px solid var(--hover-color);
 }
 
 .search-container {
@@ -60,6 +60,60 @@
   top: -6px;
   width: 1px;
   height: 32px;
-
   background-color: #d1d1d1;
+}
+
+.board-columns {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: 48px;
+}
+
+.board-column {
+  width: 100%;
+  max-width: 252px;
+}
+
+.column-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.add-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  color: var(--primary-color);
+  border: none;
+}
+
+.add-btn:hover {
+  color: var(--hover-color);
+}
+
+.add-btn:active {
+  color: var(--active-color);
+}
+
+.task-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #42526e;
+}
+
+.no-task {
+  padding: 14px 0;
+  font-weight: 400;
+  font-size: 16px;
+  background-color: #e7e7e7;
+  color: #a8a8a8;
+  border: 1px dashed #a8a8a8;
+  border-radius: 8px;
+  box-shadow: 0 0 4px 0 rgb(0, 0, 0, 0.16);
+  text-align: center;
 }
