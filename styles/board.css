@@ -18,6 +18,14 @@
   gap: 32px;
 }
 
+.mt-8 {
+  margin-top: 8px;
+}
+
+/*------------- */
+/* SEARCH INPUT */
+/*------------- */
+
 #find-task {
   width: 312px;
   border: 1px solid #a8a8a8;
@@ -34,6 +42,10 @@
 #find-task:focus {
   outline: 1px solid var(--hover-color);
   border: 1px solid var(--hover-color);
+}
+
+#find-task::-webkit-search-cancel-button {
+  display: none;
 }
 
 .search-container {
@@ -62,6 +74,10 @@
   height: 32px;
   background-color: #d1d1d1;
 }
+
+/*------ */
+/* BOARD */
+/*------ */
 
 .board-columns {
   display: flex;
@@ -118,6 +134,10 @@
   text-align: center;
 }
 
+/*----- */
+/* CARD */
+/*----- */
+
 .cards-container {
   min-width: 252px;
   display: flex;
@@ -135,6 +155,7 @@
   border-radius: 24px;
   background-color: var(--white-color);
   box-shadow: 0 0 10px 3px rgb(0, 0, 0, 0.08);
+  cursor: pointer;
 }
 
 .task-category {
@@ -217,3 +238,88 @@
 .task-card-avatar:first-child {
   margin-left: 0;
 }
+
+/*------------- */
+/* TASK OVERLAY */
+/*------------- */
+
+.task-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  background-color: rgb(0, 0, 0, 0.3);
+  /* visibility: hidden; */
+  /* opacity: 0; */
+  /* transition: opacity 200ms ease-in-out; */
+}
+
+.task-overlay-content {
+  max-width: 525px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 48px 40px;
+  font-size: 20px;
+  font-weight: 400;
+  background-color: var(--white-color);
+  border-radius: 30px;
+  box-shadow: 0 0 4px 0 rgb(0, 0, 0, 0.16);
+}
+
+.category-closeIcon-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.close-btn {
+  width: 32px;
+  height: 32px;
+  background-color: transparent;
+  border: none;
+}
+
+.close-btn:hover {
+  background-color: var(--outline-color);
+  border-radius: 50%;
+}
+
+.task-overlay-title {
+  color: var(--black-color);
+  font-size: 61px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.task-overlay-data-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.task-overlay-label {
+  color: #42526e;
+  width: 100px;
+}
+
+.task-overlay-avatar-wrapper,
+.task-overlay-subtask-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 7px 16px;
+}
+
+.task-overlay-subtask-wrapper {
+  font-size: 16px;
+}
+
+/*---------------- */
+/* CUSTOM CHECKBOX */
+/*---------------- */
