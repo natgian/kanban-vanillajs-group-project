@@ -129,9 +129,7 @@ h1 {
 /*------- */
 
 header {
-  width: calc(100dvw - 232px);
   max-height: 96px;
-  left: 232px;
   display: flex;
   justify-content: space-between;
   align-items: center;

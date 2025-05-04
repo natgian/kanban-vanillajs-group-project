@@ -93,7 +93,7 @@
                 </div>
                 <div class="spanGlue">
                   <span>Due date</span>
-                  <input type="date" id="date-input" class="typeBars" placeholder="dd/mm/yy" />
+                  <input type="date" id="date-input" class="typeBars" placeholder="dd/mm/yy" oninput="checkValue()"/>
                 </div>
               </section>
               <hr />
@@ -123,23 +123,35 @@
                 </div>
                 <div class="spanGlue">
                   <span>Assigned to</span>
-                  <div class="typeBars typePriorityBars" style="display: flex; justify-content: space-between; cursor: pointer;">
+                  <div class="typeBars typePriorityBars" style="display: flex; justify-content: space-between; cursor: pointer;" onclick="toggleDropdown('dropdown1')">
                     <span>select contacts to assign</span>
                     <img
                       src="../assets/icons/arrow_drop_downaa.png"
                       alt="arrowDown"
                     />
                   </div>
+                  <ul class="dropdown-list" id="dropdown1">
+                    <li onclick="selectContact('Contact 1')">Contact 1</li>
+                    <li onclick="selectContact('Contact 2')">Contact 2</li>
+                    <li onclick="selectContact('Contact 3')">Contact 3</li>
+                    <li onclick="selectContact('Contact 4')">Contact 4</li>
+                </ul>
                 </div>
                 <div class="spanGlue">
                   <span>Category</span>
-                  <div class="typeBars typePriorityBars" style="display: flex; justify-content: space-between; cursor: pointer;">
+                  <div class="typeBars typePriorityBars" style="display: flex; justify-content: space-between; cursor: pointer;" onclick="toggleDropdown('dropdown2')">
                     <span>select task category</span>
                     <img
                       src="../assets/icons/arrow_drop_downaa.png"
                       alt="arrowDown"
                     />
                   </div>
+                  <ul class="dropdown-list" id="dropdown2">
+                    <li onclick="selectContact('Task 1')">Task 1</li>
+                    <li onclick="selectContact('Task 2')">Task 2</li>
+                    <li onclick="selectContact('Task 3')">Task 3</li>
+                    <li onclick="selectContact('Task 4')">Task 4</li>
+                </ul>
                 </div>
                 <div class="spanGlue">
                   <span>Subtasks</span>
