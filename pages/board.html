@@ -6,6 +6,7 @@
     <title>Board</title>
     <link rel="stylesheet" href="../styles.css" />
     <link rel="stylesheet" href="../styles/board.css" />
+    <script src="../scripts/board.js" defer></script>
   </head>
   <body>
     <main class="layout-container">
@@ -95,7 +96,7 @@
             <div class="cards-container">
               <div class="no-task">No tasks to do</div>
 
-              <div class="task-card">
+              <div class="task-card" onclick="openTaskDetails('task1')">
                 <span class="task-category technical-category">Technical Task</span>
                 <div>
                   <h3 class="task-card-title">HTML Base Template Creation</h3>
@@ -166,11 +167,13 @@
         </section>
 
         <!-- Task Overlay -->
-        <div class="task-overlay">
+        <div class="task-overlay" id="task-overlay">
           <div class="task-overlay-content">
             <div class="category-closeIcon-container">
               <span class="task-category technical-category">Technical Task</span>
-              <button class="close-btn"><img src="../assets/icons/close_icon.svg" alt="close icon" /></button>
+              <button class="close-btn">
+                <img src="../assets/icons/close_icon.svg" alt="close icon" onclick="closeTaskDetails('task1')" />
+              </button>
             </div>
 
             <p class="task-overlay-title">HTML Base Template Creation</p>
