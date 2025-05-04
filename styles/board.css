@@ -268,7 +268,7 @@
   visibility: visible;
 }
 
-.task-overlay.active .task-overlay-content {
+.task-overlay.show .task-overlay-content {
   transform: translateX(0);
 }
 
