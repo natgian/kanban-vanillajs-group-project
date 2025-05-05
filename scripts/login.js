@@ -53,6 +53,3 @@ document.getElementById("guestLoginBtn").addEventListener("click", async () => {
     alert("Ein Fehler ist aufgetreten.");
   }
 });
-
-  
-
