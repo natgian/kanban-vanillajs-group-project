@@ -4,14 +4,14 @@
 
 @font-face {
   font-family: "Inter";
-  src: url("./assets/fonts/Inter-VariableFont_opsz,wght.ttf") format("truetype");
+  src: url("../assets/fonts/Inter-VariableFont_opsz,wght.ttf") format("truetype");
   font-weight: 100 900;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Inter";
-  src: url("./assets/fonts/Inter-Italic-VariableFont_opsz,wght.ttf") format("truetype");
+  src: url("../assets/fonts/Inter-Italic-VariableFont_opsz,wght.ttf") format("truetype");
   font-weight: 100 900;
   font-style: italic;
 }
@@ -64,7 +64,7 @@ a {
   --active-color: #091931;
   --white-color: #ffffff;
   --black-color: #000000;
-  --outline-color: #D1D1D1;
+  --outline-color: #d1d1d1;
   /* transitions */
   --transition: all 200ms ease-in-out;
 }
