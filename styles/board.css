@@ -4,6 +4,8 @@
   left: 232px;
   width: calc(100% - 232px);
   padding: 79.5px 64px 0;
+  max-width: 1440px;
+  overflow: hidden;
 }
 
 .board-header {

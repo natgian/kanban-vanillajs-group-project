@@ -79,8 +79,13 @@ body {
 
 .layout-container {
   position: relative;
-  width: 100%;
   max-width: 1920px;
+  height: 100dvh; 
+  width: calc(100dvw - 232px);
+  overflow: auto;
+}
+.layout-container::-webkit-scrollbar{
+  display: none;
 }
 
 .layout-container,
@@ -138,6 +143,10 @@ header {
   font-size: 20px;
   background-color: var(--white-color);
   box-shadow: 0 4px 4px rgb(0, 0, 0, 0.1);
+  flex-grow: 1;
+    position: sticky;
+    top: 0;
+    left: 0;
 }
 
 .header-icons-container {
@@ -147,6 +156,14 @@ header {
   justify-content: space-between;
   align-items: center;
   gap: 16px;
+}
+
+.help-iconBox{
+  height: 32px;
+  width: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .help-icon:hover {
@@ -204,6 +221,7 @@ header {
   flex-direction: column;
   gap: 15px;
   width: 100%;
+  cursor: pointer;
 }
 
 .sidebar-menu-link img {
