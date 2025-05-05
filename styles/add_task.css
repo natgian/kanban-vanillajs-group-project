@@ -1,47 +1,4 @@
-/* Changes */
 
-header{
-    box-shadow: rgba(46, 46, 46, 0.2) 0px 2px 8px 0px;
-    flex-grow: 1;
-    max-height: 96px;
-    position: sticky;
-    top: 0;
-    left: 0;
-}
-
-.sidebar-container {
-    width: 100%;
-}
-  
-.sidebar-menu {
-    width: 100%;
-    cursor: pointer;
-}
-
-.header-icons-container {
-    width: 104px;
-    height: 56px;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-.help-iconBox{
-    height: 32px;
-    width: 32px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Add Task */
-main{
-    height: 100dvh; 
-    width: calc(100dvw - 232px);
-    overflow: auto;
-}
-main::-webkit-scrollbar{
-    display: none;
-}
 .contentBox{
     display: flex;
     align-items: center;
@@ -205,12 +162,10 @@ button:hover{
     margin-top: 72px;
     z-index: 100;
 }
-
 .dropdown-list li {
     padding: 5px;
     cursor: pointer;
 }
-
 .dropdown-list li:hover {
     background: #ddd;
 }

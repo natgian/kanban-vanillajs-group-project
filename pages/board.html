@@ -9,73 +9,97 @@
     <script src="../scripts/board.js" defer></script>
   </head>
   <body>
+    <!-- Sidebar -->
+    <nav class="sidebar">
+      <div class="sidebar-container">
+        <!-- Logo -->
+        <div>
+          <img
+            src="../assets/img/join_logo_white.svg"
+            alt="Join logo"
+            class="logo"
+          />
+        </div>
+        <!-- Navigation -->
+        <ul class="sidebar-menu">
+          <li>
+            <a href="./summary.html" class="sidebar-menu-link">
+              <img src="../assets/icons/summary_icon.svg" alt="summary icon" />
+              Summary
+            </a>
+          </li>
+          <li>
+            <a href="./add_task.html" class="sidebar-menu-link">
+              <img
+                src="../assets/icons/add_task_icon.svg"
+                alt="add task icon"
+              />
+              Add Task
+            </a>
+          </li>
+          <li>
+            <a href="./board.html" class="sidebar-menu-link active-link">
+              <img src="../assets/icons/board_icon.svg" alt="board icon" />
+              Board
+            </a>
+          </li>
+          <li>
+            <a href="./contacts.html" class="sidebar-menu-link">
+              <img
+                src="../assets/icons/contacts_icon.svg"
+                alt="contacts icon"
+              />
+              Contacts
+            </a>
+          </li>
+        </ul>
+      </div>
+      <!-- Footer-Links -->
+      <ul class="sidebar-footer">
+        <li class="sidebar-footer-link">
+          <a href="./privacy_policy.html">Privacy Policy</a>
+        </li>
+        <li class="sidebar-footer-link">
+          <a href="./legal_notice.html">Legal notice</a>
+        </li>
+      </ul>
+    </nav>
     <main class="layout-container">
       <!-- Header -->
       <header>
         <span>Kanban Project Management Tool</span>
         <div class="header-icons-container">
-          <a href="./help.html"><img class="help-icon" src="../assets/icons/help_icon.svg" alt="help icon" /></a>
+          <div class="help-iconBox">
+            <a href="#"
+              ><img
+                class="help-icon"
+                src="../assets/icons/help_icon.svg"
+                alt="help icon"
+            /></a>
+          </div>
           <button class="user-profile-icon"><span>G</span></button>
         </div>
       </header>
-      <!-- Sidebar -->
-      <nav class="sidebar">
-        <div class="sidebar-container">
-          <!-- Logo -->
-          <div>
-            <img src="../assets/img/join_logo_white.svg" alt="Join logo" class="logo" />
-          </div>
-          <!-- Navigation -->
-          <ul class="sidebar-menu">
-            <li>
-              <a href="./summary.html" class="sidebar-menu-link">
-                <img src="../assets/icons/summary_icon.svg" alt="summary icon" />
-                Summary
-              </a>
-            </li>
-            <li>
-              <a href="./add_task.html" class="sidebar-menu-link">
-                <img src="../assets/icons/add_task_icon.svg" alt="add task icon" />
-                Add Task
-              </a>
-            </li>
-            <li>
-              <a href="./board.html" class="sidebar-menu-link active-link">
-                <img src="../assets/icons/board_icon.svg" alt="board icon" />
-                Board
-              </a>
-            </li>
-            <li>
-              <a href="./contacts.html" class="sidebar-menu-link">
-                <img src="../assets/icons/contacts_icon.svg" alt="contacts icon" />
-                Contacts
-              </a>
-            </li>
-          </ul>
-        </div>
-        <!-- Footer-Links -->
-        <ul class="sidebar-footer">
-          <li class="sidebar-footer-link">
-            <a href="./privacy_policy.html">Privacy Policy</a>
-          </li>
-          <li class="sidebar-footer-link">
-            <a href="./legal_notice.html">Legal notice</a>
-          </li>
-        </ul>
-      </nav>
       <!-- Content -->
       <div class="content">
         <section class="board-header">
           <h1>Board</h1>
           <div class="board-search-add-wrapper">
             <div class="search-container">
-              <input type="search" name="find-task" id="find-task" placeholder="Find Task" />
+              <input
+                type="search"
+                name="find-task"
+                id="find-task"
+                placeholder="Find Task"
+              />
               <button class="search-btn">
                 <div class="separator"></div>
                 <img src="../assets/icons/search_icon.svg" alt="search icon" />
               </button>
             </div>
-            <button class="btn">Add task <img src="../assets/icons/add_icon.svg" alt="add icon" /></button>
+            <button class="btn">
+              Add task <img src="../assets/icons/add_icon.svg" alt="add icon" />
+            </button>
           </div>
         </section>
 
@@ -85,10 +109,34 @@
             <div class="column-header">
               <h2 class="task-title">To do</h2>
               <button class="add-btn">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <rect x="1" y="1" width="22" height="22" rx="7" stroke="currentColor" stroke-width="2" />
-                  <path d="M12 8V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-                  <path d="M16 12.0754L8 12.0754" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <rect
+                    x="1"
+                    y="1"
+                    width="22"
+                    height="22"
+                    rx="7"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  />
+                  <path
+                    d="M12 8V16"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    d="M16 12.0754L8 12.0754"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
                 </svg>
               </button>
             </div>
@@ -97,11 +145,14 @@
               <div class="no-task">No tasks to do</div>
 
               <div class="task-card" onclick="openTaskDetails('task1')">
-                <span class="task-category technical-category">Technical Task</span>
+                <span class="task-category technical-category"
+                  >Technical Task</span
+                >
                 <div>
                   <h3 class="task-card-title">HTML Base Template Creation</h3>
                   <p class="task-card-description">
-                    Create reusable HTML base templates that can be used in different parts of the project.
+                    Create reusable HTML base templates that can be used in
+                    different parts of the project.
                   </p>
                 </div>
                 <div class="subtasks-container">
@@ -112,12 +163,30 @@
                 </div>
                 <div class="assignedto-priority-container">
                   <div class="task-card-assignedto-container">
-                    <div class="task-card-avatar" style="background-color: #ff7a00">AM</div>
-                    <div class="task-card-avatar" style="background-color: #1fd7c1">BZ</div>
-                    <div class="task-card-avatar" style="background-color: #462f8a">AS</div>
+                    <div
+                      class="task-card-avatar"
+                      style="background-color: #ff7a00"
+                    >
+                      AM
+                    </div>
+                    <div
+                      class="task-card-avatar"
+                      style="background-color: #1fd7c1"
+                    >
+                      BZ
+                    </div>
+                    <div
+                      class="task-card-avatar"
+                      style="background-color: #462f8a"
+                    >
+                      AS
+                    </div>
                   </div>
                   <div class="task-card-priority">
-                    <img src="../assets/icons/low_priority_icon.svg" alt="priority icon" />
+                    <img
+                      src="../assets/icons/low_priority_icon.svg"
+                      alt="priority icon"
+                    />
                   </div>
                 </div>
               </div>
@@ -128,10 +197,34 @@
             <div class="column-header">
               <h2 class="task-title">In progress</h2>
               <button class="add-btn">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <rect x="1" y="1" width="22" height="22" rx="7" stroke="currentColor" stroke-width="2" />
-                  <path d="M12 8V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-                  <path d="M16 12.0754L8 12.0754" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <rect
+                    x="1"
+                    y="1"
+                    width="22"
+                    height="22"
+                    rx="7"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  />
+                  <path
+                    d="M12 8V16"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    d="M16 12.0754L8 12.0754"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
                 </svg>
               </button>
             </div>
@@ -144,10 +237,34 @@
             <div class="column-header">
               <h2 class="task-title">Await feedback</h2>
               <button class="add-btn">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <rect x="1" y="1" width="22" height="22" rx="7" stroke="currentColor" stroke-width="2" />
-                  <path d="M12 8V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-                  <path d="M16 12.0754L8 12.0754" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <rect
+                    x="1"
+                    y="1"
+                    width="22"
+                    height="22"
+                    rx="7"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  />
+                  <path
+                    d="M12 8V16"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    d="M16 12.0754L8 12.0754"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
                 </svg>
               </button>
             </div>
@@ -170,14 +287,23 @@
         <div class="task-overlay" id="task-overlay">
           <div class="task-overlay-content" id="task-overlay-content">
             <div class="category-closeIcon-container">
-              <span class="task-category technical-category">Technical Task</span>
+              <span class="task-category technical-category"
+                >Technical Task</span
+              >
               <button class="close-btn">
-                <img src="../assets/icons/close_icon.svg" alt="close icon" onclick="closeTaskDetails('task1')" />
+                <img
+                  src="../assets/icons/close_icon.svg"
+                  alt="close icon"
+                  onclick="closeTaskDetails('task1')"
+                />
               </button>
             </div>
 
             <p class="task-overlay-title">HTML Base Template Creation</p>
-            <p class="task-overlay-description">Create reusable HTML base templates that can be used in different parts of the project.</p>
+            <p class="task-overlay-description">
+              Create reusable HTML base templates that can be used in different
+              parts of the project.
+            </p>
 
             <div class="task-overlay-data-wrapper">
               <span class="task-overlay-label">Due date:</span>
@@ -186,22 +312,42 @@
 
             <div class="task-overlay-data-wrapper">
               <span class="task-overlay-label">Priority:</span>
-              <span class="task-overlay-data-wrapper">Low <img src="../assets/icons/low_priority_icon.svg" alt="priority icon" /></span>
+              <span class="task-overlay-data-wrapper"
+                >Low
+                <img
+                  src="../assets/icons/low_priority_icon.svg"
+                  alt="priority icon"
+              /></span>
             </div>
             <!-- Assigned to -->
             <div>
               <span class="task-overlay-label">Assigned to:</span>
               <ul class="mt-8">
                 <li class="task-overlay-avatar-wrapper">
-                  <div class="task-card-avatar" style="background-color: #ff7a00">AM</div>
+                  <div
+                    class="task-card-avatar"
+                    style="background-color: #ff7a00"
+                  >
+                    AM
+                  </div>
                   Alex Müller
                 </li>
                 <li class="task-overlay-avatar-wrapper">
-                  <div class="task-card-avatar" style="background-color: #1fd7c1">BZ</div>
+                  <div
+                    class="task-card-avatar"
+                    style="background-color: #1fd7c1"
+                  >
+                    BZ
+                  </div>
                   Bernd Zimmermann
                 </li>
                 <li class="task-overlay-avatar-wrapper">
-                  <div class="task-card-avatar" style="background-color: #462f8a">AS</div>
+                  <div
+                    class="task-card-avatar"
+                    style="background-color: #462f8a"
+                  >
+                    AS
+                  </div>
                   Anna Sommer
                 </li>
               </ul>
@@ -211,15 +357,42 @@
               <span class="task-overlay-label">Subtasks</span>
               <ul class="task-overlay-subtasks-container mt-8">
                 <li class="task-overlay-subtask-wrapper">
-                  <input type="checkbox" name="checkbox" id="checkbox1" class="custom-checkbox" />
+                  <input
+                    type="checkbox"
+                    name="checkbox"
+                    id="checkbox1"
+                    class="custom-checkbox"
+                  />
                   <label for="checkbox1" class="checkbox-label">
                     <!-- Unchecked SVG -->
-                    <svg class="svg-unchecked" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <rect x="4" y="4.96582" width="16" height="16" rx="3" stroke="currentColor" stroke-width="2" />
+                    <svg
+                      class="svg-unchecked"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <rect
+                        x="4"
+                        y="4.96582"
+                        width="16"
+                        height="16"
+                        rx="3"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      />
                     </svg>
 
                     <!-- Checked SVG -->
-                    <svg class="svg-checked" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg
+                      class="svg-checked"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
                       <path
                         d="M20 11.9658V17.9658C20 19.6227 18.6569 20.9658 17 20.9658H7C5.34315 20.9658 4 19.6227 4 17.9658V7.96582C4 6.30897 5.34315 4.96582 7 4.96582H15"
                         stroke="currentColor"
@@ -238,15 +411,42 @@
                   </label>
                 </li>
                 <li class="task-overlay-subtask-wrapper">
-                  <input type="checkbox" name="checkbox" id="checkbox2" class="custom-checkbox" />
+                  <input
+                    type="checkbox"
+                    name="checkbox"
+                    id="checkbox2"
+                    class="custom-checkbox"
+                  />
                   <label for="checkbox2" class="checkbox-label">
                     <!-- Unchecked SVG -->
-                    <svg class="svg-unchecked" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <rect x="4" y="4.96582" width="16" height="16" rx="3" stroke="currentColor" stroke-width="2" />
+                    <svg
+                      class="svg-unchecked"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <rect
+                        x="4"
+                        y="4.96582"
+                        width="16"
+                        height="16"
+                        rx="3"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      />
                     </svg>
 
                     <!-- Checked SVG -->
-                    <svg class="svg-checked" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg
+                      class="svg-checked"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
                       <path
                         d="M20 11.9658V17.9658C20 19.6227 18.6569 20.9658 17 20.9658H7C5.34315 20.9658 4 19.6227 4 17.9658V7.96582C4 6.30897 5.34315 4.96582 7 4.96582H15"
                         stroke="currentColor"
@@ -269,8 +469,22 @@
 
             <div class="action-btn-wrapper">
               <button class="action-btn">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <mask id="mask0_314602_7552" style="mask-type: alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <mask
+                    id="mask0_314602_7552"
+                    style="mask-type: alpha"
+                    maskUnits="userSpaceOnUse"
+                    x="0"
+                    y="0"
+                    width="24"
+                    height="24"
+                  >
                     <rect width="24" height="24" fill="#D9D9D9" />
                   </mask>
                   <g mask="url(#mask0_314602_7552)">
@@ -284,8 +498,22 @@
               </button>
               <div class="action-btn-separator"></div>
               <button class="action-btn">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <mask id="mask0_314602_7558" style="mask-type: alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <mask
+                    id="mask0_314602_7558"
+                    style="mask-type: alpha"
+                    maskUnits="userSpaceOnUse"
+                    x="0"
+                    y="0"
+                    width="24"
+                    height="24"
+                  >
                     <rect width="24" height="24" fill="#D9D9D9" />
                   </mask>
                   <g mask="url(#mask0_314602_7558)">
