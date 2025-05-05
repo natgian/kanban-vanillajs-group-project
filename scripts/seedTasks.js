@@ -8,9 +8,9 @@ const tasks = [
     dueDate: "2025-05-05",
     priority: "low",
     assignedTo: [
-      { name: "Alex Müller", initials: "AM" },
-      { name: "Bernd Zimmermann", initials: "BZ" },
-      { name: "Anna Sommer", initials: "AS" },
+      { name: "Alex Müller", initials: "AM", color: "#ff7a00" },
+      { name: "Bernd Zimmermann", initials: "BZ", color: "#1fd7c1" },
+      { name: "Anna Sommer", initials: "AS", color: "#462f8a" },
     ],
     category: "Technical Task",
     subtasks: [
@@ -24,7 +24,7 @@ const tasks = [
     description: "Build and style the login page with form validation.",
     dueDate: "2025-05-10",
     priority: "high",
-    assignedTo: [{ name: "Lea Becker", initials: "LB" }],
+    assignedTo: [{ name: "Lea Becker", initials: "LB", color: "#C3FF2B" }],
     category: "User Story",
     subtasks: [
       { done: false, subtask: "Form Markup" },

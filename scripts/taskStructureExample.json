@@ -8,15 +8,18 @@
   "assignedTo": [
     {
       "name": "Alex Müller",
-      "initials": "AM"
+      "initials": "AM",
+      "color": "#ff7a00"
     },
     {
       "name": "Bernd Zimmermann",
-      "initials": "BZ"
+      "initials": "BZ",
+      "color": "#1fd7c1"
     },
     {
       "name": "Anna Sommer",
-      "initials": "AS"
+      "initials": "AS",
+      "color": "#462f8a"
     }
   ],
   "category": "Technical Task",
