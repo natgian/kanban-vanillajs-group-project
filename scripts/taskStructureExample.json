@@ -1,0 +1,33 @@
+{
+  "taskId": "1sdfsdfsfdsfs",
+  "boardColumn": "todo",
+  "title": "HTML Base Template Creation",
+  "description": "Create reusable HTML base templates that can be used in different parts of the project.",
+  "dueDate": "2025-05-05",
+  "priority": "low",
+  "assignedTo": [
+    {
+      "name": "Alex Müller",
+      "initials": "AM"
+    },
+    {
+      "name": "Bernd Zimmermann",
+      "initials": "BZ"
+    },
+    {
+      "name": "Anna Sommer",
+      "initials": "AS"
+    }
+  ],
+  "category": "Technical Task",
+  "subtasks": [
+    {
+      "done": true,
+      "subtask": "Setup Base Styles"
+    },
+    {
+      "done": false,
+      "subtask": "Create HTML Template"
+    }
+  ]
+}
