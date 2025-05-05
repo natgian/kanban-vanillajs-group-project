@@ -9,3 +9,7 @@ function init() {
         loader.classList.add('hidden');
     }, 1500);
 }
+
+document.getElementById("signUpBtn").addEventListener("click", function() {
+    window.location.href = "./pages/signUp.html";
+  });
