@@ -4,6 +4,12 @@
     align-items: start;
 }
 
+.dFlexForBtn{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .content {
     padding: 100px;
 
@@ -11,6 +17,19 @@
     span {
         font-size: 24px;
         font-weight: bold;
+    }
+
+    button{
+        border: none;
+        background-color: transparent;
+        color: #29abe2;
+        font-size: 28px;
+    }
+
+    button:hover{
+        border-radius: 32px;
+        padding: 2px;
+        background-color: rgba(0, 0, 0, 0.01);
     }
 
     span {
