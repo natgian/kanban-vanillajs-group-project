@@ -30,7 +30,10 @@
           </li>
           <li>
             <a href="./add_task.html" class="sidebar-menu-link active-link">
-              <img src="../assets/icons/add_task_icon.svg" alt="add task icon" />
+              <img
+                src="../assets/icons/add_task_icon.svg"
+                alt="add task icon"
+              />
               Add Task
             </a>
           </li>
@@ -42,7 +45,10 @@
           </li>
           <li>
             <a href="./contacts.html" class="sidebar-menu-link">
-              <img src="../assets/icons/contacts_icon.svg" alt="contacts icon" />
+              <img
+                src="../assets/icons/contacts_icon.svg"
+                alt="contacts icon"
+              />
               Contacts
             </a>
           </li>
@@ -82,7 +88,7 @@
             <div class="inputOrg">
               <section class="taskInfomations">
                 <div class="spanGlue">
-                  <span>Task</span>
+                  <span>Task<label>*</label></span>
                   <input
                     type="text"
                     class="typeBars"
@@ -100,8 +106,14 @@
                   ></textarea>
                 </div>
                 <div class="spanGlue">
-                  <span>Due date</span>
-                  <input type="date" id="date-input" class="typeBars" placeholder="dd/mm/yy" oninput="checkValue()"/>
+                  <span>Due date<label>*</label></span>
+                  <input
+                    type="date"
+                    id="date-input"
+                    class="typeBars"
+                    placeholder="dd/mm/yy"
+                    oninput="checkValue()"
+                  />
                 </div>
               </section>
               <hr />
@@ -131,7 +143,15 @@
                 </div>
                 <div class="spanGlue">
                   <span>Assigned to</span>
-                  <div class="typeBars typePriorityBars" style="display: flex; justify-content: space-between; cursor: pointer;" onclick="toggleDropdown('dropdown1')">
+                  <div
+                    class="typeBars typePriorityBars"
+                    style="
+                      display: flex;
+                      justify-content: space-between;
+                      cursor: pointer;
+                    "
+                    onclick="toggleDropdown('dropdown1')"
+                  >
                     <span>select contacts to assign</span>
                     <img
                       src="../assets/icons/arrow_drop_downaa.png"
@@ -143,11 +163,19 @@
                     <li onclick="selectContact('Contact 2')">Contact 2</li>
                     <li onclick="selectContact('Contact 3')">Contact 3</li>
                     <li onclick="selectContact('Contact 4')">Contact 4</li>
-                </ul>
+                  </ul>
                 </div>
                 <div class="spanGlue">
-                  <span>Category</span>
-                  <div class="typeBars typePriorityBars" style="display: flex; justify-content: space-between; cursor: pointer;" onclick="toggleDropdown('dropdown2')">
+                  <span>Category<label>*</label></span>
+                  <div
+                    class="typeBars typePriorityBars"
+                    style="
+                      display: flex;
+                      justify-content: space-between;
+                      cursor: pointer;
+                    "
+                    onclick="toggleDropdown('dropdown2')"
+                  >
                     <span>select task category</span>
                     <img
                       src="../assets/icons/arrow_drop_downaa.png"
@@ -159,23 +187,36 @@
                     <li onclick="selectContact('Task 2')">Task 2</li>
                     <li onclick="selectContact('Task 3')">Task 3</li>
                     <li onclick="selectContact('Task 4')">Task 4</li>
-                </ul>
+                  </ul>
                 </div>
                 <div class="spanGlue">
                   <span>Subtasks</span>
-                  <div class="typeBars typePriorityBars" style="display: flex; justify-content: space-between; cursor: pointer;">
-                    <span style="color: var(--outline-color)"
-                      >Add new subtask</span>
-                      <img src="../assets/icons/Subtasks icons11.png" alt="cross">
+                  <div class="subtask-container">
+                    <input
+                      type="text"
+                      class="typeBars typePriorityBars"
+                      placeholder="Add new subtask"
+                    />
+                    <img
+                      src="../assets/icons/Subtasks icons11.png"
+                      alt="cross"
+                    />
                   </div>
                 </div>
               </section>
             </div>
             <div class="bottomButtons">
-              <span>This field is required</span>
+              <span><label>*</label>This field is required</span>
               <div class="bottomButtonsSplice">
-                <button class="bottomButton1">Clear<img src="../assets/icons/iconoir_cancel.png" alt="X"></button>
-                <button class="bottomButton2">Creakte Task<img src="../assets/icons/check.png" alt="Check"></button>
+                <button class="bottomButton1">
+                  Clear<img src="../assets/icons/iconoir_cancel.png" alt="X" />
+                </button>
+                <button class="bottomButton2">
+                  Creakte Task<img
+                    src="../assets/icons/check.png"
+                    alt="Check"
+                  />
+                </button>
               </div>
             </div>
           </div>
@@ -184,4 +225,5 @@
     </main>
     <script src="../script.js"></script>
   </body>
-</html> <img src="" alt="">
+</html>
+<img src="" alt="" />

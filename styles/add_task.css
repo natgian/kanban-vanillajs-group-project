@@ -1,171 +1,193 @@
-
-.contentBox{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: calc(100dvh - 96px);
+.contentBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100dvh - 96px);
 }
-.contentLimit{
-    max-width: 1440px;
-    width: 100%;
-    padding: 20px;
-    display: grid;
-    place-items: center;
+.contentLimit {
+  max-width: 1440px;
+  width: 100%;
+  padding: 20px;
+  display: grid;
+  place-items: center;
 }
-.contentWrapper{
-    display: grid;
-    align-items: stretch;
-    max-width: 940px;
-    width: 100%;
+.contentWrapper {
+  display: grid;
+  align-items: stretch;
+  max-width: 940px;
+  width: 100%;
 }
-.inputOrg{
-    display: flex;
-    padding-top: 40px;
+.contentWrapper button:hover {
+  transform: scale(0.95);
 }
-.taskInfomations{
-    height: 376px;
-    max-width: 440px;
-    flex-grow: 1;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
+.inputOrg {
+  display: flex;
+  padding-top: 40px;
 }
-.typeBars{
-    min-height: 48px;
-    border-radius: 10px;
-    border-style: solid;
-    border-width: 1px;
-    padding: 0 15px;
-    border-color: var(--outline-color);
-    background-color: white;
-    font-size: 20px;
-    cursor: text;
+.taskInfomations {
+  height: 376px;
+  max-width: 440px;
+  flex-grow: 1;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
 }
-.typeBars::placeholder{
-    color: var(--outline-color);
+.typeBars {
+  min-height: 48px;
+  border-radius: 10px;
+  border-style: solid;
+  border-width: 1px;
+  padding: 0 15px;
+  border-color: var(--outline-color);
+  background-color: white;
+  font-size: 20px;
+  cursor: text;
+}
+.typeBars::placeholder {
+  color: var(--outline-color);
 }
 #date-input {
-    color: var(--outline-color);
+  color: var(--outline-color);
 }
 
 #date-input.filled {
-    color: black;
+  color: black;
 }
-.typeBars span{
-    padding-top: 5px;
+.typeBars span {
+  padding-top: 5px;
 }
-.typePriorityBars{
-    display: flex;
-    align-items: center;
-    position: relative;
+.typePriorityBars {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
 }
-.inputOrg span{
-    font-size: 20px;
-    padding-bottom: 7px;
+.inputOrg span {
+  font-size: 20px;
+  padding-bottom: 7px;
 }
-.spanGlue{
-    display: flex;
-    flex-direction: column;
+.spanGlue {
+  display: flex;
+  flex-direction: column;
 }
-.inputOrg hr{
-    height: 424px;
-    width: 1px;
-    margin: 0px 30px;
-    border: none;
-    background-color: var(--outline-color);
+.inputOrg hr {
+  height: 424px;
+  width: 1px;
+  margin: 0px 30px;
+  border: none;
+  background-color: var(--outline-color);
 }
-.taskCategorysation{
-    height: 400px;
-    max-width: 440px;
-    display: flex;
-    justify-content: space-between;
-    flex-grow: 1;
-    flex-direction: column;
+.taskCategorysation {
+  height: 400px;
+  max-width: 440px;
+  display: flex;
+  justify-content: space-between;
+  flex-grow: 1;
+  flex-direction: column;
 }
-.priorityArange{
-    display: flex;
-    justify-content: space-between;
+.priorityArange {
+  display: flex;
+  justify-content: space-between;
 }
-.priorityBtns{
-    height: 56px;
-    width: 136px;
-    padding: 16px 10px 16px 8px;
-    border-radius: 10px;
-    border: none;
-    font-size: 20px;
-    background-color: white;
-    box-shadow: rgb(0, 0, 0, 0.1) 0px 0px 4px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.priorityBtns {
+  height: 56px;
+  width: 136px;
+  padding: 16px 10px 16px 8px;
+  border-radius: 10px;
+  border: none;
+  font-size: 20px;
+  background-color: white;
+  box-shadow: rgb(0, 0, 0, 0.1) 0px 0px 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.priorityMediumBtn{
-    height: 56px;
-    width: 136px;
-    padding: 16px 10px 16px 8px;
-    border-radius: 10px;
-    border: none;
-    font-size: 20px;
-    font-weight: bold;
-    color: white;
-    background-color: #FFA800;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.priorityMediumBtn {
+  height: 56px;
+  width: 136px;
+  padding: 16px 10px 16px 8px;
+  border-radius: 10px;
+  border: none;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  background-color: #ffa800;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.bottomButtons{
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
+.subtask-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.bottomButtonsSplice{
-    gap: 20px;
-    display: flex;
-    justify-content: flex-end;
+.subtask-container img {
+  position: absolute;
+  right: 15px;
+  height: 24px;
+  width: 24px;
+  cursor: pointer;
+  z-index: 100;
 }
-.bottomButtons button{
-    height: 56px;
-    gap: 4px;
-    border-radius: 10px;
-    font-size: 20px;
-    padding: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 100px;
+.subtask-container img:hover{
+    transform: scale(0.8);
+    justify-self: center;
+    align-self: center;
 }
-.bottomButton1{
-    color: var(--primary-color);
-    border-width: 1px;
-    border-color: var(--primary-color);
-    background-color: rgba(0, 0, 0, 0);
+.bottomButtons {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
 }
-.bottomButton2{
-    background-color: var(--primary-color);
-    color: white;
-    font-weight: 700;
+.bottomButtonsSplice {
+  gap: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+.bottomButtons button {
+  height: 56px;
+  gap: 4px;
+  border-radius: 10px;
+  font-size: 20px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 100px;
+}
+.bottomButton1 {
+  color: var(--primary-color);
+  border-width: 1px;
+  border-color: var(--primary-color);
+  background-color: rgba(0, 0, 0, 0);
+}
+.bottomButton2 {
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: 700;
+}
+label{
+    color: #FF8190;
 }
 
-button:hover{
-    transform: scale(0.9);
-}
 /* Selects */
 .dropdown-list {
-    display: none;
-    list-style: none;
-    position: absolute;
-    background: white;
-    border: 1px solid #ccc;
-    width: 100%;
-    max-width: 440px;
-    padding: 5px;
-    margin-top: 72px;
-    z-index: 100;
+  display: none;
+  list-style: none;
+  position: absolute;
+  background: white;
+  border: 1px solid #ccc;
+  width: 100%;
+  max-width: 440px;
+  padding: 5px;
+  margin-top: 72px;
+  z-index: 100;
 }
 .dropdown-list li {
-    padding: 5px;
-    cursor: pointer;
+  padding: 5px;
+  cursor: pointer;
 }
 .dropdown-list li:hover {
-    background: #ddd;
+  background: #ddd;
 }
