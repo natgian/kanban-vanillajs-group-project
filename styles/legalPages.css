@@ -1,0 +1,31 @@
+.dFlex {
+    display: flex;
+    justify-content: flex-start;
+    align-items: start;
+}
+
+.content {
+    padding: 100px;
+
+    h2,
+    span {
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    span {
+        padding-right: 32px;
+    }
+
+    p {
+        padding-bottom: 8px;
+    }
+
+    i {
+        color: #29abe2;
+    }
+
+    b {
+        font-weight: bold;
+    }
+}
