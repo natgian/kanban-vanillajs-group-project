@@ -1,10 +1,16 @@
+const baseURL = "https://join-458-default-rtdb.europe-west1.firebasedatabase.app";
+
 const taskDetailsRef = document.getElementById("task-overlay");
 const taskDetailsContentRef = document.getElementById("task-overlay-content");
 
+function init() {
+  fetchTasks();
+}
+
 /**
- * This function opens the task details and prevents background scrolling
+ * Opens the task details overlay and prevents background scrolling
  *
- * @param {string} id - This is the id of the task that should be opened
+ * @param {string} id - ID of the task that should be opened
  */
 function openTaskDetails(id) {
   taskDetailsRef.classList.toggle("show");
@@ -13,9 +19,9 @@ function openTaskDetails(id) {
 }
 
 /**
- * This function closes the task details and and enables scrolling
+ * Closes the task details overlay and enables scrolling
  *
- * @param {string} id - This is the id of the task that should be closed
+ * @param {string} id - ID of the task that should be closed
  */
 function closeTaskDetails(id) {
   taskDetailsRef.classList.toggle("show");
@@ -24,12 +30,29 @@ function closeTaskDetails(id) {
 }
 
 /**
- * This function enables closing the task details overlay when clicking outside the content
+ * Enables closing the task details overlay when clicking outside the content
  *
- * @param {*} event - This is the clicking event
+ * @param {*} event - clicking event
  */
 function outsideClickHandler(event) {
   if (!taskDetailsContentRef.contains(event.target)) {
     closeTaskDetails();
+  }
+}
+
+/**
+ * Fetches the tasks from the database
+ *
+ * @returns - an array with the fetched tasks
+ */
+async function fetchTasks() {
+  try {
+    const response = await fetch(`${baseURL}/tasks.json`);
+    const data = await response.json();
+    const tasks = Object.values(data);
+    console.log(tasks);
+    return tasks;
+  } catch (error) {
+    console.error("Something went wrong:", error);
   }
 }
