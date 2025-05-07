@@ -38,3 +38,32 @@ document.getElementById("guestLoginBtn").addEventListener("click", async () => {
     alert("An error occurred.");
   }
 });
+
+/**
+ * Handles the form submission for user login.
+ * 
+ * Validates the form using HTML5 validation, fetches users from the Firebase database,
+ * compares credentials, and redirects to the summary page if a match is found.
+ * Otherwise, displays an error message.
+ * 
+ * @param {SubmitEvent} e - The form submit event.
+ */
+document.querySelector('form').addEventListener('submit', async (e) => {
+  if (!e.target.checkValidity()) return;
+  e.preventDefault();
+
+  const email = e.target.querySelector('input[name="Email"]').value.trim();
+  const password = e.target.querySelector('input[name="Password"]').value.trim();
+
+  try {
+    const res = await fetch(`${databasURL}users.json`);
+    const users = await res.json();
+    const match = Object.values(users || {}).find(u => u.email === email && u.password === password);
+
+    if (match) window.location.href = "../pages/summary.html";
+    else alert("No matching user found. Please sign up first.");
+  } catch (err) {
+    console.error("Login error:", err);
+    alert("An error occurred while trying to log in.");
+  }
+});
