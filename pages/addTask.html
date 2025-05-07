@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Add Task</title>
+    <link rel="shortcut icon" href="../assets/img/join_logo_white.svg" type="image/x-icon">
     <link rel="stylesheet" href="../styles.css" />
     <link rel="stylesheet" href="../styles/add_task.css" />
   </head>
@@ -29,7 +30,7 @@
             </a>
           </li>
           <li>
-            <a href="./add_task.html" class="sidebar-menu-link active-link">
+            <a href="./addTask.html" class="sidebar-menu-link active-link">
               <img
                 src="../assets/icons/add_task_icon.svg"
                 alt="add task icon"
@@ -121,19 +122,19 @@
                 <div class="spanGlue">
                   <span>Priority</span>
                   <div class="priorityArange" style="display: flex">
-                    <button class="priorityBtns">
+                    <button class="priorityBtns" onclick="selectButton(this)">
                       Urgent<img
                         src="../assets/icons/Prio alta.png"
                         style="width: 20px; height: 14.51px; margin-left: 10px"
                       />
                     </button>
-                    <button class="priorityMediumBtn">
+                    <button class="priorityBtns selected" onclick="selectButton(this)">
                       Medium<img
                         src="../assets/icons/Prio media.png"
                         style="width: 20px; height: 7.45px; margin-left: 10px"
                       />
                     </button>
-                    <button class="priorityBtns">
+                    <button class="priorityBtns" onclick="selectButton(this)">
                       Low<img
                         src="../assets/icons/Prio baja.png"
                         style="width: 20px; height: 14.51px; margin-left: 10px"
@@ -223,7 +224,7 @@
         </div>
       </div>
     </main>
-    <script src="../script.js"></script>
+    <script src="../scripts/Add Task.js"></script>
   </body>
 </html>
 <img src="" alt="" />

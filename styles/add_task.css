@@ -102,19 +102,10 @@
   justify-content: center;
   align-items: center;
 }
-.priorityMediumBtn {
-  height: 56px;
-  width: 136px;
-  padding: 16px 10px 16px 8px;
-  border-radius: 10px;
-  border: none;
-  font-size: 20px;
-  font-weight: bold;
-  color: white;
+.selected {
   background-color: #ffa800;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  color: white;
+  font-weight: bold;
 }
 .subtask-container {
   position: relative;
@@ -128,7 +119,7 @@
   height: 24px;
   width: 24px;
   cursor: pointer;
-  z-index: 100;
+  z-index: 50;
 }
 .subtask-container img:hover{
     transform: scale(0.8);
