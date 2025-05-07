@@ -79,7 +79,6 @@ body {
 
 .layout-container {
   position: relative;
-  max-width: 1920px;
   height: 100dvh;
   width: calc(100dvw - 232px);
   overflow: auto;
