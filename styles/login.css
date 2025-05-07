@@ -66,6 +66,30 @@ main {
         border-radius: 8px;
         border: 0.5px solid #aaa;
     }
+
+    .message {
+        margin-top: 10px;
+        font-size: 0.9rem;
+        color: red;
+    }
+
+    #loginMessage {
+        opacity: 0;
+        transition: opacity 0.5s ease;
+        color: red;
+        font-size: 0.9rem;
+        margin-top: 10px;
+    }
+
+    #loginMessage.fade-in {
+        opacity: 1;
+    }
+
+    #loginMessage.fade-out {
+        opacity: 0;
+    }
+
+
 }
 
 footer {
