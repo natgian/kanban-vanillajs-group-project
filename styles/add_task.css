@@ -192,8 +192,4 @@ label{
 }
 select {
   appearance: none;
-  background-image: url('dein-pfeil-bild.png'); /* Stelle sicher, dass die Datei existiert */
-  background-position: left 10px center;
-  background-repeat: no-repeat;
-  padding-left: 25px;
 }
