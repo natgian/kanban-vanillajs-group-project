@@ -13,10 +13,7 @@ const tasks = [
       { name: "Anna Sommer", initials: "AS", color: "#462f8a" },
     ],
     category: "Technical Task",
-    subtasks: [
-      { done: true, subtask: "Setup Base Styles" },
-      { done: false, subtask: "Create HTML Template" },
-    ],
+    subtasks: [{ done: true, subtask: "Setup Base Styles" }],
   },
   {
     status: "in-progress",
@@ -28,6 +25,7 @@ const tasks = [
     category: "User Story",
     subtasks: [
       { done: false, subtask: "Form Markup" },
+      { done: true, subtask: "Basic Styling" },
       { done: false, subtask: "Validation Logic" },
     ],
   },
@@ -41,7 +39,9 @@ const tasks = [
     category: "User Story",
     subtasks: [
       { done: true, subtask: "Mobile Navigation" },
+      { done: true, subtask: "Tablet Navigation" },
       { done: true, subtask: "Desktop Navigation" },
+      { done: false, subtask: "Bugfixes" },
     ],
   },
   {
@@ -70,7 +70,7 @@ const tasks = [
     category: "User Story",
     subtasks: [
       { done: false, subtask: "Wireframe Signup Page" },
-      { done: false, subtask: "Plan Success & Error States" },
+      { done: true, subtask: "Create Error States" },
     ],
   },
   {
@@ -81,10 +81,7 @@ const tasks = [
     priority: "medium",
     assignedTo: [{ name: "Alex Müller", initials: "AM", color: "#ff7a00" }],
     category: "Technical Task",
-    subtasks: [
-      { done: true, subtask: "Install Packages" },
-      { done: false, subtask: "Configure Rules" },
-    ],
+    subtasks: [{ done: true, subtask: "Install Packages" }],
   },
 ];
 
