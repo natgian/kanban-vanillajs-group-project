@@ -45,3 +45,33 @@ function selectButton(button) {
     button.style.color = "white";
     button.style.fontWeight = "bold";
 }
+
+// submitbutton enabled
+function checkFields() {
+    const form = document.getElementById("myForm");
+    const submitBtn = document.getElementById("submitBtn");
+
+    // Überprüft, ob alle input- und textarea-Felder ausgefüllt sind
+    const allFilled = [...form.elements]
+        .filter(el => el.tagName === "INPUT" || el.tagName === "TEXTAREA")
+        .every(field => field.value.trim() !== "");
+
+    submitBtn.disabled = !allFilled;
+    submitBtn.classList.toggle("enabled", allFilled);
+}
+
+// Überprüfung bei jeder Eingabe
+document.addEventListener("DOMContentLoaded", function() {
+    checkFields(); 
+});
+
+document.getElementById("myForm").addEventListener("input", checkFields);
+
+
+document.getElementById("submitBtn").addEventListener("click", function(event) {
+    let selectedCategory = document.querySelector(".typeBars.typePriorityBars span").textContent;
+    if (selectedCategory === "select task category") {
+      alert("Bitte wähle eine Kategorie aus.");
+      event.preventDefault();
+    }
+});

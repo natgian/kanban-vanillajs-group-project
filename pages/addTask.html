@@ -4,7 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Add Task</title>
-    <link rel="shortcut icon" href="../assets/img/join_logo_white.svg" type="image/x-icon">
+    <link
+      rel="shortcut icon"
+      href="../assets/img/join_logo_white.svg"
+      type="image/x-icon"
+    />
     <link rel="stylesheet" href="../styles.css" />
     <link rel="stylesheet" href="../styles/add_task.css" />
   </head>
@@ -87,20 +91,20 @@
           <div class="contentWrapper">
             <h1>Add Task</h1>
             <div class="inputOrg">
-              <section class="taskInfomations">
+              <form class="taskInfomations" id="myForm">
                 <div class="spanGlue">
                   <span>Task<label>*</label></span>
                   <input
                     type="text"
                     class="typeBars"
                     placeholder="Enter a title"
+                    required
                   />
                 </div>
                 <div class="spanGlue">
                   <span>Description</span>
                   <textarea
-                    name=""
-                    id=""
+                    name="description"
                     class="typeBars"
                     placeholder="Enter a Discription"
                     style="height: 120px; padding: 14px 15px"
@@ -112,11 +116,12 @@
                     type="date"
                     id="date-input"
                     class="typeBars"
-                    placeholder="dd/mm/yy"
+                    value="dd/mm/yy"
                     oninput="checkValue()"
+                    required
                   />
                 </div>
-              </section>
+              </form>
               <hr />
               <section class="taskCategorysation">
                 <div class="spanGlue">
@@ -128,7 +133,10 @@
                         style="width: 20px; height: 14.51px; margin-left: 10px"
                       />
                     </button>
-                    <button class="priorityBtns selected" onclick="selectButton(this)">
+                    <button
+                      class="priorityBtns selected"
+                      onclick="selectButton(this)"
+                    >
                       Medium<img
                         src="../assets/icons/Prio media.png"
                         style="width: 20px; height: 7.45px; margin-left: 10px"
@@ -143,52 +151,28 @@
                   </div>
                 </div>
                 <div class="spanGlue">
-                  <span>Assigned to</span>
-                  <div
-                    class="typeBars typePriorityBars"
-                    style="
-                      display: flex;
-                      justify-content: space-between;
-                      cursor: pointer;
-                    "
-                    onclick="toggleDropdown('dropdown1')"
-                  >
-                    <span>select contacts to assign</span>
-                    <img
-                      src="../assets/icons/arrow_drop_downaa.png"
-                      alt="arrowDown"
-                    />
-                  </div>
-                  <ul class="dropdown-list" id="dropdown1">
-                    <li onclick="selectContact('Contact 1')">Contact 1</li>
-                    <li onclick="selectContact('Contact 2')">Contact 2</li>
-                    <li onclick="selectContact('Contact 3')">Contact 3</li>
-                    <li onclick="selectContact('Contact 4')">Contact 4</li>
-                  </ul>
+                  <span>Assigned to<label>*</label></span>
+                  <select class="typeBars">
+                    <option value="" disabled selected>
+                      Select contacts to assign
+                    </option>
+                    <option value="Contact 1">Contact 1</option>
+                    <option value="Contact 2">Contact 2</option>
+                    <option value="Contact 3">Contact 3</option>
+                    <option value="Contact 4">Contact 4</option>
+                  </select>
                 </div>
                 <div class="spanGlue">
                   <span>Category<label>*</label></span>
-                  <div
-                    class="typeBars typePriorityBars"
-                    style="
-                      display: flex;
-                      justify-content: space-between;
-                      cursor: pointer;
-                    "
-                    onclick="toggleDropdown('dropdown2')"
-                  >
-                    <span>select task category</span>
-                    <img
-                      src="../assets/icons/arrow_drop_downaa.png"
-                      alt="arrowDown"
-                    />
-                  </div>
-                  <ul class="dropdown-list" id="dropdown2">
-                    <li onclick="selectContact('Task 1')">Task 1</li>
-                    <li onclick="selectContact('Task 2')">Task 2</li>
-                    <li onclick="selectContact('Task 3')">Task 3</li>
-                    <li onclick="selectContact('Task 4')">Task 4</li>
-                  </ul>
+                  <select class="typeBars" required>
+                    <option value="" disabled selected>
+                      Select task category
+                    </option>
+                    <option value="Task 1">Task 1</option>
+                    <option value="Task 2">Task 2</option>
+                    <option value="Task 3">Task 3</option>
+                    <option value="Task 4">Task 4</option>
+                  </select>
                 </div>
                 <div class="spanGlue">
                   <span>Subtasks</span>
@@ -212,7 +196,7 @@
                 <button class="bottomButton1">
                   Clear<img src="../assets/icons/iconoir_cancel.png" alt="X" />
                 </button>
-                <button class="bottomButton2">
+                <button class="bottomButton2" id="submitBtn">
                   Creakte Task<img
                     src="../assets/icons/check.png"
                     alt="Check"
