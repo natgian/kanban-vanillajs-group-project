@@ -193,3 +193,9 @@ label{
 select {
   appearance: none;
 }
+select option{
+  height: 64px;
+}
+select option:hover{
+  background-color: var(--primary-color);
+}
