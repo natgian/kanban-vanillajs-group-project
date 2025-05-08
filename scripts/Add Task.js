@@ -75,3 +75,9 @@ document.getElementById("submitBtn").addEventListener("click", function(event) {
       event.preventDefault();
     }
 });
+
+
+// Selects
+document.querySelector('.custom-select select').addEventListener('change', function() {
+    console.log("Ausgewählt:", this.value);
+  });

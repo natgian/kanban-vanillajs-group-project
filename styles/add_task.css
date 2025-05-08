@@ -171,31 +171,27 @@ label{
 }
 
 /* Selects */
-.dropdown-list {
-  display: none;
-  list-style: none;
-  position: absolute;
-  background: white;
-  border: 1px solid #ccc;
+.custom-select {
+  position: relative;
   width: 100%;
-  max-width: 440px;
-  padding: 5px;
-  margin-top: 72px;
-  z-index: 100;
 }
-.dropdown-list li {
-  padding: 5px;
+
+.custom-select select {
+  width: 100%;
   cursor: pointer;
-}
-.dropdown-list li:hover {
-  background: #ddd;
-}
-select {
   appearance: none;
 }
-select option{
-  height: 64px;
-}
-select option:hover{
-  background-color: var(--primary-color);
+
+.custom-select::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  background-image: url('../assets/icons/arrow_drop_downaa.png'); /* Bild-URL hier einfügen */
+  background-size: contain;
+  background-repeat: no-repeat;
+  pointer-events: none;
 }
