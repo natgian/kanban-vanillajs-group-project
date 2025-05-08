@@ -78,6 +78,36 @@ document.getElementById("submitBtn").addEventListener("click", function(event) {
 
 
 // Selects
-document.querySelector('.custom-select select').addEventListener('change', function() {
-    console.log("Ausgewählt:", this.value);
+function toggleDropdown(element) {
+    const options = element.nextElementSibling;
+    closeAllDropdowns(options);
+    toggleVisibility(options);
+}
+  function selectOption(element) {
+    const dropdown = element.closest(".dropdown-container").querySelector(".dropdown-selected");
+    setSelectedValue(dropdown, element.textContent, element.dataset.value);
+    toggleVisibility(element.parentElement, false);
+}
+function toggleVisibility(element, forceToggle = true) {
+    if (element) {
+      element.style.display = forceToggle 
+        ? (element.style.display === "block" ? "none" : "block") 
+        : "none";
+    }
+}
+function closeAllDropdowns(exceptElement) {
+    document.querySelectorAll(".dropdown-options").forEach(opt => {
+      if (opt !== exceptElement) opt.style.display = "none";
+    });
+}
+function setSelectedValue(dropdown, text, value) {
+    if (dropdown) {
+      dropdown.textContent = text;
+      dropdown.dataset.value = value;
+    }
+}
+document.addEventListener("click", function (event) {
+    if (!event.target.closest(".dropdown-container")) {
+      closeAllDropdowns();
+    }
   });

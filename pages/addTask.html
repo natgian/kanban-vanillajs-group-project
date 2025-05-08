@@ -152,30 +152,26 @@
                 </div>
                 <div class="spanGlue">
                   <span>Assigned to<label>*</label></span>
-                  <div class="custom-select">
-                    <select class="typeBars">
-                      <option value="" disabled selected>
-                        Select contacts to assign
-                      </option>
-                      <option value="Contact 1">Contact 1</option>
-                      <option value="Contact 2">Contact 2</option>
-                      <option value="Contact 3">Contact 3</option>
-                      <option value="Contact 4">Contact 4</option>
-                    </select>
+                  <div class="dropdown-container">
+                    <div class="dropdown-selected typeBars" onclick="toggleDropdown(this)">Select contacts to assign</div>
+                    <div class="dropdown-options">
+                      <div class="option" data-value="Contact 1" onclick="selectOption(this)">Contact 1</div>
+                      <div class="option" data-value="Contact 2" onclick="selectOption(this)">Contact 2</div>
+                      <div class="option" data-value="Contact 3" onclick="selectOption(this)">Contact 3</div>
+                      <div class="option" data-value="Contact 4" onclick="selectOption(this)">Contact 4</div>
+                    </div>
                   </div>
                 </div>
                 <div class="spanGlue">
                   <span>Category<label>*</label></span>
-                  <div class="custom-select">
-                    <select class="typeBars">
-                      <option value="" disabled selected>
-                        Select task category
-                      </option>
-                      <option value="Task 1">Task 1</option>
-                      <option value="Task 2">Task 2</option>
-                      <option value="Task 3">Task 3</option>
-                      <option value="Task 4">Task 4</option>
-                    </select>
+                  <div class="dropdown-container">
+                    <div class="dropdown-selected typeBars" onclick="toggleDropdown(this)">Select task category</div>
+                    <div class="dropdown-options">
+                      <div class="option" data-value="Task 1" onclick="selectOption(this)">Task 1</div>
+                      <div class="option" data-value="Task 2" onclick="selectOption(this)">Task 2</div>
+                      <div class="option" data-value="Task 3" onclick="selectOption(this)">Task 3</div>
+                      <div class="option" data-value="Task 4" onclick="selectOption(this)">Task 4</div>
+                    </div>
                   </div>
                 </div>
                 <div class="spanGlue">
