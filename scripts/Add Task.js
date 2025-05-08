@@ -1,10 +1,10 @@
 // RenderAddTask
-function renderAddTask() {
-    return  `
-            // Add Task-Content
-            `;
-}
-document.getElementById("#").innerHTML = renderAddTask();
+// function renderAddTask() {
+//     return  `
+//             // Add Task-Content
+//             `;
+// }
+// document.getElementById("#").innerHTML = renderAddTask();
 
 function checkValue() {
     let input = document.getElementById("date-input");
@@ -77,7 +77,7 @@ document.getElementById("submitBtn").addEventListener("click", function(event) {
 });
 
 
-// Selects
+// Selectbars
 function toggleDropdown(element) {
     const options = element.nextElementSibling;
     closeAllDropdowns(options);

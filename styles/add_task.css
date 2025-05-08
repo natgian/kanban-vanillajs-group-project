@@ -46,6 +46,11 @@
 .typeBars::placeholder {
   color: var(--outline-color);
 }
+.typeBars:focus,
+.typeBars:active {
+  border-color: var(--hover-color);
+    outline: none; /* Entfernt den Standard-Fokus-Rahmen */
+}
 #date-input {
   color: var(--outline-color);
 }
@@ -176,8 +181,8 @@ label {
   cursor: pointer;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
-
 .dropdown-options {
   display: none;
   position: absolute;
@@ -186,13 +191,21 @@ label {
   background: white;
   border: 1px solid #ccc;
   z-index: 60;
+  border-radius: 10px;
+  max-height: 145px;
+  overflow: scroll;
+  overflow-y: scroll; 
+  overflow-x: hidden; 
 }
-
 .dropdown-options .option {
   padding: 10px;
   cursor: pointer;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
 }
-
 .dropdown-options .option:hover {
-  background: #f0f0f0;
+  background-color: var(--active-color);
+  color: white
 }
