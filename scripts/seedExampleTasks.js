@@ -85,6 +85,10 @@ const tasks = [
   },
 ];
 
+/**
+ * Creates example tasks to add to the Firebase database
+ *
+ */
 async function seedTasks() {
   for (const task of tasks) {
     try {
@@ -95,7 +99,7 @@ async function seedTasks() {
       });
 
       const postData = await response.json();
-      const taskId = postData.name; // weist nach dem Zufügen des Tasks die von Firebase kreierte ID der taskId hinzu
+      const taskId = postData.name; // adds the ID created by Firebase to the taskId after the task has been added to the database
 
       await fetch(`${baseURL}/tasks/${taskId}.json`, {
         method: "PATCH",
