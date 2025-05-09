@@ -151,21 +151,21 @@
                   </div>
                 </div>
                 <div class="spanGlue">
-                  <span>Assigned to<label>*</label></span>
+                  <span>Assigned to</span>
                   <div class="dropdown-container">
-                    <div class="dropdown-selected typeBars" onclick="toggleDropdown(this)">Select contacts to assign<img src="../assets/icons/arrow_drop_downaa.png" alt="arrow-down"></div>
+                    <input type="button" value="Kategorie auswählen" class="dropdown-selected typeBars" onclick="toggleDropdown(this)">
                     <div class="dropdown-options">
-                      <div class="option" data-value="Contact 1" onclick="selectOption(this)">Contact 1</div>
-                      <div class="option" data-value="Contact 2" onclick="selectOption(this)">Contact 2</div>
-                      <div class="option" data-value="Contact 3" onclick="selectOption(this)">Contact 3</div>
-                      <div class="option" data-value="Contact 4" onclick="selectOption(this)">Contact 4</div>
+                      <div class="option" onclick="selectOption(this)">Task 1</div>
+                      <div class="option" onclick="selectOption(this)">Task 2</div>
+                      <div class="option" onclick="selectOption(this)">Task 3</div>
+                      <div class="option" onclick="selectOption(this)">Task 4</div>
                     </div>
                   </div>
                 </div>
                 <div class="spanGlue">
                   <span>Category<label>*</label></span>
                   <div class="dropdown-container">
-                    <div class="dropdown-selected typeBars" onclick="toggleDropdown(this)">Select task category<img src="../assets/icons/arrow_drop_downaa.png" alt="arrow-down"></div>
+                    <input type="button" value="Select task category" class="dropdown-selected typeBars" onclick="toggleDropdown(this)" required>
                     <div class="dropdown-options">
                       <div class="option" data-value="Task 1" onclick="selectOption(this)">Task 1</div>
                       <div class="option" data-value="Task 2" onclick="selectOption(this)">Task 2</div>
@@ -193,7 +193,7 @@
             <div class="bottomButtons">
               <span><label>*</label>This field is required</span>
               <div class="bottomButtonsSplice">
-                <button class="bottomButton1">
+                <button class="bottomButton1" onclick="location.reload()">
                   Clear<img src="../assets/icons/iconoir_cancel.png" alt="X" />
                 </button>
                 <button class="bottomButton2" id="submitBtn">

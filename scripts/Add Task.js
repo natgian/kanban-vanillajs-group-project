@@ -47,35 +47,39 @@ function selectButton(button) {
 }
 
 // submitbutton enabled
-function checkFields() {
-    const form = document.getElementById("myForm");
-    const submitBtn = document.getElementById("submitBtn");
-
-    // Überprüft, ob alle input- und textarea-Felder ausgefüllt sind
-    const allFilled = [...form.elements]
-        .filter(el => el.tagName === "INPUT" || el.tagName === "TEXTAREA")
-        .every(field => field.value.trim() !== "");
-
-    submitBtn.disabled = !allFilled;
-    submitBtn.classList.toggle("enabled", allFilled);
+function getRequiredFields() {
+    return document.querySelectorAll("input[required]");
 }
-
-// Überprüfung bei jeder Eingabe
-document.addEventListener("DOMContentLoaded", function() {
-    checkFields(); 
-});
-
-document.getElementById("myForm").addEventListener("input", checkFields);
-
-
-document.getElementById("submitBtn").addEventListener("click", function(event) {
-    let selectedCategory = document.querySelector(".typeBars.typePriorityBars span").textContent;
-    if (selectedCategory === "select task category") {
-      alert("Bitte wähle eine Kategorie aus.");
-      event.preventDefault();
+function areAllFieldsFilled(fields) {
+    return Array.from(fields).every(field => {
+        if (field.classList.contains("dropdown-selected")) {
+            return field.dataset.value && field.dataset.value.trim() !== "";
+        }
+        return field.value.trim() !== "";
+    });
+}
+function toggleSubmitButton(isEnabled) {
+    const submitBtn = document.getElementById("submitBtn");
+    if (submitBtn) {
+        submitBtn.disabled = !isEnabled;
+        submitBtn.classList.toggle("enabled", isEnabled);
     }
+}
+function validateRequiredFields() {
+    const requiredFields = getRequiredFields();
+    const allFilled = areAllFieldsFilled(requiredFields);
+    toggleSubmitButton(allFilled);
+}
+function observeDropdownChanges() {
+    document.querySelectorAll(".dropdown-selected").forEach(dropdown => {
+        const observer = new MutationObserver(() => validateRequiredFields());
+        observer.observe(dropdown, { attributes: true, attributeFilter: ["data-value"] });
+    });
+}
+document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("input", validateRequiredFields);
+    observeDropdownChanges(); // Aktiviert die Beobachtung
 });
-
 
 // Selectbars
 function toggleDropdown(element) {
@@ -102,8 +106,8 @@ function closeAllDropdowns(exceptElement) {
 }
 function setSelectedValue(dropdown, text, value) {
     if (dropdown) {
-      dropdown.textContent = text;
-      dropdown.dataset.value = value;
+        dropdown.value = text;
+        dropdown.dataset.value = value;
     }
 }
 document.addEventListener("click", function (event) {

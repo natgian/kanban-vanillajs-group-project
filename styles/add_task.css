@@ -49,7 +49,7 @@
 .typeBars:focus,
 .typeBars:active {
   border-color: var(--hover-color);
-    outline: none; /* Entfernt den Standard-Fokus-Rahmen */
+  outline: none; /* Entfernt den Standard-Fokus-Rahmen */
 }
 #date-input {
   color: var(--outline-color);
@@ -170,6 +170,7 @@
   background-color: var(--primary-color);
   color: white;
   font-weight: 700;
+  cursor: pointer;
 }
 label {
   color: #ff8190;
@@ -182,6 +183,12 @@ label {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 100%;
+  text-align: start;
+  background-image: url("../assets/icons/arrow_drop_downaa.png");
+  background-repeat: no-repeat;
+  background-position: calc(100% - 15px) center;
+  background-size: 24px;
 }
 .dropdown-options {
   display: none;
@@ -194,8 +201,9 @@ label {
   border-radius: 10px;
   max-height: 145px;
   overflow: scroll;
-  overflow-y: scroll; 
-  overflow-x: hidden; 
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scrollbar-color: rgba(0, 0, 0, 0.5) transparent;
 }
 .dropdown-options .option {
   padding: 10px;
@@ -207,5 +215,9 @@ label {
 }
 .dropdown-options .option:hover {
   background-color: var(--active-color);
-  color: white
+  color: white;
+}
+.dropdown-selected img {
+  width: 20px;
+  height: 20px;
 }
