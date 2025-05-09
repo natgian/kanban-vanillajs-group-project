@@ -3,29 +3,15 @@ const baseURL = "https://join-458-default-rtdb.europe-west1.firebasedatabase.app
 const taskDetailsRef = document.getElementById("task-overlay");
 const taskDetailsContentRef = document.getElementById("task-overlay-content");
 
-let todo = [];
-let inProgress = [];
-let awaitingFeedback = [];
-let done = [];
-
-const statusMap = {
-  "to-do": todo,
-  "in-progress": inProgress,
-  "awaiting-feedback": awaitingFeedback,
-  "done": done,
-};
+let allTasks = [];
 
 /**
  * This function initiates the fetching, grouping and rendering of the tasks when the board page is loaded
  *
  */
 async function init() {
-  const tasks = await fetchTasks();
-  groupTasksByStatus(tasks);
-  renderTasks(todo, "to-do");
-  renderTasks(inProgress, "in-progress");
-  renderTasks(awaitingFeedback, "awaiting-feedback");
-  renderTasks(done, "done");
+  allTasks = await fetchTasks();
+  renderBoard();
 }
 
 /**
@@ -45,25 +31,26 @@ async function fetchTasks() {
 }
 
 /**
- * Groupes the tasks by status into arrays of task objects (todo, in progress etc.)
+ * Fetches one specific task
  *
- * @param {Array<Object>} tasks - array of task objects with a "status" property
+ * @param {string} taskId - the ID of the specific task
+ * @returns - an task object containing all information of the specific task
  */
-function groupTasksByStatus(tasks) {
-  tasks.forEach((task) => {
-    switch (task.status) {
-      case "to-do":
-        todo.push(task);
-        break;
-      case "in-progress":
-        inProgress.push(task);
-        break;
-      case "awaiting-feedback":
-        awaitingFeedback.push(task);
-        break;
-      case "done":
-        done.push(task);
-    }
+async function fetchSpecificTask(taskId) {
+  const response = await fetch(`${baseURL}/tasks/${taskId}.json`);
+  const task = await response.json();
+  return task;
+}
+
+/**
+ * Renders all tasks grouped by their status (to do, in progress, awaiting feedback, done) onto the board
+ *
+ */
+function renderBoard() {
+  const statuses = ["to-do", "in-progress", "awaiting-feedback", "done"];
+  statuses.forEach((status) => {
+    const filteredByStatus = allTasks.filter((task) => task.status === status);
+    renderTasks(filteredByStatus, status);
   });
 }
 
@@ -111,11 +98,11 @@ function prepareTaskDisplayData(task) {
  *
  * @param {string} id - ID of the task that should be opened
  */
-function openTaskDetails(taskId, taskStatus) {
+function openTaskDetails(taskId) {
   taskDetailsRef.classList.toggle("show");
   document.body.classList.add("no-scroll");
   taskDetailsRef.addEventListener("click", outsideClickHandler);
-  renderTaskDetails(taskId, taskStatus);
+  renderTaskDetails(taskId);
 }
 
 /**
@@ -133,11 +120,9 @@ function closeTaskDetails() {
  * Renders the details of the task in the overlay
  *
  * @param {string} taskId - ID of the current task
- * @param {string} taskStatus - Status of the current task
  */
-function renderTaskDetails(taskId, taskStatus) {
-  const taskArray = statusMap[taskStatus];
-  const currentTask = taskArray.find((task) => task.taskId === taskId);
+function renderTaskDetails(taskId) {
+  const currentTask = allTasks.find((task) => task.taskId === taskId);
   const { assignedToDetailHTML, subtasksHTML } = prepareTaskOverlayData(currentTask);
   taskDetailsContentRef.innerHTML = taskOverlayTemplate(currentTask, assignedToDetailHTML, subtasksHTML);
 }
@@ -150,9 +135,32 @@ function renderTaskDetails(taskId, taskStatus) {
  */
 function prepareTaskOverlayData(task) {
   const assignedToDetailHTML = task.assignedTo.map((person) => assignedToDetailTemplate(person)).join("");
-  const subtasksHTML = task.subtasks.map((subtask, index) => subtasksTemplate(subtask, index)).join("");
+  const subtasksHTML = task.subtasks.map((subtask, index) => subtasksTemplate(subtask, index, task)).join("");
 
   return { assignedToDetailHTML, subtasksHTML };
+}
+
+/**
+ * Updates the completion state of a subtask
+ *
+ * @param {number} subtaskIndex - Index number of the subtask
+ * @param {string} taskId - ID of the current task
+ */
+async function updateSubtaskCompletion(subtaskIndex, taskId) {
+  try {
+    const task = await fetchSpecificTask(taskId);
+    task.subtasks[subtaskIndex].done = !task.subtasks[subtaskIndex].done;
+
+    await fetch(`${baseURL}/tasks/${taskId}/subtasks.json`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(task.subtasks),
+    });
+
+    init();
+  } catch (err) {
+    console.error("Update failed:", err);
+  }
 }
 
 /**

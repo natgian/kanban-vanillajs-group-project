@@ -10,13 +10,13 @@
  */
 function cardTemplate(task, subtasksTotal, subtasksDone, progressPercent, assignedToHTML) {
   return `
-          <div class="task-card" onclick="openTaskDetails('${task.taskId}', '${task.status}')">
+          <div class="task-card" onclick="openTaskDetails('${task.taskId}')">
             <span class="task-category ${task.category === "Technical Task" ? "technical" : "userstory"}-category">${task.category}</span>
                   <div>
                     <h3 class="task-card-title">${task.title}</h3>
                     <p class="task-card-description">${task.description}</p>
                   </div>
-                  <div class="subtasks-container">
+                  <div class="subtasks-container" id="subtasks-container-${task.taskId}">
                     <div class="progress-bar">
                       <div class="progress-fill" style="width: ${progressPercent}%"></div>
                     </div>
@@ -133,11 +133,11 @@ function taskOverlayTemplate(task, assignedToDetailHTML, subtasksHTML) {
  * @param {number} index - The index of the subtask, used to create a unique ID for the checkbox
  * @returns - The HTML for rendering the subtask list item
  */
-function subtasksTemplate(subtask, index) {
+function subtasksTemplate(subtask, index, task) {
   return `
           <li class="task-overlay-subtask-wrapper">
-            <input type="checkbox" name="checkbox" id="subtask-${index}" class="custom-checkbox" />
-            <label for="subtask-${index}" class="checkbox-label">
+            <input type="checkbox" name="checkbox" id="subtask-${index}" class="custom-checkbox" ${subtask.done ? "checked" : ""}/>
+            <label for="subtask-${index}" class="checkbox-label" onclick="updateSubtaskCompletion('${index}', '${task.taskId}')">
 
               <!-- Unchecked SVG -->
               <svg class="svg-unchecked" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -162,7 +162,7 @@ function subtasksTemplate(subtask, index) {
 }
 
 /**
- *
+ * Returns the HTML template for a list item for the 'assigned to' user
  *
  * @param {Object} person - The person object containing the persons data assigned to the task
  * @returns - The HTML for rendering the assigned person with the avatar and name

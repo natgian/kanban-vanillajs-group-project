@@ -2,7 +2,7 @@ const baseURL = "https://join-458-default-rtdb.europe-west1.firebasedatabase.app
 
 const tasks = [
   {
-    status: "todo",
+    status: "to-do",
     title: "HTML Base Template Creation",
     description: "Create reusable HTML base templates that can be used in different parts of the project.",
     dueDate: "2025-05-05",
@@ -58,7 +58,7 @@ const tasks = [
     ],
   },
   {
-    status: "todo",
+    status: "to-do",
     title: "Design User Registration Flow",
     description: "Sketch and plan the user registration experience including error handling.",
     dueDate: "2025-05-15",
