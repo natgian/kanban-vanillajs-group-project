@@ -116,7 +116,7 @@
                     type="date"
                     id="date-input"
                     class="typeBars"
-                    value="dd/mm/yy"
+                    placeholder="dd/mm/yy"
                     oninput="checkValue()"
                     required
                   />
@@ -127,23 +127,37 @@
                 <div class="spanGlue">
                   <span>Priority</span>
                   <div class="priorityArange" style="display: flex">
-                    <button class="priorityBtns" onclick="selectButton(this)">
-                      Urgent<img
+                    <button
+                      class="priorityBtns"
+                      data-color="#FF3D00"
+                      onclick="selectButton(this)"
+                    >
+                      Urgent
+                      <img
                         src="../assets/icons/Prio alta.png"
                         style="width: 20px; height: 14.51px; margin-left: 10px"
                       />
                     </button>
+
                     <button
                       class="priorityBtns selected"
+                      data-color="#FFA800"
                       onclick="selectButton(this)"
                     >
-                      Medium<img
+                      Medium
+                      <img
                         src="../assets/icons/Prio media.png"
                         style="width: 20px; height: 7.45px; margin-left: 10px"
                       />
                     </button>
-                    <button class="priorityBtns" onclick="selectButton(this)">
-                      Low<img
+
+                    <button
+                      class="priorityBtns"
+                      data-color="#7AE229"
+                      onclick="selectButton(this)"
+                    >
+                      Low
+                      <img
                         src="../assets/icons/Prio baja.png"
                         style="width: 20px; height: 14.51px; margin-left: 10px"
                       />
@@ -153,24 +167,67 @@
                 <div class="spanGlue">
                   <span>Assigned to</span>
                   <div class="dropdown-container">
-                    <input type="button" value="Kategorie auswählen" class="dropdown-selected typeBars" onclick="toggleDropdown(this)">
+                    <input
+                      type="button"
+                      value="Kategorie auswählen"
+                      class="dropdown-selected typeBars"
+                      onclick="toggleDropdown(this)"
+                    />
                     <div class="dropdown-options">
-                      <div class="option" onclick="selectOption(this)">Task 1</div>
-                      <div class="option" onclick="selectOption(this)">Task 2</div>
-                      <div class="option" onclick="selectOption(this)">Task 3</div>
-                      <div class="option" onclick="selectOption(this)">Task 4</div>
+                      <div class="option" onclick="selectOption(this)">
+                        Task 1
+                      </div>
+                      <div class="option" onclick="selectOption(this)">
+                        Task 2
+                      </div>
+                      <div class="option" onclick="selectOption(this)">
+                        Task 3
+                      </div>
+                      <div class="option" onclick="selectOption(this)">
+                        Task 4
+                      </div>
                     </div>
                   </div>
                 </div>
                 <div class="spanGlue">
                   <span>Category<label>*</label></span>
                   <div class="dropdown-container">
-                    <input type="button" value="Select task category" class="dropdown-selected typeBars" onclick="toggleDropdown(this)" required>
+                    <input
+                      type="button"
+                      value="Select task category"
+                      class="dropdown-selected typeBars"
+                      onclick="toggleDropdown(this)"
+                      required
+                    />
                     <div class="dropdown-options">
-                      <div class="option" data-value="Task 1" onclick="selectOption(this)">Task 1</div>
-                      <div class="option" data-value="Task 2" onclick="selectOption(this)">Task 2</div>
-                      <div class="option" data-value="Task 3" onclick="selectOption(this)">Task 3</div>
-                      <div class="option" data-value="Task 4" onclick="selectOption(this)">Task 4</div>
+                      <div
+                        class="option"
+                        data-value="Task 1"
+                        onclick="selectOption(this)"
+                      >
+                        Task 1
+                      </div>
+                      <div
+                        class="option"
+                        data-value="Task 2"
+                        onclick="selectOption(this)"
+                      >
+                        Task 2
+                      </div>
+                      <div
+                        class="option"
+                        data-value="Task 3"
+                        onclick="selectOption(this)"
+                      >
+                        Task 3
+                      </div>
+                      <div
+                        class="option"
+                        data-value="Task 4"
+                        onclick="selectOption(this)"
+                      >
+                        Task 4
+                      </div>
                     </div>
                   </div>
                 </div>

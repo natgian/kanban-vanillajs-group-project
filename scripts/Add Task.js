@@ -41,7 +41,10 @@ function selectButton(button) {
     });
 
     button.classList.add('selected');
-    button.style.backgroundColor = "#ffa800"; 
+
+    // Individuelle Farbe aus `data-color` lesen
+    const color = button.dataset.color || "#ffa800"; // Standardfarbe für Fälle ohne `data-color`
+    button.style.backgroundColor = color;
     button.style.color = "white";
     button.style.fontWeight = "bold";
 }
