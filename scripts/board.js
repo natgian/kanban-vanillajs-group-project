@@ -8,6 +8,17 @@ let inProgress = [];
 let awaitingFeedback = [];
 let done = [];
 
+const statusMap = {
+  "to-do": todo,
+  "in-progress": inProgress,
+  "awaiting-feedback": awaitingFeedback,
+  "done": done,
+};
+
+/**
+ * This function initiates the fetching, grouping and rendering of the tasks when the board page is loaded
+ *
+ */
 async function init() {
   const tasks = await fetchTasks();
   groupTasksByStatus(tasks);
@@ -15,39 +26,6 @@ async function init() {
   renderTasks(inProgress, "in-progress");
   renderTasks(awaitingFeedback, "awaiting-feedback");
   renderTasks(done, "done");
-}
-
-/**
- * Opens the task details overlay and prevents background scrolling
- *
- * @param {string} id - ID of the task that should be opened
- */
-function openTaskDetails(id) {
-  taskDetailsRef.classList.toggle("show");
-  document.body.classList.add("no-scroll");
-  taskDetailsRef.addEventListener("click", outsideClickHandler);
-}
-
-/**
- * Closes the task details overlay and enables scrolling
- *
- * @param {string} id - ID of the task that should be closed
- */
-function closeTaskDetails(id) {
-  taskDetailsRef.classList.toggle("show");
-  document.body.classList.remove("no-scroll");
-  taskDetailsRef.removeEventListener("click", outsideClickHandler);
-}
-
-/**
- * Enables closing the task details overlay when clicking outside the content
- *
- * @param {Event} event - clicking event
- */
-function outsideClickHandler(event) {
-  if (!taskDetailsContentRef.contains(event.target)) {
-    closeTaskDetails();
-  }
 }
 
 /**
@@ -74,7 +52,7 @@ async function fetchTasks() {
 function groupTasksByStatus(tasks) {
   tasks.forEach((task) => {
     switch (task.status) {
-      case "todo":
+      case "to-do":
         todo.push(task);
         break;
       case "in-progress":
@@ -126,4 +104,64 @@ function prepareTaskDisplayData(task) {
   const progressPercent = subtasksTotal > 0 ? (subtasksDone * 100) / subtasksTotal : 0;
 
   return { assignedToHTML, subtasksTotal, subtasksDone, progressPercent };
+}
+
+/**
+ * Opens the task details overlay and prevents background scrolling
+ *
+ * @param {string} id - ID of the task that should be opened
+ */
+function openTaskDetails(taskId, taskStatus) {
+  taskDetailsRef.classList.toggle("show");
+  document.body.classList.add("no-scroll");
+  taskDetailsRef.addEventListener("click", outsideClickHandler);
+  renderTaskDetails(taskId, taskStatus);
+}
+
+/**
+ * Closes the task details overlay and enables scrolling
+ *
+ * @param {string} id - ID of the task that should be closed
+ */
+function closeTaskDetails() {
+  taskDetailsRef.classList.toggle("show");
+  document.body.classList.remove("no-scroll");
+  taskDetailsRef.removeEventListener("click", outsideClickHandler);
+}
+
+/**
+ * Renders the details of the task in the overlay
+ *
+ * @param {string} taskId - ID of the current task
+ * @param {string} taskStatus - Status of the current task
+ */
+function renderTaskDetails(taskId, taskStatus) {
+  const taskArray = statusMap[taskStatus];
+  const currentTask = taskArray.find((task) => task.taskId === taskId);
+  const { assignedToDetailHTML, subtasksHTML } = prepareTaskOverlayData(currentTask);
+  taskDetailsContentRef.innerHTML = taskOverlayTemplate(currentTask, assignedToDetailHTML, subtasksHTML);
+}
+
+/**
+ * Prepares the 'assigned to' and 'subtasks' data to be displayed in the task details overlay
+ *
+ * @param {Object} task - A task object containing assigned users and subtasks
+ * @returns - An object with HTML for assigned users und subtasks
+ */
+function prepareTaskOverlayData(task) {
+  const assignedToDetailHTML = task.assignedTo.map((person) => assignedToDetailTemplate(person)).join("");
+  const subtasksHTML = task.subtasks.map((subtask, index) => subtasksTemplate(subtask, index)).join("");
+
+  return { assignedToDetailHTML, subtasksHTML };
+}
+
+/**
+ * Enables closing the task details overlay when clicking outside the content
+ *
+ * @param {Event} event - clicking event
+ */
+function outsideClickHandler(event) {
+  if (!taskDetailsContentRef.contains(event.target)) {
+    closeTaskDetails();
+  }
 }

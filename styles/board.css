@@ -181,6 +181,7 @@
   background-color: var(--white-color);
   box-shadow: 0 0 10px 3px rgb(0, 0, 0, 0.08);
   cursor: pointer;
+  user-select: none;
 }
 
 .task-category {
