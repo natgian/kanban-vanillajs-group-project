@@ -307,7 +307,7 @@
   border-radius: 30px;
   box-shadow: 0 0 4px 0 rgb(0, 0, 0, 0.16);
   transform: translateX(100%); /* Off-screen initially */
-  transition: transform 200ms ease-in-out;
+  transition: transform 150ms ease-in-out;
 }
 
 .category-closeIcon-container {
