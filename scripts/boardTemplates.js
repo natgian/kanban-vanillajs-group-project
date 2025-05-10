@@ -17,10 +17,16 @@ function cardTemplate(task, subtasksTotal, subtasksDone, progressPercent, assign
                     <p class="task-card-description">${task.description}</p>
                   </div>
                   <div class="subtasks-container" id="subtasks-container-${task.taskId}">
-                    <div class="progress-bar">
-                      <div class="progress-fill" style="width: ${progressPercent}%"></div>
-                    </div>
-                    <p>${subtasksDone}/${subtasksTotal} Subtask${subtasksTotal > 1 ? "s" : ""}</p>
+                  ${
+                    subtasksTotal > 0
+                      ? `
+                        <div class="progress-bar">
+                          <div class="progress-fill" style="width: ${progressPercent}%"></div>
+                        </div>
+                        <p>${subtasksDone}/${subtasksTotal} Subtask${subtasksTotal > 1 ? "s" : ""}</p>
+                        `
+                      : ""
+                  }
                   </div>
                   <div class="assignedto-priority-container">
                     <div class="task-card-assignedto-container">
@@ -90,7 +96,7 @@ function taskOverlayTemplate(task, assignedToDetailHTML, subtasksHTML) {
               <div class="action-btn-wrapper">
 
                 <!-- Delete Button -->
-                <button class="action-btn">
+                <button class="action-btn" onclick="deleteTask('${task.taskId}')">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <mask id="mask0_314602_7552" style="mask-type: alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
                       <rect width="24" height="24" fill="#D9D9D9" />
@@ -134,6 +140,7 @@ function taskOverlayTemplate(task, assignedToDetailHTML, subtasksHTML) {
  * @returns - The HTML for rendering the subtask list item
  */
 function subtasksTemplate(subtask, index, task) {
+  if (!subtask) return "";
   return `
           <li class="task-overlay-subtask-wrapper">
             <input type="checkbox" name="checkbox" id="subtask-${index}" class="custom-checkbox" ${subtask.done ? "checked" : ""}/>

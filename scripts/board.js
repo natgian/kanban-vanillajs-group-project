@@ -7,7 +7,6 @@ let allTasks = [];
 
 /**
  * This function initiates the fetching, grouping and rendering of the tasks when the board page is loaded
- *
  */
 async function init() {
   allTasks = await fetchTasks();
@@ -17,12 +16,13 @@ async function init() {
 /**
  * Fetches the tasks from the database
  *
- * @returns - an array with the fetched tasks
+ * @returns - an array of objects with the fetched tasks
  */
 async function fetchTasks() {
   try {
     const response = await fetch(`${baseURL}/tasks.json`);
     const data = await response.json();
+    if (!data) return [];
     const tasks = Object.values(data);
     return tasks;
   } catch (error) {
@@ -44,10 +44,17 @@ async function fetchSpecificTask(taskId) {
 
 /**
  * Renders all tasks grouped by their status (to do, in progress, awaiting feedback, done) onto the board
- *
  */
 function renderBoard() {
   const statuses = ["to-do", "in-progress", "awaiting-feedback", "done"];
+
+  if (!allTasks || allTasks.length === 0) {
+    statuses.forEach((status) => {
+      renderTasks([], status);
+    });
+    return;
+  }
+
   statuses.forEach((status) => {
     const filteredByStatus = allTasks.filter((task) => task.status === status);
     renderTasks(filteredByStatus, status);
@@ -84,10 +91,13 @@ function renderTasks(tasksArray, containerId) {
  * @returns - An object with HTML for assigned users, total subtasks, total of completed subtasks and progress percentage
  */
 function prepareTaskDisplayData(task) {
-  const assignedToHTML = task.assignedTo.map((person) => `<div class="task-card-avatar" style="background-color: ${person.color}">${person.initials}</div>`).join("");
+  const subtasks = Array.isArray(task.subtasks) ? task.subtasks : [];
+  const assignedTo = Array.isArray(task.assignedTo) ? task.assignedTo : [];
 
-  const subtasksTotal = task.subtasks.length;
-  const subtasksDone = task.subtasks.filter((subt) => subt.done).length;
+  const assignedToHTML = assignedTo.map((person) => `<div class="task-card-avatar" style="background-color: ${person.color}">${person.initials}</div>`).join("");
+
+  const subtasksTotal = subtasks.length;
+  const subtasksDone = subtasks.filter((subt) => subt.done).length;
   const progressPercent = subtasksTotal > 0 ? (subtasksDone * 100) / subtasksTotal : 0;
 
   return { assignedToHTML, subtasksTotal, subtasksDone, progressPercent };
@@ -134,8 +144,10 @@ function renderTaskDetails(taskId) {
  * @returns - An object with HTML for assigned users und subtasks
  */
 function prepareTaskOverlayData(task) {
-  const assignedToDetailHTML = task.assignedTo.map((person) => assignedToDetailTemplate(person)).join("");
-  const subtasksHTML = task.subtasks.map((subtask, index) => subtasksTemplate(subtask, index, task)).join("");
+  const assignedTo = Array.isArray(task.assignedTo) ? task.assignedTo : [];
+  const subtasks = Array.isArray(task.subtasks) ? task.subtasks : [];
+  const assignedToDetailHTML = assignedTo.map((person) => assignedToDetailTemplate(person)).join("");
+  const subtasksHTML = subtasks.map((subtask, index) => subtasksTemplate(subtask, index, task)).join("");
 
   return { assignedToDetailHTML, subtasksHTML };
 }

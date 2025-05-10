@@ -140,6 +140,20 @@ const tasks = [
       { done: false, subtask: "Dark Theme CSS" },
     ],
   },
+  {
+    status: "to-do",
+    title: "Setup Database Schema",
+    description: "Design and implement the initial database schema for the application.",
+    dueDate: "2025-06-01",
+    priority: "high",
+    assignedTo: [],
+    category: "Technical Task",
+    subtasks: [
+      { done: false, subtask: "Define Tables" },
+      { done: false, subtask: "Set Relationships" },
+      { done: false, subtask: "Create Migrations" },
+    ],
+  },
 ];
 
 /**
