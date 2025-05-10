@@ -170,8 +170,26 @@ async function updateSubtaskCompletion(subtaskIndex, taskId) {
     });
 
     init();
-  } catch (err) {
-    console.error("Update failed:", err);
+  } catch (error) {
+    console.error("Update failed:", error);
+  }
+}
+
+async function deleteTask(taskId) {
+  try {
+    const response = await fetch(`${baseURL}/tasks/${taskId}.json`, {
+      method: "DELETE",
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to delete task");
+    }
+
+    closeTaskDetails();
+    showMessage("Task successfully deleted");
+    init();
+  } catch (error) {
+    console.error("Dask deletion failed:", error);
   }
 }
 
