@@ -10,6 +10,7 @@ let allTasks = [];
  */
 async function init() {
   allTasks = await fetchTasks();
+  initSearch();
   renderBoard();
 }
 
@@ -45,10 +46,10 @@ async function fetchSpecificTask(taskId) {
 /**
  * Renders all tasks grouped by their status (to do, in progress, awaiting feedback, done) onto the board
  */
-function renderBoard() {
+function renderBoard(tasks = allTasks) {
   const statuses = ["to-do", "in-progress", "awaiting-feedback", "done"];
 
-  if (!allTasks || allTasks.length === 0) {
+  if (!tasks || tasks.length === 0) {
     statuses.forEach((status) => {
       renderTasks([], status);
     });
@@ -56,7 +57,7 @@ function renderBoard() {
   }
 
   statuses.forEach((status) => {
-    const filteredByStatus = allTasks.filter((task) => task.status === status);
+    const filteredByStatus = tasks.filter((task) => task.status === status);
     renderTasks(filteredByStatus, status);
   });
 }
@@ -191,6 +192,43 @@ async function deleteTask(taskId) {
     init();
   } catch (error) {
     console.error("Task deletion failed:", error);
+  }
+}
+
+/**
+ * Filters the list of tasks based on a search term entered by the user.
+ * Search term must have minimum 3 characters and it filters by title or description.
+ *
+ * @param {Event} event - The input event triggered by the user typing in the search input
+ * @returns - a new array including the tasks found with the search term
+ */
+function searchTasks(event) {
+  const searchTerm = event.target.value.trim().toLowerCase();
+
+  if (searchTerm.length < 3) {
+    renderBoard();
+    return;
+  }
+
+  const filteredTasks = allTasks.filter((task) => {
+    const title = (task.title || "").toLowerCase();
+    const description = (task.description || "").toLowerCase();
+    return title.includes(searchTerm) || description.includes(searchTerm);
+  });
+
+  renderBoard(filteredTasks);
+}
+
+/**
+ * Adds an event listener to the task search input field.
+ *
+ * Initializes live search by listening to user input and
+ * calling "searchTasks()"" on each change.
+ */
+function initSearch() {
+  const searchInput = document.getElementById("find-task");
+  if (searchInput) {
+    searchInput.addEventListener("input", searchTasks);
   }
 }
 
