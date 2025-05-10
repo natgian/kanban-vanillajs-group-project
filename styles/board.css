@@ -297,6 +297,7 @@
 
 .task-overlay-content {
   max-width: 525px;
+  max-height: 90vh;
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -308,6 +309,14 @@
   box-shadow: 0 0 4px 0 rgb(0, 0, 0, 0.16);
   transform: translateX(100%); /* Off-screen initially */
   transition: transform 150ms ease-in-out;
+}
+
+.task-overlay-content-wrapper {
+  max-height: 90vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
 .category-closeIcon-container {
@@ -340,7 +349,6 @@
   gap: 16px;
   padding: 6px 16px;
   border-radius: 10px;
-  cursor: pointer;
 }
 
 .task-overlay-subtasks-container {
@@ -349,15 +357,14 @@
   gap: 4px;
 }
 
-.task-overlay-avatar-wrapper:hover,
-.task-overlay-subtask-wrapper:hover {
-  background-color: #eeeeee;
-}
-
 .task-overlay-subtask-wrapper {
   display: flex;
   width: fit-content;
   font-size: 16px;
   padding: 6px 16px;
   border-radius: 10px;
+}
+
+.task-overlay-subtask-wrapper:hover {
+  background-color: #eeeeee;
 }

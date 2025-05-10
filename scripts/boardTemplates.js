@@ -67,6 +67,7 @@ function taskOverlayTemplate(task, assignedToDetailHTML, subtasksHTML) {
             </button>
           </div>
 
+          <div class="task-overlay-content-wrapper">
           <p class="task-overlay-title">${task.title}</p>
           <p class="task-overlay-description">${task.description}</p>
 
@@ -128,7 +129,8 @@ function taskOverlayTemplate(task, assignedToDetailHTML, subtasksHTML) {
                   </svg>
                   Edit
                 </button>
-              </div>  
+              </div
+            </div>  
   `;
 }
 
