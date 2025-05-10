@@ -1,0 +1,54 @@
+.summaryContent {
+    padding: 100px;
+
+    .vertical-line {
+        width: 2px;
+        height: 60px;
+        background-color: #29abe2;
+        margin: 0 24px;
+    }
+
+    .summaryHeader {
+        display: flex;
+        align-items: center;
+        padding-bottom: 48px;
+    }
+
+    .summaryFields {
+        display: flex;
+        align-items: center;
+        padding: 24px 56px
+    }
+
+    button {
+        border-radius: 24px;
+    }
+
+    .fieldImgs {
+        width: 60px;
+        height: 60px;
+        padding: 16px;
+    }
+
+    .bgCirclesGrey {
+        border-radius: 50px;
+        background-color: yellow;
+    }
+
+    .bgCirclesRed {
+        background-color: red;
+        border-radius: 50px;
+    }
+
+    .middleFieldContent{
+        display: flex;
+        align-items: center;
+    }
+
+    .middleField{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 36px 56px;
+    }
+}

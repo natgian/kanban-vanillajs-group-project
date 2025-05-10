@@ -1,74 +1,122 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Summary</title>
-    <link rel="stylesheet" href="../styles.css" />
-  </head>
-  <body>
-    <!-- Sidebar -->
-    <nav class="sidebar">
-      <div class="sidebar-container">
-        <!-- Logo -->
-        <div>
-          <img src="../assets/img/join_logo_white.svg" alt="Join logo" class="logo" />
-        </div>
-        <!-- Navigation -->
-        <ul class="sidebar-menu">
-          <li>
-            <a href="./summary.html" class="sidebar-menu-link active-link">
-              <img src="../assets/icons/summary_icon.svg" alt="summary icon" />
-              Summary
-            </a>
-          </li>
-          <li>
-            <a href="./addTask.html" class="sidebar-menu-link">
-              <img src="../assets/icons/add_task_icon.svg" alt="add task icon" />
-              Add Task
-            </a>
-          </li>
-          <li>
-            <a href="./board.html" class="sidebar-menu-link">
-              <img src="../assets/icons/board_icon.svg" alt="board icon" />
-              Board
-            </a>
-          </li>
-          <li>
-            <a href="./contacts.html" class="sidebar-menu-link">
-              <img src="../assets/icons/contacts_icon.svg" alt="contacts icon" />
-              Contacts
-            </a>
-          </li>
-        </ul>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Summary</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../styles/summary.css">
+</head>
+
+<body>
+  <!-- Sidebar -->
+  <nav class="sidebar">
+    <div class="sidebar-container">
+      <!-- Logo -->
+      <div>
+        <img src="../assets/img/join_logo_white.svg" alt="Join logo" class="logo" />
       </div>
-      <!-- Footer-Links -->
-      <ul class="sidebar-footer">
-        <li class="sidebar-footer-link">
-          <a href="./privacy_policy.html">Privacy Policy</a>
+      <!-- Navigation -->
+      <ul class="sidebar-menu">
+        <li>
+          <a href="./summary.html" class="sidebar-menu-link active-link">
+            <img src="../assets/icons/summary_icon.svg" alt="summary icon" />
+            Summary
+          </a>
         </li>
-        <li class="sidebar-footer-link">
-          <a href="./legal_notice.html">Legal notice</a>
+        <li>
+          <a href="./addTask.html" class="sidebar-menu-link">
+            <img src="../assets/icons/add_task_icon.svg" alt="add task icon" />
+            Add Task
+          </a>
+        </li>
+        <li>
+          <a href="./board.html" class="sidebar-menu-link">
+            <img src="../assets/icons/board_icon.svg" alt="board icon" />
+            Board
+          </a>
+        </li>
+        <li>
+          <a href="./contacts.html" class="sidebar-menu-link">
+            <img src="../assets/icons/contacts_icon.svg" alt="contacts icon" />
+            Contacts
+          </a>
         </li>
       </ul>
-    </nav>
-    <main class="layout-container">
-      <!-- Header -->
-      <header>
-        <span>Kanban Project Management Tool</span>
-        <div class="header-icons-container">
-          <div class="help-iconBox">
-            <a href="#"
-              ><img
-                class="help-icon"
-                src="../assets/icons/help_icon.svg"
-                alt="help icon"
-            /></a>
-          </div>
-          <button class="user-profile-icon"><span>G</span></button>
+    </div>
+    <!-- Footer-Links -->
+    <ul class="sidebar-footer">
+      <li class="sidebar-footer-link">
+        <a href="./privacy_policy.html">Privacy Policy</a>
+      </li>
+      <li class="sidebar-footer-link">
+        <a href="./legal_notice.html">Legal notice</a>
+      </li>
+    </ul>
+  </nav>
+  <main class="layout-container">
+    <!-- Header -->
+    <header>
+      <span>Kanban Project Management Tool</span>
+      <div class="header-icons-container">
+        <div class="help-iconBox">
+          <a href="#"><img class="help-icon" src="../assets/icons/help_icon.svg" alt="help icon" /></a>
         </div>
-      </header>
-      <!-- Content -->
-    </main>
-  </body>
+        <button class="user-profile-icon"><span>G</span></button>
+      </div>
+    </header>
+    <!-- Content -->
+    <div class="summaryContent">
+      <div>
+        <div class="summaryHeader">
+          <h1>Join 360</h1>
+          <div class="vertical-line"></div>
+          <p>Key Metrics at a Glance</p>
+        </div>
+
+        <div>
+          <button>
+            <div class="summaryFields">
+              <div class="bgCirclesGrey">
+                <img class="fieldImgs" src="../assets/icons/edit_white_icon.svg" alt="edit icon">
+              </div>
+              <div>
+                <h1>1</h1>
+                <p>To-Do</p>
+              </div>
+            </div>
+          </button>
+          <button>
+            <div class="summaryFields">
+              <div class="bgCirclesGrey">
+                <img class="fieldImgs" src="../assets/icons/check.svg" alt="check icon">
+              </div>
+              <div>
+                <h1>1</h1>
+                <p>Done</p>
+              </div>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <div>
+        <button>
+          <div class="middleField">
+            <div class="middleFieldContent">
+              <div class="bgCirclesRed">
+                <img class="fieldImgs" src="../assets/icons/Capa 2.svg" alt="Prio alta">
+              </div>
+              <h1>Join 360</h1>
+            </div>
+            <div class="vertical-line"></div>
+            <p>Key Metrics at a Glance</p>
+          </div>
+        </button>
+      </div>
+    </div>
+  </main>
+</body>
+
 </html>
