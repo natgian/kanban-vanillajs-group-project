@@ -51,4 +51,32 @@
         justify-content: center;
         padding: 36px 56px;
     }
+
+    .bottomFields{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .splitSections{
+        display: flex;
+        align-items: center;
+    }
+
+    .leftSection{
+        width: 60%;
+
+        button{
+            margin-bottom: 24px;
+        }
+    }
+
+    .rightSection{
+        width: 40%;
+        padding-left: 56px;
+
+        h2{
+            font-size: 36px;
+        }
+    }
 }
