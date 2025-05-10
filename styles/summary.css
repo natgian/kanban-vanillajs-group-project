@@ -1,10 +1,28 @@
+.w100 {
+    width: 100%;
+}
+
+
+
+
 .summaryContent {
     padding: 100px;
 
-    .vertical-line {
-        width: 2px;
+    p {
+        color: var(--primary-color);
+    }
+
+    .verticalLineBlue {
+        width: 3px;
         height: 60px;
-        background-color: #29abe2;
+        background-color: var(--hover-color);
+        margin: 0 24px;
+    }
+
+    .verticalLineGrey {
+        width: 2px;
+        height: 100px;
+        background-color: var(--outline-color);
         margin: 0 24px;
     }
 
@@ -12,6 +30,10 @@
         display: flex;
         align-items: center;
         padding-bottom: 48px;
+
+        p {
+            font-size: 24px;
+        }
     }
 
     .summaryFields {
@@ -22,6 +44,28 @@
 
     button {
         border-radius: 24px;
+        border: none;
+        background-color: white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s ease;
+    }
+
+    button:hover {
+        color: var(--white-color);
+        background-color: var(--primary-color);
+        transform: scale(1.05);
+
+        p {
+            color: var(--white-color);
+        }
+
+        .bgCirclesGrey {
+            background-color: var(--white-color);
+        }
+
+        img{
+            color: #ff3d00;
+        }
     }
 
     .fieldImgs {
@@ -32,51 +76,70 @@
 
     .bgCirclesGrey {
         border-radius: 50px;
-        background-color: yellow;
+        background-color: var(--primary-color);
     }
 
     .bgCirclesRed {
-        background-color: red;
+        background-color: #ff3d00;
         border-radius: 50px;
     }
 
-    .middleFieldContent{
+    .middleFieldContent {
         display: flex;
         align-items: center;
     }
 
-    .middleField{
+    .middleField {
         display: flex;
         align-items: center;
-        justify-content: center;
-        padding: 36px 56px;
+        justify-content: space-around;
+        padding: 28px;
+
+        p {
+            font-size: 20px;
+            font-weight: 700;
+            padding-bottom: 8px;
+        }
+
+        .dateSection {
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+        }
     }
 
-    .bottomFields{
+    .bottomFields {
         display: flex;
         justify-content: space-between;
         align-items: center;
     }
 
-    .splitSections{
+    .splitSections {
         display: flex;
         align-items: center;
     }
 
-    .leftSection{
-        width: 60%;
+    .leftSection {
+        width: 40%;
 
-        button{
+        button {
             margin-bottom: 24px;
+        }
+
+        .topRowDFlex {
+            display: flex;
+            justify-content: space-between;
         }
     }
 
-    .rightSection{
-        width: 40%;
+    .rightSection {
+        width: 60%;
         padding-left: 56px;
 
-        h2{
+        h2 {
+            color: var(--primary-color);
             font-size: 36px;
+            font-weight: 500;
         }
     }
 }
