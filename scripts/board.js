@@ -175,21 +175,22 @@ async function updateSubtaskCompletion(subtaskIndex, taskId) {
   }
 }
 
+/**
+ * Deletes the task, closes the task details view, shows a confirmation message and renitializes the task board
+ *
+ * @param {string} taskId - ID of the current task
+ */
 async function deleteTask(taskId) {
   try {
-    const response = await fetch(`${baseURL}/tasks/${taskId}.json`, {
+    await fetch(`${baseURL}/tasks/${taskId}.json`, {
       method: "DELETE",
     });
-
-    if (!response.ok) {
-      throw new Error("Failed to delete task");
-    }
 
     closeTaskDetails();
     showMessage("Task successfully deleted");
     init();
   } catch (error) {
-    console.error("Dask deletion failed:", error);
+    console.error("Task deletion failed:", error);
   }
 }
 
