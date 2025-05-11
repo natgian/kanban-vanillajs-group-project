@@ -131,7 +131,7 @@ function renderAddTask() {
               <span><label>*</label>This field is required</span>
               <div class="bottomButtonsSplice">
                 <button class="bottomButton1" onclick="location.reload()">
-                  Clear<img src="../assets/icons/iconoir_cancel.png" alt="X" />
+                  Clear<div class="x-icon"></div>
                 </button>
                 <button
                   class="bottomButton2"
