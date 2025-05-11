@@ -50,6 +50,10 @@
         transition: transform 0.2s ease;
     }
 
+    .fieldImgs path {
+        fill: var(--white-color);
+    }
+
     button:hover {
         color: var(--white-color);
         background-color: var(--primary-color);
@@ -63,8 +67,9 @@
             background-color: var(--white-color);
         }
 
-        img{
-            color: #ff3d00;
+
+        .fieldImgs path {
+            fill: var(--primary-color);
         }
     }
 
