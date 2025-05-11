@@ -49,7 +49,10 @@
 .typeBars:focus,
 .typeBars:active {
   border-color: var(--hover-color);
-  outline: none; /* Entfernt den Standard-Fokus-Rahmen */
+  outline: none;
+}
+.typeBars:hover{
+  border: 1px solid var(--hover-color);
 }
 #date-input {
   color: var(--outline-color);
@@ -178,13 +181,10 @@ label {
 
 /* Selects */
 .dropdown-selected {
-  align-items: center;
   cursor: pointer;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
   width: 100%;
-  text-align: start;
+  text-align: left;
   background-image: url("../assets/icons/arrow_drop_downaa.png");
   background-repeat: no-repeat;
   background-position: calc(100% - 15px) center;

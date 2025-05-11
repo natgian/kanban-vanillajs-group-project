@@ -6,6 +6,7 @@
 // }
 // document.getElementById("#").innerHTML = renderAddTask();
 
+// Due to Text-Color-Change
 function checkValue() {
     let input = document.getElementById("date-input");
     if (input.value) {
@@ -13,22 +14,6 @@ function checkValue() {
     } else {
         input.classList.remove("filled");
     }
-}
-
-function toggleDropdown(id) {
-    document.querySelectorAll('.dropdown-list').forEach(dropdown => {
-        if (dropdown.id === id) {
-            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-        } else {
-            dropdown.style.display = 'none';
-        }
-    });
-}
-function selectOption(spanId, value) {
-    document.getElementById(spanId).textContent = value;
-    document.querySelectorAll('.dropdown-list').forEach(dropdown => {
-        dropdown.style.display = 'none';
-    });
 }
 
 // Priority Buttons
@@ -42,8 +27,7 @@ function selectButton(button) {
 
     button.classList.add('selected');
 
-    // Individuelle Farbe aus `data-color` lesen
-    const color = button.dataset.color || "#ffa800"; // Standardfarbe für Fälle ohne `data-color`
+    const color = button.dataset.color || "#ffa800";
     button.style.backgroundColor = color;
     button.style.color = "white";
     button.style.fontWeight = "bold";
@@ -81,7 +65,7 @@ function observeDropdownChanges() {
 }
 document.addEventListener("DOMContentLoaded", function() {
     document.addEventListener("input", validateRequiredFields);
-    observeDropdownChanges(); // Aktiviert die Beobachtung
+    observeDropdownChanges(); 
 });
 
 // Selectbars
