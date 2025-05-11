@@ -1,11 +1,3 @@
-// RenderAddTask
-// function renderAddTask() {
-//     return  `
-//             // Add Task-Content
-//             `;
-// }
-// document.getElementById("#").innerHTML = renderAddTask();
-
 // Due to Text-Color-Change
 function checkValue() {
     let input = document.getElementById("date-input");
