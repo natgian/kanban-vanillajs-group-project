@@ -4,6 +4,7 @@ const taskDetailsRef = document.getElementById("task-overlay");
 const taskDetailsContentRef = document.getElementById("task-overlay-content");
 
 let allTasks = [];
+let currentDraggedElement;
 
 /**
  * This function initiates the fetching, grouping and rendering of the tasks when the board page is loaded
@@ -229,6 +230,27 @@ function initSearch() {
   const searchInput = document.getElementById("find-task");
   if (searchInput) {
     searchInput.addEventListener("input", searchTasks);
+  }
+}
+
+function startDragging(taskId) {
+  currentDraggedElement = taskId;
+}
+
+function allowDrop(event) {
+  event.preventDefault();
+}
+
+async function moveTo(status) {
+  try {
+    await fetch(`${baseURL}/tasks/${currentDraggedElement}.json`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ status: status }),
+    });
+    init();
+  } catch (error) {
+    console.error("Failed to move task:", error);
   }
 }
 

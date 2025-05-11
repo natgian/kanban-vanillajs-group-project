@@ -10,7 +10,7 @@
  */
 function cardTemplate(task, subtasksTotal, subtasksDone, progressPercent, assignedToHTML) {
   return `
-          <div class="task-card" onclick="openTaskDetails('${task.taskId}')">
+          <div class="task-card" onclick="openTaskDetails('${task.taskId}')" draggable="true" ondragstart="startDragging('${task.taskId}')">
             <span class="task-category ${task.category === "Technical Task" ? "technical" : "userstory"}-category">${task.category}</span>
                   <div>
                     <h3 class="task-card-title">${task.title}</h3>

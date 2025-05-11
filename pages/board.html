@@ -113,7 +113,7 @@
                   </svg>
                 </button>
               </div>
-              <div class="cards-container" id="to-do"></div>
+              <div class="cards-container" id="to-do" ondrop="moveTo('to-do')" ondragover="allowDrop(event)"></div>
             </div>
 
             <!-- In progress -->
@@ -128,7 +128,7 @@
                   </svg>
                 </button>
               </div>
-              <div class="cards-container" id="in-progress"></div>
+              <div class="cards-container" id="in-progress" ondrop="moveTo('in-progress')" ondragover="allowDrop(event)"></div>
             </div>
 
             <!-- Await feedback -->
@@ -143,7 +143,7 @@
                   </svg>
                 </button>
               </div>
-              <div class="cards-container" id="awaiting-feedback"></div>
+              <div class="cards-container" id="awaiting-feedback" ondrop="moveTo('awaiting-feedback')" ondragover="allowDrop(event)"></div>
             </div>
 
             <!-- Done -->
@@ -151,7 +151,7 @@
               <div class="column-header">
                 <h2 class="task-title">Done</h2>
               </div>
-              <div class="cards-container" id="done"></div>
+              <div class="cards-container" id="done" ondrop="moveTo('done')" ondragover="allowDrop(event)"></div>
             </div>
           </section>
 

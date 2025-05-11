@@ -81,7 +81,7 @@ const tasks = [
     priority: "medium",
     assignedTo: [{ name: "Isabel Lange", initials: "IL", color: "#A52A2A" }],
     category: "Technical Task",
-    subtasks: [{ done: true, subtask: "Install Packages" }],
+    subtasks: [{ done: false, subtask: "Install Packages" }],
   },
   {
     status: "done",
@@ -136,7 +136,7 @@ const tasks = [
     ],
     category: "User Story",
     subtasks: [
-      { done: false, subtask: "Toggle Button UI" },
+      { done: true, subtask: "Toggle Button UI" },
       { done: false, subtask: "Dark Theme CSS" },
     ],
   },
