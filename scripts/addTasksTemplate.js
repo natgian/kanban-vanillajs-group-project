@@ -83,6 +83,7 @@ function renderAddTask() {
                       type="button"
                       value="Select contacts to assign"
                       class="dropdown-selected typeBars"
+                      id="contactDropdown"
                       onclick="toggleDropdown(this)"
                     />
                     <div class="dropdown-options">
@@ -91,6 +92,7 @@ function renderAddTask() {
                       <div class="option" data-value="Task 3" onclick="selectOption(this)">Task 3</div>
                       <div class="option" data-value="Task 4" onclick="selectOption(this)">Task 4</div>
                     </div>
+                    <div id="linkedContacts"></div>
                   </div>
                 </div>
                 <div class="spanGlue">
@@ -103,11 +105,9 @@ function renderAddTask() {
                       onclick="toggleDropdown(this)"
                       required
                     />
-                    <div class="dropdown-options">
-                      <div class="option" data-value="Contact 1" onclick="selectOption(this)">Contact 1</div>
-                      <div class="option" data-value="Contact 2" onclick="selectOption(this)">Contact 2</div>
-                      <div class="option" data-value="Contact 3" onclick="selectOption(this)">Contact 3</div>
-                      <div class="option" data-value="Contact 4" onclick="selectOption(this)">Contact 4</div>
+                    <div class="dropdown-options" style="overflow-y: hidden;">
+                      <div class="option" data-value="Technical Task" onclick="selectOption(this)">Technical Task</div>
+                      <div class="option" data-value="User Story" onclick="selectOption(this)">User Story</div>
                     </div>
                   </div>
                 </div>
