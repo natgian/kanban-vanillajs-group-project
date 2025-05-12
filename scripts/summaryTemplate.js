@@ -1,4 +1,4 @@
-function summaryTemplate() {
+function summaryTemplate(userName = 'user1') {
     return `<div class="summaryContent">
       <div>
         <div class="summaryHeader">
@@ -11,7 +11,7 @@ function summaryTemplate() {
       <div class="splitSections">
         <section class="leftSection">
           <div class="topRowDFlex">
-            <button>
+            <button onclick="linkToBoard()">
               <div class="summaryFields">
                 <div class="bgCirclesGrey">
                   <svg class="fieldImgs" xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
@@ -25,7 +25,7 @@ function summaryTemplate() {
                 </div>
               </div>
             </button>
-            <button>
+            <button onclick="linkToBoard()">
               <div class="summaryFields">
                 <div class="bgCirclesGrey">
                   <svg class="fieldImgs" xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25"
@@ -50,7 +50,7 @@ function summaryTemplate() {
 
 
           <div>
-            <button class="w100">
+            <button onclick="linkToBoard()" class="w100">
               <div class="middleField">
                 <div class="middleFieldContent">
                   <div class="bgCirclesRed">
@@ -71,7 +71,7 @@ function summaryTemplate() {
           </div>
 
           <div class="bottomFields">
-            <button>
+            <button onclick="linkToBoard()">
               <div class="summaryFields">
                 <div>
                   <h1 id="amountTasksNumber">1</h1>
@@ -79,7 +79,7 @@ function summaryTemplate() {
                 </div>
               </div>
             </button>
-            <button>
+            <button onclick="linkToBoard()">
               <div class="summaryFields">
                 <div>
                   <h1 id="progressNumber">1</h1>
@@ -87,7 +87,7 @@ function summaryTemplate() {
                 </div>
               </div>
             </button>
-            <button>
+            <button onclick="linkToBoard()">
               <div class="summaryFields">
                 <div>
                   <h1 id="awaitFeedbackNumber">1</h1>
@@ -99,11 +99,9 @@ function summaryTemplate() {
         </section>
 
         <section class="rightSection">
-          <h2>Good morning</h2>
+          <h2>Good morning,</h2>
+          <h3 id="userName">Lade Benutzer...</h3>
         </section>
       </div>
     </div>`;
 }
-
-
-
