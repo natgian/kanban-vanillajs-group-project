@@ -60,37 +60,80 @@ document.addEventListener("DOMContentLoaded", function() {
     observeDropdownChanges(); 
 });
 
-// Selectbars
+// Costom-Select (Assigned to) "IN PROGRESS"
+function toggleTextDropdown(input) {
+    if (input.id !== "contactDropdown") return;
+    const options = input.nextElementSibling;
+    closeAllDropdowns(options);
+    toggleVisibility(options);
+    input.type = "text";
+    input.value = "";
+    input.dataset.value = "";
+    input.oninput = () => filterOptions(input.value);
+}
+function selectOption(element) {
+    const input = document.getElementById("contactDropdown");
+    if (!input) return;
+    
+    input.value = element.dataset.value;
+    input.dataset.value = element.dataset.value;
+    closeAllDropdowns();
+    
+    const selectedDiv = document.getElementById("selectedContacts");
+    selectedDiv.innerHTML = `<p>Ausgewählt: ${element.dataset.value}</p>`;
+}
+function resetTextDropdown() {
+    const input = document.getElementById("contactDropdown");
+    if (input && !input.dataset.value) {
+        input.type = "button";
+        input.value = "Select contacts to assign";
+    }
+}
+function filterOptions(query) {
+    document.querySelectorAll("#contactDropdown + .dropdown-options .option").forEach(option => {
+        option.style.display = option.dataset.value.toLowerCase().includes(query.toLowerCase()) ? "block" : "none";
+    });
+}
+function closeAllDropdowns() {
+    document.querySelectorAll(".dropdown-options").forEach(dropdown => {
+        dropdown.style.display = "none";
+    });
+}
+document.querySelectorAll(".option").forEach(option => {
+    option.addEventListener("click", function() {
+        selectOption(this);
+    });
+});
+
+// Dropdown (Category)
 function toggleDropdown(element) {
+    if (!element.classList.contains("categoryDropdown")) return;
     const options = element.nextElementSibling;
     closeAllDropdowns(options);
     toggleVisibility(options);
 }
-  function selectOption(element) {
+function selectOption(element) {
     const dropdown = element.closest(".dropdown-container").querySelector(".dropdown-selected");
+    if (!dropdown.classList.contains("categoryDropdown")) return;
     setSelectedValue(dropdown, element.textContent, element.dataset.value);
     toggleVisibility(element.parentElement, false);
 }
 function toggleVisibility(element, forceToggle = true) {
     if (element) {
-      element.style.display = forceToggle 
-        ? (element.style.display === "block" ? "none" : "block") 
-        : "none";
+        element.style.display = forceToggle ? (element.style.display === "block" ? "none" : "block") : "none";
+        if (element.style.display === "none") resetTextDropdown();
     }
 }
-function closeAllDropdowns(exceptElement) {
+function closeAllDropdowns(exceptElement = null) {
     document.querySelectorAll(".dropdown-options").forEach(opt => {
-      if (opt !== exceptElement) opt.style.display = "none";
+        if (opt !== exceptElement) opt.style.display = "none";
     });
 }
 function setSelectedValue(dropdown, text, value) {
-    if (dropdown) {
-        dropdown.value = text;
-        dropdown.dataset.value = value;
-    }
+    if (!dropdown.classList.contains("categoryDropdown")) return;
+    dropdown.value = text;
+    dropdown.dataset.value = value;
 }
-document.addEventListener("click", function (event) {
-    if (!event.target.closest(".dropdown-container")) {
-      closeAllDropdowns();
-    }
-  });
+document.addEventListener("click", event => {
+    if (!event.target.closest(".dropdown-container")) closeAllDropdowns();
+});
