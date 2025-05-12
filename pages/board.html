@@ -113,7 +113,7 @@
                   </svg>
                 </button>
               </div>
-              <div class="cards-container" id="to-do" ondrop="moveTo('to-do')" ondragover="allowDrop(event)"></div>
+              <div class="cards-container" id="to-do" ondrop="moveTo('to-do')" ondragover="allowDrop(event), highlightDropArea('to-do')" ondragleave="removeHighlight('to-do')"></div>
             </div>
 
             <!-- In progress -->
@@ -128,7 +128,13 @@
                   </svg>
                 </button>
               </div>
-              <div class="cards-container" id="in-progress" ondrop="moveTo('in-progress')" ondragover="allowDrop(event)"></div>
+              <div
+                class="cards-container"
+                id="in-progress"
+                ondrop="moveTo('in-progress')"
+                ondragover="allowDrop(event), highlightDropArea('in-progress')"
+                ondragleave="removeHighlight('in-progress')"
+              ></div>
             </div>
 
             <!-- Await feedback -->
@@ -143,7 +149,13 @@
                   </svg>
                 </button>
               </div>
-              <div class="cards-container" id="awaiting-feedback" ondrop="moveTo('awaiting-feedback')" ondragover="allowDrop(event)"></div>
+              <div
+                class="cards-container"
+                id="awaiting-feedback"
+                ondrop="moveTo('awaiting-feedback')"
+                ondragover="allowDrop(event), highlightDropArea('awaiting-feedback')"
+                ondragleave="removeHighlight('awaiting-feedback')"
+              ></div>
             </div>
 
             <!-- Done -->
@@ -151,7 +163,7 @@
               <div class="column-header">
                 <h2 class="task-title">Done</h2>
               </div>
-              <div class="cards-container" id="done" ondrop="moveTo('done')" ondragover="allowDrop(event)"></div>
+              <div class="cards-container" id="done" ondrop="moveTo('done')" ondragover="allowDrop(event), highlightDropArea('done')" ondragleave="removeHighlight('done')"></div>
             </div>
           </section>
 
@@ -161,6 +173,10 @@
           </div>
         </div>
       </div>
+
+      <select name="choose a color" id="">
+        <option value="test">dsdsf</option>
+      </select>
     </main>
   </body>
 </html>

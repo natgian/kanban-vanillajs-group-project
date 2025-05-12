@@ -233,15 +233,49 @@ function initSearch() {
   }
 }
 
+/**
+ * Sets the ID of the task currently being dragged
+ *
+ * @param {string} taskId - ID of the task currently being dragged
+ */
 function startDragging(taskId) {
   currentDraggedElement = taskId;
 }
 
+/**
+ * Allows the drop event to occur by preventing the default behaviour
+ *
+ * @param {DragEvent} event - The dragover event triggered when dragging over a drop element
+ */
 function allowDrop(event) {
   event.preventDefault();
 }
 
+/**
+ * Highlights the drop area while a task is being dragged over it
+ *
+ * @param {string} status - The status column ID where the task can be dropped
+ */
+function highlightDropArea(status) {
+  document.getElementById(status).classList.add("drag-area-highlight");
+}
+
+/**
+ * Removes the highlight from a drop area when the task is no longer dragged over it
+ *
+ * @param {string} status - The status column ID from which the highlight should be removed
+ */
+function removeHighlight(status) {
+  document.getElementById(status).classList.remove("drag-area-highlight");
+}
+
+/**
+ * Moves the currently dragged task to a new status and updates the backend
+ *
+ * @param {string} status - The status column ID where the task should be moved to
+ */
 async function moveTo(status) {
+  document.getElementById(status).classList.remove("drag-area-highlight");
   try {
     await fetch(`${baseURL}/tasks/${currentDraggedElement}.json`, {
       method: "PATCH",
