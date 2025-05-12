@@ -14,7 +14,7 @@ function cardTemplate(task, subtasksTotal, subtasksDone, progressPercent, assign
             <span class="task-category ${task.category === "Technical Task" ? "technical" : "userstory"}-category">${task.category}</span>
                   <div>
                     <h3 class="task-card-title">${task.title}</h3>
-                    <p class="task-card-description">${task.description}</p>
+                    <p class="task-card-description">${task.description ? task.description : ""}</p>
                   </div>
                   <div class="subtasks-container" id="subtasks-container-${task.taskId}">
                   ${
@@ -69,7 +69,7 @@ function taskOverlayTemplate(task, assignedToDetailHTML, subtasksHTML) {
 
           <div class="task-overlay-content-wrapper">
           <p class="task-overlay-title">${task.title}</p>
-          <p class="task-overlay-description">${task.description}</p>
+          <p class="task-overlay-description">${task.description ? task.description : ""}</p>
 
           <div class="task-overlay-data-wrapper">
             <span class="task-overlay-label">Due date:</span>
