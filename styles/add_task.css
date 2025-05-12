@@ -1,182 +1,198 @@
-/* Changes */
-
-header{
-    box-shadow: rgba(46, 46, 46, 0.2) 0px 2px 8px 0px;
-    width: calc(100dvw - 232px);
-    max-height: 96px;
-    position: sticky;
-    top: 0;
+.contentBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100dvh - 96px);
+}
+.contentLimit {
+  max-width: 1440px;
+  width: 100%;
+  padding: 20px;
+  display: grid;
+  place-items: center;
+}
+.contentWrapper {
+  display: grid;
+  align-items: stretch;
+  max-width: 940px;
+  width: 100%;
+}
+.contentWrapper button:hover {
+  transform: scale(0.95);
+}
+.inputOrg {
+  display: flex;
+  padding-top: 40px;
+}
+.taskInfomations {
+  height: 376px;
+  max-width: 440px;
+  flex-grow: 1;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+.typeBars {
+  min-height: 48px;
+  border-radius: 10px;
+  border-style: solid;
+  border-width: 1px;
+  padding: 0 15px;
+  border-color: var(--outline-color);
+  background-color: white;
+  font-size: 20px;
+  cursor: text;
+}
+.typeBars::placeholder {
+  color: var(--outline-color);
+}
+#date-input {
+  color: var(--outline-color);
 }
 
-body {
-    width: 100dvw;
+#date-input.filled {
+  color: black;
+}
+.typeBars span {
+  padding-top: 5px;
+}
+.typePriorityBars {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+}
+.inputOrg span {
+  font-size: 20px;
+  padding-bottom: 7px;
+}
+.spanGlue {
+  display: flex;
+  flex-direction: column;
+}
+.inputOrg hr {
+  height: 424px;
+  width: 1px;
+  margin: 0px 30px;
+  border: none;
+  background-color: var(--outline-color);
+}
+.taskCategorysation {
+  height: 400px;
+  max-width: 440px;
+  display: flex;
+  justify-content: space-between;
+  flex-grow: 1;
+  flex-direction: column;
+}
+.priorityArange {
+  display: flex;
+  justify-content: space-between;
+}
+.priorityBtns {
+  height: 56px;
+  width: 136px;
+  padding: 16px 10px 16px 8px;
+  border-radius: 10px;
+  border: none;
+  font-size: 20px;
+  background-color: white;
+  box-shadow: rgb(0, 0, 0, 0.1) 0px 0px 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.selected {
+  background-color: #ffa800;
+  color: white;
+  font-weight: bold;
+}
+.subtask-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.subtask-container img {
+  position: absolute;
+  right: 15px;
+  height: 24px;
+  width: 24px;
+  cursor: pointer;
+  z-index: 50;
+}
+.subtask-container img:hover {
+  transform: scale(0.8);
+  justify-self: center;
+  align-self: center;
+}
+.bottomButtons {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+.bottomButtonsSplice {
+  gap: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+.bottomButtons button {
+  height: 56px;
+  gap: 4px;
+  border-radius: 10px;
+  font-size: 20px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 100px;
+  border-style: solid;
+}
+.bottomButton1 {
+  color: var(--primary-color);
+  border-width: 1px;
+  border-color: var(--primary-color);
+  background-color: rgba(0, 0, 0, 0);
+}
+.bottomButton2 {
+  background-color: var(--outline-color);
+  color: white;
+  font-weight: 700;
+  border-color: var(--outline-color);
+  cursor: not-allowed;
+}
+.bottomButton2.enabled {
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: 700;
+}
+label {
+  color: #ff8190;
 }
 
-.sidebar-container {
-    width: 100%;
-}
-  
-.sidebar-menu {
-    width: 100%;
-}
-
-.header-icons-container {
-    width: 104px;
-    height: 56px;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-.help-iconBox{
-    height: 32px;
-    width: 32px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+/* Selects */
+.dropdown-selected {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
 }
 
-/* Add Task */
-main{
-    height: 100dvh; 
-    overflow: auto;
-}
-main::-webkit-scrollbar{
-    /* display: none; */
-}
-.contentBox{
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    min-height: calc(100dvh - 96px);
-}
-.contentLimit{
-    max-width: 1440px;
-    width: 100%;
-    display: grid;
-    place-items: center;
-}
-.contentWrapper{
-    display: grid;
-    align-items: stretch;
-    max-width: 940px;
-    width: 100%;
-    padding-top: 100px;
-}
-.inputOrg{
-    display: flex;
-    padding-top: 40px;
-}
-.taskInfomations{
-    height: 376px;
-    max-width: 440px;
-    flex-grow: 1;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
-}
-.typeBars{
-    min-height: 48px;
-    border-radius: 10px;
-    border-style: solid;
-    border-width: 1px;
-    padding: 0 15px;
-    border-color: var(--outline-color);
-    background-color: white;
-    font-size: 20px;
-}
-.typeBars::placeholder{
-    color: var(--outline-color);
+.dropdown-options {
+  display: none;
+  position: absolute;
+  width: 100%;
+  max-width: 440px;
+  background: white;
+  border: 1px solid #ccc;
+  z-index: 60;
 }
 
-.typeBars span{
-    padding-top: 5px;
+.dropdown-options .option {
+  padding: 10px;
+  cursor: pointer;
 }
-.typePriorityBars{
-    display: flex;
-    align-items: center;
-}
-.inputOrg span{
-    font-size: 20px;
-    padding-bottom: 7px;
-}
-.spanGlue{
-    display: flex;
-    flex-direction: column;
-}
-.inputOrg hr{
-    height: 424px;
-    width: 1px;
-    margin: 0px 30px;
-    border: none;
-    background-color: var(--outline-color);
-}
-.taskCategorysation{
-    height: 400px;
-    max-width: 440px;
-    display: flex;
-    justify-content: space-between;
-    flex-grow: 1;
-    flex-direction: column;
-}
-.priorityArange{
-    display: flex;
-    justify-content: space-between;
-}
-.priorityBtns{
-    height: 56px;
-    width: 136px;
-    padding: 16px 10px 16px 8px;
-    border-radius: 10px;
-    border: none;
-    font-size: 20px;
-    background-color: white;
-    box-shadow: rgb(0, 0, 0, 0.1) 0px 0px 4px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.priorityMediumBtn{
-    height: 56px;
-    width: 136px;
-    padding: 16px 10px 16px 8px;
-    border-radius: 10px;
-    border: none;
-    font-size: 20px;
-    font-weight: bold;
-    color: white;
-    background-color: #FFA800;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.bottomButtons{
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-}
-.bottomButtonsSplice{
-    gap: 20px;
-    display: flex;
-    justify-content: flex-end;
-}
-.bottomButtons button{
-    height: 56px;
-    gap: 4px;
-    border-radius: 10px;
-    font-size: 20px;
-    padding: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.bottomButton1{
-    color: var(--primary-color);
-    border-width: 1px;
-    border-color: var(--primary-color);
-    background-color: rgba(0, 0, 0, 0);
-}
-.bottomButton2{
-    background-color: var(--primary-color);
-    color: white;
-    font-weight: 700;
+
+.dropdown-options .option:hover {
+  background: #f0f0f0;
 }

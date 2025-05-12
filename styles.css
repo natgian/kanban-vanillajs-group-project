@@ -4,14 +4,14 @@
 
 @font-face {
   font-family: "Inter";
-  src: url("./assets/fonts/Inter-VariableFont_opsz,wght.ttf") format("truetype");
+  src: url("../assets/fonts/Inter-VariableFont_opsz,wght.ttf") format("truetype");
   font-weight: 100 900;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Inter";
-  src: url("./assets/fonts/Inter-Italic-VariableFont_opsz,wght.ttf") format("truetype");
+  src: url("../assets/fonts/Inter-Italic-VariableFont_opsz,wght.ttf") format("truetype");
   font-weight: 100 900;
   font-style: italic;
 }
@@ -25,6 +25,12 @@
   padding: 0;
   font: inherit;
   box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  display: flex;
 }
 
 img,
@@ -58,7 +64,7 @@ a {
   --active-color: #091931;
   --white-color: #ffffff;
   --black-color: #000000;
-  --outline-color: #D1D1D1;
+  --outline-color: #d1d1d1;
   /* transitions */
   --transition: all 200ms ease-in-out;
 }
@@ -69,12 +75,18 @@ body {
   font-size: 16px;
   width: 100dvw;
   background-color: #f6f7f8;
+  display: flex;
 }
 
 .layout-container {
   position: relative;
-  width: 100%;
-  max-width: 1920px;
+  height: 100dvh;
+  width: calc(100dvw - 232px);
+  overflow: auto;
+}
+
+.layout-container::-webkit-scrollbar {
+  display: none;
 }
 
 .layout-container,
@@ -85,6 +97,14 @@ body {
 h1 {
   font-size: 61px;
   font-weight: 700;
+}
+
+.mt-8 {
+  margin-top: 8px;
+}
+
+.no-scroll {
+  overflow: hidden;
 }
 
 /*-------- */
@@ -132,6 +152,10 @@ header {
   font-size: 20px;
   background-color: var(--white-color);
   box-shadow: 0 4px 4px rgb(0, 0, 0, 0.1);
+  flex-grow: 1;
+  position: sticky;
+  top: 0;
+  left: 0;
 }
 
 .header-icons-container {
@@ -141,6 +165,14 @@ header {
   justify-content: space-between;
   align-items: center;
   gap: 16px;
+}
+
+.help-iconBox {
+  height: 32px;
+  width: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .help-icon:hover {
@@ -189,6 +221,7 @@ header {
   flex-direction: column;
   gap: 15px;
   width: 100%;
+  cursor: pointer;
 }
 
 .sidebar-menu-link img {

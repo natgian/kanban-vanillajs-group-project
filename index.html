@@ -20,7 +20,7 @@
     <img src="./assets/img/join_logo_dark.svg" alt="Join Logo">
     <div>
       <span>Not a Join User?</span>
-      <button class="singUpBtn">Sign up</button>
+      <button id="signUpBtn" class="singUpBtn">Sign up</button>
     </div>
   </header>
 
@@ -35,20 +35,21 @@
           <img style="top: 40%;" src="./assets/icons/mail_icon.svg" alt="Email Icon">
         </div>
         <div class="inputWrapper">
-          <input required type="password" name="Password" placeholder="Password">
+          <input required type="password" name="Password" placeholder="Password" id="passwordInput">
           <img src="./assets/icons/lock_icon.svg" alt="Password Icon">
         </div>
+        <div id="loginMessage" class="message"></div>            
         <div>
           <button class="loginBtn">Log in</button>
-          <button class="guestLoginBtn">Guest Log in</button>
+          <button id="guestLoginBtn" class="guestLoginBtn">Guest Log in</button>
         </div>
       </form>
     </div>
   </main>
 
   <footer>
-    <a class="pr-40" href="http://">Privacy Policy</a>
-    <a href="http://">Legal notice</a>
+    <a class="pr-40" href="./pages/privacy_policy.html">Privacy Policy</a>
+    <a href="./pages/legal_notice.html">Legal notice</a>
   </footer>
 </body>
 <script src="./scripts/login.js"></script>

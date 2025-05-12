@@ -8,67 +8,61 @@
     <script src="/scripts/contacts.js"></script>
     <script src="/scripts/templateContacts.js"></script>
   </head>
-  <body onload="init()">
-      <div class="wrapper max-width">
-        <div class="sidebar">
-          <div class="sidebartop">
-            <img src="/assets/img/join_logo_white.svg" alt="logo" class="logo">
-          </div>
-          <div class="sidebarmiddle">
-            <ul class="sidebar-menu">
-              <li>
-                <a href="./summary.html" class="sidebar-menu-link">
-                  <img src="../assets/icons/summary_icon.svg" alt="summary icon" />
-                  Summary
-                </a>
-              </li>
-              <li>
-                <a href="./add_task.html" class="sidebar-menu-link">
-                  <img src="../assets/icons/add_task_icon.svg" alt="add task icon" />
-                  Add Task
-                </a>
-              </li>
-              <li>
-                <a href="./board.html" class="sidebar-menu-link">
-                  <img src="../assets/icons/board_icon.svg" alt="board icon" />
-                  Board
-                </a>
-              </li>
-              <li>
-                <a href="./contacts.html" class="sidebar-menu-link active-link">
-                  <img src="../assets/icons/contacts_icon.svg" alt="contacts icon" />
-                  Contacts
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div class="sidebarbottom">
-            <a href="">Privacy Policy</a>
-            <a href="">Legal notice</a>
-          </div>
+  <body>
+    <main class="layout-container">
+      <!-- Header -->
+      <header>
+        <span>Kanban Project Management Tool</span>
+        <div class="header-icons-container">
+          <a href="./help.html"><img class="help-icon" src="../assets/icons/help_icon.svg" alt="help icon" /></a>
+          <button class="user-profile-icon"><span>G</span></button>
         </div>
-        <div class="content-area">
-          <header class="max-width">
-            <span>Kanban Project Management Tool</span>
-            <div class="header-icons-container">
-              <a href="./help.html"><img class="help-icon" src="../assets/icons/help_icon.svg" alt="help icon" /></a>
-              <button class="user-profile-icon"><span>G</span></button>
-            </div>
-          </header>
-          <main>
-            <div id="contact-list">
-              <button class="btn">Add new contact
-                <img src="/assets/icons/person_add.svg" alt="">
-              </button>
-              <div id="contact-list-body">
-
-              </div>
-            </div>
-            <div id="contenttop">
-              
-            </div>
-          </main>
+      </header>
+      <!-- Sidebar -->
+      <nav class="sidebar">
+        <div class="sidebar-container">
+          <!-- Logo -->
+          <div>
+            <img src="../assets/img/join_logo_white.svg" alt="Join logo" class="logo" />
+          </div>
+          <!-- Navigation -->
+          <ul class="sidebar-menu">
+            <li>
+              <a href="./summary.html" class="sidebar-menu-link">
+                <img src="../assets/icons/summary_icon.svg" alt="summary icon" />
+                Summary
+              </a>
+            </li>
+            <li>
+              <a href="./add_task.html" class="sidebar-menu-link">
+                <img src="../assets/icons/add_task_icon.svg" alt="add task icon" />
+                Add Task
+              </a>
+            </li>
+            <li>
+              <a href="./board.html" class="sidebar-menu-link">
+                <img src="../assets/icons/board_icon.svg" alt="board icon" />
+                Board
+              </a>
+            </li>
+            <li>
+              <a href="./contacts.html" class="sidebar-menu-link active-link">
+                <img src="../assets/icons/contacts_icon.svg" alt="contacts icon" />
+                Contacts
+              </a>
+            </li>
+          </ul>
         </div>
-      </div>
+        <!-- Footer-Links -->
+        <ul class="sidebar-footer">
+          <li class="sidebar-footer-link">
+            <a href="./privacy_policy.html">Privacy Policy</a>
+          </li>
+          <li class="sidebar-footer-link">
+            <a href="./legal_notice.html">Legal notice</a>
+          </li>
+        </ul>
+      </nav>
+    </main>
   </body>
 </html>
