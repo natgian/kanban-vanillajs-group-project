@@ -82,11 +82,13 @@
     .bgCirclesGrey {
         border-radius: 50px;
         background-color: var(--primary-color);
+        margin-right: 16px;
     }
 
     .bgCirclesRed {
         background-color: #ff3d00;
         border-radius: 50px;
+        margin-right: 16px;
     }
 
     .middleFieldContent {
@@ -125,7 +127,7 @@
     }
 
     .leftSection {
-        width: 40%;
+        width: 50%;
 
         button {
             margin-bottom: 24px;
@@ -138,7 +140,7 @@
     }
 
     .rightSection {
-        width: 60%;
+        width: 50%;
         padding-left: 56px;
 
         h2 {
