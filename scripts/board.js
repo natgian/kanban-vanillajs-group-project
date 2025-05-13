@@ -7,7 +7,8 @@ let allTasks = [];
 let currentDraggedElement;
 
 /**
- * This function initiates the fetching, grouping and rendering of the tasks when the board page is loaded
+ * This function initiates the fetching and rendering of the tasks when the board page is loaded and adds an event listener to the task search input field.
+ *
  */
 async function init() {
   allTasks = await fetchTasks();
@@ -79,7 +80,6 @@ function renderTasks(tasksArray, containerId) {
   } else {
     tasksArray.forEach((task) => {
       const { assignedToHTML, subtasksTotal, subtasksDone, progressPercent } = prepareTaskDisplayData(task);
-
       cardHTML += cardTemplate(task, subtasksTotal, subtasksDone, progressPercent, assignedToHTML);
     });
   }
@@ -197,6 +197,21 @@ async function deleteTask(taskId) {
 }
 
 /**
+ * Renders the edit task template inside the task overlay.
+ * Stops the event from bubbling up and fetches the task data based on its ID,
+ * then replaces the overlay content with the corresponding edit form.
+ *
+ * @param {string} taskId - ID of the current task
+ * @param {Event} event - The click event that triggered the function
+ */
+function renderEditTaskTemplate(taskId, event) {
+  event.stopPropagation();
+  const currentTask = allTasks.find((task) => task.taskId === taskId);
+  // const { assignedToDetailHTML, subtasksHTML } = prepareTaskOverlayData(currentTask);
+  taskDetailsContentRef.innerHTML = taskOverlayEditTaskTemplate(currentTask);
+}
+
+/**
  * Filters the list of tasks based on a search term entered by the user.
  * Search term must have minimum 3 characters and it filters by title or description.
  *
@@ -221,10 +236,8 @@ function searchTasks(event) {
 }
 
 /**
- * Adds an event listener to the task search input field.
+ * Adds an event listener to the 'Find Task' search input field
  *
- * Initializes live search by listening to user input and
- * calling "searchTasks()"" on each change.
  */
 function initSearch() {
   const searchInput = document.getElementById("find-task");
@@ -240,6 +253,7 @@ function initSearch() {
  */
 function startDragging(taskId) {
   currentDraggedElement = taskId;
+  document.getElementById(`card${currentDraggedElement}`).classList.add("dragging");
 }
 
 /**
@@ -282,6 +296,7 @@ async function moveTo(status) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ status: status }),
     });
+    document.getElementById(`card${currentDraggedElement}`).classList.remove("dragging");
     init();
   } catch (error) {
     console.error("Failed to move task:", error);

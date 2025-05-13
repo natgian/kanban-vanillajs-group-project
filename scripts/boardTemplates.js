@@ -10,7 +10,7 @@
  */
 function cardTemplate(task, subtasksTotal, subtasksDone, progressPercent, assignedToHTML) {
   return `
-          <div class="task-card" onclick="openTaskDetails('${task.taskId}')" draggable="true" ondragstart="startDragging('${task.taskId}')">
+          <div class="task-card" id="card${task.taskId}" onclick="openTaskDetails('${task.taskId}')" draggable="true" ondragstart="startDragging('${task.taskId}')">
             <span class="task-category ${task.category === "Technical Task" ? "technical" : "userstory"}-category">${task.category}</span>
                   <div>
                     <h3 class="task-card-title">${task.title}</h3>
@@ -68,32 +68,32 @@ function taskOverlayTemplate(task, assignedToDetailHTML, subtasksHTML) {
           </div>
 
           <div class="task-overlay-content-wrapper">
-          <p class="task-overlay-title">${task.title}</p>
-          <p class="task-overlay-description">${task.description ? task.description : ""}</p>
+            <p class="task-overlay-title">${task.title}</p>
+            <p class="task-overlay-description">${task.description ? task.description : ""}</p>
 
-          <div class="task-overlay-data-wrapper">
-            <span class="task-overlay-label">Due date:</span>
-            <span>${task.dueDate}</span>
-          </div>
+            <div class="task-overlay-data-wrapper">
+              <span class="task-overlay-label">Due date:</span>
+              <span>${task.dueDate}</span>
+            </div>
 
-          <div class="task-overlay-data-wrapper">
-            <span class="task-overlay-label">Priority:</span>
-                <span class="task-overlay-data-wrapper">${task.priority} <img src="../assets/icons/${task.priority}_priority_icon.svg" alt="priority icon" /></span>
-          </div>
+            <div class="task-overlay-data-wrapper">
+             <span class="task-overlay-label">Priority:</span>
+                  <span class="task-overlay-data-wrapper">${task.priority} <img src="../assets/icons/${task.priority}_priority_icon.svg" alt="priority icon" /></span>
+             </div>
 
-          <!-- Assigned to -->
-          <div>
-            <span class="task-overlay-label">Assigned to:</span>
-              <ul class="mt-8">${assignedToDetailHTML}</ul>
-          </div>
+             <!-- Assigned to -->
+             <div>
+               <span class="task-overlay-label">Assigned to:</span>
+                 <ul class="mt-8">${assignedToDetailHTML}</ul>
+             </div>
+   
+             <!-- Subtasks -->
+             <div>
+               <span class="task-overlay-label">Subtasks</span>
+               <ul class="task-overlay-subtasks-container mt-8">${subtasksHTML}</ul>                 
+             </div>
 
-          <!-- Subtasks -->
-          <div>
-            <span class="task-overlay-label">Subtasks</span>
-            <ul class="task-overlay-subtasks-container mt-8">${subtasksHTML}</ul>                 
-          </div>
-
-          <!-- Action Buttons -->
+             <!-- Action Buttons -->
               <div class="action-btn-wrapper">
 
                 <!-- Delete Button -->
@@ -115,7 +115,7 @@ function taskOverlayTemplate(task, assignedToDetailHTML, subtasksHTML) {
                 <div class="action-btn-separator"></div>
 
                 <!-- Edit Button -->
-                <button class="action-btn">
+                <button class="action-btn" onclick="renderEditTaskTemplate('${task.taskId}', event)">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <mask id="mask0_314602_7558" style="mask-type: alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
                       <rect width="24" height="24" fill="#D9D9D9" />
@@ -131,6 +131,7 @@ function taskOverlayTemplate(task, assignedToDetailHTML, subtasksHTML) {
                 </button>
               </div
             </div>  
+          </div>
   `;
 }
 
@@ -182,4 +183,78 @@ function assignedToDetailTemplate(person) {
             <div class="task-card-avatar" style="background-color: ${person.color}">${person.initials}</div>
             ${person.name}
           </li>`;
+}
+
+function taskOverlayEditTaskTemplate(task) {
+  return `
+          <div class="flex-end">
+            <button class="close-btn">
+                <img src="../assets/icons/close_icon.svg" alt="close icon" onclick="closeTaskDetails()" />
+            </button>
+          </div>
+
+          <div class="task-overlay-content-wrapper">
+     
+            <form class="task-overlay-content" id="edit-task-form">
+              <div class="spanGlue">
+                <label class="edit-task-label">Title</label>
+                <input type="text" class="typeBars" placeholder="Enter a title" required value="${task.title}"/>
+              </div>
+              <div class="spanGlue">
+                <label class="edit-task-label">Description</label>
+                <textarea name="description" class="typeBars" placeholder="Enter a description" style="height: 120px; padding: 14px 15px">${task.description ? task.description : ""}</textarea>
+              </div>
+              <div class="spanGlue">
+                <label class="edit-task-label">Due date</label>
+                <input type="date" id="date-input" class="typeBars" placeholder="dd/mm/yy" oninput="checkValue()" required />
+              </div>
+              <div class="spanGlue">
+                <label class="edit-task-label">Priority</label>
+                <div class="priorityArange" style="display: flex">
+                  <button class="priorityBtns" data-color="#FF3D00" onclick="selectButton(this)">
+                    Urgent
+                    <img src="../assets/icons/Prio alta.png" style="width: 20px; height: 14.51px; margin-left: 10px" />
+                  </button>
+
+                  <button class="priorityBtns selected" data-color="#FFA800" onclick="selectButton(this)">
+                    Medium
+                    <img src="../assets/icons/Prio media.png" style="width: 20px; height: 7.45px; margin-left: 10px" />
+                  </button>
+
+                  <button class="priorityBtns" data-color="#7AE229" onclick="selectButton(this)">
+                    Low
+                    <img src="../assets/icons/Prio baja.png" style="width: 20px; height: 14.51px; margin-left: 10px" />
+                  </button>
+                </div>
+              </div>
+
+              <div class="spanGlue">
+                <label class="edit-task-label">Assigned to</label>
+                <div class="dropdown-container">
+                  <input type="button" value="Select contacts to assign" class="dropdown-selected typeBars" id="contactDropdown" onclick="toggleTextDropdown(this)" />
+                  <div class="dropdown-options">
+                    <div class="option" data-value="Task 1" onclick="selectOption(this)">Task 1</div>
+                    <div class="option" data-value="Task 2" onclick="selectOption(this)">Task 2</div>
+                    <div class="option" data-value="Task 3" onclick="selectOption(this)">Task 3</div>
+                    <div class="option" data-value="Task 4" onclick="selectOption(this)">Task 4</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="spanGlue">
+                <label class="edit-task-label">Subtasks</label>
+                <div class="subtask-container">
+                  <input type="text" class="typeBars typePriorityBars" placeholder="Add new subtask" />
+                  <img src="../assets/icons/Subtasks icons11.png" alt="cross" />
+                </div>
+              </div>
+
+ 
+            </form>
+         </div>
+
+         <div class="flex-end">
+            <button class="btn">Ok <img src="../assets/icons/check_icon.svg" alt="" srcset="" /></button>
+         </div>     
+  `;
 }
