@@ -162,6 +162,18 @@
   border-radius: 50%;
 }
 
+.prio-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 10px 16px 8px;
+  font-size: 20px;
+  border-radius: 10px;
+  border-color: transparent;
+  background-color: var(--white-color);
+  box-shadow: 0 0 4px 0 rgb(0, 0, 0, 0.1);
+}
+
 /*----- */
 /* CARD */
 /*------*/
@@ -190,6 +202,10 @@
 .task-card:active {
   cursor: grabbing;
   transform: rotate(5deg);
+}
+
+.dragging {
+  opacity: 0.5;
 }
 
 .drag-area-highlight {
@@ -377,4 +393,9 @@
 
 .task-overlay-subtask-wrapper:hover {
   background-color: #eeeeee;
+}
+
+.edit-task-label {
+  color: var(--primary-color);
+  margin-bottom: 8px;
 }
