@@ -87,6 +87,7 @@ function renderAddTask() {
                       <div class="option" data-value="Task 4" onclick="selectOption(this)">Task 4</div>
                     </div>
                   </div>
+                  <div id="selectedContacts"></div>
                 </div>
                 <div class="spanGlue">
                   <span>Category<label>*</label></span>

@@ -64,13 +64,14 @@ document.addEventListener("DOMContentLoaded", function() {
 function toggleTextDropdown(input) {
     if (input.id !== "contactDropdown") return;
     const options = input.nextElementSibling;
-    closeAllDropdowns(options);
+    closeAllDropdowns();
     toggleVisibility(options);
     input.type = "text";
     input.value = "";
     input.dataset.value = "";
     input.oninput = () => filterOptions(input.value);
 }
+
 function selectOption(element) {
     const input = document.getElementById("contactDropdown");
     if (!input) return;
@@ -82,23 +83,28 @@ function selectOption(element) {
     const selectedDiv = document.getElementById("selectedContacts");
     selectedDiv.innerHTML = `<p>Ausgewählt: ${element.dataset.value}</p>`;
 }
+
 function resetTextDropdown() {
     const input = document.getElementById("contactDropdown");
-    if (input && !input.dataset.value) {
+    if (input) {
         input.type = "button";
         input.value = "Select contacts to assign";
     }
 }
+
 function filterOptions(query) {
     document.querySelectorAll("#contactDropdown + .dropdown-options .option").forEach(option => {
         option.style.display = option.dataset.value.toLowerCase().includes(query.toLowerCase()) ? "block" : "none";
     });
 }
+
 function closeAllDropdowns() {
     document.querySelectorAll(".dropdown-options").forEach(dropdown => {
         dropdown.style.display = "none";
     });
+    resetTextDropdown(); // Stellt das Input-Feld nach dem Schließen zurück
 }
+
 document.querySelectorAll(".option").forEach(option => {
     option.addEventListener("click", function() {
         selectOption(this);
