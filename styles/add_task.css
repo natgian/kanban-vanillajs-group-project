@@ -248,6 +248,7 @@ label {
   height: 48px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   border-radius: 10px;
 }
 .dropdown-options .option:hover {
@@ -256,4 +257,17 @@ label {
 .dropdown-selected img {
   width: 20px;
   height: 20px;
+}
+
+.hidden-checkbox {
+  position: absolute;
+  opacity: 0;
+  width: 20px;
+  height: 20px;
+}
+.hidden-checkbox:checked ~ .unchecked {
+  display: none;
+}
+.hidden-checkbox:not(:checked) ~ .checked {
+  display: none;
 }

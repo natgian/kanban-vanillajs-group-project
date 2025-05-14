@@ -60,8 +60,17 @@ document.addEventListener("DOMContentLoaded", function() {
     observeDropdownChanges(); 
 });
 
-// Costom-Select (Assigned to) "IN PROGRESS"
-function toggleTextDropdown(input) {
+/**
+ * Fetches the Contacs from Backend in to dropdown-options of Custom-Select (Assigned to).
+ */
+
+
+
+// Custom-Select (Assigned to) "IN PROGRESS"
+/**
+ * toggles the dropdown-element of the Contact-Custom-select, changes the type of its input and aktivates the filter.
+ */
+function toggleContactDropdown(input) {
     if (input.id !== "contactDropdown") return;
     const options = input.nextElementSibling;
     closeAllDropdowns();

@@ -79,12 +79,12 @@ function renderAddTask() {
                 <div class="spanGlue">
                   <span>Assigned to</span>
                   <div class="dropdown-container">
-                    <input type="button" value="Select contacts to assign" class="dropdown-selected typeBars" id="contactDropdown" onclick="toggleTextDropdown(this)" />
+                    <input type="button" value="Select contacts to assign" class="dropdown-selected typeBars" id="contactDropdown" onclick="toggleContactDropdown(this)" />
                     <div class="dropdown-options">
-                      <div class="option" data-value="Task 1" onclick="selectOption(this)">Task 1</div>
-                      <div class="option" data-value="Task 2" onclick="selectOption(this)">Task 2</div>
-                      <div class="option" data-value="Task 3" onclick="selectOption(this)">Task 3</div>
-                      <div class="option" data-value="Task 4" onclick="selectOption(this)">Task 4</div>
+                      <div class="option" data-value="Contact 1" onclick="selectOption(this)">Contact 1</div>
+                      <div class="option" data-value="Contact 2" onclick="selectOption(this)">Contact 2</div>
+                      <div class="option" data-value="Contact 3" onclick="selectOption(this)">Contact 3</div>
+                      <div class="option" data-value="Contact 4" onclick="selectOption(this)">Contact 4</div>
                     </div>
                   </div>
                   <div id="selectedContacts"></div>
@@ -137,3 +137,29 @@ function renderAddTask() {
             `;
 }
 document.getElementById("contentload").innerHTML = renderAddTask();
+
+/**
+ * Returns contact-options in Contact-Custom-select
+ */
+function renderContactOptions() {
+  return  `
+            <div
+              class="option"
+              data-value="Task 1"
+              onclick="selectOption(this)"
+            >
+              <span>${contact}</span>
+              <label>
+                <input type="checkbox" class="hidden-checkbox" />
+                <img
+                  src="../assets/icons/checkbox_icon.svg"
+                  class="unchecked"
+                />
+                <img
+                  src="../assets/icons/checkbox_checked_icon.svg"
+                  class="checked"
+                />
+              </label>
+            </div>
+          `
+}
