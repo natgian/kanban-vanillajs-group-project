@@ -68,6 +68,7 @@ function taskOverlayTemplate(task, assignedToDetailHTML, subtasksHTML) {
           </div>
 
           <div class="task-overlay-content-wrapper">
+           <div class="wrapper">
             <p class="task-overlay-title">${task.title}</p>
             <p class="task-overlay-description">${task.description ? task.description : ""}</p>
 
@@ -92,6 +93,7 @@ function taskOverlayTemplate(task, assignedToDetailHTML, subtasksHTML) {
                <span class="task-overlay-label">Subtasks</span>
                <ul class="task-overlay-subtasks-container mt-8">${subtasksHTML}</ul>                 
              </div>
+            </div>
 
              <!-- Action Buttons -->
               <div class="action-btn-wrapper">
@@ -195,7 +197,7 @@ function taskOverlayEditTaskTemplate(task) {
 
           <div class="task-overlay-content-wrapper">
      
-            <form class="task-overlay-content" id="edit-task-form">
+            <form class="wrapper" id="edit-task-form">
               <div class="spanGlue">
                 <label class="edit-task-label">Title</label>
                 <input type="text" class="typeBars" placeholder="Enter a title" required value="${task.title}"/>

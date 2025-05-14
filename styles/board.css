@@ -162,18 +162,6 @@
   border-radius: 50%;
 }
 
-.prio-btn {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 16px 10px 16px 8px;
-  font-size: 20px;
-  border-radius: 10px;
-  border-color: transparent;
-  background-color: var(--white-color);
-  box-shadow: 0 0 4px 0 rgb(0, 0, 0, 0.1);
-}
-
 /*----- */
 /* CARD */
 /*------*/
@@ -303,6 +291,7 @@
   width: 100%;
   height: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   z-index: 999;
@@ -322,8 +311,9 @@
 }
 
 .task-overlay-content {
+  width: 90%;
   max-width: 525px;
-  max-height: 90vh;
+  height: 90vh;
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -335,6 +325,16 @@
   box-shadow: 0 0 4px 0 rgb(0, 0, 0, 0.16);
   transform: translateX(100%); /* Off-screen initially */
   transition: transform 150ms ease-in-out;
+}
+
+.wrapper {
+  width: 90%;
+  max-width: 525px;
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 20px;
 }
 
 .task-overlay-content-wrapper {
