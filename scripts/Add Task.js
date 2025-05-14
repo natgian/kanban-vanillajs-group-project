@@ -61,9 +61,23 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 /**
- * Fetches the Contacs from Backend in to dropdown-options of Custom-Select (Assigned to).
+ * fills data in tamplate
  */
-
+function addContactToTemplate(person) {
+  const contactName = person.name;
+  const template = `
+    <div class="option" data-value="${contactName}" onclick="selectOption(this)">
+      <div class="task-card-avatar" style="background-color: ${person.color}">${person.initials}</div>
+      <span>${contactName}</span>
+      <label>
+        <input type="checkbox" class="hidden-checkbox"/>
+        <img src="../assets/icons/checkbox_icon.svg" class="unchecked"/>
+        <img src="../assets/icons/checkbox_checked_icon.svg" class="checked"/>
+      </label>
+    </div>
+  `;
+  document.getElementById("contact-list").innerHTML += template;
+}
 
 
 // Custom-Select (Assigned to) "IN PROGRESS"
@@ -127,7 +141,7 @@ function toggleDropdown(element) {
     closeAllDropdowns(options);
     toggleVisibility(options);
 }
-function selectOption(element) {
+function selectTaskOption(element) {
     const dropdown = element.closest(".dropdown-container").querySelector(".dropdown-selected");
     if (!dropdown.classList.contains("categoryDropdown")) return;
     setSelectedValue(dropdown, element.textContent, element.dataset.value);
@@ -139,7 +153,7 @@ function toggleVisibility(element, forceToggle = true) {
         if (element.style.display === "none") resetTextDropdown();
     }
 }
-function closeAllDropdowns(exceptElement = null) {
+function closeAllTaskDropdowns(exceptElement = null) {
     document.querySelectorAll(".dropdown-options").forEach(opt => {
         if (opt !== exceptElement) opt.style.display = "none";
     });

@@ -148,7 +148,8 @@ function renderContactOptions() {
               data-value="Task 1"
               onclick="selectOption(this)"
             >
-              <span>${contact}</span>
+              <div><div class="task-card-avatar" style="background-color: ${person.color}">${person.initials}</div></div>
+              <span>${contactName}</span>
               <label>
                 <input type="checkbox" class="hidden-checkbox" />
                 <img
