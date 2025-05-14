@@ -207,8 +207,9 @@ async function deleteTask(taskId) {
 function renderEditTaskTemplate(taskId, event) {
   event.stopPropagation();
   const currentTask = allTasks.find((task) => task.taskId === taskId);
+  const formattedDueDate = currentTask.dueDate.split("/").reverse().join("-");
   // const { assignedToDetailHTML, subtasksHTML } = prepareTaskOverlayData(currentTask);
-  taskDetailsContentRef.innerHTML = taskOverlayEditTaskTemplate(currentTask);
+  taskDetailsContentRef.innerHTML = taskOverlayEditTaskTemplate(currentTask, formattedDueDate);
 }
 
 /**
