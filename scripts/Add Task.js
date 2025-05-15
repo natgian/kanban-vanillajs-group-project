@@ -70,10 +70,9 @@ function toggleContactDropdown(input) {
     closeAllDropdowns();
 
     if (options) {
-        const isVisible = options.style.display === "block";
-        options.style.display = isVisible ? "none" : "block";
+        options.style.display = options.style.display === "block" ? "none" : "block";
 
-        if (!isVisible) {
+        if (options.style.display === "block") {
             input.type = "text";
             input.value = "";
             input.dataset.value = "";
@@ -112,14 +111,21 @@ function selectContactOption(element) {
  * Selects an option from the category dropdown and updates the input value.
  */
 function selectCategoryOption(element) {
+    // Find the correct input field inside the same dropdown-container
     const dropdown = element.closest(".dropdown-container").querySelector("input.categoryDropdown");
 
-    if (dropdown) {
-        dropdown.value = element.textContent;
-        dropdown.dataset.value = element.dataset.value;
-    }
+    if (!dropdown) return;
 
-    closeAllDropdowns();
+    // Set the selected option's text as the input value
+    dropdown.value = element.textContent;
+    
+    // Store the actual data value
+    dropdown.dataset.value = element.dataset.value;
+
+    // Delay closing the dropdown slightly to ensure value update
+    setTimeout(() => {
+        closeAllDropdowns();
+    });
 }
 
 /**
@@ -140,7 +146,10 @@ function closeAllDropdowns() {
     });
 
     document.querySelectorAll("input.dropdown-selected").forEach(input => {
-        input.value = input.classList.contains("categoryDropdown") ? "Select task category" : "Select contacts to assign";
+        // Nur zurücksetzen, wenn noch kein Wert gesetzt wurde!
+        if (!input.dataset.value) {
+            input.value = input.classList.contains("categoryDropdown") ? "Select task category" : "Select contacts to assign";
+        }
     });
 }
 

@@ -76,6 +76,7 @@ function renderAddTask() {
                     </button>
                   </div>
                 </div>
+                <!-- Contact Dropdown -->
                 <div class="spanGlue">
                   <span>Assigned to</span>
                   <div class="dropdown-container">
@@ -89,6 +90,7 @@ function renderAddTask() {
                   </div>
                   <div id="selectedContacts"></div>
                 </div>
+                <!-- Category Dropdown -->
                 <div class="spanGlue">
                     <span>Category<label>*</label></span>
                     <div class="dropdown-container">
