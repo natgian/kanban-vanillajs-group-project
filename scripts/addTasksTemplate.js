@@ -79,25 +79,25 @@ function renderAddTask() {
                 <div class="spanGlue">
                   <span>Assigned to</span>
                   <div class="dropdown-container">
-                    <input type="button" value="Select contacts to assign" class="dropdown-selected typeBars" id="contactDropdown" onclick="toggleContactDropdown(this)" />
-                    <div class="dropdown-options">
-                      <div class="option" data-value="Contact 1" onclick="selectOption(this)">Contact 1</div>
-                      <div class="option" data-value="Contact 2" onclick="selectOption(this)">Contact 2</div>
-                      <div class="option" data-value="Contact 3" onclick="selectOption(this)">Contact 3</div>
-                      <div class="option" data-value="Contact 4" onclick="selectOption(this)">Contact 4</div>
-                    </div>
+                      <input type="button" value="Select contacts to assign" class="dropdown-selected typeBars" id="contactDropdown" onclick="toggleContactDropdown(this)" />
+                      <div class="dropdown-options">
+                          <div class="option" data-value="Contact 1" onclick="selectContactOption(this)">Contact 1</div>
+                          <div class="option" data-value="Contact 2" onclick="selectContactOption(this)">Contact 2</div>
+                          <div class="option" data-value="Contact 3" onclick="selectContactOption(this)">Contact 3</div>
+                          <div class="option" data-value="Contact 4" onclick="selectContactOption(this)">Contact 4</div>
+                      </div>
                   </div>
                   <div id="selectedContacts"></div>
                 </div>
                 <div class="spanGlue">
-                  <span>Category<label>*</label></span>
-                  <div class="dropdown-container">
-                    <input type="button" value="Select task category" class="dropdown-selected typeBars categoryDropdown" onclick="toggleCategoryDropdown(this)" required />
-                    <div class="dropdown-options" style="overflow-y: hidden;">
-                      <div class="option" data-value="Technical Task" onclick="selectOption(this)">Technical Task</div>
-                      <div class="option" data-value="User Story" onclick="selectOption(this)">User Story</div>
+                    <span>Category<label>*</label></span>
+                    <div class="dropdown-container">
+                        <input type="button" value="Select task category" class="dropdown-selected typeBars categoryDropdown" onclick="toggleCategoryDropdown(this)" required />
+                        <div class="dropdown-options">
+                            <div class="option" data-value="Technical Task" onclick="selectCategoryOption(this)">Technical Task</div>
+                            <div class="option" data-value="User Story" onclick="selectCategoryOption(this)">User Story</div>
+                        </div>
                     </div>
-                  </div>
                 </div>
                 <div class="spanGlue">
                   <span>Subtasks</span>
@@ -139,28 +139,20 @@ function renderAddTask() {
 document.getElementById("contentload").innerHTML = renderAddTask();
 
 /**
- * Returns contact-options in Contact-Custom-select
+ * fills data in tamplate
  */
-function renderContactOptions() {
-  return  `
-            <div
-              class="option"
-              data-value="Task 1"
-              onclick="selectOption(this)"
-            >
-              <div><div class="task-card-avatar" style="background-color: ${person.color}">${person.initials}</div></div>
-              <span>${contactName}</span>
-              <label>
-                <input type="checkbox" class="hidden-checkbox" />
-                <img
-                  src="../assets/icons/checkbox_icon.svg"
-                  class="unchecked"
-                />
-                <img
-                  src="../assets/icons/checkbox_checked_icon.svg"
-                  class="checked"
-                />
-              </label>
-            </div>
-          `
+function addContactToTemplate(person) {
+  const contactName = person.name;
+  const template = `
+    <div class="option" data-value="${contactName}" onclick="selectOption(this)">
+      <div class="task-card-avatar" style="background-color: ${person.color}">${person.initials}</div>
+      <span>${contactName}</span>
+      <label>
+        <input type="checkbox" class="hidden-checkbox"/>
+        <img src="../assets/icons/checkbox_icon.svg" class="unchecked"/>
+        <img src="../assets/icons/checkbox_checked_icon.svg" class="checked"/>
+      </label>
+    </div>
+  `;
+  document.getElementById("contact-list").innerHTML += template;
 }
