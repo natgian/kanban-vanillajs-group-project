@@ -12,17 +12,22 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
-export { database };
-
-// fetch data from Firebase
+// Reference for contacts from DB
 const contactsRef = ref(database, "contacts");
 
-get(contactsRef).then((snapshot) => {
-  if (snapshot.exists()) {
-    console.log(snapshot.val()); 
-  } else {
-    console.log("Keine Daten vorhanden!");
-  }
-}).catch((error) => {
-  console.error("Fehler beim Abrufen der Daten:", error);
-});
+// function to call up contactinformations
+async function fetchContacts() {
+    try {
+        const snapshot = await get(contactsRef);
+        if (snapshot.exists()) {
+            console.log(snapshot.val());
+        } else {
+            console.log("Keine Daten vorhanden!");
+        }
+    } catch (error) {
+        console.error("Fehler beim Abrufen der Daten:", error);
+    }
+}
+
+// export for using in other files
+export { database, contactsRef, fetchContacts };

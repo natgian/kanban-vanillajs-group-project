@@ -83,7 +83,7 @@
   background-color: var(--outline-color);
 }
 .taskCategorysation {
-  height: 400px;
+  min-height: 400px;
   max-width: 440px;
   display: flex;
   justify-content: space-between;
@@ -257,6 +257,10 @@ label {
 .dropdown-selected img {
   width: 20px;
   height: 20px;
+}
+#selectedContacts{
+  display: flex;
+  align-items: center;
 }
 
 .hidden-checkbox {

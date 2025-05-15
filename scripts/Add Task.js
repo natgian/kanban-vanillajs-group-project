@@ -81,8 +81,13 @@ function addContactToTemplate(person) {
 
 
 // Custom-Select (Assigned to) "IN PROGRESS"
+
+import { initializeApp } from "firebase/app";
+import { getDatabase, ref, get } from "firebase/database";
+
 /**
- * toggles the dropdown-element of the Contact-Custom-select, changes the type of its input and aktivates the filter.
+ * Toggles the visibility of the contact dropdown.
+ * Clears the input field and prepares filtering when typing.
  */
 function toggleContactDropdown(input) {
     if (input.id !== "contactDropdown") return;
@@ -95,6 +100,9 @@ function toggleContactDropdown(input) {
     input.oninput = () => filterOptions(input.value);
 }
 
+/**
+ * Selects an option from the dropdown and updates the input field.
+ */
 function selectOption(element) {
     const input = document.getElementById("contactDropdown");
     if (!input) return;
@@ -104,9 +112,12 @@ function selectOption(element) {
     closeAllDropdowns();
     
     const selectedDiv = document.getElementById("selectedContacts");
-    selectedDiv.innerHTML = `<p>Ausgewählt: ${element.dataset.value}</p>`;
+    selectedDiv.innerHTML = `${element.dataset.value}`;
 }
 
+/**
+ * Resets the contact dropdown to its default text display.
+ */
 function resetTextDropdown() {
     const input = document.getElementById("contactDropdown");
     if (input) {
@@ -115,54 +126,104 @@ function resetTextDropdown() {
     }
 }
 
+/**
+ * Filters dropdown options based on user input.
+ */
 function filterOptions(query) {
     document.querySelectorAll("#contactDropdown + .dropdown-options .option").forEach(option => {
         option.style.display = option.dataset.value.toLowerCase().includes(query.toLowerCase()) ? "block" : "none";
     });
 }
 
+/**
+ * Closes all dropdowns and resets the contact dropdown text.
+ */
 function closeAllDropdowns() {
-    document.querySelectorAll(".dropdown-options").forEach(dropdown => {
-        dropdown.style.display = "none";
+    document.querySelectorAll(".dropdown-options").forEach(options => {
+        options.style.display = "none";
     });
-    resetTextDropdown(); // Stellt das Input-Feld nach dem Schließen zurück
+    
+    // Reset inputs after closing
+    document.querySelectorAll(".dropdown-selected").forEach(input => {
+        if (input.classList.contains("categoryDropdown")) {
+            input.value = "Select task category";
+        } else {
+            input.value = "Select contacts to assign";
+        }
+    });
 }
 
+/**
+ * Toggles the visibility of an element (dropdown options).
+ */
+function toggleVisibility(element) {
+    if (element) {
+        element.style.display = element.style.display === "block" ? "none" : "block";
+    }
+}
+
+/**
+ * Closes the dropdown when clicking outside of it.
+ */
+document.addEventListener("click", event => {
+    const dropdown = document.getElementById("contactDropdown");
+    const options = dropdown.nextElementSibling;
+    
+    if (!dropdown.contains(event.target) && !options.contains(event.target)) {
+        closeAllDropdowns();
+    }
+});
+
+/**
+ * Adds click event listeners to dropdown options for selection.
+ */
 document.querySelectorAll(".option").forEach(option => {
     option.addEventListener("click", function() {
         selectOption(this);
     });
 });
 
-// Dropdown (Category)
-function toggleDropdown(element) {
-    if (!element.classList.contains("categoryDropdown")) return;
-    const options = element.nextElementSibling;
-    closeAllDropdowns(options);
-    toggleVisibility(options);
-}
-function selectTaskOption(element) {
-    const dropdown = element.closest(".dropdown-container").querySelector(".dropdown-selected");
-    if (!dropdown.classList.contains("categoryDropdown")) return;
-    setSelectedValue(dropdown, element.textContent, element.dataset.value);
-    toggleVisibility(element.parentElement, false);
-}
-function toggleVisibility(element, forceToggle = true) {
-    if (element) {
-        element.style.display = forceToggle ? (element.style.display === "block" ? "none" : "block") : "none";
-        if (element.style.display === "none") resetTextDropdown();
+// secound costum-select
+/**
+ * Toggles the visibility of the dropdown options when clicking the input button.
+ */
+function toggleCategoryDropdown(input) {
+    const options = input.closest(".dropdown-container").querySelector(".dropdown-options");
+
+    closeAllDropdowns();
+    
+    // Toggle only if found
+    if (options) {
+        options.style.display = options.style.display === "block" ? "none" : "block";
     }
 }
-function closeAllTaskDropdowns(exceptElement = null) {
-    document.querySelectorAll(".dropdown-options").forEach(opt => {
-        if (opt !== exceptElement) opt.style.display = "none";
+
+/**
+ * Selects an option from the dropdown and updates the input value.
+ */
+function selectCategoryOption(element) {
+    const dropdown = element.closest(".dropdown-container").querySelector(".dropdown-selected");
+    
+    dropdown.value = element.textContent;
+    dropdown.dataset.value = element.dataset.value;
+    
+    closeAllDropdowns();
+}
+
+/**
+ * Closes all dropdowns and hides their options.
+ */
+function closeAllDropdowns() {
+    document.querySelectorAll(".dropdown-options").forEach(options => {
+        options.style.display = "none";
     });
 }
-function setSelectedValue(dropdown, text, value) {
-    if (!dropdown.classList.contains("categoryDropdown")) return;
-    dropdown.value = text;
-    dropdown.dataset.value = value;
-}
+
+/**
+ * Closes the dropdown when clicking outside of it or on the input button again.
+ */
 document.addEventListener("click", event => {
-    if (!event.target.closest(".dropdown-container")) closeAllDropdowns();
+    if (!event.target.closest(".dropdown-container")) {
+        closeAllDropdowns();
+    }
 });

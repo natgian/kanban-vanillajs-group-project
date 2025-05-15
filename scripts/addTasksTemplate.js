@@ -92,7 +92,7 @@ function renderAddTask() {
                 <div class="spanGlue">
                   <span>Category<label>*</label></span>
                   <div class="dropdown-container">
-                    <input type="button" value="Select task category" class="dropdown-selected typeBars categoryDropdown" onclick="toggleDropdown(this)" required />
+                    <input type="button" value="Select task category" class="dropdown-selected typeBars categoryDropdown" onclick="toggleCategoryDropdown(this)" required />
                     <div class="dropdown-options" style="overflow-y: hidden;">
                       <div class="option" data-value="Technical Task" onclick="selectOption(this)">Technical Task</div>
                       <div class="option" data-value="User Story" onclick="selectOption(this)">User Story</div>
