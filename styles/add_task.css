@@ -83,10 +83,9 @@
   background-color: var(--outline-color);
 }
 .taskCategorysation {
-  min-height: 400px;
   max-width: 440px;
   display: flex;
-  justify-content: space-between;
+  gap: 25px;
   flex-grow: 1;
   flex-direction: column;
 }

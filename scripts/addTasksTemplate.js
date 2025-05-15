@@ -78,18 +78,19 @@ function renderAddTask() {
                 </div>
                 <!-- Contact Dropdown -->
                 <div class="spanGlue">
-                  <span>Assigned to</span>
-                  <div class="dropdown-container">
-                      <input type="button" value="Select contacts to assign" class="dropdown-selected typeBars" id="contactDropdown" onclick="toggleContactDropdown(this)" />
-                      <div class="dropdown-options">
-                          <div class="option" data-value="Contact 1" onclick="selectContactOption(this)">Contact 1</div>
-                          <div class="option" data-value="Contact 2" onclick="selectContactOption(this)">Contact 2</div>
-                          <div class="option" data-value="Contact 3" onclick="selectContactOption(this)">Contact 3</div>
-                          <div class="option" data-value="Contact 4" onclick="selectContactOption(this)">Contact 4</div>
-                      </div>
-                  </div>
-                  <div id="selectedContacts"></div>
+                    <span>Assigned to</span>
+                    <div class="dropdown-container">
+                        <input type="button" value="Select contacts to assign" class="dropdown-selected typeBars" id="contactDropdown" onclick="toggleContactDropdown(this)" />
+                        <div class="dropdown-options">
+                            <div class="option" data-value="Contact 1" onclick="selectContactOption(this)">Contact 1</div>
+                            <div class="option" data-value="Contact 2" onclick="selectContactOption(this)">Contact 2</div>
+                            <div class="option" data-value="Contact 3" onclick="selectContactOption(this)">Contact 3</div>
+                            <div class="option" data-value="Contact 4" onclick="selectContactOption(this)">Contact 4</div>
+                        </div>
+                    </div>
+                    <div id="selectedContacts"></div>
                 </div>
+
                 <!-- Category Dropdown -->
                 <div class="spanGlue">
                     <span>Category<label>*</label></span>
