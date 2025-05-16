@@ -160,6 +160,7 @@ header {
   position: sticky;
   top: 0;
   left: 0;
+  z-index: 999;
 }
 
 .header-icons-container {
@@ -390,6 +391,10 @@ header {
   .active-link {
     border-radius: 16px;
     padding: 14px 20px;
+  }
+
+  .sidebar-menu-link:hover {
+    border-radius: 16px;
   }
 
   .sidebar,
