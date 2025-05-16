@@ -27,9 +27,17 @@ async function loadContacts() {
  * Call up for loadContacts().
  */
 async function init() {
-  allTasks = await fetchTasks();
+  console.log("Initialisierung gestartet...");
+  
+  await loadContacts();
+  console.log("Geladene Kontakte:", contacts);
+
   initSearch();
+  console.log("Suchfunktion initialisiert.");
+
   renderBoard();
-  await loadContacts(); 
+  console.log("Board gerendert.");
 }
+
+document.addEventListener("DOMContentLoaded", init);
 // Add Task, END
