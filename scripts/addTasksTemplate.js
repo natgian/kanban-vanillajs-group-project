@@ -84,8 +84,6 @@ function renderAddTask() {
                         <div class="dropdown-options">
                             <div class="option" data-value="Contact 1" onclick="selectContactOption(this)">Contact 1</div>
                             <div class="option" data-value="Contact 2" onclick="selectContactOption(this)">Contact 2</div>
-                            <div class="option" data-value="Contact 3" onclick="selectContactOption(this)">Contact 3</div>
-                            <div class="option" data-value="Contact 4" onclick="selectContactOption(this)">Contact 4</div>
                         </div>
                     </div>
                     <div id="selectedContacts"></div>
@@ -142,7 +140,7 @@ function renderAddTask() {
 document.getElementById("contentload").innerHTML = renderAddTask();
 
 /**
- * fills data in tamplate
+ * Template for contacts.
  */
 function addContactToTemplate(person) {
   const contactName = person.name;

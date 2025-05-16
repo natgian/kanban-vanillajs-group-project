@@ -184,3 +184,4 @@ document.addEventListener("click", event => {
         closeAllCategoryDropdowns();
     }
 });
+
