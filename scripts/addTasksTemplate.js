@@ -155,10 +155,10 @@ if (!person || !person.name || !person.color || !person.initials) {
         <div class="task-card-avatar " style="background-color: ${person.color}">${person.initials}</div>
         <span style="padding-bottom: 0;">${person.name}</span>
       </div>
-      <label>
-        <input type="checkbox" class="hidden-checkbox"/>
-        <img src="../assets/icons/checkbox_icon.svg" class="unchecked"/>
-        <img src="../assets/icons/checkbox_checked_icon.svg" class="checked"/>
+      <label style="display: flex; cursor: pointer;">
+        <input type="checkbox" class="hidden-checkbox" style="cursor: pointer; z-index: 5"/>
+        <img src="../assets/icons/checkbox_icon.svg" class="unchecked" style="pointer-events: auto; cursor: pointer;"/>
+        <img src="../assets/icons/checkbox_checked_icon.svg" class="checked" style="pointer-events: auto; cursor: pointer;"/>
       </label>
     </div>
   `;

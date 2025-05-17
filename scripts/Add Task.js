@@ -185,3 +185,79 @@ document.addEventListener("click", event => {
     }
 });
 
+/**
+ * Toggles the checked state of the checkbox and returns the updated state.
+ */
+function toggleCheckbox(element) {
+    const checkbox = element.querySelector(".hidden-checkbox");
+    checkbox.checked = !checkbox.checked;
+    return checkbox.checked;
+}
+
+/**
+ * Updates the background color based on the checked state.
+ */
+function updateBackground(element, isChecked) {
+    element.style.backgroundColor = isChecked ? "#2a3647" : "";
+}
+
+/**
+ * Changes the text color based on the checked state.
+ */
+function updateTextColor(element, isChecked) {
+    const textSpan = element.querySelector("span");
+    textSpan.style.color = isChecked ? "#ffffff" : "";
+}
+
+/**
+ * Updates the checkbox images, ensuring the selected image turns fully white.
+ */
+function updateCheckboxImages(element, isChecked) {
+    const uncheckedImg = element.querySelector(".unchecked");
+    const checkedImg = element.querySelector(".checked");
+
+    uncheckedImg.style.display = isChecked ? "none" : "inline";
+    checkedImg.style.display = isChecked ? "inline" : "none";
+
+    checkedImg.style.filter = isChecked ? "brightness(0) invert(100%)" : "none"; 
+}
+
+/**
+ * Applies all style changes based on selection.
+ */
+function applySelectionStyles(element, isChecked) {
+    updateBackground(element, isChecked);
+    updateCheckboxImages(element, isChecked);
+    updateTextColor(element, isChecked);
+}
+
+/**
+ * Ensures clicking on images correctly toggles selection.
+ */
+function setupImageClickEvents(element) {
+    const checkbox = element.querySelector(".hidden-checkbox");
+    const images = element.querySelectorAll("img");
+
+    images.forEach(img => {
+        img.addEventListener("click", (event) => {
+            event.preventDefault(); 
+            event.stopPropagation(); 
+            checkbox.checked = !checkbox.checked;
+            applySelectionStyles(element, checkbox.checked);
+        });
+    });
+}
+
+/**
+ * Main function - Handles selection behavior when an option is clicked.
+ */
+function selectOption(element) {
+    const checkbox = element.querySelector(".hidden-checkbox");
+
+    if (event.target !== checkbox) {
+        checkbox.click(); 
+    }
+
+    applySelectionStyles(element, checkbox.checked);
+    setupImageClickEvents(element);
+}

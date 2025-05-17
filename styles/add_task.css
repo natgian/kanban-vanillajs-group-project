@@ -250,17 +250,12 @@ label {
   justify-content: space-between;
   border-radius: 10px;
 }
-.contactOption{
-  padding: 15px;
-  cursor: pointer;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-radius: 10px;
-}
 .dropdown-options .option:hover {
   background-color: rgb(240, 240, 240);
+}
+.option.selected:hover {
+    background-color: var(--active-color); 
+    cursor: pointer;
 }
 .dropdown-selected img {
   width: 20px;
@@ -273,14 +268,13 @@ label {
 }
 
 .hidden-checkbox {
-  position: absolute;
-  opacity: 0;
-  width: 20px;
-  height: 20px;
+  display: none;
 }
 .hidden-checkbox:checked ~ .unchecked {
   display: none;
+  z-index: 10;
 }
 .hidden-checkbox:not(:checked) ~ .checked {
   display: none;
+  z-index: 10;
 }
