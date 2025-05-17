@@ -82,8 +82,7 @@ function renderAddTask() {
                     <div class="dropdown-container">
                         <input type="button" value="Select contacts to assign" class="dropdown-selected typeBars" id="contactDropdown" onclick="toggleContactDropdown(this)" />
                         <div class="dropdown-options" id="contact-list">
-                            <div class="option" data-value="Contact 1" onclick="selectContactOption(this)">Contact 1</div>
-                            <div class="option" data-value="Contact 2" onclick="selectContactOption(this)">Contact 2</div>
+                        
                         </div>
                     </div>
                     <div id="selectedContacts"></div>
@@ -143,15 +142,19 @@ document.getElementById("contentload").innerHTML = renderAddTask();
  * Template for contacts.
  */
 function addContactToTemplate(person) {
-  if (!person || !person.name || !person.color || !person.initials) return;
+if (!person || !person.name || !person.color || !person.initials) {
+  return;
+}
 
   const contactList = document.getElementById("contact-list");
   if (!contactList) return;
 
   const template = `
     <div class="option" data-value="${person.name}" onclick="selectOption(this)">
-      <div class="task-card-avatar" style="background-color: ${person.color}">${person.initials}</div>
-      <span>${person.name}</span>
+      <div style=" display: flex; align-items: center; gap: 15px;">
+        <div class="task-card-avatar " style="background-color: ${person.color}">${person.initials}</div>
+        <span style="padding-bottom: 0;">${person.name}</span>
+      </div>
       <label>
         <input type="checkbox" class="hidden-checkbox"/>
         <img src="../assets/icons/checkbox_icon.svg" class="unchecked"/>
@@ -160,5 +163,5 @@ function addContactToTemplate(person) {
     </div>
   `;
 
-  contactList.innerHTML += template;
+  contactList.insertAdjacentHTML("beforeend", template);
 }

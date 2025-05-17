@@ -8,10 +8,14 @@ async function fetchContacts() {
   try {
     const response = await fetch(`${baseURL}/contacts.json`);
     const data = await response.json();
-    console.log("Empfangene Daten:", data); //Console.Log
-    
+
     if (!data) return [];
-    return Object.values(data);
+
+    return Object.entries(data).map(([key, contact]) => ({
+      name: contact.name || "Unbekannt",
+      initials: contact.monogram || "??",
+      color: contact.monogramColor || "#CCCCCC"
+    }));
   } catch (error) {
     console.error("Fehler beim Laden der Kontakte:", error);
     return [];

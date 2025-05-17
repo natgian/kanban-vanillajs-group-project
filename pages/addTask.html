@@ -11,6 +11,7 @@
     />
     <link rel="stylesheet" href="../styles.css" />
     <link rel="stylesheet" href="../styles/add_task.css" />
+    <link rel="stylesheet" href="../styles/board.css" />
   </head>
   <body>
     <!-- Message Box -->
@@ -123,7 +124,7 @@
         ></div>
       </div>
       <!-- Mobile-Navigation -->
-      <nav class="footer-navigation" style="display: none;">
+      <nav class="footer-navigation" style="display: none">
         <ul class="sidebar-menu">
           <li>
             <a href="./summary.html" class="sidebar-menu-link">
@@ -133,7 +134,10 @@
           </li>
           <li>
             <a href="./addTask.html" class="sidebar-menu-link">
-              <img src="../assets/icons/add_task_icon.svg" alt="add task icon" />
+              <img
+                src="../assets/icons/add_task_icon.svg"
+                alt="add task icon"
+              />
               Add Task
             </a>
           </li>
@@ -145,7 +149,10 @@
           </li>
           <li>
             <a href="./contacts.html" class="sidebar-menu-link">
-              <img src="../assets/icons/contacts_icon.svg" alt="contacts icon" />
+              <img
+                src="../assets/icons/contacts_icon.svg"
+                alt="contacts icon"
+              />
               Contacts
             </a>
           </li>
@@ -158,3 +165,21 @@
     <script type="module" src="../scripts/firebase.js"></script>
   </body>
 </html>
+
+<div
+  class="contactOption"
+  data-value="${person.name}"
+  onclick="selectOption(this)"
+>
+  <div>
+    <div class="task-card-avatar" style="background-color: ${person.color}">
+      ${person.initials}
+    </div>
+    <span style="padding-bottom: 0">${person.name}</span>
+  </div>
+  <label>
+    <input type="checkbox" class="hidden-checkbox" />
+    <img src="../assets/icons/checkbox_icon.svg" class="unchecked" />
+    <img src="../assets/icons/checkbox_checked_icon.svg" class="checked" />
+  </label>
+</div>

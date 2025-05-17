@@ -250,6 +250,15 @@ label {
   justify-content: space-between;
   border-radius: 10px;
 }
+.contactOption{
+  padding: 15px;
+  cursor: pointer;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 10px;
+}
 .dropdown-options .option:hover {
   background-color: rgb(240, 240, 240);
 }
