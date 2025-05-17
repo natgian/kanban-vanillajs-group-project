@@ -1,17 +1,20 @@
 const databasURL = "https://join-458-default-rtdb.europe-west1.firebasedatabase.app/";
 
 /**
- * Loads the summary template into the content area,
- * then loads tasks from Firebase and updates the summary display.
+ * Loads the summary template into the main content area,
+ * fetches tasks from Firebase, updates the summary display,
+ * and sets the logged-in user's name.
  *
- * @returns {Promise<void>} A Promise that resolves once all content has been loaded and updated.
+ * @returns {Promise<void>} A Promise that resolves once the template,
+ * task data, and user name have been fully loaded and rendered.
  */
 async function loadSummary() {
     const contentContainer = document.getElementById('templateContent');
     contentContainer.innerHTML = summaryTemplate();
-
     const tasks = await loadTasksFromFirebase();
     updateSummary(tasks);
+    const userName = localStorage.getItem('currentUser') || 'Guest';
+    document.getElementById('userName').textContent = userName;
 }
 
 /**

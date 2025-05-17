@@ -1,11 +1,12 @@
 const databasURL = "https://join-458-default-rtdb.europe-west1.firebasedatabase.app/";
 
 /**
- * Initializes the page and runs essential startup functions.
+ * Starts the app: triggers the logo animation
+ * and hides the loading screen after a short delay.
  */
 function init() {
-  let loader = document.getElementById('loader');
-  let logo = document.getElementById('logo');
+  const loader = document.getElementById('loader');
+  const logo = document.getElementById('logo');
   logo.classList.add('fly');
   setTimeout(() => {
     loader.classList.add('hidden');
@@ -13,56 +14,73 @@ function init() {
 }
 
 /**
- * Opens the sign-up page when the button is clicked.
+ * Redirects the user to the sign-up page
+ * when the "Sign up" button is clicked.
  */
-document.getElementById("signUpBtn").addEventListener("click", function () {
+document.getElementById("signUpBtn").addEventListener("click", () => {
   window.location.href = "./pages/signUp.html";
 });
 
 /**
- * Logs in as a guest by loading predefined user data
- * from the database and filling the login form fields.
+ * Handles guest login button click:
+ * Fetches predefined guest user data from the Firebase database.
+ * If successful, fills in the email and password fields,
+ * stores the guest user name in localStorage,
+ * and redirects to the guest summary page.
+ * If the fetch fails or data is incomplete, shows an alert message.
+ *
+ * @event click
+ * @returns {Promise<void>} A Promise that resolves after processing the guest login.
  */
 document.getElementById("guestLoginBtn").addEventListener("click", async () => {
   try {
     const res = await fetch(`${databasURL}users/user1.json`);
     const user = await res.json();
     if (!res.ok || !user?.email || !user?.password) {
-      alert("User data could not be loaded.");
+      alert("Guest data could not be loaded.");
       return;
     }
     document.querySelector('input[name="Email"]').value = user.email;
     document.querySelector('input[name="Password"]').value = user.password;
+    localStorage.setItem('currentUser', user.name || "Guest");
+    window.location.href = "../pages/summaryGuest.html";
   } catch (e) {
-    console.error("Error loading user data:", e);
-    alert("An error occurred.");
+    console.error("Error loading guest data:", e);
+    alert("Something went wrong. Please try again later.");
   }
 });
 
 /**
- * Handles login form submission: validates user credentials from Firebase,
- * shows a fade-in/out message for incorrect login attempts, and redirects on success.
- * 
- * @param {Event} e - The form submit event triggered by the user.
+ * Handles login form submission:
+ * Validates the entered credentials against the Firebase database.
+ * If the credentials are valid, stores the current user's name or email
+ * in localStorage and redirects to the summary page.
+ * If invalid, displays a temporary error message.
+ *
+ * @event submit
+ * @returns {Promise<void>} A Promise that resolves after validation and redirection or message display.
  */
 document.querySelector('form').addEventListener('submit', async (e) => {
   if (!e.target.checkValidity()) return;
   e.preventDefault();
   const email = e.target.querySelector('input[name="Email"]').value.trim();
   const password = e.target.querySelector('input[name="Password"]').value.trim();
-  const msg = Object.assign(document.getElementById('loginMessage'), { textContent: "", className: "" });
+  const msg = document.getElementById('loginMessage');
   const showMessage = t => {
-    msg.textContent = t; msg.classList.add("fade-in");
-    setTimeout(() => {
-      msg.classList.replace("fade-in", "fade-out");
-      setTimeout(() => msg.textContent = "", 500);
-    }, 3000);
+    msg.textContent = t; msg.className = "fade-in";
+    setTimeout(() => { msg.className = "fade-out"; setTimeout(() => msg.textContent = "", 500); }, 3000);
   };
   try {
-    const users = Object.values(await (await fetch(`${databasURL}users.json`)).json() || {});
-    const u = users.find(u => u.email === email);
-    u && u.password === password ? location.href = "../pages/summary.html" : showMessage(u ? "Incorrect password." : "Email not registered.");
+    const data = await (await fetch(`${databasURL}users.json`)).json();
+    const user = Object.values(data || {}).find(u => u.email === email);
+    if (user?.password === password) {
+      localStorage.setItem('currentUser', user.name || user.email);
+      window.location.href = "../pages/summary.html";
+    } else {
+      showMessage(user ? "Incorrect password." : "Email not registered.");
+    }
   } catch (err) {
-    console.error("Login error:", err); showMessage("Login failed. Please try again later.");
+    console.error("Login error:", err);
+    showMessage("Login failed. Please try again later.");
   }
 });
