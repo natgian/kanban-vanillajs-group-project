@@ -1,12 +1,15 @@
 // Add Task, START
 const baseURL = "https://join-458-default-rtdb.europe-west1.firebasedatabase.app";
+
 /**
- * Fetchs Contacts from Firebase and convert to an Array.
+ * Fetchs Contacts from Firebase and converts them to an Array.
  */
 async function fetchContacts() {
   try {
     const response = await fetch(`${baseURL}/contacts.json`);
     const data = await response.json();
+    console.log("Empfangene Daten:", data); //Console.Log
+    
     if (!data) return [];
     return Object.values(data);
   } catch (error) {
@@ -16,28 +19,19 @@ async function fetchContacts() {
 }
 
 /**
- * Fills in addContactToTemplate().
+ * Inserts contacts into the template.
  */
-async function loadContacts() {
-  const contacts = await fetchContacts();
+async function loadContacts(contacts) {
+  if (!contacts.length) return;
   contacts.forEach(addContactToTemplate);
 }
 
 /**
- * Call up for loadContacts().
+ * Initializes the application.
  */
 async function init() {
-  console.log("Initialisierung gestartet...");
-  
-  await loadContacts();
-  console.log("Geladene Kontakte:", contacts);
-
-  initSearch();
-  console.log("Suchfunktion initialisiert.");
-
-  renderBoard();
-  console.log("Board gerendert.");
+  const contacts = await fetchContacts();
+  loadContacts(contacts);
 }
-
 document.addEventListener("DOMContentLoaded", init);
 // Add Task, END
