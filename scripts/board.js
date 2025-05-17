@@ -115,7 +115,7 @@ function openTaskDetails(taskId) {
   taskDetailsRef.classList.toggle("show");
   document.body.classList.add("no-scroll");
 
-  outsideClickHandler(taskDetailsContentRef, closeTaskDetails);
+  outsideClickHandlerForOverlay(taskDetailsContentRef, closeTaskDetails);
   // taskDetailsRef.addEventListener("click", outsideClickHandler);
   renderTaskDetails(taskId);
 }
@@ -330,7 +330,7 @@ function openMoveToMenu(event, taskId, status) {
   closePreviousOpenMenu(menuRef);
   showMenu(menuRef);
   updateDisabledMenuItem(items, status);
-  outsideClickHandler(menuRef, closeMoveToMenu);
+  outsideClickHandlerForMenu(menuRef);
 }
 
 function isMenuOpen(menuRef) {
@@ -363,14 +363,26 @@ function closeMoveToMenu(menuRef) {
   menuRef.classList.add("hide");
 }
 
-function outsideClickHandler(containerRef, closeFunction) {
-  function eventHandler(event) {
-    if (!containerRef.contains(event.target)) {
-      closeFunction(containerRef);
-      document.removeEventListener("click", eventHandler);
+function outsideClickHandlerForMenu(menuRef) {
+  function handleClick(event) {
+    if (!menuRef.contains(event.target)) {
+      closeMoveToMenu(menuRef);
+      document.removeEventListener("click", handleClick);
     }
   }
-  setTimeout(() => {
-    document.addEventListener("click", eventHandler);
-  }, 0);
+  requestAnimationFrame(() => {
+    document.addEventListener("click", handleClick);
+  });
+}
+
+function outsideClickHandlerForOverlay(overlayRef, closeFn) {
+  function handleClick(event) {
+    if (!overlayRef.contains(event.target)) {
+      closeFn();
+      document.removeEventListener("click", handleClick);
+    }
+  }
+  requestAnimationFrame(() => {
+    document.addEventListener("click", handleClick);
+  });
 }
