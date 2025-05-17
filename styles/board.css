@@ -22,7 +22,7 @@
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 24px;
-  margin-top: 48px;
+  margin: 48px 0;
 }
 
 .board-column {
@@ -111,7 +111,7 @@
   display: none;
 }
 
-.plus-btn {
+.icon-btn {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -121,11 +121,11 @@
   border: none;
 }
 
-.plus-btn:hover {
+.icon-btn:hover {
   color: var(--hover-color);
 }
 
-.plus-btn:active {
+.icon-btn:active {
   color: var(--active-color);
 }
 
@@ -196,11 +196,11 @@
 
 .task-card:active {
   cursor: grabbing;
-  transform: rotate(5deg);
 }
 
 .dragging {
-  opacity: 0.8;
+  opacity: 0.5;
+  transform: rotate(5deg);
 }
 
 .drag-area-highlight {
@@ -353,7 +353,7 @@
   padding: 0 10px;
 }
 
-.category-closeIcon-container {
+.category-icon-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -408,6 +408,56 @@
   margin-bottom: 8px;
 }
 
+/* MOVE TO MENU */
+.move-to-menu {
+  position: absolute;
+  top: 28px;
+  right: 16px;
+  display: flex;
+  flex-direction: column;
+  width: 180px;
+  padding: 16px 8px;
+  background-color: var(--primary-color);
+  color: var(--white-color);
+  border-top-left-radius: 36px;
+  border-bottom-right-radius: 36px;
+  border-bottom-left-radius: 36px;
+  box-shadow: 0 0 5px 3px rgb(0, 0, 0, 0.04);
+}
+
+.hide {
+  display: none;
+  visibility: hidden;
+}
+
+.move-to-menu span {
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.move-to-menu li {
+  font-size: 14px;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.move-to-menu li:hover {
+  background-color: var(--active-color);
+  border-radius: 8px;
+}
+
+.category-icon-container .icon-btn {
+  position: relative;
+}
+
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
 /* MEDIA QUERIES */
 @media (max-width: 864px) {
   #add-btn-mobile {
@@ -434,7 +484,7 @@
   }
 }
 
-@media (max-width: 576px) {
+@media (max-width: 672px) {
   .cards-container {
     flex-direction: unset;
     flex-wrap: nowrap;
@@ -456,10 +506,23 @@
   .content {
     padding: 48px 16px;
   }
+
+  .task-overlay-title {
+    font-size: 36px;
+  }
+
+  .wrapper {
+    font-size: 16px;
+    height: auto;
+  }
 }
 
 @media (max-width: 435px) {
   h1 {
     font-size: 46px;
+  }
+  .task-overlay-content {
+    height: 90vh;
+    padding: 24px;
   }
 }
