@@ -23,14 +23,12 @@
 * {
   margin: 0;
   padding: 0;
-  font: inherit;
   box-sizing: border-box;
 }
 
 html,
 body {
   height: 100%;
-  display: flex;
 }
 
 img,
@@ -66,7 +64,7 @@ a {
   --black-color: #000000;
   --outline-color: #d1d1d1;
   /* transitions */
-  --transition: all 200ms ease-in-out;
+  --transition: all 175ms ease-in-out;
 }
 
 body {
@@ -205,7 +203,16 @@ header {
   margin-bottom: 50px;
 }
 
-
+.sidebar {
+  background-color: var(--primary-color);
+  color: var(--white-color);
+  width: 232px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 64px 0;
+}
 
 .sidebar-container {
   display: flex;
@@ -265,4 +272,71 @@ header {
 }
 .sidebar-footer-link:hover {
   color: #29abe2;
+}
+
+/*---------------- */
+/* CUSTOM CHECKBOX */
+/*---------------- */
+
+/* Hide default checkbox */
+.custom-checkbox {
+  appearance: none;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+  color: var(--primary-color);
+}
+
+.checkbox-label svg {
+  display: none;
+  transition: all 100ms ease-out;
+}
+
+/* Show unchecked by default */
+.custom-checkbox:not(:checked) + .checkbox-label .svg-unchecked {
+  display: block;
+}
+
+/* Show checked when checkbox is checked */
+.custom-checkbox:checked + .checkbox-label .svg-checked {
+  display: block;
+}
+
+.checkbox-label:hover svg path,
+.checkbox-label:hover svg rect {
+  fill: #edf2fa;
+}
+
+/*------------ */
+/* MESSAGE BOX */
+/*------------ */
+
+.message-box {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 24px;
+  opacity: 0;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--white-color);
+  background-color: var(--primary-color);
+  font-size: 16px;
+  border-radius: 20px;
+  padding: 24px 30px;
+  width: 280px;
+  box-shadow: 0 0 4px 0 rgb(0, 0, 0, 0.1);
+  pointer-events: none;
+  transform: var(--transition);
+}
+
+.message-box.show {
+  opacity: 1;
 }
