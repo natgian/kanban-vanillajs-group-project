@@ -83,10 +83,9 @@
   background-color: var(--outline-color);
 }
 .taskCategorysation {
-  height: 400px;
   max-width: 440px;
   display: flex;
-  justify-content: space-between;
+  gap: 25px;
   flex-grow: 1;
   flex-direction: column;
 }
@@ -232,27 +231,12 @@ label {
   background: white;
   border: 1px solid #ccc;
   z-index: 60;
-  border: 1px solid var(--hover-color);
-  border-radius: 10px;
-  max-height: 145px;
-  overflow: scroll;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  scrollbar-color: rgba(0, 0, 0, 0.5) transparent;
 }
+
 .dropdown-options .option {
-  padding: 10px;
+  padding: 15px;
   cursor: pointer;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  border-radius: 10px;
 }
 .dropdown-options .option:hover {
-  background-color: var(--active-color);
-  color: white;
-}
-.dropdown-selected img {
-  width: 20px;
-  height: 20px;
+  background: #f0f0f0;
 }

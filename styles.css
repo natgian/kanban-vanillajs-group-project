@@ -105,6 +105,11 @@ h1 {
   overflow: hidden;
 }
 
+.flex-end {
+  display: flex;
+  align-self: flex-end;
+}
+
 /*-------- */
 /* BUTTONS */
 /*-------- */
@@ -154,6 +159,7 @@ header {
   position: sticky;
   top: 0;
   left: 0;
+  z-index: 999;
 }
 
 .header-icons-container {
@@ -193,6 +199,27 @@ header {
 
 .user-profile-icon:hover {
   background-color: rgb(12, 46, 98, 0.12);
+}
+
+.footer-navigation {
+  display: none;
+}
+
+.task-card-avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: -8px;
+  width: 32px;
+  height: 32px;
+  color: var(--white-color);
+  font-size: 12px;
+  border: 1px solid var(--white-color);
+  border-radius: 50%;
+}
+
+.task-card-avatar:first-child {
+  margin-left: 0;
 }
 
 /*-------- */
@@ -309,6 +336,87 @@ header {
 .checkbox-label:hover svg path,
 .checkbox-label:hover svg rect {
   fill: #edf2fa;
+}
+
+/*------------ */
+/* MESSAGE BOX */
+/*------------ */
+
+.message-box {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 24px;
+  opacity: 0;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--white-color);
+  background-color: var(--primary-color);
+  font-size: 16px;
+  border-radius: 20px;
+  padding: 24px 30px;
+  width: 280px;
+  box-shadow: 0 0 4px 0 rgb(0, 0, 0, 0.1);
+  pointer-events: none;
+  transform: var(--transition);
+}
+
+.message-box.show {
+  opacity: 1;
+}
+
+/*-------------- */
+/* MEDIA QUERIES */
+/*-------------- */
+
+@media (max-width: 768px) {
+  .footer-navigation {
+    display: block;
+  }
+  .sidebar {
+    display: none;
+  }
+
+  .sidebar-menu {
+    position: fixed;
+    bottom: 0;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    gap: 0;
+    height: 80px;
+    padding: 0 8px;
+    background-color: var(--primary-color);
+  }
+
+  .sidebar-menu-link {
+    flex-direction: column;
+    gap: 8px;
+    padding: 8px 4px;
+    font-size: 14px;
+  }
+
+  .sidebar-menu-link img {
+    width: 24px;
+    height: 24px;
+  }
+
+  .active-link {
+    border-radius: 16px;
+    padding: 14px 20px;
+  }
+
+  .sidebar-menu-link:hover {
+    border-radius: 16px;
+  }
+
+  .sidebar,
+  .layout-container {
+    width: 100%;
+  }
 }
 
 /*------------ */

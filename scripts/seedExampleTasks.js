@@ -2,26 +2,26 @@ const baseURL = "https://join-458-default-rtdb.europe-west1.firebasedatabase.app
 
 const tasks = [
   {
-    status: "todo",
+    status: "to-do",
     title: "HTML Base Template Creation",
-    description: "Create reusable HTML base templates that can be used in different parts of the project.",
-    dueDate: "2025-05-05",
+    description: "Create reusable HTML base templates that will serve as the foundation for other pages in the project.",
+    dueDate: "05/05/2025",
     priority: "low",
     assignedTo: [
-      { name: "Alex Müller", initials: "AM", color: "#ff7a00" },
-      { name: "Bernd Zimmermann", initials: "BZ", color: "#1fd7c1" },
-      { name: "Anna Sommer", initials: "AS", color: "#462f8a" },
+      { name: "Anna Müller", initials: "AM", color: "#FF0000" },
+      { name: "Bernd Schmidt", initials: "BS", color: "#800080" },
+      { name: "Claudia Thiel", initials: "CT", color: "#FFFF00" },
     ],
     category: "Technical Task",
-    subtasks: [{ done: true, subtask: "Setup Base Styles" }],
+    subtasks: [{ done: false, subtask: "Setup Base Styles" }],
   },
   {
     status: "in-progress",
     title: "Implement Login Page",
-    description: "Build and style the login page with form validation.",
-    dueDate: "2025-05-10",
+    description: "Build and style the login page, adding form validation for login credentials.",
+    dueDate: "10/05/2025",
     priority: "high",
-    assignedTo: [{ name: "Lea Becker", initials: "LB", color: "#C3FF2B" }],
+    assignedTo: [{ name: "David Huber", initials: "DH", color: "#0000FF" }],
     category: "User Story",
     subtasks: [
       { done: false, subtask: "Form Markup" },
@@ -32,10 +32,10 @@ const tasks = [
   {
     status: "awaiting-feedback",
     title: "Responsive Navigation Bar",
-    description: "Implement and test a responsive navigation bar across all screen sizes.",
-    dueDate: "2025-05-12",
+    description: "Implement a navigation bar that adjusts responsively for mobile, tablet, and desktop views.",
+    dueDate: "12/05/2025",
     priority: "medium",
-    assignedTo: [{ name: "Tom Fischer", initials: "TF", color: "#0085FF" }],
+    assignedTo: [{ name: "Elena Krüger", initials: "EK", color: "#A52A2A" }],
     category: "User Story",
     subtasks: [
       { done: true, subtask: "Mobile Navigation" },
@@ -47,10 +47,10 @@ const tasks = [
   {
     status: "done",
     title: "Set Up Project Repository",
-    description: "Initialize the Git repository and set up branching strategy.",
-    dueDate: "2025-04-30",
+    description: "Initialize a Git repository and establish a clear branching strategy for team collaboration.",
+    dueDate: "30/04/2025",
     priority: "low",
-    assignedTo: [{ name: "Miriam Wagner", initials: "MW", color: "#FF5C5C" }],
+    assignedTo: [{ name: "Felix Neumann", initials: "FN", color: "#008080" }],
     category: "Technical Task",
     subtasks: [
       { done: true, subtask: "Create Repo" },
@@ -58,33 +58,108 @@ const tasks = [
     ],
   },
   {
-    status: "todo",
+    status: "to-do",
     title: "Design User Registration Flow",
-    description: "Sketch and plan the user registration experience including error handling.",
-    dueDate: "2025-05-15",
+    description: "Design the user flow for registration, including account creation and error handling.",
+    dueDate: "15/05/2025",
     priority: "high",
     assignedTo: [
-      { name: "Bernd Zimmermann", initials: "BZ", color: "#1fd7c1" },
-      { name: "Anna Sommer", initials: "AS", color: "#462f8a" },
+      { name: "Greta Schäfer", initials: "GS", color: "#FF0000" },
+      { name: "Hassan Özdemir", initials: "HÖ", color: "#A52A2A" },
     ],
     category: "User Story",
     subtasks: [
       { done: false, subtask: "Wireframe Signup Page" },
-      { done: true, subtask: "Create Error States" },
+      { done: false, subtask: "Create Error States" },
     ],
   },
   {
     status: "in-progress",
     title: "Setup ESLint and Prettier",
-    description: "Add and configure ESLint and Prettier for consistent code formatting.",
-    dueDate: "2025-05-08",
+    description: "Configure ESLint and Prettier to ensure consistent code formatting across the team.",
+    dueDate: "08/05/2025",
     priority: "medium",
-    assignedTo: [{ name: "Alex Müller", initials: "AM", color: "#ff7a00" }],
+    assignedTo: [{ name: "Isabel Lange", initials: "IL", color: "#A52A2A" }],
     category: "Technical Task",
-    subtasks: [{ done: true, subtask: "Install Packages" }],
+    subtasks: [{ done: false, subtask: "Install Packages" }],
+  },
+  {
+    status: "done",
+    title: "Create Design System Documentation",
+    description: "Create comprehensive documentation for the design system, including components and design patterns.",
+    dueDate: "03/05/2025",
+    priority: "medium",
+    assignedTo: [{ name: "Maximilian Braun", initials: "MB", color: "#0000FF" }],
+    category: "Technical Task",
+    subtasks: [
+      { done: true, subtask: "Buttons" },
+      { done: true, subtask: "Colors" },
+      { done: true, subtask: "Typography" },
+    ],
+  },
+  {
+    status: "awaiting-feedback",
+    title: "Prepare Pitch Deck",
+    description: "Finalize the presentation deck for stakeholders, including key messages and visuals.",
+    dueDate: "20/05/2025",
+    priority: "high",
+    assignedTo: [
+      { name: "Thomas Wagner", initials: "TW", color: "#008000" },
+      { name: "Elena Krüger", initials: "EK", color: "#A52A2A" },
+    ],
+    category: "User Story",
+    subtasks: [
+      { done: true, subtask: "Design Cover Slide" },
+      { done: false, subtask: "Write Key Messages" },
+      { done: false, subtask: "Review with Team" },
+    ],
+  },
+  {
+    status: "to-do",
+    title: "Research Analytics Tools",
+    description: "Compare and research available analytics tools for user tracking and data insights.",
+    dueDate: "25/05/2025",
+    priority: "low",
+    assignedTo: [{ name: "Claudia Thiel", initials: "CT", color: "#FFFF00" }],
+    category: "Technical Task",
+    subtasks: [],
+  },
+  {
+    status: "in-progress",
+    title: "Implement Dark Mode",
+    description: "Add support for dark mode to the application, including a toggle for users.",
+    dueDate: "22/05/2025",
+    priority: "high",
+    assignedTo: [
+      { name: "Anna Müller", initials: "AM", color: "#FF0000" },
+      { name: "David Huber", initials: "DH", color: "#0000FF" },
+    ],
+    category: "User Story",
+    subtasks: [
+      { done: true, subtask: "Toggle Button UI" },
+      { done: false, subtask: "Dark Theme CSS" },
+    ],
+  },
+  {
+    status: "to-do",
+    title: "Setup Database Schema",
+    description: "Design and implement the initial database schema for the application.",
+    dueDate: "01/06/2025",
+    priority: "high",
+    assignedTo: [],
+    category: "Technical Task",
+    subtasks: [
+      { done: false, subtask: "Define Tables" },
+      { done: false, subtask: "Set Relationships" },
+      { done: false, subtask: "Create Migrations" },
+    ],
   },
 ];
 
+/**
+ * Creates example tasks to add to the Firebase database
+ *
+ */
 async function seedTasks() {
   for (const task of tasks) {
     try {
@@ -95,7 +170,7 @@ async function seedTasks() {
       });
 
       const postData = await response.json();
-      const taskId = postData.name; // weist nach dem Zufügen des Tasks die von Firebase kreierte ID der taskId hinzu
+      const taskId = postData.name; // adds the ID created by Firebase to the taskId after the task has been added to the database
 
       await fetch(`${baseURL}/tasks/${taskId}.json`, {
         method: "PATCH",

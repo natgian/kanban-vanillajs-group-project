@@ -4,9 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Board</title>
+    <link rel="icon" href="../assets/img/join_logo_dark.svg" type="image/x-icon" />
     <link rel="stylesheet" href="../styles.css" />
     <link rel="stylesheet" href="../styles/board.css" />
-    <script src="../script.js"></script>
     <script src="../scripts/board.js" defer></script>
     <script src="../scripts/boardTemplates.js"></script>
   </head>
@@ -83,11 +83,13 @@
         </div>
       </header>
       <!-- Content -->
-      <div class="contentBox">
+      <div>
         <div class="content">
           <!-- Board header -->
           <section class="board-header">
             <h1>Board</h1>
+            <button class="btn" id="add-btn-mobile"><img src="../assets/icons/add_icon.svg" alt="add icon" /></button>
+
             <div class="board-search-add-wrapper">
               <div class="search-container">
                 <input type="search" name="find-task" id="find-task" placeholder="Find Task" />
@@ -96,7 +98,7 @@
                   <img src="../assets/icons/search_icon.svg" alt="search icon" />
                 </button>
               </div>
-              <button class="btn">Add task <img src="../assets/icons/add_icon.svg" alt="add icon" /></button>
+              <button class="btn" id="add-btn-desktop">Add task<img src="../assets/icons/add_icon.svg" alt="add icon" /></button>
             </div>
           </section>
 
@@ -104,8 +106,8 @@
             <!-- To do -->
             <div class="board-column">
               <div class="column-header">
-                <h2 class="task-title">To do</h2>
-                <button class="add-btn">
+                <h2 class="task-status">To do</h2>
+                <button class="icon-btn">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <rect x="1" y="1" width="22" height="22" rx="7" stroke="currentColor" stroke-width="2" />
                     <path d="M12 8V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
@@ -113,14 +115,14 @@
                   </svg>
                 </button>
               </div>
-              <div class="cards-container" id="to-do" ondrop="moveTo('to-do')" ondragover="allowDrop(event)"></div>
+              <div class="cards-container" id="to-do"></div>
             </div>
 
             <!-- In progress -->
             <div class="board-column">
               <div class="column-header">
-                <h2 class="task-title">In progress</h2>
-                <button class="add-btn">
+                <h2 class="task-status">In progress</h2>
+                <button class="icon-btn">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <rect x="1" y="1" width="22" height="22" rx="7" stroke="currentColor" stroke-width="2" />
                     <path d="M12 8V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
@@ -128,14 +130,14 @@
                   </svg>
                 </button>
               </div>
-              <div class="cards-container" id="in-progress" ondrop="moveTo('in-progress')" ondragover="allowDrop(event)"></div>
+              <div class="cards-container" id="in-progress"></div>
             </div>
 
             <!-- Await feedback -->
             <div class="board-column">
               <div class="column-header">
-                <h2 class="task-title">Await feedback</h2>
-                <button class="add-btn">
+                <h2 class="task-status">Await feedback</h2>
+                <button class="icon-btn">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <rect x="1" y="1" width="22" height="22" rx="7" stroke="currentColor" stroke-width="2" />
                     <path d="M12 8V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
@@ -143,15 +145,15 @@
                   </svg>
                 </button>
               </div>
-              <div class="cards-container" id="awaiting-feedback" ondrop="moveTo('awaiting-feedback')" ondragover="allowDrop(event)"></div>
+              <div class="cards-container" id="awaiting-feedback"></div>
             </div>
 
             <!-- Done -->
             <div class="board-column">
               <div class="column-header">
-                <h2 class="task-title">Done</h2>
+                <h2 class="task-status">Done</h2>
               </div>
-              <div class="cards-container" id="done" ondrop="moveTo('done')" ondragover="allowDrop(event)"></div>
+              <div class="cards-container" id="done"></div>
             </div>
           </section>
 
@@ -161,6 +163,36 @@
           </div>
         </div>
       </div>
+
+      <!-- Footer Navigation -->
+      <nav class="footer-navigation">
+        <ul class="sidebar-menu">
+          <li>
+            <a href="./summary.html" class="sidebar-menu-link">
+              <img src="../assets/icons/summary_icon.svg" alt="summary icon" />
+              Summary
+            </a>
+          </li>
+          <li>
+            <a href="./addTask.html" class="sidebar-menu-link">
+              <img src="../assets/icons/add_task_icon.svg" alt="add task icon" />
+              Add Task
+            </a>
+          </li>
+          <li>
+            <a href="./board.html" class="sidebar-menu-link active-link">
+              <img src="../assets/icons/board_icon.svg" alt="board icon" />
+              Board
+            </a>
+          </li>
+          <li>
+            <a href="./contacts.html" class="sidebar-menu-link">
+              <img src="../assets/icons/contacts_icon.svg" alt="contacts icon" />
+              Contacts
+            </a>
+          </li>
+        </ul>
+      </nav>
     </main>
   </body>
 </html>

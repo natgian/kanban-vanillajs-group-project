@@ -22,7 +22,7 @@
     button{
         border: none;
         background-color: transparent;
-        color: #29abe2;
+        color: var(--hover-color);
         font-size: 28px;
     }
 
@@ -41,7 +41,7 @@
     }
 
     i {
-        color: #29abe2;
+        color: var(--hover-color);
     }
 
     b {

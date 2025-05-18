@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Summary</title>
+  <link rel="icon" type="image/x-icon" href="../assets/img/join_logo_white.svg">
+
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../styles/summary.css">
+
+  <script src="../scripts/summary.js"></script>
+  <script src="../scripts/summaryTemplateGuest.js"></script>
+</head>
+
+<body onload="loadSummary()">
+  <!-- Sidebar -->
+  <nav class="sidebar">
+    <div class="sidebar-container">
+      <!-- Logo -->
+      <div>
+        <img src="../assets/img/join_logo_white.svg" alt="Join logo" class="logo" />
+      </div>
+      <!-- Navigation -->
+      <ul class="sidebar-menu">
+        <li>
+          <a href="./summary.html" class="sidebar-menu-link active-link">
+            <img src="../assets/icons/summary_icon.svg" alt="summary icon" />
+            Summary
+          </a>
+        </li>
+        <li>
+          <a href="./addTask.html" class="sidebar-menu-link">
+            <img src="../assets/icons/add_task_icon.svg" alt="add task icon" />
+            Add Task
+          </a>
+        </li>
+        <li>
+          <a href="./board.html" class="sidebar-menu-link">
+            <img src="../assets/icons/board_icon.svg" alt="board icon" />
+            Board
+          </a>
+        </li>
+        <li>
+          <a href="./contacts.html" class="sidebar-menu-link">
+            <img src="../assets/icons/contacts_icon.svg" alt="contacts icon" />
+            Contacts
+          </a>
+        </li>
+      </ul>
+    </div>
+    <!-- Footer-Links -->
+    <ul class="sidebar-footer">
+      <li class="sidebar-footer-link">
+        <a href="./privacy_policy.html">Privacy Policy</a>
+      </li>
+      <li class="sidebar-footer-link">
+        <a href="./legal_notice.html">Legal notice</a>
+      </li>
+    </ul>
+  </nav>
+  <main class="layout-container">
+    <!-- Header -->
+    <header>
+      <span>Kanban Project Management Tool</span>
+      <div class="header-icons-container">
+        <div class="help-iconBox">
+          <a href="./help.html"><img class="help-icon" src="../assets/icons/help_icon.svg" alt="help icon" /></a>
+        </div>
+        <button class="user-profile-icon"><span>G</span></button>
+      </div>
+    </header>
+    <!-- Content -->
+    <div id="templateContent"></div>
+    <!-- Responsive Footer Links -->
+    <nav class="footer-navigation">
+      <ul class="sidebar-menu">
+        <li>
+          <a href="./summary.html" class="sidebar-menu-link">
+            <img src="../assets/icons/summary_icon.svg" alt="summary icon" />
+            Summary
+          </a>
+        </li>
+        <li>
+          <a href="./addTask.html" class="sidebar-menu-link">
+            <img src="../assets/icons/add_task_icon.svg" alt="add task icon" />
+            Add Task
+          </a>
+        </li>
+        <li>
+          <a href="./board.html" class="sidebar-menu-link active-link">
+            <img src="../assets/icons/board_icon.svg" alt="board icon" />
+            Board
+          </a>
+        </li>
+        <li>
+          <a href="./contacts.html" class="sidebar-menu-link">
+            <img src="../assets/icons/contacts_icon.svg" alt="contacts icon" />
+            Contacts
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </main>
+</body>
+
+</html>
