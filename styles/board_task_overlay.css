@@ -108,3 +108,25 @@
   color: var(--primary-color);
   margin-bottom: 8px;
 }
+
+/*-------------- */
+/* MEDIA QUERIES */
+/*-------------- */
+
+@media (max-width: 672px) {
+  .task-overlay-title {
+    font-size: 36px;
+  }
+
+  .wrapper {
+    font-size: 16px;
+    height: auto;
+  }
+}
+
+@media (max-width: 435px) {
+  .task-overlay-content {
+    height: 90vh;
+    padding: 24px;
+  }
+}

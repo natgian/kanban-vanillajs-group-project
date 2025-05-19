@@ -279,23 +279,10 @@
   .content {
     padding: 48px 16px;
   }
-
-  .task-overlay-title {
-    font-size: 36px;
-  }
-
-  .wrapper {
-    font-size: 16px;
-    height: auto;
-  }
 }
 
 @media (max-width: 435px) {
   h1 {
     font-size: 46px;
-  }
-  .task-overlay-content {
-    height: 90vh;
-    padding: 24px;
   }
 }

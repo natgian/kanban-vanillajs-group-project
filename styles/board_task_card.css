@@ -93,23 +93,6 @@
   display: flex;
 }
 
-.task-card-avatar {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-left: -8px;
-  width: 32px;
-  height: 32px;
-  color: var(--white-color);
-  font-size: 12px;
-  border: 1px solid var(--white-color);
-  border-radius: 50%;
-}
-
-.task-card-avatar:first-child {
-  margin-left: 0;
-}
-
 .category-icon-container {
   display: flex;
   align-items: center;
