@@ -6,6 +6,8 @@ const taskDetailsContentRef = document.getElementById("task-overlay-content");
 let allTasks = [];
 let currentDraggedElement;
 let currentOpenMenu = null;
+let currentMenuClickHandler = null;
+let currentOverlayClickHandler = null;
 
 /**
  * This function initiates the fetching and rendering of the tasks when the board page is loaded and adds an event listener to the task search input field.
@@ -116,7 +118,6 @@ function openTaskDetails(taskId) {
   document.body.classList.add("no-scroll");
 
   outsideClickHandlerForOverlay(taskDetailsContentRef, closeTaskDetails);
-  // taskDetailsRef.addEventListener("click", outsideClickHandler);
   renderTaskDetails(taskId);
 }
 
@@ -337,6 +338,10 @@ function isMenuOpen(menuRef) {
   return !menuRef.classList.contains("hide");
 }
 
+function closeMoveToMenu(menuRef) {
+  menuRef.classList.add("hide");
+}
+
 function closePreviousOpenMenu(menuRef) {
   if (currentOpenMenu && currentOpenMenu !== menuRef) {
     currentOpenMenu.classList.add("hide");
@@ -359,30 +364,64 @@ function updateDisabledMenuItem(items, status) {
   });
 }
 
-function closeMoveToMenu(menuRef) {
-  menuRef.classList.add("hide");
-}
-
 function outsideClickHandlerForMenu(menuRef) {
-  function handleClick(event) {
+  if (currentMenuClickHandler) {
+    document.removeEventListener("click", currentMenuClickHandler);
+    currentMenuClickHandler = null;
+  }
+
+  currentMenuClickHandler = function (event) {
     if (!menuRef.contains(event.target)) {
       closeMoveToMenu(menuRef);
-      document.removeEventListener("click", handleClick);
+      document.removeEventListener("click", currentMenuClickHandler);
+      currentMenuClickHandler = null;
     }
-  }
+  };
+
   requestAnimationFrame(() => {
-    document.addEventListener("click", handleClick);
+    document.addEventListener("click", currentMenuClickHandler);
   });
 }
 
 function outsideClickHandlerForOverlay(overlayRef, closeFn) {
-  function handleClick(event) {
+  if (currentOverlayClickHandler) {
+    document.removeEventListener("click", currentOverlayClickHandler);
+    currentOverlayClickHandler = null;
+  }
+
+  currentOverlayClickHandler = function (event) {
     if (!overlayRef.contains(event.target)) {
       closeFn();
-      document.removeEventListener("click", handleClick);
+      document.removeEventListener("click", currentOverlayClickHandler);
+      currentOverlayClickHandler = null;
     }
-  }
+  };
+
   requestAnimationFrame(() => {
-    document.addEventListener("click", handleClick);
+    document.addEventListener("click", currentOverlayClickHandler);
   });
 }
+
+// function outsideClickHandlerForMenu(menuRef) {
+//   function handleClick(event) {
+//     if (!menuRef.contains(event.target)) {
+//       closeMoveToMenu(menuRef);
+//       document.removeEventListener("click", handleClick);
+//     }
+//   }
+//   requestAnimationFrame(() => {
+//     document.addEventListener("click", handleClick);
+//   });
+// }
+
+// function outsideClickHandlerForOverlay(overlayRef, closeFn) {
+//   function handleClick(event) {
+//     if (!overlayRef.contains(event.target)) {
+//       closeFn();
+//       document.removeEventListener("click", handleClick);
+//     }
+//   }
+//   requestAnimationFrame(() => {
+//     document.addEventListener("click", handleClick);
+//   });
+// }
