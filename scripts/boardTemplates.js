@@ -108,8 +108,8 @@ function taskOverlayTemplate(task, assignedToDetailHTML, subtasksHTML) {
   return `
           <div class="category-icon-container">
             <span class="task-category ${task.category === "Technical Task" ? "technical" : "userstory"}-category">${task.category}</span>
-            <button class="close-btn">
-                <img src="../assets/icons/close_icon.svg" alt="close icon" onclick="closeTaskDetails()" />
+            <button class="close-btn" onclick="closeTaskDetails()">
+                <img src="../assets/icons/close_icon.svg" alt="close icon"/>
             </button>
           </div>
 
@@ -236,8 +236,8 @@ function assignedToDetailTemplate(person) {
 function taskOverlayEditTaskTemplate(task, formattedDueDate) {
   return `
           <div class="flex-end">
-            <button class="close-btn">
-                <img src="../assets/icons/close_icon.svg" alt="close icon" onclick="closeTaskDetails()" />
+            <button class="close-btn" onclick="closeTaskDetails()">
+                <img src="../assets/icons/close_icon.svg" alt="close icon"/>
             </button>
           </div>
 

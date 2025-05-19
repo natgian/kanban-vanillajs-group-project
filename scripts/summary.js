@@ -9,12 +9,12 @@ const databasURL = "https://join-458-default-rtdb.europe-west1.firebasedatabase.
  * task data, and user name have been fully loaded and rendered.
  */
 async function loadSummary() {
-    const contentContainer = document.getElementById('templateContent');
-    contentContainer.innerHTML = summaryTemplate();
-    const tasks = await loadTasksFromFirebase();
-    updateSummary(tasks);
-    const userName = localStorage.getItem('currentUser') || 'Guest';
-    document.getElementById('userName').textContent = userName;
+  const contentContainer = document.getElementById("templateContent");
+  contentContainer.innerHTML = summaryTemplate();
+  const tasks = await loadTasksFromFirebase();
+  updateSummary(tasks);
+  const userName = localStorage.getItem("currentUser") || "Guest";
+  document.getElementById("userName").textContent = userName;
 }
 
 /**
@@ -25,16 +25,16 @@ async function loadSummary() {
  *   Each task object contains the task data retrieved from Firebase.
  */
 async function loadTasksFromFirebase() {
-    try {
-        const response = await fetch(`${databasURL}tasks.json`);
-        if (!response.ok) throw new Error("Fehler beim Laden der Daten");
-        const data = await response.json();
-        const tasks = data ? Object.values(data) : [];
-        return tasks;
-    } catch (error) {
-        console.error("Fehler beim Laden der Tasks aus Firebase:", error);
-        return [];
-    }
+  try {
+    const response = await fetch(`${databasURL}tasks.json`);
+    if (!response.ok) throw new Error("Fehler beim Laden der Daten");
+    const data = await response.json();
+    const tasks = data ? Object.values(data) : [];
+    return tasks;
+  } catch (error) {
+    console.error("Fehler beim Laden der Tasks aus Firebase:", error);
+    return [];
+  }
 }
 
 /**
@@ -46,13 +46,13 @@ async function loadTasksFromFirebase() {
  *   includes status (e.g., 'to-do', 'done', etc.), priority, and other relevant information.
  */
 function updateSummary(tasks) {
-    document.getElementById('toDoNumber').textContent = countByStatus(tasks, 'to-do');
-    document.getElementById('doneNumber').textContent = countByStatus(tasks, 'done');
-    document.getElementById('urgentNumber').textContent = countByPriority(tasks, 'high');
-    document.getElementById('date').textContent = getNextUpcomingDate(tasks);
-    document.getElementById('amountTasksNumber').textContent = tasks.length;
-    document.getElementById('progressNumber').textContent = countByStatus(tasks, 'in-progress');
-    document.getElementById('awaitFeedbackNumber').textContent = countByStatus(tasks, 'awaiting-feedback');
+  document.getElementById("toDoNumber").textContent = countByStatus(tasks, "to-do");
+  document.getElementById("doneNumber").textContent = countByStatus(tasks, "done");
+  document.getElementById("urgentNumber").textContent = countByPriority(tasks, "high");
+  document.getElementById("date").textContent = getNextUpcomingDate(tasks);
+  document.getElementById("amountTasksNumber").textContent = tasks.length;
+  document.getElementById("progressNumber").textContent = countByStatus(tasks, "in-progress");
+  document.getElementById("awaitFeedbackNumber").textContent = countByStatus(tasks, "awaiting-feedback");
 }
 
 /**
@@ -63,7 +63,7 @@ function updateSummary(tasks) {
  * @returns {number} The number of tasks that have the specified status.
  */
 function countByStatus(tasks, status) {
-    return tasks.filter(task => task.status === status).length;
+  return tasks.filter((task) => task.status === status).length;
 }
 
 /**
@@ -74,7 +74,7 @@ function countByStatus(tasks, status) {
  * @returns {number} The number of tasks that have the specified priority.
  */
 function countByPriority(tasks, priority) {
-    return tasks.filter(task => task.priority === priority).length;
+  return tasks.filter((task) => task.priority === priority).length;
 }
 
 /**
@@ -84,18 +84,16 @@ function countByPriority(tasks, priority) {
  * @returns {string} The next upcoming due date formatted as 'Month Day, Year' (e.g., 'May 12, 2025'), or 'No upcoming date' if there are no upcoming dates.
  */
 function getNextUpcomingDate(tasks) {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const upcomingDates = tasks
-        .map(task => new Date(task.dueDate))
-        .filter(date => !isNaN(date) && date >= today)
-        .sort((a, b) => a - b);
-    const next = upcomingDates[0];
-    return next
-        ? next.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
-        : 'No upcoming date';
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const upcomingDates = tasks
+    .map((task) => new Date(task.dueDate))
+    .filter((date) => !isNaN(date) && date >= today)
+    .sort((a, b) => a - b);
+  const next = upcomingDates[0];
+  return next ? next.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" }) : "No upcoming date";
 }
 
 function linkToBoard() {
-    window.location.href = "../pages/board.html";
+  window.location.href = "../pages/board.html";
 }
