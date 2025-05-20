@@ -43,11 +43,11 @@
 .typeBars::placeholder {
   color: var(--outline-color);
 }
-.typeBars:focus,
+/* .typeBars:focus,
 .typeBars:active {
   border-color: var(--hover-color);
   outline: none;
-}
+} */
 .typeBars:hover {
   border: 1px solid var(--hover-color);
 }
@@ -231,7 +231,6 @@ label {
   background: white;
   border: 1px solid #ccc;
   z-index: 60;
-  border: 1px solid var(--hover-color);
   border-radius: 10px;
   max-height: 145px;
   overflow-y: auto;
@@ -282,3 +281,4 @@ label {
   display: none;
   z-index: 10;
 }
+
