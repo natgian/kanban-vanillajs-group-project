@@ -29,25 +29,25 @@ function cardTemplate(task, subtasksTotal, subtasksDone, progressPercent, assign
                 <div role="menu" class="move-to-menu hide" id="move-to-menu${task.taskId}">
                   <span>Move to</span>
                   <ul>
-                    <li onclick="console.log('geklickt')">
+                    <li onclick="moveToByClick('${task.taskId}', 'to-do')">
                       <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="20px"           fill="currentColor">
                         <path d="M647-520H160v80h487L423-216l57 56 320-320-320-320-57 56 224 224Z" />
                       </svg>
                       To do
                     </li>
-                    <li>
+                    <li onclick="moveToByClick('${task.taskId}', 'in-progress')">
                       <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="20px"           fill="currentColor">
                         <path d="M647-520H160v80h487L423-216l57 56 320-320-320-320-57 56 224 224Z" />
                       </svg>
                       In progress
                     </li>
-                    <li>
+                    <li onclick="moveToByClick('${task.taskId}', 'awaiting-feedback')">
                       <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="20px"           fill="currentColor">
                         <path d="M647-520H160v80h487L423-216l57 56 320-320-320-320-57 56 224 224Z" />
                       </svg>
                       Awaiting feedback
                     </li>
-                    <li>
+                    <li onclick="moveToByClick('${task.taskId}', 'done')">
                       <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="20px"           fill="currentColor">
                         <path d="M647-520H160v80h487L423-216l57 56 320-320-320-320-57 56 224 224Z" />
                       </svg>

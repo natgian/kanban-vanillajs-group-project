@@ -297,19 +297,38 @@ function removeHighlight(status) {
 }
 
 /**
- * Moves the currently dragged task to a new status and updates the backend and re-initializes the board
+ * Moves the currently dragged task to a new status, updates the backend and re-initializes the board
  *
- * @param {string} status - The status column ID where the task should be moved to
+ * @param {string} newStatus - The status column ID where the task should be moved to
  */
-async function moveTo(status) {
-  document.getElementById(status).classList.remove("drag-area-highlight");
+async function moveTo(newStatus) {
+  document.getElementById(newStatus).classList.remove("drag-area-highlight");
   try {
     await fetch(`${baseURL}/tasks/${currentDraggedElement}.json`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ status: status }),
+      body: JSON.stringify({ status: newStatus }),
     });
     document.getElementById(`card${currentDraggedElement}`).classList.remove("dragging");
+    init();
+  } catch (error) {
+    console.error("Failed to move task:", error);
+  }
+}
+
+/**
+ * Moves the current task to the new clicked status, updates the backend and re-initializes the board
+ *
+ * @param {string} taskId - The ID of the task that should be moved
+ * @param {string} newStatus - The status column ID where the task should be moved to
+ */
+async function moveToByClick(taskId, newStatus) {
+  try {
+    await fetch(`${baseURL}/tasks/${taskId}.json`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ status: newStatus }),
+    });
     init();
   } catch (error) {
     console.error("Failed to move task:", error);
