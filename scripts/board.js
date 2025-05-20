@@ -6,8 +6,7 @@ const taskDetailsContentRef = document.getElementById("task-overlay-content");
 let allTasks = [];
 let currentDraggedElement;
 let currentOpenMenu = null;
-let currentMenuClickHandler = null;
-let currentOverlayClickHandler = null;
+let currentOutsideClickHandler = null;
 
 /**
  * This function initiates the fetching and rendering of the tasks when the board page is loaded and adds an event listener to the task search input field.
@@ -117,7 +116,7 @@ function openTaskDetails(taskId) {
   taskDetailsRef.classList.toggle("show");
   document.body.classList.add("no-scroll");
 
-  outsideClickHandlerForOverlay(taskDetailsContentRef, closeTaskDetails);
+  setupOutsideClickHandler(taskDetailsContentRef, closeTaskDetails);
   renderTaskDetails(taskId);
 }
 
@@ -317,7 +316,16 @@ async function moveTo(status) {
   }
 }
 
-//TODO:
+/**
+ * Opens the "Move To" menu for a specific task when the corresponding button is clicked.
+ * Closes any previously open menus, disables the current status item in the menu and
+ * sets up a click handler to close the menu when clicking outside.
+ * If the same menu is already open, it will close on click.
+ *
+ * @param {Event} event - The click event
+ * @param {string} taskId - The ID of the task for which the menu is opened
+ * @param {string} status - The current status of the task (to-do, in-progress...)
+ */
 function openMoveToMenu(event, taskId, status) {
   event.stopPropagation();
   const menuRef = document.getElementById(`move-to-menu${taskId}`);
@@ -331,28 +339,57 @@ function openMoveToMenu(event, taskId, status) {
   closePreviousOpenMenu(menuRef);
   showMenu(menuRef);
   updateDisabledMenuItem(items, status);
-  outsideClickHandlerForMenu(menuRef);
+  setupOutsideClickHandler(menuRef, () => closeMoveToMenu(menuRef));
 }
 
+/**
+ * Checks if the menu is open
+ *
+ * @param {HTMLElement} menuRef - The DOM element of the menu to check
+ * @returns {boolean} - Returns 'true' if the menu is visible, otherwise 'false'
+ */
 function isMenuOpen(menuRef) {
   return !menuRef.classList.contains("hide");
 }
 
+/**
+ * Closes the menu by adding the 'hide' class
+ *
+ * @param {HTMLElement} menuRef - The DOM element of the menu to close
+ */
 function closeMoveToMenu(menuRef) {
   menuRef.classList.add("hide");
 }
 
+/**
+ * Closes the previously opened menu if it is different from the currently opened one
+ *
+ * @param {HTMLElement} menuRef - The DOM element of the menu that is being opened
+ */
 function closePreviousOpenMenu(menuRef) {
   if (currentOpenMenu && currentOpenMenu !== menuRef) {
     currentOpenMenu.classList.add("hide");
   }
 }
 
+/**
+ * Shows the menu of the currently clicked task by removing the 'hide' class and sets it as the
+ * current open menu.
+ *
+ * @param {HTMLElement} menuRef - The DOM element of the menu that is being opened
+ */
 function showMenu(menuRef) {
   menuRef.classList.remove("hide");
   currentOpenMenu = menuRef;
 }
 
+/**
+ * Iterates through the items and checks the status, if it's equal to the current status it is
+ * disabled. Otherwise the 'disabled' class is removed.
+ *
+ * @param {NodeListOf<HTMLElement>} items - List of menu item elements
+ * @param {string} status - The current status fo the task (to-do, in-progress...)
+ */
 function updateDisabledMenuItem(items, status) {
   items.forEach((item) => {
     const text = item.textContent.trim().toLowerCase().replace(/\s/g, "-");
@@ -364,64 +401,30 @@ function updateDisabledMenuItem(items, status) {
   });
 }
 
-function outsideClickHandlerForMenu(menuRef) {
-  if (currentMenuClickHandler) {
-    document.removeEventListener("click", currentMenuClickHandler);
-    currentMenuClickHandler = null;
+/**
+ * Sets up an outside click handler to close a specific element.
+ * Removes any existing handler before setting a new one to prevent duplicates.
+ *
+ * @param {HTMLElement} ref - The element to monitor for outside clicks
+ * @param {Function} closeFunction - The function to call when an outside click is detected
+ *
+ */
+function setupOutsideClickHandler(ref, closeFunction) {
+  if (currentOutsideClickHandler) {
+    document.removeEventListener("click", currentOutsideClickHandler);
+    currentOutsideClickHandler = null;
   }
 
-  currentMenuClickHandler = function (event) {
-    if (!menuRef.contains(event.target)) {
-      closeMoveToMenu(menuRef);
-      document.removeEventListener("click", currentMenuClickHandler);
-      currentMenuClickHandler = null;
+  currentOutsideClickHandler = function (event) {
+    if (!ref.contains(event.target)) {
+      closeFunction();
+      document.removeEventListener("click", currentOutsideClickHandler);
+      currentOutsideClickHandler = null;
     }
   };
 
   requestAnimationFrame(() => {
-    document.addEventListener("click", currentMenuClickHandler);
+    // Delays adding the click listener to avoid catching the opening click event
+    document.addEventListener("click", currentOutsideClickHandler);
   });
 }
-
-function outsideClickHandlerForOverlay(overlayRef, closeFn) {
-  if (currentOverlayClickHandler) {
-    document.removeEventListener("click", currentOverlayClickHandler);
-    currentOverlayClickHandler = null;
-  }
-
-  currentOverlayClickHandler = function (event) {
-    if (!overlayRef.contains(event.target)) {
-      closeFn();
-      document.removeEventListener("click", currentOverlayClickHandler);
-      currentOverlayClickHandler = null;
-    }
-  };
-
-  requestAnimationFrame(() => {
-    document.addEventListener("click", currentOverlayClickHandler);
-  });
-}
-
-// function outsideClickHandlerForMenu(menuRef) {
-//   function handleClick(event) {
-//     if (!menuRef.contains(event.target)) {
-//       closeMoveToMenu(menuRef);
-//       document.removeEventListener("click", handleClick);
-//     }
-//   }
-//   requestAnimationFrame(() => {
-//     document.addEventListener("click", handleClick);
-//   });
-// }
-
-// function outsideClickHandlerForOverlay(overlayRef, closeFn) {
-//   function handleClick(event) {
-//     if (!overlayRef.contains(event.target)) {
-//       closeFn();
-//       document.removeEventListener("click", handleClick);
-//     }
-//   }
-//   requestAnimationFrame(() => {
-//     document.addEventListener("click", handleClick);
-//   });
-// }
