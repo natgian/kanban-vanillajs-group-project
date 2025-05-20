@@ -5,6 +5,9 @@ const taskDetailsContentRef = document.getElementById("task-overlay-content");
 
 let allTasks = [];
 let currentDraggedElement;
+let currentOpenMenu = null;
+let currentMenuClickHandler = null;
+let currentOverlayClickHandler = null;
 
 /**
  * This function initiates the fetching and rendering of the tasks when the board page is loaded and adds an event listener to the task search input field.
@@ -113,7 +116,8 @@ function prepareTaskDisplayData(task) {
 function openTaskDetails(taskId) {
   taskDetailsRef.classList.toggle("show");
   document.body.classList.add("no-scroll");
-  taskDetailsRef.addEventListener("click", outsideClickHandler);
+
+  outsideClickHandlerForOverlay(taskDetailsContentRef, closeTaskDetails);
   renderTaskDetails(taskId);
 }
 
@@ -125,7 +129,8 @@ function openTaskDetails(taskId) {
 function closeTaskDetails() {
   taskDetailsRef.classList.toggle("show");
   document.body.classList.remove("no-scroll");
-  taskDetailsRef.removeEventListener("click", outsideClickHandler);
+
+  // taskDetailsRef.removeEventListener("click", outsideClickHandler);
 }
 
 /**
@@ -258,6 +263,14 @@ function startDragging(taskId) {
 }
 
 /**
+ * Removes the "dragging" class from the task card when the dragging ends (no matter if it is dragged
+ * inside a drag area or not)
+ */
+function endDragging() {
+  document.getElementById(`card${currentDraggedElement}`).classList.remove("dragging");
+}
+
+/**
  * Allows the drop event to occur by preventing the default behaviour
  *
  * @param {DragEvent} event - The dragover event triggered when dragging over a drop element
@@ -285,7 +298,7 @@ function removeHighlight(status) {
 }
 
 /**
- * Moves the currently dragged task to a new status and updates the backend
+ * Moves the currently dragged task to a new status and updates the backend and re-initializes the board
  *
  * @param {string} status - The status column ID where the task should be moved to
  */
@@ -304,13 +317,111 @@ async function moveTo(status) {
   }
 }
 
-/**
- * Enables closing the task details overlay when clicking outside the content
- *
- * @param {Event} event - clicking event
- */
-function outsideClickHandler(event) {
-  if (!taskDetailsContentRef.contains(event.target)) {
-    closeTaskDetails();
+//TODO:
+function openMoveToMenu(event, taskId, status) {
+  event.stopPropagation();
+  const menuRef = document.getElementById(`move-to-menu${taskId}`);
+  const items = menuRef.querySelectorAll("li");
+
+  if (isMenuOpen(menuRef)) {
+    closeMoveToMenu(menuRef);
+    return;
+  }
+
+  closePreviousOpenMenu(menuRef);
+  showMenu(menuRef);
+  updateDisabledMenuItem(items, status);
+  outsideClickHandlerForMenu(menuRef);
+}
+
+function isMenuOpen(menuRef) {
+  return !menuRef.classList.contains("hide");
+}
+
+function closeMoveToMenu(menuRef) {
+  menuRef.classList.add("hide");
+}
+
+function closePreviousOpenMenu(menuRef) {
+  if (currentOpenMenu && currentOpenMenu !== menuRef) {
+    currentOpenMenu.classList.add("hide");
   }
 }
+
+function showMenu(menuRef) {
+  menuRef.classList.remove("hide");
+  currentOpenMenu = menuRef;
+}
+
+function updateDisabledMenuItem(items, status) {
+  items.forEach((item) => {
+    const text = item.textContent.trim().toLowerCase().replace(/\s/g, "-");
+    if (text === status) {
+      item.classList.add("disabled");
+    } else {
+      item.classList.remove("disabled");
+    }
+  });
+}
+
+function outsideClickHandlerForMenu(menuRef) {
+  if (currentMenuClickHandler) {
+    document.removeEventListener("click", currentMenuClickHandler);
+    currentMenuClickHandler = null;
+  }
+
+  currentMenuClickHandler = function (event) {
+    if (!menuRef.contains(event.target)) {
+      closeMoveToMenu(menuRef);
+      document.removeEventListener("click", currentMenuClickHandler);
+      currentMenuClickHandler = null;
+    }
+  };
+
+  requestAnimationFrame(() => {
+    document.addEventListener("click", currentMenuClickHandler);
+  });
+}
+
+function outsideClickHandlerForOverlay(overlayRef, closeFn) {
+  if (currentOverlayClickHandler) {
+    document.removeEventListener("click", currentOverlayClickHandler);
+    currentOverlayClickHandler = null;
+  }
+
+  currentOverlayClickHandler = function (event) {
+    if (!overlayRef.contains(event.target)) {
+      closeFn();
+      document.removeEventListener("click", currentOverlayClickHandler);
+      currentOverlayClickHandler = null;
+    }
+  };
+
+  requestAnimationFrame(() => {
+    document.addEventListener("click", currentOverlayClickHandler);
+  });
+}
+
+// function outsideClickHandlerForMenu(menuRef) {
+//   function handleClick(event) {
+//     if (!menuRef.contains(event.target)) {
+//       closeMoveToMenu(menuRef);
+//       document.removeEventListener("click", handleClick);
+//     }
+//   }
+//   requestAnimationFrame(() => {
+//     document.addEventListener("click", handleClick);
+//   });
+// }
+
+// function outsideClickHandlerForOverlay(overlayRef, closeFn) {
+//   function handleClick(event) {
+//     if (!overlayRef.contains(event.target)) {
+//       closeFn();
+//       document.removeEventListener("click", handleClick);
+//     }
+//   }
+//   requestAnimationFrame(() => {
+//     document.addEventListener("click", handleClick);
+//   });
+// }

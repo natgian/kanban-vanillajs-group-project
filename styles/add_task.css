@@ -48,7 +48,7 @@
   border-color: var(--hover-color);
   outline: none;
 }
-.typeBars:hover{
+.typeBars:hover {
   border: 1px solid var(--hover-color);
 }
 #date-input {
@@ -161,34 +161,34 @@
   border-color: var(--primary-color);
   background-color: rgba(0, 0, 0, 0);
 }
-.bottomButton1:hover{
+.bottomButton1:hover {
   border-color: var(--hover-color);
   color: var(--hover-color);
 }
 .x-icon {
-    width: 15.5px;
-    height: 15.5px;
-    position: relative;
+  width: 15.5px;
+  height: 15.5px;
+  position: relative;
 }
 .x-icon::before,
 .x-icon::after {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 2px;
-    background-color: var(--active-color); 
-    top: 50%;
-    left: 0;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background-color: var(--active-color);
+  top: 50%;
+  left: 0;
 }
 .bottomButton1:hover .x-icon::before,
 .bottomButton1:hover .x-icon::after {
-    background-color: var(--hover-color); 
+  background-color: var(--hover-color);
 }
 .x-icon::before {
-    transform: rotate(45deg);
+  transform: rotate(45deg);
 }
 .x-icon::after {
-    transform: rotate(-45deg);
+  transform: rotate(-45deg);
 }
 .bottomButton2 {
   background-color: var(--outline-color);
@@ -204,7 +204,7 @@
   font-weight: 700;
   cursor: pointer;
 }
-.bottomButton2.enabled:hover{
+.bottomButton2.enabled:hover {
   background-color: var(--hover-color);
   border-color: var(--hover-color);
 }
@@ -253,14 +253,14 @@ label {
   background-color: rgb(240, 240, 240);
 }
 .option.selected:hover {
-    background-color: var(--active-color); 
-    cursor: pointer;
+  background-color: var(--active-color);
+  cursor: pointer;
 }
 .dropdown-selected img {
   width: 20px;
   height: 20px;
 }
-#selectedContacts{
+#selectedContacts {
   display: flex;
   align-items: center;
   padding: 10px 15px;
@@ -280,4 +280,5 @@ label {
 }
 .hidden-checkbox:not(:checked) ~ .checked {
   display: none;
+  z-index: 10;
 }

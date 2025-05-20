@@ -1,74 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contacts</title>
-    <link rel="stylesheet" href="../styles.css" />
-  </head>
-  <body>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/styles/contacts.css">
+    <script src="/scripts/templateContacts.js" defer></script>
+</head>
+<body onload="init()">
+    <div id="layout" class="d_none"></div>
+
+    <!-- Message Box -->
+    <div class="message-box" id="message-box">
+        <span id="message-text"></span>
+        <img src="../assets/icons/check_icon.svg" alt="Success">
+    </div>
+
     <!-- Sidebar -->
     <nav class="sidebar">
-      <div class="sidebar-container">
-        <!-- Logo -->
-        <div>
-          <img src="../assets/img/join_logo_white.svg" alt="Join logo" class="logo" />
+        <div class="sidebar-container">
+            <img src="../assets/img/join_logo_white.svg" alt="Join logo" class="logo">
+            <ul class="sidebar-menu">
+                <li><a href="./summary.html" class="sidebar-menu-link"><img src="../assets/icons/summary_icon.svg" alt=""> Summary</a></li>
+                <li><a href="./addTask.html" class="sidebar-menu-link"><img src="../assets/icons/add_task_icon.svg" alt=""> Add Task</a></li>
+                <li><a href="./board.html" class="sidebar-menu-link"><img src="../assets/icons/board_icon.svg" alt=""> Board</a></li>
+                <li><a href="./contacts.html" class="sidebar-menu-link  active-link"><img src="../assets/icons/contacts_icon.svg" alt=""> Contacts</a></li>
+            </ul>
         </div>
-        <!-- Navigation -->
-        <ul class="sidebar-menu">
-          <li>
-            <a href="./summary.html" class="sidebar-menu-link">
-              <img src="../assets/icons/summary_icon.svg" alt="summary icon" />
-              Summary
-            </a>
-          </li>
-          <li>
-            <a href="./addTask.html" class="sidebar-menu-link">
-              <img src="../assets/icons/add_task_icon.svg" alt="add task icon" />
-              Add Task
-            </a>
-          </li>
-          <li>
-            <a href="./board.html" class="sidebar-menu-link">
-              <img src="../assets/icons/board_icon.svg" alt="board icon" />
-              Board
-            </a>
-          </li>
-          <li>
-            <a href="./contacts.html" class="sidebar-menu-link active-link">
-              <img src="../assets/icons/contacts_icon.svg" alt="contacts icon" />
-              Contacts
-            </a>
-          </li>
+        <ul class="sidebar-footer">
+            <li><a href="./privacy_policy.html" class="sidebar-footer-link">Privacy Policy</a></li>
+            <li><a href="./legal_notice.html" class="sidebar-footer-link">Legal Notice</a></li>
         </ul>
-      </div>
-      <!-- Footer-Links -->
-      <ul class="sidebar-footer">
-        <li class="sidebar-footer-link">
-          <a href="./privacy_policy.html">Privacy Policy</a>
-        </li>
-        <li class="sidebar-footer-link">
-          <a href="./legal_notice.html">Legal notice</a>
-        </li>
-      </ul>
     </nav>
+
+    <!-- Main Content -->
     <main class="layout-container">
-      <!-- Header -->
-      <header>
-        <span>Kanban Project Management Tool</span>
-        <div class="header-icons-container">
-          <div class="help-iconBox">
-            <a href="#"
-              ><img
-                class="help-icon"
-                src="../assets/icons/help_icon.svg"
-                alt="help icon"
-            /></a>
-          </div>
-          <button class="user-profile-icon"><span>G</span></button>
-        </div>
-      </header>
-      <!-- Content -->
+        <header>
+            <span>Kanban Project Management Tool</span>
+            <div class="header-icons-container">
+                <a href="#" class="help-iconBox"><img src="../assets/icons/help_icon.svg" alt="Help"></a>
+                <button class="user-profile-icon"><span>G</span></button>
+            </div>
+        </header>
+
+        <section class="contacts-section">
+            <div id="contact-list">
+                <button onclick="openNewContact()" class="btn">Add New Contact <img src="/assets/icons/person_add.svg" alt=""></button>
+                <div id="contact-list-body"></div>
+            </div>
+            <div id="contenttop">
+                <div class="contentfix">
+                    <h1>Contacts</h1>
+                    <div class="divider"></div>
+                    <p>Better with a team</p>
+                </div>
+                <div id="contact-details"></div>
+            </div>
+        </section>
     </main>
-  </body>
+
+    <script src="/scripts/contacts.js" defer></script>
+</body>
 </html>

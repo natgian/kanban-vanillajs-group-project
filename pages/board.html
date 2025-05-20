@@ -7,11 +7,12 @@
     <link rel="icon" href="../assets/img/join_logo_dark.svg" type="image/x-icon" />
     <link rel="stylesheet" href="../styles.css" />
     <link rel="stylesheet" href="../styles/board.css" />
+    <link rel="stylesheet" href="../styles/board_task_card.css" />
+    <link rel="stylesheet" href="../styles/board_task_overlay.css" />
     <link rel="stylesheet" href="../styles/add_task.css" />
     <script src="../script.js"></script>
     <script src="../scripts/board.js" defer></script>
     <script src="../scripts/boardTemplates.js"></script>
-    <script src="../scripts/Add Task.js"></script>
   </head>
   <body onload="init()">
     <!-- Message Box -->
@@ -109,8 +110,8 @@
             <!-- To do -->
             <div class="board-column">
               <div class="column-header">
-                <h2 class="task-title">To do</h2>
-                <button class="plus-btn">
+                <h2 class="task-status">To do</h2>
+                <button class="icon-btn">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <rect x="1" y="1" width="22" height="22" rx="7" stroke="currentColor" stroke-width="2" />
                     <path d="M12 8V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
@@ -124,8 +125,8 @@
             <!-- In progress -->
             <div class="board-column">
               <div class="column-header">
-                <h2 class="task-title">In progress</h2>
-                <button class="plus-btn">
+                <h2 class="task-status">In progress</h2>
+                <button class="icon-btn">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <rect x="1" y="1" width="22" height="22" rx="7" stroke="currentColor" stroke-width="2" />
                     <path d="M12 8V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
@@ -145,8 +146,8 @@
             <!-- Await feedback -->
             <div class="board-column">
               <div class="column-header">
-                <h2 class="task-title">Await feedback</h2>
-                <button class="plus-btn">
+                <h2 class="task-status">Await feedback</h2>
+                <button class="icon-btn">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <rect x="1" y="1" width="22" height="22" rx="7" stroke="currentColor" stroke-width="2" />
                     <path d="M12 8V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
@@ -166,7 +167,7 @@
             <!-- Done -->
             <div class="board-column">
               <div class="column-header">
-                <h2 class="task-title">Done</h2>
+                <h2 class="task-status">Done</h2>
               </div>
               <div class="cards-container" id="done" ondrop="moveTo('done')" ondragover="allowDrop(event), highlightDropArea('done')" ondragleave="removeHighlight('done')"></div>
             </div>

@@ -70,6 +70,15 @@ h1{
   font-weight: bold;
 }
 
+.headlineLine {
+  width: 136px;
+  height: 3px;
+  background-color: #29abe2;
+  border: none;
+  margin-top: -24px;
+  margin-bottom: 32px;
+}
+
 .input-container {
   position: relative;
   width: 100%;
@@ -88,11 +97,11 @@ h1{
 .input-container input::placeholder{
   color: var(--text-color);
   font-size: 20px;
-  
+  transition: none;
 }
 .input-container input:hover{
   border: 2px solid var(--blue-color);
-  padding: 9px 39px 4px 9px;
+  padding: 10px 40px 5px 10px;
 }
 .input-container input:focus{
   outline: none;
