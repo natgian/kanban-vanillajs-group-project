@@ -70,6 +70,7 @@ function toggleContactDropdown(input) {
 
     // Close only category dropdowns, but keep contact dropdown separate
     closeAllCategoryDropdowns();
+    replaceInputWithButton();
 
     if (options) {
         options.style.display = options.style.display === "block" ? "none" : "block";
@@ -140,7 +141,7 @@ function selectCategoryOption(element) {
 
     setTimeout(() => {
         closeAllCategoryDropdowns();
-    }, 100); // Short delay ensures value update before closing
+    });
 }
 
 /**
@@ -261,3 +262,90 @@ function selectOption(element) {
     applySelectionStyles(element, checkbox.checked);
     setupImageClickEvents(element);
 }
+
+
+// Searchbar
+
+function toggleContactSearch(element) {
+    const dropdownContainer = element.closest('.dropdown-container');
+    const dropdownOptions = dropdownContainer.querySelector('.dropdown-options');
+
+    if (element.tagName === 'INPUT' && element.type === 'button') {
+        replaceButtonWithInput(element, dropdownOptions);
+    }
+}
+
+function replaceButtonWithInput(button, dropdownOptions) {
+    const inputField = document.createElement('input');
+    inputField.type = 'text';
+    inputField.placeholder = 'Search contacts...';
+    inputField.className = button.className;
+    inputField.id = button.id;
+
+    copyStyles(button, inputField);
+    button.closest('.dropdown-container').replaceChild(inputField, button);
+
+    openDropdown(dropdownOptions);
+
+    inputField.addEventListener('input', () => filterOptions(inputField.value, dropdownOptions));
+
+    inputField.addEventListener('keydown', (event) => {
+        if (event.key === "Escape") {
+            replaceInputWithButton(inputField, dropdownOptions);
+        }
+    });
+
+    inputField.focus();
+}
+
+function replaceInputWithButton(input, dropdownOptions) {
+    console.log("replaceInputWithButton wurde aufgerufen!");
+    closeDropdown(dropdownOptions);
+    resetFilter(dropdownOptions);
+
+    const button = document.createElement('input');
+    button.type = 'button';
+    button.value = 'Select contacts to assign';
+    button.className = input.className;
+    button.id = input.id;
+    button.onclick = () => toggleContactSearch(button);
+
+    copyStyles(input, button);
+    input.closest('.dropdown-container').replaceChild(button, input);
+}
+
+function openDropdown(dropdownOptions) {
+    dropdownOptions.dataset.open = 'true';
+    dropdownOptions.style.display = 'block';
+}
+
+function closeDropdown(dropdownOptions) {
+    dropdownOptions.dataset.open = 'false';
+    dropdownOptions.style.display = 'none';
+}
+
+function filterOptions(query, dropdownOptions) {
+    dropdownOptions.querySelectorAll('.option').forEach(option => {
+        option.style.display = option.textContent.toLowerCase().includes(query.toLowerCase()) ? 'flex' : 'none';
+    });
+}
+
+function resetFilter(dropdownOptions) {
+    dropdownOptions.querySelectorAll('.option').forEach(option => {
+        option.style.display = 'flex';
+    });
+}
+
+function copyStyles(source, target) {
+    const computedStyle = window.getComputedStyle(source);
+    target.style.backgroundColor = computedStyle.backgroundColor;
+    target.style.color = computedStyle.color;
+    target.style.fontWeight = computedStyle.fontWeight;
+    target.style.border = computedStyle.border;
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("contactDropdown").addEventListener("click", function() {
+        toggleContactSearch(this);
+    });
+});
