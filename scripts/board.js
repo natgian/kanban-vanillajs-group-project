@@ -304,11 +304,7 @@ function removeHighlight(status) {
 async function moveTo(newStatus) {
   document.getElementById(newStatus).classList.remove("drag-area-highlight");
   try {
-    await fetch(`${baseURL}/tasks/${currentDraggedElement}.json`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ status: newStatus }),
-    });
+    await updateTaskStatus(currentDraggedElement, newStatus);
     document.getElementById(`card${currentDraggedElement}`).classList.remove("dragging");
     init();
   } catch (error) {
@@ -324,15 +320,25 @@ async function moveTo(newStatus) {
  */
 async function moveToByClick(taskId, newStatus) {
   try {
-    await fetch(`${baseURL}/tasks/${taskId}.json`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ status: newStatus }),
-    });
+    await updateTaskStatus(taskId, newStatus);
     init();
   } catch (error) {
     console.error("Failed to move task:", error);
   }
+}
+
+/**
+ * Updates the new status of the task in the database
+ *
+ * @param {string} taskId taskId - The ID of the task that should be moved
+ * @param {string} newStatus - The status column ID where the task should be moved to
+ */
+async function updateTaskStatus(taskId, newStatus) {
+  await fetch(`${baseURL}/tasks/${taskId}.json`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ status: newStatus }),
+  });
 }
 
 /**
