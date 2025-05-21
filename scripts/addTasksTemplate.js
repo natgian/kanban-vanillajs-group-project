@@ -10,8 +10,10 @@ function renderAddTask() {
                     type="text"
                     class="typeBars"
                     placeholder="Enter a title"
+                    onblur="handleBlur(this)"
                     required
                   />
+                  <span id="showUpRequired" style="display: none; position: absolute;">This field is required</span>
                 </div>
                 <div class="spanGlue">
                   <span>Description</span>
@@ -30,8 +32,10 @@ function renderAddTask() {
                     class="typeBars"
                     placeholder="dd/mm/yy"
                     oninput="checkValue()"
+                    onblur="handleBlur(this)"
                     required
                   />
+                  <span id="showUpRequired" style="display: none; position: absolute;">This field is required</span>
                 </div>
               </form>
               <hr />

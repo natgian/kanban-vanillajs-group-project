@@ -68,7 +68,6 @@ document.addEventListener("DOMContentLoaded", function() {
 function toggleContactDropdown(input) {
     const options = input.closest(".dropdown-container").querySelector(".dropdown-options");
 
-    // Close only category dropdowns, but keep contact dropdown separate
     closeAllCategoryDropdowns();
     replaceInputWithButton();
 
@@ -83,7 +82,6 @@ function toggleContactDropdown(input) {
 function toggleCategoryDropdown(input) {
     const options = input.closest(".dropdown-container").querySelector(".dropdown-options");
 
-    // Close only contact dropdowns, but keep category dropdown separate
     closeAllContactDropdowns();
 
     if (options) {
@@ -388,3 +386,30 @@ document.addEventListener("DOMContentLoaded", function() {
         toggleContactSearch(this);
     });
 });
+
+// required typeBars
+
+function handleBlur(input) {
+    const message = input.nextElementSibling;
+    if (!message) return;
+
+    if (isEmpty(input)) {
+        showValidationError(input, message);
+    } else {
+        hideValidationError(input, message);
+    }
+}
+
+function isEmpty(input) {
+    return input.value.trim() === "";
+}
+
+function showValidationError(input, message) {
+    input.style.border = "1px solid #ff8190";
+    message.style.display = "block";
+}
+
+function hideValidationError(input, message) {
+    input.style.border = "";
+    message.style.display = "none";
+}

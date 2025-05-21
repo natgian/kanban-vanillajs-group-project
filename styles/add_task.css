@@ -43,11 +43,11 @@
 .typeBars::placeholder {
   color: var(--outline-color);
 }
-/* .typeBars:focus,
+.typeBars:focus,
 .typeBars:active {
   border-color: var(--hover-color);
   outline: none;
-} */
+}
 .typeBars:hover {
   border: 1px solid var(--hover-color);
 }
@@ -74,6 +74,7 @@
 .spanGlue {
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 .inputOrg hr {
   height: 424px;
@@ -282,3 +283,8 @@ label {
   z-index: 10;
 }
 
+#showUpRequired{
+  color: #ff8190;
+  font-size: 12px;
+  bottom: -25px;
+}
