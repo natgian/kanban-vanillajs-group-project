@@ -173,6 +173,14 @@ document.addEventListener("click", event => {
     }
 });
 
+
+
+
+
+
+
+
+
 /**
  * Toggles the checked state of the checkbox and returns the updated state.
  */
@@ -217,6 +225,7 @@ function applySelectionStyles(element, isChecked) {
     updateBackground(element, isChecked);
     updateCheckboxImages(element, isChecked);
     updateTextColor(element, isChecked);
+    updateSelectedContacts(element, isChecked);
 }
 
 /**
@@ -247,8 +256,54 @@ function selectOption(element) {
     }
 
     applySelectionStyles(element, checkbox.checked);
-    setupImageClickEvents(element);
+    updateSelectedContacts(); 
 }
+
+function updateSelectedContacts() {
+    const selectedContactsDiv = document.getElementById("selectedContacts");
+    selectedContactsDiv.innerHTML = ""; // Liste zuerst leeren, um Duplikate zu verhindern
+
+    // Alle ausgewählten Elemente finden
+    const checkedElements = document.querySelectorAll(".hidden-checkbox:checked");
+
+    checkedElements.forEach(checkbox => {
+        const parentElement = checkbox.closest(".option"); // Hier sicherstellen, dass das richtige Elternelement genutzt wird
+        const avatar = parentElement.querySelector(".task-card-avatar");
+
+        if (avatar) {
+            const clonedAvatar = avatar.cloneNode(true);
+            clonedAvatar.dataset.id = avatar.dataset.id;
+            selectedContactsDiv.appendChild(clonedAvatar);
+        }
+    });
+}
+
+function updateSelectedContacts() {
+    const selectedContactsDiv = document.getElementById("selectedContacts");
+    selectedContactsDiv.innerHTML = ""; // Erst leeren, dann neu aufbauen
+
+    const checkedElements = document.querySelectorAll(".hidden-checkbox:checked");
+
+    checkedElements.forEach(checkbox => {
+        const parentElement = checkbox.closest(".option"); 
+        const avatar = parentElement.querySelector(".task-card-avatar");
+
+        if (avatar) {
+            const clonedAvatar = avatar.cloneNode(true);
+            clonedAvatar.dataset.id = avatar.dataset.id;
+            selectedContactsDiv.appendChild(clonedAvatar);
+        }
+    });
+
+    // Erzwingen, dass der Browser das Layout neu berechnet:
+    selectedContactsDiv.style.display = "none"; 
+    selectedContactsDiv.offsetHeight; // Erzwingt ein Reflow
+    selectedContactsDiv.style.display = "flex"; 
+}
+
+
+
+
 
 // Searchbar
 
