@@ -46,7 +46,6 @@ function renderAddTask() {
                     <button
                       class="priorityBtns"
                       data-color="#FF3D00"
-                      onclick="selectButton(this)"
                     >
                       Urgent
                       <img
@@ -58,7 +57,6 @@ function renderAddTask() {
                     <button
                       class="priorityBtns selected"
                       data-color="#FFA800"
-                      onclick="selectButton(this)"
                     >
                       Medium
                       <img
@@ -70,7 +68,6 @@ function renderAddTask() {
                     <button
                       class="priorityBtns"
                       data-color="#7AE229"
-                      onclick="selectButton(this)"
                     >
                       Low
                       <img

@@ -214,8 +214,8 @@ header {
   width: 32px;
   height: 32px;
   color: var(--white-color);
-  font-size: 12px;
-  border: 1px solid var(--white-color);
+  font-size: 11px;
+  border: 2px solid var(--white-color);
   border-radius: 50%;
 }
 
