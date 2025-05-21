@@ -2,6 +2,10 @@
   width: 100%;
 }
 
+#logoImg {
+  display: none;
+}
+
 .summaryContent {
   padding: 100px;
 
@@ -21,6 +25,10 @@
     height: 100px;
     background-color: var(--outline-color);
     margin: 0 24px;
+  }
+
+  .horizontalLine {
+    display: none;
   }
 
   .summaryHeader {
@@ -149,6 +157,59 @@
       font-size: 64px;
       font-weight: bold;
       color: var(--hover-color);
+    }
+  }
+}
+
+
+/*-------------- */
+/* MEDIA QUERIES */
+/*-------------- */
+
+@media (max-width: 768px) {
+  header {
+    #titleSpan {
+      display: none;
+    }
+
+    #logoImg {
+      display: block;
+      height: 56px;
+      margin-left: -76px;
+    }
+  }
+
+  .summaryContent {
+    padding: 28px;
+
+    .leftSection {
+      width: 100%;
+    }
+
+    .summaryHeader {
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+
+      h1 {
+        font-size: 56px;
+      }
+
+      #verticalLine {
+        display: none;
+      }
+    }
+
+    .rightSection {
+      display: none;
+    }
+
+    .horizontalLine {
+      display: block;
+      width: 120px;
+      height: 3px;
+      background-color: var(--hover-color);
+      margin: 1rem 0;
     }
   }
 }
