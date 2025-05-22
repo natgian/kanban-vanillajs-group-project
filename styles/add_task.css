@@ -331,12 +331,15 @@ label {
 }
 #editDelate{
   display: flex;
+  align-items: center;
+  justify-content: center;
   position: absolute;
   right: 15px;
 }
 #editDelate img{
   height: 24px;
   width: 24px;
+  cursor: pointer;
 }
 #editDelate hr{
   height: 20px;
