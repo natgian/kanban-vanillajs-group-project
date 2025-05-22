@@ -4,7 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Add Task</title>
-    <link rel="shortcut icon" href="../assets/img/join_logo_white.svg" type="image/x-icon" />
+    <link
+      rel="shortcut icon"
+      href="../assets/img/join_logo_white.svg"
+      type="image/x-icon"
+    />
     <link rel="stylesheet" href="../styles.css" />
     <link rel="stylesheet" href="../styles/add_task.css" />
     <link rel="stylesheet" href="../styles/board.css" />
@@ -13,8 +17,22 @@
     <!-- Message Box -->
     <div class="message-box" id="message-box">
       <span id="message-text"></span>
-      <svg width="24" height="24" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <mask id="mask0_314602_5159" style="mask-type: alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 25"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <mask
+          id="mask0_314602_5159"
+          style="mask-type: alpha"
+          maskUnits="userSpaceOnUse"
+          x="0"
+          y="0"
+          width="24"
+          height="24"
+        >
           <rect y="0.5" width="24" height="24" fill="currentColor" />
         </mask>
         <g mask="url(#mask0_314602_5159)">
@@ -30,7 +48,12 @@
       <div class="sidebar-container">
         <!-- Logo -->
         <div>
-          <img src="../assets/img/join_logo_white.svg" alt="Join logo" class="logo" style="cursor: pointer" />
+          <img
+            src="../assets/img/join_logo_white.svg"
+            alt="Join logo"
+            class="logo"
+            style="cursor: pointer"
+          />
         </div>
         <!-- Navigation -->
         <ul class="sidebar-menu">
@@ -42,7 +65,10 @@
           </li>
           <li>
             <a href="./addTask.html" class="sidebar-menu-link active-link">
-              <img src="../assets/icons/add_task_icon.svg" alt="add task icon" />
+              <img
+                src="../assets/icons/add_task_icon.svg"
+                alt="add task icon"
+              />
               Add Task
             </a>
           </li>
@@ -54,7 +80,10 @@
           </li>
           <li>
             <a href="./contacts.html" class="sidebar-menu-link">
-              <img src="../assets/icons/contacts_icon.svg" alt="contacts icon" />
+              <img
+                src="../assets/icons/contacts_icon.svg"
+                alt="contacts icon"
+              />
               Contacts
             </a>
           </li>
@@ -76,14 +105,23 @@
         <span>Kanban Project Management Tool</span>
         <div class="header-icons-container">
           <div class="help-iconBox">
-            <a href="#"><img class="help-icon" src="../assets/icons/help_icon.svg" alt="help icon" /></a>
+            <a href="#"
+              ><img
+                class="help-icon"
+                src="../assets/icons/help_icon.svg"
+                alt="help icon"
+            /></a>
           </div>
           <button class="user-profile-icon"><span>G</span></button>
         </div>
       </header>
       <!-- Content -->
       <div class="contentBox">
-        <div class="contentLimit" id="contentload" onload="renderAddTask()"></div>
+        <div
+          class="contentLimit"
+          id="contentload"
+          onload="renderAddTask()"
+        ></div>
       </div>
       <!-- Mobile-Navigation -->
       <nav class="footer-navigation" style="display: none">
@@ -96,7 +134,10 @@
           </li>
           <li>
             <a href="./addTask.html" class="sidebar-menu-link">
-              <img src="../assets/icons/add_task_icon.svg" alt="add task icon" />
+              <img
+                src="../assets/icons/add_task_icon.svg"
+                alt="add task icon"
+              />
               Add Task
             </a>
           </li>
@@ -108,7 +149,10 @@
           </li>
           <li>
             <a href="./contacts.html" class="sidebar-menu-link">
-              <img src="../assets/icons/contacts_icon.svg" alt="contacts icon" />
+              <img
+                src="../assets/icons/contacts_icon.svg"
+                alt="contacts icon"
+              />
               Contacts
             </a>
           </li>
@@ -121,3 +165,5 @@
     <script type="module" src="../scripts/firebase.js"></script>
   </body>
 </html>
+
+

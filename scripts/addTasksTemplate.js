@@ -106,12 +106,17 @@ function renderAddTask() {
                     <input
                       type="text"
                       class="typeBars typePriorityBars"
+                      id="newSubtask"
                       placeholder="Add new subtask"
                     />
-                    <img
-                      src="../assets/icons/Subtasks icons11.png"
-                      alt="cross"
-                    />
+                    <div class="subtaskNavigator">
+                      <img id="addSubtask" src="../assets/icons/Subtasks icons11.png" alt="cross" onclick="showConfirmDelete()"/>
+                      <div id="confirmDeleteNewSubtask">
+                        <img src="../assets/icons/close.svg" alt="X" id="close" onclick="resetElements()"/>
+                        <hr />
+                        <img src="../assets/icons/check.png" alt="Check" id="confirm"/>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </section>

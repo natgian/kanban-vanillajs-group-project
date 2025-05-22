@@ -121,19 +121,6 @@
   justify-content: center;
   align-items: center;
 }
-.subtask-container img {
-  position: absolute;
-  right: 15px;
-  height: 24px;
-  width: 24px;
-  cursor: pointer;
-  z-index: 50;
-}
-.subtask-container img:hover {
-  transform: scale(0.8);
-  justify-self: center;
-  align-self: center;
-}
 .bottomButtons {
   display: flex;
   align-items: flex-end;
@@ -288,4 +275,42 @@ label {
   color: #ff8190;
   font-size: 12px;
   bottom: -25px;
+}
+
+.subtaskNavigator{
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  right: 15px;
+  cursor: pointer;
+}
+.subtaskNavigator img:hover{
+  scale: 0.90;
+}
+.subtaskNavigator hr{
+  height: 24px;
+  margin: 0px 0px;
+  border: none;
+  background-color: var(--outline-color);
+}
+#newSubtask{
+  cursor: pointer;
+}
+#addSubtask{
+  display: block;
+  width: 24px;
+  height: 24px;
+}
+#confirmDeleteNewSubtask{
+  display: none;
+  align-items: center;
+  justify-content: space-around;
+  width: 60px;
+}
+#confirmDeleteNewSubtask img{
+  height: 24px;
+  width: 24px;
+  filter: invert();
 }

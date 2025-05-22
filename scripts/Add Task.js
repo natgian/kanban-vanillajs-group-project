@@ -586,3 +586,56 @@ function hideValidationError(input, message) {
     input.style.border = "";
     message.style.display = "none";
 }
+
+// Add Subtasks
+document.addEventListener("DOMContentLoaded", function () {
+    const input = document.getElementById("newSubtask");
+    const addSubtask = document.getElementById("addSubtask");
+    const confirmDelete = document.getElementById("confirmDeleteNewSubtask");
+    const subtaskContainer = document.querySelector(".subtask-container");
+
+    // Function to show confirmDelete and hide addSubtask
+    function showConfirmDelete(event) {
+        addSubtask.style.display = "none";
+        confirmDelete.style.display = "flex";
+        event.stopPropagation(); 
+    }
+
+    // Function to reset everything when clicking outside
+    function resetOnOutsideClick(event) {
+        if (!subtaskContainer.contains(event.target)) {
+            resetElements();
+        }
+    }
+
+    // Function to reset elements to their original state
+    function resetElements() {
+        addSubtask.style.display = "block"; 
+        confirmDelete.style.display = "none"; 
+        input.value = ""; 
+    }
+
+    // Make function globally accessible
+    window.resetElements = resetElements;
+    window.showConfirmDelete = showConfirmDelete;
+
+    // Add event listeners
+    input.addEventListener("click", showConfirmDelete);
+    document.addEventListener("click", resetOnOutsideClick);
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    const input = document.getElementById("newSubtask");
+    const addSubtask = document.getElementById("addSubtask");
+
+    /**
+     * Simulates a click on the input field by setting focus to it.
+     */
+    function simulateInputClick() {
+        input.focus(); 
+        showConfirmDelete()
+    }
+
+    // Ensures clicking "addSubtask" behaves like clicking the input field
+    addSubtask.addEventListener("click", simulateInputClick);
+});
