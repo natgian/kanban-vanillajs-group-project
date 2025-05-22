@@ -110,7 +110,7 @@ function renderAddTask() {
                       placeholder="Add new subtask"
                     />
                     <div class="subtaskNavigator">
-                      <img id="addSubtask" src="../assets/icons/Subtasks icons11.png" alt="cross" onclick="showConfirmDelete()"/>
+                      <img id="addSubtask" src="../assets/icons/Subtasks icons11.png" alt="cross" onclick=""/>
                       <div id="confirmDeleteNewSubtask">
                         <img src="../assets/icons/close.svg" alt="X" id="close" onclick="resetElements()"/>
                         <hr />
@@ -118,6 +118,17 @@ function renderAddTask() {
                       </div>
                     </div>
                   </div>
+                  <ul id="subtaskList">
+                      <!-- Subtasks -->
+                      <li class="dot" id="subtaskListElement">
+                        Mein erster Punkt
+                        <div id="editDelate">
+                          <img src="../assets/icons/editPen.svg" alt="Pen">
+                          <hr>
+                          <img src="../assets/icons/deleteBin.svg" alt="Bin">
+                        </div>
+                      </li>
+                    </ul>
                 </div>
               </section>
             </div>
