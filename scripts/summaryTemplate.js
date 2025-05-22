@@ -3,8 +3,9 @@ function summaryTemplate(userName = 'user1') {
       <div>
         <div class="summaryHeader">
           <h1>Join 360</h1>
-          <div class="verticalLineBlue"></div>
+          <div id="verticalLine" class="verticalLineBlue"></div>
           <p>Key Metrics at a Glance</p>
+          <div class="horizontalLine"></div>
         </div>
       </div>
 
