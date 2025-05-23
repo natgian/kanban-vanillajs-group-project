@@ -20,6 +20,7 @@
 .inputOrg {
   display: flex;
   padding-top: 40px;
+  margin-bottom: 100px;
 }
 .taskInfomations {
   height: 376px;
@@ -126,6 +127,9 @@
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
+  position: sticky;
+  bottom: 20px;
+  z-index: 10;
 }
 .bottomButtonsSplice {
   gap: 20px;
@@ -141,8 +145,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 100px;
   border-style: solid;
+  pointer-events: auto;
 }
 .bottomButton1 {
   color: var(--primary-color);

@@ -723,3 +723,32 @@ function saveAndExitEditMode(element) {
         document.activeElement.blur(); 
     }, 10);
 }
+
+// Add new Subtask
+// Adds a new subtask item to the list
+function addSubtask() {
+    const input = document.getElementById('newSubtask');
+    const subtaskList = document.getElementById('subtaskList');
+    if (!input || !subtaskList || !input.value.trim()) return;
+
+    const listItem = createSubtaskElement(input.value.trim());
+    subtaskList.appendChild(listItem);
+    
+    resetInput(input);
+    toggleButtons(true);
+}
+
+// Clears the input field and removes focus
+function resetInput(input) {
+    input.value = '';
+    input.blur();
+}
+
+// Controls the visibility of action buttons
+function toggleButtons(showAddSubtask) {
+    const addSubtaskBtn = document.getElementById('addSubtask');
+    const confirmDeleteBtn = document.getElementById('confirmDeleteNewSubtask');
+    
+    if (addSubtaskBtn) addSubtaskBtn.style.display = showAddSubtask ? 'block' : 'none';
+    if (confirmDeleteBtn) confirmDeleteBtn.style.display = showAddSubtask ? 'none' : 'block';
+}

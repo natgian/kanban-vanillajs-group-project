@@ -114,25 +114,12 @@ function renderAddTask() {
                       <div id="confirmDeleteNewSubtask">
                         <img src="../assets/icons/close.svg" alt="X" id="close" onclick="resetElements()"/>
                         <hr />
-                        <img src="../assets/icons/check.png" alt="Check" id="confirm"/>
+                        <img src="../assets/icons/check.png" alt="Check" id="confirm"onclick="addSubtask()"/>
                       </div>
                     </div>
                   </div>
                   <ul id="subtaskList">
                       <!-- Subtasks -->
-                      <li class="dot" id="subtaskListElement" onclick="toggleEditMode(this)">
-                          <span id="editableText">Contact Form</span>
-                          <div id="editDelate">
-                              <img src="../assets/icons/editPen.svg" alt="Pen" onclick="toggleEditMode(this)">
-                              <hr>
-                              <img src="../assets/icons/deleteBin.svg" alt="Bin" onclick="deleteSubtask(this)">
-                          </div>
-                          <div id="deleteChange" style="display: none;">
-                              <img src="../assets/icons/deleteBin.svg" alt="Bin" onclick="deleteSubtask(this)">
-                              <hr>
-                              <img src="../assets/icons/checkBlack.svg" alt="Check" onclick="saveAndExitEditMode(this)">
-                          </div>
-                      </li>
                     </ul>
                 </div>
               </section>
@@ -186,4 +173,28 @@ if (!person || !person.name || !person.color || !person.initials) {
   `;
 
   contactList.insertAdjacentHTML("beforeend", template);
+}
+
+// Creates the Subtask-Templete-Structure for a new subtask.
+function createSubtaskElement(text) {
+    const listItem = document.createElement('li');
+    listItem.className = 'dot';
+    listItem.id = 'subtaskListElement';
+    listItem.onclick = () => toggleEditMode(listItem);
+
+    listItem.innerHTML = `
+        <span id="editableText">${text}</span>
+        <div id="editDelate">
+            <img src="../assets/icons/editPen.svg" alt="Pen" onclick="toggleEditMode(this)">
+            <hr>
+            <img src="../assets/icons/deleteBin.svg" alt="Bin" onclick="deleteSubtask(this)">
+        </div>
+        <div id="deleteChange" style="display: none;">
+            <img src="../assets/icons/deleteBin.svg" alt="Bin" onclick="deleteSubtask(this)">
+            <hr>
+            <img src="../assets/icons/checkBlack.svg" alt="Check" onclick="saveAndExitEditMode(this)">
+        </div>
+    `;
+    
+    return listItem;
 }
