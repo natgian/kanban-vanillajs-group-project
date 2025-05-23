@@ -647,40 +647,79 @@ function deleteSubtask(element) {
     }
 }
 
-function editSubtask(element) {
+// Edit-Mode
+// Toggles the edit mode for a list item
+function toggleEditMode(element) {
     const listItem = element.closest('li'); 
-    const editDelate = listItem.querySelector('#editDelate');
-    const deleteChange = listItem.querySelector('#deleteChange');
-    const textElement = listItem.childNodes[0]; // Erster Text-Knoten
+    if (!listItem) return;
 
-    // Punkt verstecken & Hintergrund setzen
+    const { textElement, editDelate, deleteChange } = getElements(listItem);
+    if (!textElement || !editDelate || !deleteChange) return;
+
+    listItem.dataset.originalText = textElement.innerText;
+    applyEditStyles(listItem, textElement, editDelate, deleteChange);
+    document.addEventListener('click', resetEditMode);
+}
+
+// Retrieves required elements within a list item
+function getElements(listItem) {
+    return {
+        textElement: listItem.querySelector('#editableText'),
+        editDelate: listItem.querySelector('#editDelate'),
+        deleteChange: listItem.querySelector('#deleteChange')
+    };
+}
+
+// Applies editing styles and properties
+function applyEditStyles(listItem, textElement, editDelate, deleteChange) {
     listItem.classList.add('editing');
     listItem.style.backgroundColor = 'white';
-
-    // Macht den Text direkt bearbeitbar
-    textElement.contentEditable = true;
-    textElement.focus(); // Setzt direkt den Fokus darauf
-
-    // Anzeige umschalten
     editDelate.style.display = 'none';
     deleteChange.style.display = 'flex';
 
-    // Speichern durch Klick auf den "Check"-Button
-    const saveButton = listItem.querySelector('img[alt="Check"]');
-    saveButton.onclick = () => saveSubtask(listItem);
+    textElement.contentEditable = true;
+    textElement.focus();
 }
 
-// function saveSubtask(listItem) {
-//     const textElement = listItem.childNodes[0]; // Holt den bearbeiteten Text
+// Resets edit mode if clicking outside the editing area
+function resetEditMode(event) {
+    const listItem = document.querySelector('.editing');
+    if (listItem && !listItem.contains(event.target)) {
+        cancelEditMode(listItem, listItem.dataset.originalText);
+        document.removeEventListener('click', resetEditMode);
+    }
+}
 
-//     // Entfernt `contentEditable`, damit es wieder normal ist
-//     textElement.contentEditable = false;
+// Cancels editing and restores the original text
+function cancelEditMode(listItem, originalText) {
+    const { textElement, editDelate, deleteChange } = getElements(listItem);
+    if (!textElement || !editDelate || !deleteChange) return;
 
-//     // Hintergrund & Punkt zurücksetzen
-//     listItem.style.backgroundColor = '';
-//     listItem.classList.remove('editing');
+    textElement.innerText = originalText;
+    textElement.contentEditable = false;
+    removeEditStyles(listItem, editDelate, deleteChange);
+}
 
-//     // Anzeige zurücksetzen
-//     listItem.querySelector('#editDelate').style.display = 'flex';
-//     listItem.querySelector('#deleteChange').style.display = 'none';
-// }
+// Removes editing styles and restores display settings
+function removeEditStyles(listItem, editDelate, deleteChange) {
+    listItem.classList.remove('editing');
+    listItem.style.backgroundColor = ''; 
+    editDelate.style.display = 'flex';
+    deleteChange.style.display = 'none';
+}
+
+// Saves new input and exits edit mode
+function saveAndExitEditMode(element) {
+    const listItem = element.closest('li');
+    const { textElement, editDelate, deleteChange } = getElements(listItem);
+    if (!textElement) return;
+
+    console.log('Saving input:', textElement.innerText);
+    textElement.blur();
+    
+    setTimeout(() => {
+        removeEditStyles(listItem, editDelate, deleteChange);
+        document.removeEventListener('click', resetEditMode);
+        document.activeElement.blur(); 
+    }, 10);
+}

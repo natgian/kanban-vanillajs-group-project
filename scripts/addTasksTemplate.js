@@ -120,18 +120,18 @@ function renderAddTask() {
                   </div>
                   <ul id="subtaskList">
                       <!-- Subtasks -->
-                      <li class="dot" id="subtaskListElement" onclick="editSubtask(this)">
-                        Contact Form
-                        <div id="editDelate">
-                          <img src="../assets/icons/editPen.svg" alt="Pen" onclick="editSubtask(this)">
-                          <hr>
-                          <img src="../assets/icons/deleteBin.svg" alt="Bin" onclick="deleteSubtask(this)">
-                        </div>
-                        <div id="deleteChange">
-                          <img src="../assets/icons/deleteBin.svg" alt="Bin" onclick="deleteSubtask(this)">
-                          <hr>
-                          <img src="../assets/icons/checkBlack.svg" alt="Check" onclick="saveSubtask(this)">
-                        </div>
+                      <li class="dot" id="subtaskListElement" onclick="toggleEditMode(this)">
+                          <span id="editableText">Contact Form</span>
+                          <div id="editDelate">
+                              <img src="../assets/icons/editPen.svg" alt="Pen" onclick="toggleEditMode(this)">
+                              <hr>
+                              <img src="../assets/icons/deleteBin.svg" alt="Bin" onclick="deleteSubtask(this)">
+                          </div>
+                          <div id="deleteChange" style="display: none;">
+                              <img src="../assets/icons/deleteBin.svg" alt="Bin" onclick="deleteSubtask(this)">
+                              <hr>
+                              <img src="../assets/icons/checkBlack.svg" alt="Check" onclick="saveAndExitEditMode(this)">
+                          </div>
                       </li>
                     </ul>
                 </div>

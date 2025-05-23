@@ -326,11 +326,18 @@ label {
   padding-left: 15px;
   margin-top: 8px;
   border-radius: 10px;
-  font-size: 15px;
 }
 #subtaskListElement:hover{
 background-color: rgb(240, 240, 240);
 cursor: pointer;
+}
+#subtaskListElement span{
+  border: none; 
+    outline: none;
+}
+#editableText{
+  font-size: 15px;
+  padding-bottom: 0;
 }
 #editDelate{
   display: none;
