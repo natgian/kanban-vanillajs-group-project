@@ -1,7 +1,10 @@
 const baseURL = "https://join-458-default-rtdb.europe-west1.firebasedatabase.app";
 
-const taskDetailsRef = document.getElementById("task-overlay");
-const taskDetailsContentRef = document.getElementById("task-overlay-content");
+const taskOverlayRef = document.getElementById("task-overlay");
+const taskOverlayContentRef = document.getElementById("task-overlay-content");
+const addTaskOverlayRef = document.getElementById("add-task-overlay");
+const addTaskOverlayContentRef = document.getElementById("add-task-overlay-content");
+const addTaskWrapperRef = document.getElementById("add-task-wrapper");
 
 let allTasks = [];
 let currentDraggedElement;
@@ -112,11 +115,11 @@ function prepareTaskDisplayData(task) {
  *
  * @param {string} id - ID of the task that should be opened
  */
-function openTaskDetails(taskId) {
-  taskDetailsRef.classList.toggle("show");
+function openOverlay(taskId) {
+  taskOverlayRef.classList.toggle("show");
   document.body.classList.add("no-scroll");
 
-  setupOutsideClickHandler(taskDetailsContentRef, closeTaskDetails);
+  setupOutsideClickHandler(taskOverlayContentRef, closeOverlay);
   renderTaskDetails(taskId);
 }
 
@@ -125,11 +128,44 @@ function openTaskDetails(taskId) {
  *
  * @param {string} id - ID of the task that should be closed
  */
-function closeTaskDetails() {
-  taskDetailsRef.classList.toggle("show");
+function closeOverlay() {
+  taskOverlayRef.classList.toggle("show");
   document.body.classList.remove("no-scroll");
+}
 
-  // taskDetailsRef.removeEventListener("click", outsideClickHandler);
+function closeAddTaskOverlay() {
+  addTaskOverlayRef.classList.toggle("show");
+  document.body.classList.remove("no-scroll");
+}
+
+//TODO:
+function openAddTaskOverlay() {
+  addTaskOverlayRef.classList.toggle("show");
+  document.body.classList.add("no-scroll");
+  setupOutsideClickHandler(addTaskWrapperRef, closeAddTaskOverlay);
+
+  const script1 = document.createElement("script");
+  script1.src = "../scripts/Add Task.js";
+  script1.onload = () => {
+    // load second script when first one is loaded
+    const script2 = document.createElement("script");
+    script2.src = "../scripts/addTasksTemplate.js";
+    script2.onload = () => {
+      if (typeof renderAddTaskContent === "function") {
+        renderAddTaskContent();
+      } else {
+        console.error("renderAddTaskContent ist not defined");
+      }
+    };
+    script2.onerror = () => console.error("Error loading Add Task.js");
+    document.body.appendChild(script2);
+  };
+  script1.onerror = () => console.error("Error loading addTasksTemplate.js");
+  document.body.appendChild(script1);
+}
+
+function renderAddTaskContent() {
+  addTaskOverlayContentRef.innerHTML = renderAddTask();
 }
 
 /**
@@ -140,7 +176,7 @@ function closeTaskDetails() {
 function renderTaskDetails(taskId) {
   const currentTask = allTasks.find((task) => task.taskId === taskId);
   const { assignedToDetailHTML, subtasksHTML } = prepareTaskOverlayData(currentTask);
-  taskDetailsContentRef.innerHTML = taskOverlayTemplate(currentTask, assignedToDetailHTML, subtasksHTML);
+  taskOverlayContentRef.innerHTML = taskOverlayTemplate(currentTask, assignedToDetailHTML, subtasksHTML);
 }
 
 /**
@@ -192,7 +228,7 @@ async function deleteTask(taskId) {
       method: "DELETE",
     });
 
-    closeTaskDetails();
+    closeOverlay();
     showMessage("Task successfully deleted");
     init();
   } catch (error) {
@@ -213,7 +249,7 @@ function renderEditTaskTemplate(taskId, event) {
   const currentTask = allTasks.find((task) => task.taskId === taskId);
   const formattedDueDate = currentTask.dueDate.split("/").reverse().join("-");
   // const { assignedToDetailHTML, subtasksHTML } = prepareTaskOverlayData(currentTask);
-  taskDetailsContentRef.innerHTML = taskOverlayEditTaskTemplate(currentTask, formattedDueDate);
+  taskOverlayContentRef.innerHTML = taskOverlayEditTaskTemplate(currentTask, formattedDueDate);
 }
 
 /**

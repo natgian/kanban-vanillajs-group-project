@@ -10,9 +10,9 @@
     <link rel="stylesheet" href="../styles/board_task_card.css" />
     <link rel="stylesheet" href="../styles/board_task_overlay.css" />
     <link rel="stylesheet" href="../styles/add_task.css" />
-    <script src="../script.js"></script>
+    <script src="../script.js" defer></script>
     <script src="../scripts/board.js" defer></script>
-    <script src="../scripts/boardTemplates.js"></script>
+    <script src="../scripts/boardTemplates.js" defer></script>
   </head>
   <body onload="init()">
     <!-- Message Box -->
@@ -92,7 +92,7 @@
           <!-- Board header -->
           <section class="board-header">
             <h1>Board</h1>
-            <button class="btn" id="add-btn-mobile"><img src="../assets/icons/add_icon.svg" alt="add icon" /></button>
+            <button class="btn" id="add-btn-mobile" onclick="openAddTaskOverlay()"><img src="../assets/icons/add_icon.svg" alt="add icon" /></button>
 
             <div class="board-search-add-wrapper">
               <div class="search-container">
@@ -102,7 +102,7 @@
                   <img src="../assets/icons/search_icon.svg" alt="search icon" />
                 </button>
               </div>
-              <button class="btn" id="add-btn-desktop">Add task<img src="../assets/icons/add_icon.svg" alt="add icon" /></button>
+              <button class="btn" id="add-btn-desktop" onclick="openAddTaskOverlay()">Add task<img src="../assets/icons/add_icon.svg" alt="add icon" /></button>
             </div>
           </section>
 
@@ -176,6 +176,18 @@
           <!-- Task Overlay -->
           <div class="task-overlay" id="task-overlay">
             <div class="task-overlay-content" id="task-overlay-content"></div>
+          </div>
+
+          <!-- Add Task Overlay -->
+          <div class="task-overlay" id="add-task-overlay" onload="renderAddTask()">
+            <div class="add-task-wrapper" id="add-task-wrapper">
+              <div class="flex-end">
+                <button class="close-btn" onclick="closeAddTaskOverlay()">
+                  <img src="../assets/icons/close_icon.svg" alt="close icon" />
+                </button>
+              </div>
+              <div class="add-task-overlay-content" id="add-task-overlay-content"></div>
+            </div>
           </div>
         </div>
       </div>

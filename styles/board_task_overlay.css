@@ -109,6 +109,23 @@
   margin-bottom: 8px;
 }
 
+/*----------------- */
+/* ADD TASK OVERLAY */
+/*----------------- */
+.add-task-wrapper {
+  display: flex;
+  flex-direction: column;
+  max-width: 1116px;
+  padding: 64px;
+  margin: auto;
+  background-color: var(--white-color);
+  border-radius: 30px;
+}
+
+.add-task-overlay-content {
+  width: 1116px;
+}
+
 /*-------------- */
 /* MEDIA QUERIES */
 /*-------------- */
