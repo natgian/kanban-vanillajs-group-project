@@ -10,7 +10,7 @@
  */
 function cardTemplate(task, subtasksTotal, subtasksDone, progressPercent, assignedToHTML) {
   return `
-          <div class="task-card" id="card${task.taskId}" onclick="openOverlay('${task.taskId}')" draggable="true" ondragstart="startDragging('${task.taskId}')" ondragend="endDragging()">
+          <div class="task-card" id="card${task.taskId}" onclick="openTaskOverlay('${task.taskId}')" draggable="true" ondragstart="startDragging('${task.taskId}')" ondragend="endDragging()">
             <div class="category-icon-container">
               <span class="task-category ${task.category === "Technical Task" ? "technical" : "userstory"}-category">${task.category}</span>
               <button class="icon-btn" onclick="openMoveToMenu(event, '${task.taskId}', '${task.status}')">
@@ -108,7 +108,7 @@ function taskOverlayTemplate(task, assignedToDetailHTML, subtasksHTML) {
   return `
           <div class="category-icon-container">
             <span class="task-category ${task.category === "Technical Task" ? "technical" : "userstory"}-category">${task.category}</span>
-            <button class="close-btn" onclick="closeOverlay()">
+            <button class="close-btn" onclick="closeTaskOverlay()">
                 <img src="../assets/icons/close_icon.svg" alt="close icon"/>
             </button>
           </div>
@@ -236,7 +236,7 @@ function assignedToDetailTemplate(person) {
 function taskOverlayEditTaskTemplate(task, formattedDueDate) {
   return `
           <div class="flex-end">
-            <button class="close-btn" onclick="closeOverlay()">
+            <button class="close-btn" onclick="closeTaskOverlay()">
                 <img src="../assets/icons/close_icon.svg" alt="close icon"/>
             </button>
           </div>

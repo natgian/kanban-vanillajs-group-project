@@ -1,15 +1,8 @@
 const baseURL = "https://join-458-default-rtdb.europe-west1.firebasedatabase.app";
 
-const taskOverlayRef = document.getElementById("task-overlay");
-const taskOverlayContentRef = document.getElementById("task-overlay-content");
-const addTaskOverlayRef = document.getElementById("add-task-overlay");
-const addTaskOverlayContentRef = document.getElementById("add-task-overlay-content");
-const addTaskWrapperRef = document.getElementById("add-task-wrapper");
-
 let allTasks = [];
 let currentDraggedElement;
 let currentOpenMenu = null;
-let currentOutsideClickHandler = null;
 
 /**
  * This function initiates the fetching and rendering of the tasks when the board page is loaded and adds an event listener to the task search input field.
@@ -19,6 +12,7 @@ async function init() {
   allTasks = await fetchTasks();
   initSearch();
   renderBoard();
+  renderAddTaskContent();
 }
 
 /**
@@ -108,148 +102,6 @@ function prepareTaskDisplayData(task) {
   const progressPercent = subtasksTotal > 0 ? (subtasksDone * 100) / subtasksTotal : 0;
 
   return { assignedToHTML, subtasksTotal, subtasksDone, progressPercent };
-}
-
-/**
- * Opens the task details overlay and prevents background scrolling
- *
- * @param {string} id - ID of the task that should be opened
- */
-function openOverlay(taskId) {
-  taskOverlayRef.classList.toggle("show");
-  document.body.classList.add("no-scroll");
-
-  setupOutsideClickHandler(taskOverlayContentRef, closeOverlay);
-  renderTaskDetails(taskId);
-}
-
-/**
- * Closes the task details overlay and enables scrolling
- *
- * @param {string} id - ID of the task that should be closed
- */
-function closeOverlay() {
-  taskOverlayRef.classList.toggle("show");
-  document.body.classList.remove("no-scroll");
-}
-
-function closeAddTaskOverlay() {
-  addTaskOverlayRef.classList.toggle("show");
-  document.body.classList.remove("no-scroll");
-}
-
-//TODO:
-function openAddTaskOverlay() {
-  addTaskOverlayRef.classList.toggle("show");
-  document.body.classList.add("no-scroll");
-  setupOutsideClickHandler(addTaskWrapperRef, closeAddTaskOverlay);
-
-  const script1 = document.createElement("script");
-  script1.src = "../scripts/Add Task.js";
-  script1.onload = () => {
-    // load second script when first one is loaded
-    const script2 = document.createElement("script");
-    script2.src = "../scripts/addTasksTemplate.js";
-    script2.onload = () => {
-      if (typeof renderAddTaskContent === "function") {
-        renderAddTaskContent();
-      } else {
-        console.error("renderAddTaskContent ist not defined");
-      }
-    };
-    script2.onerror = () => console.error("Error loading Add Task.js");
-    document.body.appendChild(script2);
-  };
-  script1.onerror = () => console.error("Error loading addTasksTemplate.js");
-  document.body.appendChild(script1);
-}
-
-function renderAddTaskContent() {
-  addTaskOverlayContentRef.innerHTML = renderAddTask();
-}
-
-/**
- * Renders the details of the task in the overlay
- *
- * @param {string} taskId - ID of the current task
- */
-function renderTaskDetails(taskId) {
-  const currentTask = allTasks.find((task) => task.taskId === taskId);
-  const { assignedToDetailHTML, subtasksHTML } = prepareTaskOverlayData(currentTask);
-  taskOverlayContentRef.innerHTML = taskOverlayTemplate(currentTask, assignedToDetailHTML, subtasksHTML);
-}
-
-/**
- * Prepares the 'assigned to' and 'subtasks' data to be displayed in the task details overlay
- *
- * @param {Object} task - A task object containing assigned users and subtasks
- * @returns - An object with HTML for assigned users und subtasks
- */
-function prepareTaskOverlayData(task) {
-  const assignedTo = Array.isArray(task.assignedTo) ? task.assignedTo : [];
-  const subtasks = Array.isArray(task.subtasks) ? task.subtasks : [];
-  const assignedToDetailHTML = assignedTo.map((person) => assignedToDetailTemplate(person)).join("");
-  const subtasksHTML = subtasks.map((subtask, index) => subtasksTemplate(subtask, index, task)).join("");
-
-  return { assignedToDetailHTML, subtasksHTML };
-}
-
-/**
- * Updates the completion state of a subtask
- *
- * @param {number} subtaskIndex - Index number of the subtask
- * @param {string} taskId - ID of the current task
- */
-async function updateSubtaskCompletion(subtaskIndex, taskId) {
-  try {
-    const task = await fetchSpecificTask(taskId);
-    task.subtasks[subtaskIndex].done = !task.subtasks[subtaskIndex].done;
-
-    await fetch(`${baseURL}/tasks/${taskId}/subtasks.json`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(task.subtasks),
-    });
-
-    init();
-  } catch (error) {
-    console.error("Update failed:", error);
-  }
-}
-
-/**
- * Deletes the task, closes the task details view, shows a confirmation message and renitializes the task board
- *
- * @param {string} taskId - ID of the current task
- */
-async function deleteTask(taskId) {
-  try {
-    await fetch(`${baseURL}/tasks/${taskId}.json`, {
-      method: "DELETE",
-    });
-
-    closeOverlay();
-    showMessage("Task successfully deleted");
-    init();
-  } catch (error) {
-    console.error("Task deletion failed:", error);
-  }
-}
-
-/**
- * Renders the edit task template inside the task overlay.
- * Stops the event from bubbling up and fetches the task data based on its ID,
- * then replaces the overlay content with the corresponding edit form.
- *
- * @param {string} taskId - ID of the current task
- * @param {Event} event - The click event that triggered the function
- */
-function renderEditTaskTemplate(taskId, event) {
-  event.stopPropagation();
-  const currentTask = allTasks.find((task) => task.taskId === taskId);
-  const formattedDueDate = currentTask.dueDate.split("/").reverse().join("-");
-  // const { assignedToDetailHTML, subtasksHTML } = prepareTaskOverlayData(currentTask);
-  taskOverlayContentRef.innerHTML = taskOverlayEditTaskTemplate(currentTask, formattedDueDate);
 }
 
 /**
@@ -459,33 +311,5 @@ function updateDisabledMenuItem(items, status) {
     } else {
       item.classList.remove("disabled");
     }
-  });
-}
-
-/**
- * Sets up an outside click handler to close a specific element.
- * Removes any existing handler before setting a new one to prevent duplicates.
- *
- * @param {HTMLElement} ref - The element to monitor for outside clicks
- * @param {Function} closeFunction - The function to call when an outside click is detected
- *
- */
-function setupOutsideClickHandler(ref, closeFunction) {
-  if (currentOutsideClickHandler) {
-    document.removeEventListener("click", currentOutsideClickHandler);
-    currentOutsideClickHandler = null;
-  }
-
-  currentOutsideClickHandler = function (event) {
-    if (!ref.contains(event.target)) {
-      closeFunction();
-      document.removeEventListener("click", currentOutsideClickHandler);
-      currentOutsideClickHandler = null;
-    }
-  };
-
-  requestAnimationFrame(() => {
-    // Delays adding the click listener to avoid catching the opening click event
-    document.addEventListener("click", currentOutsideClickHandler);
   });
 }
