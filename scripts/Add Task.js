@@ -639,3 +639,48 @@ document.addEventListener("DOMContentLoaded", function () {
     // Ensures clicking "addSubtask" behaves like clicking the input field
     addSubtask.addEventListener("click", simulateInputClick);
 });
+
+function deleteSubtask(element) {
+    const listItem = element.closest('li'); // Findet das zugehörige <li>-Element
+    if (listItem) {
+        listItem.remove(); // Entfernt das <li> aus der Liste
+    }
+}
+
+function editSubtask(element) {
+    const listItem = element.closest('li'); 
+    const editDelate = listItem.querySelector('#editDelate');
+    const deleteChange = listItem.querySelector('#deleteChange');
+    const textElement = listItem.childNodes[0]; // Erster Text-Knoten
+
+    // Punkt verstecken & Hintergrund setzen
+    listItem.classList.add('editing');
+    listItem.style.backgroundColor = 'white';
+
+    // Macht den Text direkt bearbeitbar
+    textElement.contentEditable = true;
+    textElement.focus(); // Setzt direkt den Fokus darauf
+
+    // Anzeige umschalten
+    editDelate.style.display = 'none';
+    deleteChange.style.display = 'flex';
+
+    // Speichern durch Klick auf den "Check"-Button
+    const saveButton = listItem.querySelector('img[alt="Check"]');
+    saveButton.onclick = () => saveSubtask(listItem);
+}
+
+// function saveSubtask(listItem) {
+//     const textElement = listItem.childNodes[0]; // Holt den bearbeiteten Text
+
+//     // Entfernt `contentEditable`, damit es wieder normal ist
+//     textElement.contentEditable = false;
+
+//     // Hintergrund & Punkt zurücksetzen
+//     listItem.style.backgroundColor = '';
+//     listItem.classList.remove('editing');
+
+//     // Anzeige zurücksetzen
+//     listItem.querySelector('#editDelate').style.display = 'flex';
+//     listItem.querySelector('#deleteChange').style.display = 'none';
+// }

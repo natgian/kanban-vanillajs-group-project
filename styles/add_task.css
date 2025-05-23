@@ -327,10 +327,13 @@ label {
   margin-top: 8px;
   border-radius: 10px;
   font-size: 15px;
-  background-color: rgb(240, 240, 240);
+}
+#subtaskListElement:hover{
+background-color: rgb(240, 240, 240);
+cursor: pointer;
 }
 #editDelate{
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   position: absolute;
@@ -341,14 +344,36 @@ label {
   width: 24px;
   cursor: pointer;
 }
+#editDelate img:hover{
+  scale: 0.92;
+}
 #editDelate hr{
   height: 20px;
   margin: 0px 6px;
 }
-
+.dot:hover #editDelate {
+  display: flex;
+}
 .dot::before {
     content: "•";
     font-size: 1.2em;
     padding-right: 5px;
-    padding-bottom: 3px;
+    padding-bottom: 2px;
+}
+.dot.editing::before {
+    display: none;
+}
+#deleteChange{
+  display: none;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 15px;
+}
+#deleteChange img:hover{
+  scale: 0.92;
+}
+#deleteChange hr{
+  height: 20px;
+  margin: 0px 6px;
 }
