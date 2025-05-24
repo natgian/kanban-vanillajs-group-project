@@ -166,6 +166,156 @@
 /* MEDIA QUERIES */
 /*-------------- */
 
+@media (max-width: 1700px) {
+  .summaryContent {
+    .summaryFields {
+      padding: 24px 24px;
+
+      h1 {
+        font-size: 56px;
+      }
+    }
+
+    .middleField {
+      h1 {
+        font-size: 56px;
+      }
+    }
+  }
+}
+
+@media (max-width: 1500px) {
+  .summaryContent {
+    .leftSection {
+      width: 60%;
+    }
+
+    .rightSection {
+      width: 40%;
+
+      h3 {
+        font-size: 56px;
+      }
+    }
+  }
+}
+
+@media (max-width: 1330px) {
+  .summaryContent {
+    .leftSection {
+      width: 65%;
+    }
+
+    .rightSection {
+      width: 35%;
+
+      h2 {
+        font-size: 36px;
+      }
+
+      h3 {
+        font-size: 36px;
+      }
+    }
+  }
+}
+
+@media (max-width: 1260px) {
+  .summaryContent {
+    .leftSection {
+      width: 75%;
+
+      .middleField {
+        padding: 16px;
+      }
+    }
+
+    .rightSection {
+      width: 25%;
+    }
+  }
+}
+
+@media (max-width: 1150px) {
+  .summaryContent {
+    padding: 100px 48px;
+
+    .leftSection {
+      .fieldImgs {
+        width: 48px;
+        height: 48px;
+        padding: 12px;
+      }
+
+      .summaryFields {
+        padding: 16px 16px;
+
+        h1 {
+          font-size: 50px;
+        }
+      }
+
+      .middleField {
+        h1 {
+          font-size: 50px;
+        }
+      }
+    }
+
+    .rightSection {
+      padding-left: 24px;
+
+      h2 {
+        font-size: 24px;
+      }
+
+      h3 {
+        font-size: 24px;
+      }
+    }
+  }
+}
+
+@media (max-width: 970px) {
+  .summaryContent {
+    .summaryHeader {
+      h1 {
+        font-size: 56px;
+      }
+    }
+
+    .leftSection {
+      .summaryFields {
+        padding: 8px 10px;
+
+        h1 {
+          font-size: 48px;
+        }
+
+        p {
+          font-size: 12px;
+        }
+      }
+
+      .middleField {
+        h1 {
+          font-size: 48px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 850px) {
+  .summaryContent {
+    .leftSection {
+      .summaryFields {
+        padding: 8px 8px;
+      }
+    }
+  }
+}
+
 @media (max-width: 768px) {
   header {
     #titleSpan {
