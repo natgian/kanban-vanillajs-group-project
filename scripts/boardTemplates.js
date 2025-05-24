@@ -267,7 +267,7 @@ function taskOverlayEditTaskTemplate(task, formattedDueDate) {
                 <label class="edit-task-label">Priority</label>
                 <div class="priority-wrapper">
                   <label class="priority-option" for="urgent">
-                    <input type="radio" name="priority" id="urgent" />
+                    <input type="radio" name="priority" id="urgent" ${task.priority === "high" ? "checked" : ""}/>
                     <span class="priority-btn">
                     Urgent
                     <img src="../assets/icons/high_priority_icon.svg" alt="high priority" />
@@ -275,7 +275,7 @@ function taskOverlayEditTaskTemplate(task, formattedDueDate) {
                   </label>
 
                   <label class="priority-option" for="medium">
-                    <input type="radio" name="priority" id="medium" checked />
+                    <input type="radio" name="priority" id="medium" ${task.priority === "medium" ? "checked" : ""} />
                     <span class="priority-btn" data-color="#FFA800">
                     Medium
                     <img src="../assets/icons/medium_priority_icon.svg" alt="medium priority" />
@@ -283,7 +283,7 @@ function taskOverlayEditTaskTemplate(task, formattedDueDate) {
                   </label>
 
                   <label class="priority-option" for="low">
-                    <input type="radio" name="priority" id="low" />
+                    <input type="radio" name="priority" id="low" ${task.priority === "low" ? "checked" : ""}/>
                     <span class="priority-btn" data-color="#7AE229">
                     Low
                     <img src="../assets/icons/low_priority_icon.svg" alt="low priority" />

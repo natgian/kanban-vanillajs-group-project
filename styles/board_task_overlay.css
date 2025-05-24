@@ -166,12 +166,6 @@
   color: white;
 }
 
-#urgent:checked + .priority-btn img,
-#medium:checked + .priority-btn img,
-#low:checked + .priority-btn img {
-  filter: brightness(0) invert(1);
-}
-
 #medium:checked + .priority-btn {
   background-color: #ffa800;
   color: white;
@@ -180,6 +174,12 @@
 #low:checked + .priority-btn {
   background-color: #7ae229;
   color: white;
+}
+
+#urgent:checked + .priority-btn img,
+#medium:checked + .priority-btn img,
+#low:checked + .priority-btn img {
+  filter: brightness(0) invert(1);
 }
 
 /*-------------- */
