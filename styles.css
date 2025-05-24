@@ -1,7 +1,4 @@
-/*----- */
 /* FONT */
-/*----- */
-
 @font-face {
   font-family: "Inter";
   src: url("../assets/fonts/Inter-VariableFont_opsz,wght.ttf") format("truetype");
@@ -16,10 +13,7 @@
   font-style: italic;
 }
 
-/*------ */
 /* RESET */
-/*------ */
-
 * {
   margin: 0;
   padding: 0;
@@ -52,10 +46,7 @@ a {
   color: inherit;
 }
 
-/*-------- */
 /* GENERAL */
-/*-------- */
-
 :root {
   /* colors */
   --primary-color: #2a3647;
@@ -111,10 +102,7 @@ h1 {
   align-self: flex-end;
 }
 
-/*-------- */
 /* BUTTONS */
-/*-------- */
-
 .btn {
   display: flex;
   align-items: center;
@@ -142,10 +130,7 @@ h1 {
   box-shadow: 0 4px 4px 0 rgb(0, 0, 0, 0.25);
 }
 
-/*------- */
 /* HEADER */
-/*------- */
-
 header {
   max-height: 96px;
   display: flex;
@@ -223,10 +208,7 @@ header {
   margin-left: 0;
 }
 
-/*-------- */
 /* SIDEBAR */
-/*-------- */
-
 .logo {
   margin-bottom: 50px;
 }
@@ -302,10 +284,7 @@ header {
   color: #29abe2;
 }
 
-/*---------------- */
 /* CUSTOM CHECKBOX */
-/*---------------- */
-
 /* Hide default checkbox */
 .custom-checkbox {
   appearance: none;
@@ -339,10 +318,7 @@ header {
   fill: #edf2fa;
 }
 
-/*------------ */
 /* MESSAGE BOX */
-/*------------ */
-
 .message-box {
   position: fixed;
   top: 50%;
@@ -369,10 +345,7 @@ header {
   opacity: 1;
 }
 
-/*-------------- */
 /* MEDIA QUERIES */
-/*-------------- */
-
 @media (max-width: 768px) {
   .footer-navigation {
     display: block;
