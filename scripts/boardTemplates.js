@@ -244,60 +244,81 @@ function taskOverlayEditTaskTemplate(task, formattedDueDate) {
           <div class="task-overlay-content-wrapper">
      
             <form class="wrapper" id="edit-task-form">
+              <!-- Title -->
               <div class="spanGlue">
                 <label class="edit-task-label">Title</label>
                 <input type="text" class="typeBars" placeholder="Enter a title" required value="${task.title}"/>
               </div>
+
+              <!-- Description -->
               <div class="spanGlue">
                 <label class="edit-task-label">Description</label>
                 <textarea name="description" class="typeBars" placeholder="Enter a description" style="height: 120px; padding: 14px 15px">${task.description ? task.description : ""}</textarea>
               </div>
+
+              <!-- Due Date -->
               <div class="spanGlue">
                 <label class="edit-task-label">Due date</label>
                 <input type="date" id="date-input" class="typeBars filled" value="${formattedDueDate}" oninput="checkValue()" required />
               </div>
+
+              <!-- Priority -->
               <div class="spanGlue">
                 <label class="edit-task-label">Priority</label>
-                <div class="priorityArange" style="display: flex">
-                  <button class="priorityBtns" data-color="#FF3D00" onclick="selectButton(this)">
+                <div class="priority-wrapper">
+                  <label class="priority-option" for="urgent">
+                    <input type="radio" name="priority" id="urgent" />
+                    <span class="priority-btn">
                     Urgent
-                    <img src="../assets/icons/Prio alta.png" style="width: 20px; height: 14.51px; margin-left: 10px" />
-                  </button>
+                    <img src="../assets/icons/high_priority_icon.svg" alt="high priority" />
+                    </span>
+                  </label>
 
-                  <button class="priorityBtns selected" data-color="#FFA800" onclick="selectButton(this)">
+                  <label class="priority-option" for="medium">
+                    <input type="radio" name="priority" id="medium" checked />
+                    <span class="priority-btn" data-color="#FFA800">
                     Medium
-                    <img src="../assets/icons/Prio media.png" style="width: 20px; height: 7.45px; margin-left: 10px" />
-                  </button>
+                    <img src="../assets/icons/medium_priority_icon.svg" alt="medium priority" />
+                    </span>
+                  </label>
 
-                  <button class="priorityBtns" data-color="#7AE229" onclick="selectButton(this)">
+                  <label class="priority-option" for="low">
+                    <input type="radio" name="priority" id="low" />
+                    <span class="priority-btn" data-color="#7AE229">
                     Low
-                    <img src="../assets/icons/Prio baja.png" style="width: 20px; height: 14.51px; margin-left: 10px" />
-                  </button>
+                    <img src="../assets/icons/low_priority_icon.svg" alt="low priority" />
+                    </span>
+                    </label>
                 </div>
               </div>
 
+              <!-- Assigned to -->
               <div class="spanGlue">
                 <label class="edit-task-label">Assigned to</label>
                 <div class="dropdown-container">
-                  <input type="button" value="Select contacts to assign" class="dropdown-selected typeBars" id="contactDropdown" onclick="toggleTextDropdown(this)" />
-                  <div class="dropdown-options">
-                    <div class="option" data-value="Task 1" onclick="selectOption(this)">Task 1</div>
-                    <div class="option" data-value="Task 2" onclick="selectOption(this)">Task 2</div>
-                    <div class="option" data-value="Task 3" onclick="selectOption(this)">Task 3</div>
-                    <div class="option" data-value="Task 4" onclick="selectOption(this)">Task 4</div>
-                  </div>
+                  <input type="button" value="Select contacts to assign" class="dropdown-selected typeBars" id="contactDropdown" onclick="toggleContactDropdown(this)" />
+                  <div class="dropdown-options" id="contact-list"></div>
                 </div>
+                <div id="selectedContacts"></div>
               </div>
 
+              <!-- Subtasks -->
               <div class="spanGlue">
                 <label class="edit-task-label">Subtasks</label>
                 <div class="subtask-container">
-                  <input type="text" class="typeBars typePriorityBars" placeholder="Add new subtask" />
-                  <img src="../assets/icons/Subtasks icons11.png" alt="cross" />
+                  <input type="text" class="typeBars typePriorityBars" id="newSubtask" placeholder="Add new subtask" />
+                  <div class="subtaskNavigator">
+                    <img id="addSubtask" src="../assets/icons/Subtasks icons11.png" alt="cross" onclick="" />
+                    <div id="confirmDeleteNewSubtask">
+                      <img src="../assets/icons/close.svg" alt="X" id="close" onclick="resetElements()" />
+                      <hr />
+                      <img src="../assets/icons/check.png" alt="Check" id="confirm" onclick="addSubtask()" />
+                    </div>
+                  </div>
                 </div>
+                <ul id="subtaskList"></ul>
               </div>
 
- 
             </form>
          </div>
 
