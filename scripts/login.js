@@ -43,7 +43,7 @@ document.getElementById("guestLoginBtn").addEventListener("click", async () => {
     document.querySelector('input[name="Email"]').value = user.email;
     document.querySelector('input[name="Password"]').value = user.password;
     localStorage.setItem('currentUser', user.name || "Guest");
-    window.location.href = "../pages/summaryGuest.html";
+    window.location.href = "../pages/summary.html";
   } catch (e) {
     console.error("Error loading guest data:", e);
     alert("Something went wrong. Please try again later.");
