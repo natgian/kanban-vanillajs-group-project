@@ -421,20 +421,46 @@ cursor: pointer;
   }
   .bottomButtons{
     justify-content: flex-end;
+    position: fixed;
+    bottom: 0;
+    width: 408px;
+    justify-content: flex-end;
   }
   .bottomButtons span{
     display: none;
   }
-  .contentBox{
-    overflow-y: scroll;
-  }
+  
 }
 @media (max-width: 768px){
   .bottomButtons{
-    position: sticky;
+    position: fixed;
     bottom: 80px;
+    width: 420px;
+    justify-self: center;
   }
   .contentWrapper{
     position: relative;
+  }
+  .contentLimit{
+    width: 100%;
+  }
+  .taskCategorysation{
+    padding-bottom: 100px;
+  }
+}
+
+@media(max-width: 450px){
+  .contentBox{
+    scale: 0.8;
+  }
+  .contentWrapper{
+    padding: 0;
+  }
+}
+
+@media(max-width: 410px){
+  .contentBox{
+    scale: 0.7;
+    width: 100dvw;
   }
 }
