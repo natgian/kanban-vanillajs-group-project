@@ -38,7 +38,7 @@ function renderAddTask() {
                   <span id="showUpRequired" style="display: none; position: absolute;">This field is required</span>
                 </div>
               </form>
-              <hr />
+              <hr class="hrHider"/>
               <section class="taskCategorysation">
                 <div class="spanGlue">
                   <span>Priority</span>

@@ -7,15 +7,18 @@
 .contentLimit {
   max-width: 1440px;
   width: 100%;
-  padding: 20px;
-  display: grid;
-  place-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: calc(100dvw - 232px);
 }
 .contentWrapper {
   display: grid;
   align-items: stretch;
   max-width: 940px;
   width: 100%;
+  padding: 20px 20px 0px 20px;
 }
 .inputOrg {
   display: flex;
@@ -128,8 +131,11 @@
   align-items: flex-end;
   justify-content: space-between;
   position: sticky;
-  bottom: 20px;
+  bottom: 0px;
   z-index: 10;
+  padding-top: 5px;
+  padding-bottom: 20px;
+  background-color: #f6f7f8;
 }
 .bottomButtonsSplice {
   gap: 20px;
@@ -153,6 +159,7 @@
   border-width: 1px;
   border-color: var(--primary-color);
   background-color: rgba(0, 0, 0, 0);
+  background-color: #f6f7f891;
 }
 .bottomButton1:hover {
   border-color: var(--hover-color);
@@ -387,4 +394,47 @@ cursor: pointer;
 #deleteChange hr{
   height: 20px;
   margin: 0px 6px;
+}
+
+@media(max-width: 1172px){
+  .contentWrapper{
+    max-width: 440px;
+  }
+  .contentWrapper button{
+    scale: 0.9;
+  }
+  .inputOrg{
+    flex-direction: column;
+  }
+  .hrHider{
+    display: none;
+  }
+  .taskInfomations{
+    width: 100%;
+    padding-bottom: 24px;
+  }
+  .taskCategorysation{
+    width: 100%;
+  }
+  h1{
+    max-width: 440px;
+  }
+  .bottomButtons{
+    justify-content: flex-end;
+  }
+  .bottomButtons span{
+    display: none;
+  }
+  .contentBox{
+    overflow-y: scroll;
+  }
+}
+@media (max-width: 768px){
+  .bottomButtons{
+    position: sticky;
+    bottom: 80px;
+  }
+  .contentWrapper{
+    position: relative;
+  }
 }
