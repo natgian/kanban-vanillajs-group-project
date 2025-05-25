@@ -114,7 +114,7 @@ function taskOverlayTemplate(task, assignedToDetailHTML, subtasksHTML) {
           </div>
 
           <div class="task-overlay-content-wrapper">
-           <div class="wrapper">
+           <div class="task-overlay-info-wrapper">
             <p class="task-overlay-title">${task.title}</p>
             <p class="task-overlay-description">${task.description ? task.description : ""}</p>
 
@@ -246,28 +246,28 @@ function taskOverlayEditTaskTemplate(task, formattedDueDate) {
             <form class="wrapper" id="edit-task-form">
               <!-- Title -->
               <div class="spanGlue">
-                <label class="edit-task-label">Title</label>
+                <span class="edit-task-label">Title</span>
                 <input type="text" class="typeBars" placeholder="Enter a title" required value="${task.title}"/>
               </div>
 
               <!-- Description -->
-              <div class="spanGlue">
-                <label class="edit-task-label">Description</label>
+              <div class="spanGlue mt-20">
+                <span class="edit-task-label">Description</span>
                 <textarea name="description" class="typeBars" placeholder="Enter a description" style="height: 120px; padding: 14px 15px">${task.description ? task.description : ""}</textarea>
               </div>
 
               <!-- Due Date -->
-              <div class="spanGlue">
-                <label class="edit-task-label">Due date</label>
+              <div class="spanGlue mt-20">
+                <span class="edit-task-label">Due date</span>
                 <input type="date" id="date-input" class="typeBars filled" value="${formattedDueDate}" oninput="checkValue()" required />
               </div>
 
               <!-- Priority -->
-              <div class="spanGlue">
-                <label class="edit-task-label">Priority</label>
+              <div class="spanGlue mt-20">
+                <span class="edit-task-label">Priority</span>
                 <div class="priority-wrapper">
                   <label class="priority-option" for="urgent">
-                    <input type="radio" name="priority" id="urgent" ${task.priority === "high" ? "checked" : ""}/>
+                    <input type="radio" name="priority" id="urgent" value="high" ${task.priority === "high" ? "checked" : ""}/>
                     <span class="priority-btn">
                     Urgent
                     <img src="../assets/icons/high_priority_icon.svg" alt="high priority" />
@@ -275,7 +275,7 @@ function taskOverlayEditTaskTemplate(task, formattedDueDate) {
                   </label>
 
                   <label class="priority-option" for="medium">
-                    <input type="radio" name="priority" id="medium" ${task.priority === "medium" ? "checked" : ""} />
+                    <input type="radio" name="priority" id="medium" value="medium" ${task.priority === "medium" ? "checked" : ""} />
                     <span class="priority-btn" data-color="#FFA800">
                     Medium
                     <img src="../assets/icons/medium_priority_icon.svg" alt="medium priority" />
@@ -283,7 +283,7 @@ function taskOverlayEditTaskTemplate(task, formattedDueDate) {
                   </label>
 
                   <label class="priority-option" for="low">
-                    <input type="radio" name="priority" id="low" ${task.priority === "low" ? "checked" : ""}/>
+                    <input type="radio" name="priority" id="low" value="low" ${task.priority === "low" ? "checked" : ""}/>
                     <span class="priority-btn" data-color="#7AE229">
                     Low
                     <img src="../assets/icons/low_priority_icon.svg" alt="low priority" />
@@ -293,8 +293,8 @@ function taskOverlayEditTaskTemplate(task, formattedDueDate) {
               </div>
 
               <!-- Assigned to -->
-              <div class="spanGlue">
-                <label class="edit-task-label">Assigned to</label>
+              <div class="spanGlue mt-20">
+                <span class="edit-task-label">Assigned to</span>
                 <div class="dropdown-container">
                   <input type="button" value="Select contacts to assign" class="dropdown-selected typeBars" id="contactDropdown" onclick="toggleContactDropdown(this)" />
                   <div class="dropdown-options" id="contact-list"></div>
@@ -303,8 +303,8 @@ function taskOverlayEditTaskTemplate(task, formattedDueDate) {
               </div>
 
               <!-- Subtasks -->
-              <div class="spanGlue">
-                <label class="edit-task-label">Subtasks</label>
+              <div class="spanGlue mt-20">
+                <span class="edit-task-label">Subtasks</span>
                 <div class="subtask-container">
                   <input type="text" class="typeBars typePriorityBars" id="newSubtask" placeholder="Add new subtask" />
                   <div class="subtaskNavigator">
@@ -323,7 +323,7 @@ function taskOverlayEditTaskTemplate(task, formattedDueDate) {
          </div>
 
          <div class="flex-end">
-            <button class="btn">Ok <img src="../assets/icons/check_icon.svg" alt="" srcset="" /></button>
+            <button class="btn">Ok <img src="../assets/icons/check_icon.svg" alt="check icon"/></button>
          </div>     
   `;
 }

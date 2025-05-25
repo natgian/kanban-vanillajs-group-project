@@ -173,3 +173,13 @@ function removeClickHandler() {
     currentOutsideClickHandler = null;
   }
 }
+
+//TODO:
+//--------------------EDIT TASK--------------------------//
+let currentPriority = null;
+document.addEventListener("change", (e) => {
+  if (e.target.matches('input[name="priority"]')) {
+    currentPriority = e.target.value;
+    console.log("Neue Priority:", currentPriority);
+  }
+});
