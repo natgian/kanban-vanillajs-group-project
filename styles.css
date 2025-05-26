@@ -371,6 +371,8 @@ header {
     gap: 8px;
     padding: 8px 4px;
     font-size: 14px;
+    /* added min-width, nico */
+    min-width: 71px;
   }
 
   .sidebar-menu-link img {
