@@ -6,7 +6,6 @@
 }
 .contentLimit {
   max-width: 1440px;
-  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -450,17 +449,39 @@ cursor: pointer;
 }
 
 @media(max-width: 450px){
-  .contentBox{
+  .taskInfomations{
+    
+    width: 100%;
+    padding: 0;
+  }
+  .taskCategorysation{
+    padding: 0;
+    padding-top: 35px;
+    gap: 35px;
+  }
+  .inputOrg{
+    padding: 0;
+    padding-top: 25px;
+    padding-bottom: 60px;
+    height: auto;
+    position: relative;
     scale: 0.8;
   }
   .contentWrapper{
     padding: 0;
+    padding-top: 30px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
   }
-}
-
-@media(max-width: 410px){
-  .contentBox{
-    scale: 0.7;
-    width: 100dvw;
+  .contentWrapper h1{
+    scale: 0.8;
+    position: absolute;
+    left: 20px;
+  }
+  .bottomButtons{
+    width: 100%;
+    scale: 0.8;
+    bottom: 72px;
   }
 }
