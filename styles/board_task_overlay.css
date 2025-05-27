@@ -127,7 +127,7 @@
   margin-bottom: 8px;
 }
 
-#edit-task-form {
+#edit-task-wrapper {
   padding: 0;
 }
 
@@ -186,6 +186,16 @@
   filter: brightness(0) invert(1);
 }
 
+#newSubtask,
+#editableText {
+  padding-right: 80px;
+  cursor: text;
+}
+
+#subtaskListElement {
+  height: fit-content !important;
+}
+
 /*-------------- */
 /* MEDIA QUERIES */
 /*-------------- */
@@ -201,7 +211,7 @@
   }
 
   .priority-btn {
-    font-size: 14px;
+    font-size: 16px;
   }
 }
 
@@ -213,6 +223,16 @@
 
   .task-overlay-info-wrapper {
     padding: 20px 10px;
+  }
+
+  #edit-title-input,
+  #edit-desc-textarea,
+  #date-input,
+  #contactDropdown,
+  #contact-list,
+  #newSubtask,
+  #editableText {
+    font-size: 14px;
   }
 
   .edit-task-label {

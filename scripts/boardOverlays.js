@@ -137,6 +137,54 @@ function renderEditTaskTemplate(taskId, event) {
   const formattedDueDate = currentTask.dueDate.split("/").reverse().join("-");
   // const { assignedToDetailHTML, subtasksHTML } = prepareTaskOverlayData(currentTask);
   taskOverlayContentRef.innerHTML = taskOverlayEditTaskTemplate(currentTask, formattedDueDate);
+  taskOverlayContentRef.addEventListener("click", (e) => {
+    e.stopPropagation();
+  });
+
+  initEditTaskFields(currentTask);
+
+  //TODO:
+  //--------------------EDIT TASK--------------------------//
+  let updatedPriority = null;
+  let updatedTitle = "";
+  let updatedDescription = "";
+
+  function getEditedTaskData() {
+    const task = {
+      status: status, // fix
+      title: updatedTitle,
+      description: updatedDescription,
+      dueDate: updatedDate,
+      priority: updatedPriority,
+      assignedTo: updatedAssignedTo,
+      category: category, // fix
+      subtasks: updatedSubtasks,
+    };
+  }
+
+  document.addEventListener("change", (e) => {
+    if (e.target.matches('input[name="priority"]')) {
+      updatedPriority = e.target.value;
+      console.log("Neue Priority:", updatedPriority);
+    }
+  });
+  console.log(document.getElementById("date-input").value);
+
+  // {
+  //   status: "awaiting-feedback",
+  //   title: "Responsive Navigation Bar",
+  //   description: "Implement a navigation bar that adjusts responsively for mobile, tablet, and desktop views.",
+  //   dueDate: "12/05/2025",
+  //   priority: "medium",
+  //   assignedTo: [{ name: "Elena Krüger", initials: "EK", color: "#A52A2A" }],
+  //   category: "User Story",
+  //   subtasks: [
+  //     { done: true, subtask: "Mobile Navigation" },
+  //     { done: true, subtask: "Tablet Navigation" },
+  //     { done: true, subtask: "Desktop Navigation" },
+  //     { done: false, subtask: "Bugfixes" },
+  //   ],
+  // }
 }
 
 /**
@@ -173,13 +221,3 @@ function removeClickHandler() {
     currentOutsideClickHandler = null;
   }
 }
-
-//TODO:
-//--------------------EDIT TASK--------------------------//
-let currentPriority = null;
-document.addEventListener("change", (e) => {
-  if (e.target.matches('input[name="priority"]')) {
-    currentPriority = e.target.value;
-    console.log("Neue Priority:", currentPriority);
-  }
-});

@@ -243,23 +243,25 @@ function taskOverlayEditTaskTemplate(task, formattedDueDate) {
 
           <div class="task-overlay-content-wrapper">
      
-            <form class="wrapper" id="edit-task-form">
+            <div class="wrapper" id="edit-task-wrapper">
               <!-- Title -->
               <div class="spanGlue">
                 <span class="edit-task-label">Title</span>
-                <input type="text" class="typeBars" placeholder="Enter a title" required value="${task.title}"/>
+                <input type="text" name="title" class="typeBars" placeholder="Enter a title" required value="${task.title}" id="edit-title-input"/>
               </div>
 
               <!-- Description -->
               <div class="spanGlue mt-20">
                 <span class="edit-task-label">Description</span>
-                <textarea name="description" class="typeBars" placeholder="Enter a description" style="height: 120px; padding: 14px 15px">${task.description ? task.description : ""}</textarea>
+                <textarea name="description" class="typeBars" id="edit-desc-textarea" placeholder="Enter a description" style="height: 120px; padding: 14px 15px">${
+                  task.description ? task.description : ""
+                }</textarea>
               </div>
 
               <!-- Due Date -->
               <div class="spanGlue mt-20">
                 <span class="edit-task-label">Due date</span>
-                <input type="date" id="date-input" class="typeBars filled" value="${formattedDueDate}" oninput="checkValue()" required />
+                <input type="date" id="date-input" name="date" class="typeBars filled" value="${formattedDueDate}" oninput="checkValue()" required />
               </div>
 
               <!-- Priority -->
@@ -276,7 +278,7 @@ function taskOverlayEditTaskTemplate(task, formattedDueDate) {
 
                   <label class="priority-option" for="medium">
                     <input type="radio" name="priority" id="medium" value="medium" ${task.priority === "medium" ? "checked" : ""} />
-                    <span class="priority-btn" data-color="#FFA800">
+                    <span class="priority-btn">
                     Medium
                     <img src="../assets/icons/medium_priority_icon.svg" alt="medium priority" />
                     </span>
@@ -284,7 +286,7 @@ function taskOverlayEditTaskTemplate(task, formattedDueDate) {
 
                   <label class="priority-option" for="low">
                     <input type="radio" name="priority" id="low" value="low" ${task.priority === "low" ? "checked" : ""}/>
-                    <span class="priority-btn" data-color="#7AE229">
+                    <span class="priority-btn">
                     Low
                     <img src="../assets/icons/low_priority_icon.svg" alt="low priority" />
                     </span>
@@ -319,7 +321,7 @@ function taskOverlayEditTaskTemplate(task, formattedDueDate) {
                 <ul id="subtaskList"></ul>
               </div>
 
-            </form>
+            </div>
          </div>
 
          <div class="flex-end">
