@@ -394,6 +394,9 @@ cursor: pointer;
   height: 20px;
   margin: 0px 6px;
 }
+#logoImg{
+  display: none;
+}
 
 @media(max-width: 1172px){
   .contentWrapper{
@@ -446,11 +449,20 @@ cursor: pointer;
   .taskCategorysation{
     padding-bottom: 100px;
   }
+  #logoImg{
+    display: block;
+    width: 46.35px;
+    height: 56px;
+    position: absolute;
+    left: 40px;
+  }
+  .kanban-title{
+    color: white;
+  }
 }
 
 @media(max-width: 450px){
   .taskInfomations{
-    
     width: 100%;
     padding: 0;
   }
@@ -462,7 +474,7 @@ cursor: pointer;
   .inputOrg{
     padding: 0;
     padding-top: 25px;
-    padding-bottom: 60px;
+    padding-bottom: 20px;
     height: auto;
     position: relative;
     scale: 0.8;
@@ -483,5 +495,18 @@ cursor: pointer;
     width: 100%;
     scale: 0.8;
     bottom: 72px;
+  }
+  .kanban-title{
+    min-width: 230px;
+  }
+  .header-icons-container{
+    position: absolute;
+    right: 40px;
+  }
+  header{
+    min-height: 96px;
+  }
+  .priorityBtns{
+    font-size: 16px;
   }
 }

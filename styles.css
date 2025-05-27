@@ -383,6 +383,7 @@ header {
   .active-link {
     border-radius: 16px;
     padding: 14px 20px;
+    text-align: center;
   }
 
   .sidebar-menu-link:hover {
