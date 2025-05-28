@@ -2,12 +2,15 @@ async function initEditTaskFields(task) {
   updateSelectedContactsDisplay();
   setContactDropdownEventListeners();
   initSubtasks();
+
   const contacts = await fetchContacts();
   const assignedTo = task.assignedTo || [];
   loadContacts(contacts, assignedTo);
+
+  renderSubtasks(task.subtasks);
 }
 
-// CONTACT CODE //
+// CONTACT CODE -- geändert -- //
 function setContactDropdownEventListeners() {
   const dropdown = document.getElementById("contactDropdown");
   const dropdownContainer = document.querySelector(".dropdown-container");
@@ -213,13 +216,14 @@ function setupImageClickEvents(element) {
   });
 }
 
+// GEÄNDERT! //
 /**
  * Main function - Handles selection behavior when an option is clicked.
  */
-function selectOption(element) {
+function selectOption(element, event = null) {
   const checkbox = element.querySelector(".hidden-checkbox");
 
-  if (event.target !== checkbox) {
+  if (!event || event.target !== checkbox) {
     checkbox.click();
   }
 
@@ -264,29 +268,6 @@ function replaceInputWithButton(input, dropdownOptions) {
   replaceElement(input, button);
 
   button.blur();
-}
-
-// document.addEventListener("click", function (event) {
-//   const dropdownOptions = document.getElementById("contact-list");
-//   const activeInput = document.querySelector(".dropdown-container input[type='text']");
-
-//   if (activeInput && isDropdownClosed(dropdownOptions)) {
-//     replaceInputWithButton(activeInput, dropdownOptions);
-//   }
-// });
-
-/* little Helpers */
-
-function getDropdownContainer(element) {
-  return element.closest(".dropdown-container");
-}
-
-function getDropdownOptions(dropdownContainer) {
-  return dropdownContainer.querySelector(".dropdown-options");
-}
-
-function isButtonElement(element) {
-  return element.tagName === "INPUT" && element.type === "button";
 }
 
 function createInputField(button) {
@@ -565,11 +546,6 @@ function validateRequiredFields() {
   const allFilled = areAllFieldsFilled(requiredFields);
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-  document.addEventListener("input", validateRequiredFields);
-  observeDropdownChanges();
-});
-
 // FIREBASE CODE //
 /**
  * Fetchs Contacts from Firebase and converts them to an Array.
@@ -592,12 +568,19 @@ async function fetchContacts() {
   }
 }
 
+// GEÄNDERT //
 /**
  * Inserts contacts into the template.
  */
 async function loadContacts(contacts, assignedTo) {
   if (!contacts.length) return;
+
   const contactList = document.getElementById("contact-list");
   contactList.innerHTML = "";
-  contacts.forEach((person) => addContactToTemplate(person, assignedTo));
+
+  contacts.forEach((person) => addContactToTemplate(person));
+
+  setTimeout(() => {
+    checkAssignedToContacts(assignedTo);
+  }, 0);
 }

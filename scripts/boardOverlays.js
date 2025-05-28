@@ -124,6 +124,184 @@ async function deleteTask(taskId) {
 }
 
 /**
+ * Renders the edit task template inside the task overlay.
+ * Stops the event from bubbling up and fetches the task data based on its ID,
+ * then replaces the overlay content with the corresponding edit form.
+ *
+ * @param {string} taskId - ID of the current task
+ * @param {Event} event - The click event that triggered the function
+ */
+function renderEditTaskTemplate(taskId, event) {
+  event.stopPropagation();
+  const currentTask = allTasks.find((task) => task.taskId === taskId);
+  const formattedDueDate = currentTask.dueDate.split("/").reverse().join("-");
+
+  taskOverlayContentRef.innerHTML = taskOverlayEditTaskTemplate(currentTask, formattedDueDate);
+  taskOverlayContentRef.addEventListener("click", (e) => {
+    e.stopPropagation();
+  });
+
+  initEditTaskFields(currentTask);
+}
+
+/**
+ * Get the changed data from the current task and updates the database
+ *
+ * @param {string} taskId - ID of the current task
+ */
+function updateTask(taskId) {
+  const updatedTask = getUpdatedTaskData(taskId);
+  updateEditedTaskinDB(taskId, updatedTask);
+}
+
+/**
+ * Updates the task changes in the database then re-initializes the board
+ *
+ * @param {string} taskId - ID of the current task
+ * @param {Object} updatedTask - The updated task data to be saved in the database
+ */
+async function updateEditedTaskinDB(taskId, updatedTask) {
+  try {
+    await fetch(`${baseURL}/tasks/${taskId}.json`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updatedTask),
+    });
+
+    closeTaskOverlay();
+    init();
+    setTimeout(() => {
+      showMessage("Task successfully updated");
+    }, 500);
+  } catch (error) {
+    console.error("Something went wrong:", error);
+  }
+}
+
+/**
+ * Gets the updated task values and returns a new task object
+ *
+ * @param {*} taskId - ID of the current task
+ * @returns {Object} - The updated task object with the new values
+ */
+function getUpdatedTaskData(taskId) {
+  const currentTask = allTasks.find((task) => task.taskId === taskId);
+  const updatedPriority = document.querySelector('input[name="priority"]:checked')?.value || null;
+  const updatedTitle = document.getElementById("edit-title-input")?.value || "";
+  const updatedDescription = document.getElementById("edit-desc-textarea")?.value || "";
+  const updatedDueDate = document.getElementById("date-input")?.value || "";
+
+  return createUpdatedTask(currentTask, updatedPriority, updatedTitle, updatedDescription, updatedDueDate);
+}
+
+/**
+ * Creates a new task object with the updated values
+ *
+ * @param {Object} currentTask - The original task object
+ * @param {string} updatedPriority - The updated priority value
+ * @param {string} updatedTitle - The updated title value
+ * @param {string} updatedDescription - The updated description value
+ * @param {string} updatedDueDate - The updated description value
+ * @returns {Object} - The new task object with the updated values
+ */
+function createUpdatedTask(currentTask, updatedPriority, updatedTitle, updatedDescription, updatedDueDate) {
+  return {
+    assignedTo: getSelectedContacts(),
+    category: currentTask.category,
+    description: updatedDescription,
+    dueDate: updatedDueDate,
+    priority: updatedPriority,
+    status: currentTask.status,
+    subtasks: getSubtasks(),
+    taskId: currentTask.taskId,
+    title: updatedTitle,
+  };
+}
+
+/**
+ * Gets the values (name, color, initials) from all selected contacts
+ *
+ * @returns {Array<Object>} - An array of objects containing the data of each selected contacts
+ */
+function getSelectedContacts() {
+  const selectedContacts = [];
+
+  document.querySelectorAll(".hidden-checkbox:checked").forEach((checkbox) => {
+    const option = checkbox.closest(".option");
+    const avatar = option.querySelector(".task-card-avatar");
+    selectedContacts.push({
+      name: checkbox.value,
+      color: avatar.dataset.color,
+      initials: avatar.textContent.trim(),
+    });
+  });
+
+  return selectedContacts;
+}
+
+/**
+ * Gets the subtasks values and creates an array of objects containing the subtasks. Each subtask is
+ * initialized with 'done: false'.
+ *
+ * @returns {Array<Object>} - An array of subtask objects
+ */
+function getSubtasks() {
+  const subtaskList = document.getElementById("subtaskList");
+  const subtasks = [];
+
+  if (!subtaskList) return subtasks;
+
+  subtaskList.querySelectorAll("li").forEach((subtask) => {
+    const textItem = subtask.querySelector(".subtask-text");
+
+    if (textItem) subtasks.push({ done: false, subtask: textItem.textContent.trim() });
+  });
+
+  return subtasks;
+}
+
+/**
+ * Renders the list of subtasks into the "subtaskList" element
+ *
+ * @param {Array<Object>} subtasks - An array of subtask objects
+ * @returns if there ist no "subtaskList" or "subtasks" is not an array
+ */
+function renderSubtasks(subtasks) {
+  const subtaskList = document.getElementById("subtaskList");
+  if (!subtaskList || !Array.isArray(subtasks)) return;
+
+  subtaskList.innerHTML = "";
+
+  subtasks.forEach((subtask) => {
+    if (subtask.subtask) {
+      const subtaskElement = createSubtaskElement(subtask.subtask);
+      subtaskList.appendChild(subtaskElement);
+    }
+  });
+}
+
+/**
+ * Checks which contacts are assigned and updates the UI accordingly by selecting the options
+ *
+ * @param {Array<Object>} assignedTo - Array of assigned contact objects
+ */
+function checkAssignedToContacts(assignedTo) {
+  const options = document.querySelectorAll(".option");
+
+  options.forEach((option) => {
+    const name = option.dataset.value;
+    const isAssigned = assignedTo.some((person) => person.name === name);
+
+    if (isAssigned) {
+      const checkbox = option.querySelector(".hidden-checkbox");
+      if (!checkbox.checked) {
+        selectOption(option);
+      }
+    }
+  });
+}
+
+/**
  * Sets up a click listener that triggers a function when a click occurs outside the element.
  * Makes sure only one outside click listener is active by removing any previous one.
  *
@@ -156,103 +334,4 @@ function removeClickHandler() {
     document.removeEventListener("click", currentOutsideClickHandler);
     currentOutsideClickHandler = null;
   }
-}
-
-/**
- * Renders the edit task template inside the task overlay.
- * Stops the event from bubbling up and fetches the task data based on its ID,
- * then replaces the overlay content with the corresponding edit form.
- *
- * @param {string} taskId - ID of the current task
- * @param {Event} event - The click event that triggered the function
- */
-function renderEditTaskTemplate(taskId, event) {
-  event.stopPropagation();
-  const currentTask = allTasks.find((task) => task.taskId === taskId);
-  const formattedDueDate = currentTask.dueDate.split("/").reverse().join("-");
-
-  taskOverlayContentRef.innerHTML = taskOverlayEditTaskTemplate(currentTask, formattedDueDate);
-  taskOverlayContentRef.addEventListener("click", (e) => {
-    e.stopPropagation();
-  });
-
-  initEditTaskFields(currentTask);
-}
-
-function updateTask(taskId) {
-  const updatedTask = getUpdatedTaskData(taskId);
-  updateEditedTaskinDB(taskId, updatedTask);
-}
-
-async function updateEditedTaskinDB(taskId, updatedTask) {
-  try {
-    await fetch(`${baseURL}/tasks/${taskId}.json`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(updatedTask),
-    });
-
-    closeTaskOverlay();
-    init();
-    setTimeout(() => {
-      showMessage("Task successfully updated");
-    }, 1500);
-  } catch (error) {
-    console.error("Something went wrong:", error);
-  }
-}
-
-function getUpdatedTaskData(taskId) {
-  const currentTask = allTasks.find((task) => task.taskId === taskId);
-  const updatedPriority = document.querySelector('input[name="priority"]:checked')?.value || null;
-  const updatedTitle = document.getElementById("edit-title-input")?.value || "";
-  const updatedDescription = document.getElementById("edit-desc-textarea")?.value || "";
-  const updatedDueDate = document.getElementById("date-input")?.value || "";
-
-  return createUpdatedTask(currentTask, updatedPriority, updatedTitle, updatedDescription, updatedDueDate);
-}
-
-function createUpdatedTask(currentTask, updatedPriority, updatedTitle, updatedDescription, updatedDueDate) {
-  return {
-    assignedTo: getSelectedContacts(),
-    category: currentTask.category,
-    description: updatedDescription,
-    dueDate: updatedDueDate,
-    priority: updatedPriority,
-    status: currentTask.status,
-    subtasks: getSubtasks(),
-    taskId: currentTask.taskId,
-    title: updatedTitle,
-  };
-}
-
-function getSelectedContacts() {
-  const selectedContacts = [];
-
-  document.querySelectorAll(".hidden-checkbox:checked").forEach((checkbox) => {
-    const option = checkbox.closest(".option");
-    const avatar = option.querySelector(".task-card-avatar");
-    selectedContacts.push({
-      name: checkbox.value,
-      color: avatar.dataset.color,
-      initials: avatar.textContent.trim(),
-    });
-  });
-
-  return selectedContacts;
-}
-
-function getSubtasks() {
-  const subtaskList = document.getElementById("subtaskList");
-  const subtasks = [];
-
-  if (!subtaskList) return subtasks;
-
-  subtaskList.querySelectorAll("li").forEach((subtask) => {
-    const textItem = subtask.querySelector(".subtask-text");
-
-    if (textItem) subtasks.push({ done: false, subtask: textItem.textContent.trim() });
-  });
-
-  return subtasks;
 }
