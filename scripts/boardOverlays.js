@@ -98,7 +98,7 @@ async function updateSubtaskCompletion(subtaskIndex, taskId) {
       body: JSON.stringify(task.subtasks),
     });
 
-    init();
+    initBoard();
   } catch (error) {
     console.error("Update failed:", error);
   }
@@ -117,7 +117,7 @@ async function deleteTask(taskId) {
 
     closeTaskOverlay();
     showMessage("Task successfully deleted");
-    init();
+    initBoard();
   } catch (error) {
     console.error("Task deletion failed:", error);
   }
@@ -169,7 +169,7 @@ async function updateEditedTaskinDB(taskId, updatedTask) {
     });
 
     closeTaskOverlay();
-    init();
+    initBoard();
     setTimeout(() => {
       showMessage("Task successfully updated");
     }, 500);

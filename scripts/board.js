@@ -8,7 +8,7 @@ let currentOpenMenu = null;
  * This function initiates the fetching and rendering of the tasks when the board page is loaded and adds an event listener to the task search input field.
  *
  */
-async function init() {
+async function initBoard() {
   allTasks = await fetchTasks();
   initSearch();
   renderBoard();
@@ -194,7 +194,7 @@ async function moveTo(newStatus) {
   try {
     await updateTaskStatus(currentDraggedElement, newStatus);
     document.getElementById(`card${currentDraggedElement}`).classList.remove("dragging");
-    init();
+    initBoard();
   } catch (error) {
     console.error("Failed to move task:", error);
   }
@@ -209,7 +209,7 @@ async function moveTo(newStatus) {
 async function moveToByClick(taskId, newStatus) {
   try {
     await updateTaskStatus(taskId, newStatus);
-    init();
+    initBoard();
   } catch (error) {
     console.error("Failed to move task:", error);
   }
