@@ -1,4 +1,6 @@
-// Due date Text-Color-Change
+/**
+ * Checks if the input field has a value and updates its class accordingly.
+ */
 function checkValue() {
     let input = document.getElementById("date-input");
     if (input.value) {
@@ -143,10 +145,25 @@ function applyPixelManipulation(data, color) {
     }
 }
 
-// submitbutton enabled
+
+
+
+
+/**
+ * Retrieves all required input fields.
+ * 
+ * @returns {NodeList} A list of required input fields.
+ */
 function getRequiredFields() {
     return document.querySelectorAll("input[required]");
 }
+
+/**
+ * Checks if all required fields are filled.
+ * 
+ * @param {NodeList} fields - The list of required fields.
+ * @returns {boolean} True if all fields are filled, false otherwise.
+ */
 function areAllFieldsFilled(fields) {
     return Array.from(fields).every(field => {
         if (field.classList.contains("dropdown-selected")) {
@@ -155,6 +172,12 @@ function areAllFieldsFilled(fields) {
         return field.value.trim() !== "";
     });
 }
+
+/**
+ * Enables or disables the submit button based on form validation.
+ * 
+ * @param {boolean} isEnabled - Whether the button should be enabled.
+ */
 function toggleSubmitButton(isEnabled) {
     const submitBtn = document.getElementById("submitBtn");
     if (submitBtn) {
@@ -162,26 +185,36 @@ function toggleSubmitButton(isEnabled) {
         submitBtn.classList.toggle("enabled", isEnabled);
     }
 }
+
+/**
+ * Validates required fields and toggles the submit button.
+ */
 function validateRequiredFields() {
     const requiredFields = getRequiredFields();
     const allFilled = areAllFieldsFilled(requiredFields);
     toggleSubmitButton(allFilled);
 }
+
+/**
+ * Observes changes in dropdown selections.
+ */
 function observeDropdownChanges() {
     document.querySelectorAll(".dropdown-selected").forEach(dropdown => {
         const observer = new MutationObserver(() => validateRequiredFields());
         observer.observe(dropdown, { attributes: true, attributeFilter: ["data-value"] });
     });
 }
+
+// Sets up validation on page load
 document.addEventListener("DOMContentLoaded", function() {
     document.addEventListener("input", validateRequiredFields);
     observeDropdownChanges(); 
 });
 
-// Custom-Select (Assigned to) "IN PROGRESS"
-
 /**
  * Toggles the visibility of the contact dropdown.
+ * 
+ * @param {HTMLInputElement} input - The dropdown input element.
  */
 function toggleContactDropdown(input) {
     const options = input.closest(".dropdown-container").querySelector(".dropdown-options");
@@ -196,6 +229,8 @@ function toggleContactDropdown(input) {
 
 /**
  * Toggles the visibility of the category dropdown.
+ * 
+ * @param {HTMLInputElement} input - The dropdown input element.
  */
 function toggleCategoryDropdown(input) {
     const options = input.closest(".dropdown-container").querySelector(".dropdown-options");
@@ -208,27 +243,24 @@ function toggleCategoryDropdown(input) {
 }
 
 /**
- * Updates the display style of #selectedContacts based on its content.
+ * Updates the display state of selected contacts.
  */
 function updateSelectedContactsDisplay() {
     const selectedDiv = document.getElementById("selectedContacts");
 
-    if (selectedDiv.textContent.trim() !== "") {
-        selectedDiv.style.display = "flex"; 
-    } else {
-        selectedDiv.style.display = "none"; 
-    }
+    selectedDiv.style.display = selectedDiv.textContent.trim() !== "" ? "flex" : "none";
 }
 
 /**
- * Selects an option from the contact dropdown and updates the selectedContacts div.
+ * Selects a contact option and updates the display.
+ * 
+ * @param {HTMLElement} element - The selected contact element.
  */
 function selectContactOption(element) {
     const selectedDiv = document.getElementById("selectedContacts");
     if (!selectedDiv) return;
 
     selectedDiv.textContent = element.textContent;
-
     updateSelectedContactsDisplay();
 
     setTimeout(() => {
@@ -236,15 +268,14 @@ function selectContactOption(element) {
     }, 100);
 }
 
-/**
- * Runs the check on page load to ensure correct display state.
- */
 document.addEventListener("DOMContentLoaded", () => {
     updateSelectedContactsDisplay();
 });
 
 /**
- * Selects an option from the category dropdown and updates the input value.
+ * Selects a category option and updates the input field.
+ * 
+ * @param {HTMLElement} element - The selected category element.
  */
 function selectCategoryOption(element) {
     const dropdown = element.closest(".dropdown-container").querySelector("input.categoryDropdown");
@@ -259,7 +290,7 @@ function selectCategoryOption(element) {
 }
 
 /**
- * Closes only contact dropdowns.
+ * Closes all contact dropdowns.
  */
 function closeAllContactDropdowns() {
     document.querySelectorAll("#contactDropdown + .dropdown-options").forEach(options => {
@@ -268,7 +299,7 @@ function closeAllContactDropdowns() {
 }
 
 /**
- * Closes only category dropdowns.
+ * Closes all category dropdowns.
  */
 function closeAllCategoryDropdowns() {
     document.querySelectorAll(".categoryDropdown + .dropdown-options").forEach(options => {
@@ -301,6 +332,9 @@ document.addEventListener("click", event => {
 
 /**
  * Toggles the checked state of the checkbox and returns the updated state.
+ * 
+ * @param {HTMLElement} element - The parent element containing the checkbox.
+ * @returns {boolean} The updated checked state of the checkbox.
  */
 function toggleCheckbox(element) {
     const checkbox = element.querySelector(".hidden-checkbox");
@@ -310,6 +344,9 @@ function toggleCheckbox(element) {
 
 /**
  * Updates the background color based on the checked state.
+ * 
+ * @param {HTMLElement} element - The element whose background color is updated.
+ * @param {boolean} isChecked - Whether the checkbox is checked.
  */
 function updateBackground(element, isChecked) {
     element.style.backgroundColor = isChecked ? "#2a3647" : "";
@@ -317,6 +354,9 @@ function updateBackground(element, isChecked) {
 
 /**
  * Changes the text color based on the checked state.
+ * 
+ * @param {HTMLElement} element - The element containing the text.
+ * @param {boolean} isChecked - Whether the checkbox is checked.
  */
 function updateTextColor(element, isChecked) {
     const textSpan = element.querySelector("span");
@@ -325,6 +365,9 @@ function updateTextColor(element, isChecked) {
 
 /**
  * Updates the checkbox images, ensuring the selected image turns fully white.
+ * 
+ * @param {HTMLElement} element - The element containing the checkbox images.
+ * @param {boolean} isChecked - Whether the checkbox is checked.
  */
 function updateCheckboxImages(element, isChecked) {
     const uncheckedImg = element.querySelector(".unchecked");
@@ -338,6 +381,9 @@ function updateCheckboxImages(element, isChecked) {
 
 /**
  * Applies all style changes based on selection.
+ * 
+ * @param {HTMLElement} element - The element to apply styles to.
+ * @param {boolean} isChecked - Whether the checkbox is checked.
  */
 function applySelectionStyles(element, isChecked) {
     updateBackground(element, isChecked);
@@ -348,6 +394,8 @@ function applySelectionStyles(element, isChecked) {
 
 /**
  * Ensures clicking on images correctly toggles selection.
+ * 
+ * @param {HTMLElement} element - The element containing the images.
  */
 function setupImageClickEvents(element) {
     const checkbox = element.querySelector(".hidden-checkbox");
@@ -364,7 +412,9 @@ function setupImageClickEvents(element) {
 }
 
 /**
- * Main function - Handles selection behavior when an option is clicked.
+ * Handles selection behavior when an option is clicked.
+ * 
+ * @param {HTMLElement} element - The selected option element.
  */
 function selectOption(element) {
     const checkbox = element.querySelector(".hidden-checkbox");
@@ -377,28 +427,12 @@ function selectOption(element) {
     updateSelectedContacts(); 
 }
 
+/**
+ * Updates the selected contacts display based on checked checkboxes.
+ */
 function updateSelectedContacts() {
     const selectedContactsDiv = document.getElementById("selectedContacts");
-    selectedContactsDiv.innerHTML = ""; // Liste zuerst leeren, um Duplikate zu verhindern
-
-    // Alle ausgewählten Elemente finden
-    const checkedElements = document.querySelectorAll(".hidden-checkbox:checked");
-
-    checkedElements.forEach(checkbox => {
-        const parentElement = checkbox.closest(".option"); // Hier sicherstellen, dass das richtige Elternelement genutzt wird
-        const avatar = parentElement.querySelector(".task-card-avatar");
-
-        if (avatar) {
-            const clonedAvatar = avatar.cloneNode(true);
-            clonedAvatar.dataset.id = avatar.dataset.id;
-            selectedContactsDiv.appendChild(clonedAvatar);
-        }
-    });
-}
-
-function updateSelectedContacts() {
-    const selectedContactsDiv = document.getElementById("selectedContacts");
-    selectedContactsDiv.innerHTML = ""; // Erst leeren, dann neu aufbauen
+    selectedContactsDiv.innerHTML = ""; 
 
     const checkedElements = document.querySelectorAll(".hidden-checkbox:checked");
 
@@ -413,9 +447,8 @@ function updateSelectedContacts() {
         }
     });
 
-    // Erzwingen, dass der Browser das Layout neu berechnet:
     selectedContactsDiv.style.display = "none"; 
-    selectedContactsDiv.offsetHeight; // Erzwingt ein Reflow
+    selectedContactsDiv.offsetHeight; 
     selectedContactsDiv.style.display = "flex"; 
 }
 
@@ -423,8 +456,16 @@ function updateSelectedContacts() {
 
 
 
-// Searchbar
 
+
+
+
+
+/**
+ * Toggles the contact search functionality.
+ * 
+ * @param {HTMLElement} element - The element triggering the search toggle.
+ */
 function toggleContactSearch(element) {
     const dropdownContainer = getDropdownContainer(element);
     const dropdownOptions = getDropdownOptions(dropdownContainer);
@@ -434,6 +475,12 @@ function toggleContactSearch(element) {
     }
 }
 
+/**
+ * Replaces a button with an input field for searching contacts.
+ * 
+ * @param {HTMLInputElement} button - The button element to replace.
+ * @param {HTMLElement} dropdownOptions - The dropdown options container.
+ */
 function replaceButtonWithInput(button, dropdownOptions) {
     const inputField = createInputField(button);
 
@@ -446,6 +493,12 @@ function replaceButtonWithInput(button, dropdownOptions) {
     inputField.focus();
 }
 
+/**
+ * Replaces an input field with a button when the dropdown is closed.
+ * 
+ * @param {HTMLInputElement} input - The input field to replace.
+ * @param {HTMLElement} dropdownOptions - The dropdown options container.
+ */
 function replaceInputWithButton(input, dropdownOptions) {
     if (!isDropdownClosed(dropdownOptions)) {
         return;
@@ -462,6 +515,7 @@ function replaceInputWithButton(input, dropdownOptions) {
     button.blur();
 }
 
+// Event listener to replace input with button when clicking outside
 document.addEventListener("click", function(event) {
     const dropdownOptions = document.getElementById("contact-list");
     const activeInput = document.querySelector(".dropdown-container input[type='text']");
@@ -471,20 +525,44 @@ document.addEventListener("click", function(event) {
     }
 });
 
-/* little Helpers */
+/* Helper Functions */
 
+/**
+ * Retrieves the dropdown container of a given element.
+ * 
+ * @param {HTMLElement} element - The element inside the dropdown container.
+ * @returns {HTMLElement} The closest dropdown container.
+ */
 function getDropdownContainer(element) {
     return element.closest('.dropdown-container');
 }
 
+/**
+ * Retrieves the dropdown options container.
+ * 
+ * @param {HTMLElement} dropdownContainer - The dropdown container element.
+ * @returns {HTMLElement} The dropdown options container.
+ */
 function getDropdownOptions(dropdownContainer) {
     return dropdownContainer.querySelector('.dropdown-options');
 }
 
+/**
+ * Checks if an element is a button.
+ * 
+ * @param {HTMLElement} element - The element to check.
+ * @returns {boolean} True if the element is a button, false otherwise.
+ */
 function isButtonElement(element) {
     return element.tagName === 'INPUT' && element.type === 'button';
 }
 
+/**
+ * Creates an input field for searching contacts.
+ * 
+ * @param {HTMLInputElement} button - The button element to replace.
+ * @returns {HTMLInputElement} The newly created input field.
+ */
 function createInputField(button) {
     const inputField = document.createElement('input');
     inputField.type = 'text';
@@ -494,6 +572,12 @@ function createInputField(button) {
     return inputField;
 }
 
+/**
+ * Creates a button to replace an input field.
+ * 
+ * @param {HTMLInputElement} input - The input field to replace.
+ * @returns {HTMLInputElement} The newly created button.
+ */
 function createButton(input) {
     const button = document.createElement('input');
     button.type = 'button';
@@ -504,25 +588,48 @@ function createButton(input) {
     return button;
 }
 
+/**
+ * Replaces an old element with a new one inside the dropdown container.
+ * 
+ * @param {HTMLElement} oldElement - The element to be replaced.
+ * @param {HTMLElement} newElement - The new element.
+ */
 function replaceElement(oldElement, newElement) {
     const container = oldElement.closest('.dropdown-container');
     
     if (!container) {
-        console.error("Fehler: dropdown-container nicht gefunden!");
+        console.error("Error: dropdown-container not found!");
         return;
     }
 
     container.replaceChild(newElement, oldElement);
 }
 
+/**
+ * Opens the dropdown options.
+ * 
+ * @param {HTMLElement} dropdownOptions - The dropdown options container.
+ */
 function openDropdown(dropdownOptions) {
     dropdownOptions.style.display = 'block';
 }
 
+/**
+ * Checks if the dropdown is closed.
+ * 
+ * @param {HTMLElement} dropdownOptions - The dropdown options container.
+ * @returns {boolean} True if the dropdown is closed, false otherwise.
+ */
 function isDropdownClosed(dropdownOptions) {
     return dropdownOptions && window.getComputedStyle(dropdownOptions).display === 'none';
 }
 
+/**
+ * Adds event listeners to the input field for filtering and closing on Escape key.
+ * 
+ * @param {HTMLInputElement} inputField - The input field element.
+ * @param {HTMLElement} dropdownOptions - The dropdown options container.
+ */
 function addInputEventListeners(inputField, dropdownOptions) {
     inputField.addEventListener('input', () => filterOptions(inputField.value, dropdownOptions));
     inputField.addEventListener('keydown', (event) => {
@@ -532,20 +639,40 @@ function addInputEventListeners(inputField, dropdownOptions) {
     });
 }
 
-// Filter Contacts
 
+
+
+
+
+/**
+ * Filters dropdown options based on the search query.
+ * 
+ * @param {string} query - The search query entered by the user.
+ * @param {HTMLElement} dropdownOptions - The dropdown options container.
+ */
 function filterOptions(query, dropdownOptions) {
     dropdownOptions.querySelectorAll('.option').forEach(option => {
         option.style.display = option.textContent.toLowerCase().includes(query.toLowerCase()) ? 'flex' : 'none';
     });
 }
 
+/**
+ * Resets the filter, displaying all dropdown options.
+ * 
+ * @param {HTMLElement} dropdownOptions - The dropdown options container.
+ */
 function resetFilter(dropdownOptions) {
     dropdownOptions.querySelectorAll('.option').forEach(option => {
         option.style.display = 'flex';
     });
 }
 
+/**
+ * Copies styles from one element to another.
+ * 
+ * @param {HTMLElement} source - The element to copy styles from.
+ * @param {HTMLElement} target - The element to apply copied styles to.
+ */
 function copyStyles(source, target) {
     const computedStyle = window.getComputedStyle(source);
     target.style.backgroundColor = computedStyle.backgroundColor;
@@ -554,14 +681,18 @@ function copyStyles(source, target) {
     target.style.border = computedStyle.border;
 }
 
+// Event listener for initializing contact search functionality
 document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("contactDropdown").addEventListener("click", function() {
         toggleContactSearch(this);
     });
 });
 
-// required typeBars
-
+/**
+ * Handles blur event for input fields, showing validation errors if empty.
+ * 
+ * @param {HTMLInputElement} input - The input field to validate.
+ */
 function handleBlur(input) {
     const message = input.nextElementSibling;
     if (!message) return;
@@ -573,15 +704,33 @@ function handleBlur(input) {
     }
 }
 
+/**
+ * Checks if an input field is empty.
+ * 
+ * @param {HTMLInputElement} input - The input field to check.
+ * @returns {boolean} True if empty, false otherwise.
+ */
 function isEmpty(input) {
     return input.value.trim() === "";
 }
 
+/**
+ * Displays a validation error message.
+ * 
+ * @param {HTMLInputElement} input - The input field with an error.
+ * @param {HTMLElement} message - The error message element.
+ */
 function showValidationError(input, message) {
     input.style.border = "1px solid #ff8190";
     message.style.display = "block";
 }
 
+/**
+ * Hides the validation error message.
+ * 
+ * @param {HTMLInputElement} input - The input field to clear errors from.
+ * @param {HTMLElement} message - The error message element.
+ */
 function hideValidationError(input, message) {
     input.style.border = "";
     message.style.display = "none";
@@ -594,28 +743,38 @@ document.addEventListener("DOMContentLoaded", function () {
     const confirmDelete = document.getElementById("confirmDeleteNewSubtask");
     const subtaskContainer = document.querySelector(".subtask-container");
 
-    // Function to show confirmDelete and hide addSubtask
+    /**
+     * Shows the delete confirmation and hides the add subtask button.
+     * 
+     * @param {Event} event - The event triggering the action.
+     */
     function showConfirmDelete(event) {
         addSubtask.style.display = "none";
         confirmDelete.style.display = "flex";
         event.stopPropagation(); 
     }
 
-    // Function to reset everything when clicking outside
+    /**
+     * Resets elements when clicking outside the subtask container.
+     * 
+     * @param {Event} event - The event triggering the reset.
+     */
     function resetOnOutsideClick(event) {
         if (!subtaskContainer.contains(event.target)) {
             resetElements();
         }
     }
 
-    // Function to reset elements to their original state
+    /**
+     * Resets elements to their original state.
+     */
     function resetElements() {
         addSubtask.style.display = "block"; 
         confirmDelete.style.display = "none"; 
         input.value = ""; 
     }
 
-    // Make function globally accessible
+    // Make functions globally accessible
     window.resetElements = resetElements;
     window.showConfirmDelete = showConfirmDelete;
 
@@ -633,22 +792,39 @@ document.addEventListener("DOMContentLoaded", function () {
      */
     function simulateInputClick() {
         input.focus(); 
-        showConfirmDelete()
+        showConfirmDelete();
     }
 
     // Ensures clicking "addSubtask" behaves like clicking the input field
     addSubtask.addEventListener("click", simulateInputClick);
 });
 
+/**
+ * Deletes a subtask from the list.
+ * 
+ * @param {HTMLElement} element - The delete button inside the subtask item.
+ */
 function deleteSubtask(element) {
-    const listItem = element.closest('li'); // Findet das zugehörige <li>-Element
+    const listItem = element.closest('li'); // Finds the corresponding <li> element
     if (listItem) {
-        listItem.remove(); // Entfernt das <li> aus der Liste
+        listItem.remove(); // Removes the <li> from the list
     }
 }
 
-// Edit-Mode
-// Toggles the edit mode for a list item
+
+
+
+
+
+
+
+
+
+/**
+ * Toggles the edit mode for a list item.
+ * 
+ * @param {HTMLElement} element - The element triggering edit mode.
+ */
 function toggleEditMode(element) {
     const listItem = element.closest('li'); 
     if (!listItem) return;
@@ -661,7 +837,12 @@ function toggleEditMode(element) {
     document.addEventListener('click', resetEditMode);
 }
 
-// Retrieves required elements within a list item
+/**
+ * Retrieves required elements within a list item.
+ * 
+ * @param {HTMLElement} listItem - The list item containing elements.
+ * @returns {Object} An object containing the required elements.
+ */
 function getElements(listItem) {
     return {
         textElement: listItem.querySelector('#editableText'),
@@ -670,7 +851,14 @@ function getElements(listItem) {
     };
 }
 
-// Applies editing styles and properties
+/**
+ * Applies editing styles and properties.
+ * 
+ * @param {HTMLElement} listItem - The list item being edited.
+ * @param {HTMLElement} textElement - The editable text element.
+ * @param {HTMLElement} editDelate - The edit button element.
+ * @param {HTMLElement} deleteChange - The delete button element.
+ */
 function applyEditStyles(listItem, textElement, editDelate, deleteChange) {
     listItem.classList.add('editing');
     listItem.style.backgroundColor = 'white';
@@ -681,7 +869,11 @@ function applyEditStyles(listItem, textElement, editDelate, deleteChange) {
     textElement.focus();
 }
 
-// Resets edit mode if clicking outside the editing area
+/**
+ * Resets edit mode if clicking outside the editing area.
+ * 
+ * @param {Event} event - The event triggering the reset.
+ */
 function resetEditMode(event) {
     const listItem = document.querySelector('.editing');
     if (listItem && !listItem.contains(event.target)) {
@@ -690,7 +882,12 @@ function resetEditMode(event) {
     }
 }
 
-// Cancels editing and restores the original text
+/**
+ * Cancels editing and restores the original text.
+ * 
+ * @param {HTMLElement} listItem - The list item being edited.
+ * @param {string} originalText - The original text before editing.
+ */
 function cancelEditMode(listItem, originalText) {
     const { textElement, editDelate, deleteChange } = getElements(listItem);
     if (!textElement || !editDelate || !deleteChange) return;
@@ -700,7 +897,13 @@ function cancelEditMode(listItem, originalText) {
     removeEditStyles(listItem, editDelate, deleteChange);
 }
 
-// Removes editing styles and restores display settings
+/**
+ * Removes editing styles and restores display settings.
+ * 
+ * @param {HTMLElement} listItem - The list item being edited.
+ * @param {HTMLElement} editDelate - The edit button element.
+ * @param {HTMLElement} deleteChange - The delete button element.
+ */
 function removeEditStyles(listItem, editDelate, deleteChange) {
     listItem.classList.remove('editing');
     listItem.style.backgroundColor = ''; 
@@ -708,7 +911,11 @@ function removeEditStyles(listItem, editDelate, deleteChange) {
     deleteChange.style.display = 'none';
 }
 
-// Saves new input and exits edit mode
+/**
+ * Saves new input and exits edit mode.
+ * 
+ * @param {HTMLElement} element - The element triggering save.
+ */
 function saveAndExitEditMode(element) {
     const listItem = element.closest('li');
     const { textElement, editDelate, deleteChange } = getElements(listItem);
@@ -724,8 +931,9 @@ function saveAndExitEditMode(element) {
     }, 10);
 }
 
-// Add new Subtask
-// Adds a new subtask item to the list
+/**
+ * Adds a new subtask item to the list.
+ */
 function addSubtask() {
     const input = document.getElementById('newSubtask');
     const subtaskList = document.getElementById('subtaskList');
@@ -738,13 +946,21 @@ function addSubtask() {
     toggleButtons(true);
 }
 
-// Clears the input field and removes focus
+/**
+ * Clears the input field and removes focus.
+ * 
+ * @param {HTMLInputElement} input - The input field to reset.
+ */
 function resetInput(input) {
     input.value = '';
     input.blur();
 }
 
-// Controls the visibility of action buttons
+/**
+ * Controls the visibility of action buttons.
+ * 
+ * @param {boolean} showAddSubtask - Whether to show the add subtask button.
+ */
 function toggleButtons(showAddSubtask) {
     const addSubtaskBtn = document.getElementById('addSubtask');
     const confirmDeleteBtn = document.getElementById('confirmDeleteNewSubtask');
