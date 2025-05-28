@@ -124,70 +124,6 @@ async function deleteTask(taskId) {
 }
 
 /**
- * Renders the edit task template inside the task overlay.
- * Stops the event from bubbling up and fetches the task data based on its ID,
- * then replaces the overlay content with the corresponding edit form.
- *
- * @param {string} taskId - ID of the current task
- * @param {Event} event - The click event that triggered the function
- */
-function renderEditTaskTemplate(taskId, event) {
-  event.stopPropagation();
-  const currentTask = allTasks.find((task) => task.taskId === taskId);
-  const formattedDueDate = currentTask.dueDate.split("/").reverse().join("-");
-  // const { assignedToDetailHTML, subtasksHTML } = prepareTaskOverlayData(currentTask);
-  taskOverlayContentRef.innerHTML = taskOverlayEditTaskTemplate(currentTask, formattedDueDate);
-  taskOverlayContentRef.addEventListener("click", (e) => {
-    e.stopPropagation();
-  });
-
-  initEditTaskFields(currentTask);
-
-  //TODO:
-  //--------------------EDIT TASK--------------------------//
-  let updatedPriority = null;
-  let updatedTitle = "";
-  let updatedDescription = "";
-
-  function getEditedTaskData() {
-    const task = {
-      status: status, // fix
-      title: updatedTitle,
-      description: updatedDescription,
-      dueDate: updatedDate,
-      priority: updatedPriority,
-      assignedTo: updatedAssignedTo,
-      category: category, // fix
-      subtasks: updatedSubtasks,
-    };
-  }
-
-  document.addEventListener("change", (e) => {
-    if (e.target.matches('input[name="priority"]')) {
-      updatedPriority = e.target.value;
-      console.log("Neue Priority:", updatedPriority);
-    }
-  });
-  console.log(document.getElementById("date-input").value);
-
-  // {
-  //   status: "awaiting-feedback",
-  //   title: "Responsive Navigation Bar",
-  //   description: "Implement a navigation bar that adjusts responsively for mobile, tablet, and desktop views.",
-  //   dueDate: "12/05/2025",
-  //   priority: "medium",
-  //   assignedTo: [{ name: "Elena Krüger", initials: "EK", color: "#A52A2A" }],
-  //   category: "User Story",
-  //   subtasks: [
-  //     { done: true, subtask: "Mobile Navigation" },
-  //     { done: true, subtask: "Tablet Navigation" },
-  //     { done: true, subtask: "Desktop Navigation" },
-  //     { done: false, subtask: "Bugfixes" },
-  //   ],
-  // }
-}
-
-/**
  * Sets up a click listener that triggers a function when a click occurs outside the element.
  * Makes sure only one outside click listener is active by removing any previous one.
  *
@@ -220,4 +156,103 @@ function removeClickHandler() {
     document.removeEventListener("click", currentOutsideClickHandler);
     currentOutsideClickHandler = null;
   }
+}
+
+/**
+ * Renders the edit task template inside the task overlay.
+ * Stops the event from bubbling up and fetches the task data based on its ID,
+ * then replaces the overlay content with the corresponding edit form.
+ *
+ * @param {string} taskId - ID of the current task
+ * @param {Event} event - The click event that triggered the function
+ */
+function renderEditTaskTemplate(taskId, event) {
+  event.stopPropagation();
+  const currentTask = allTasks.find((task) => task.taskId === taskId);
+  const formattedDueDate = currentTask.dueDate.split("/").reverse().join("-");
+
+  taskOverlayContentRef.innerHTML = taskOverlayEditTaskTemplate(currentTask, formattedDueDate);
+  taskOverlayContentRef.addEventListener("click", (e) => {
+    e.stopPropagation();
+  });
+
+  initEditTaskFields(currentTask);
+}
+
+function updateTask(taskId) {
+  const updatedTask = getUpdatedTaskData(taskId);
+  updateEditedTaskinDB(taskId, updatedTask);
+}
+
+async function updateEditedTaskinDB(taskId, updatedTask) {
+  try {
+    await fetch(`${baseURL}/tasks/${taskId}.json`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updatedTask),
+    });
+
+    closeTaskOverlay();
+    init();
+    setTimeout(() => {
+      showMessage("Task successfully updated");
+    }, 1500);
+  } catch (error) {
+    console.error("Something went wrong:", error);
+  }
+}
+
+function getUpdatedTaskData(taskId) {
+  const currentTask = allTasks.find((task) => task.taskId === taskId);
+  const updatedPriority = document.querySelector('input[name="priority"]:checked')?.value || null;
+  const updatedTitle = document.getElementById("edit-title-input")?.value || "";
+  const updatedDescription = document.getElementById("edit-desc-textarea")?.value || "";
+  const updatedDueDate = document.getElementById("date-input")?.value || "";
+
+  return createUpdatedTask(currentTask, updatedPriority, updatedTitle, updatedDescription, updatedDueDate);
+}
+
+function createUpdatedTask(currentTask, updatedPriority, updatedTitle, updatedDescription, updatedDueDate) {
+  return {
+    assignedTo: getSelectedContacts(),
+    category: currentTask.category,
+    description: updatedDescription,
+    dueDate: updatedDueDate,
+    priority: updatedPriority,
+    status: currentTask.status,
+    subtasks: getSubtasks(),
+    taskId: currentTask.taskId,
+    title: updatedTitle,
+  };
+}
+
+function getSelectedContacts() {
+  const selectedContacts = [];
+
+  document.querySelectorAll(".hidden-checkbox:checked").forEach((checkbox) => {
+    const option = checkbox.closest(".option");
+    const avatar = option.querySelector(".task-card-avatar");
+    selectedContacts.push({
+      name: checkbox.value,
+      color: avatar.dataset.color,
+      initials: avatar.textContent.trim(),
+    });
+  });
+
+  return selectedContacts;
+}
+
+function getSubtasks() {
+  const subtaskList = document.getElementById("subtaskList");
+  const subtasks = [];
+
+  if (!subtaskList) return subtasks;
+
+  subtaskList.querySelectorAll("li").forEach((subtask) => {
+    const textItem = subtask.querySelector(".subtask-text");
+
+    if (textItem) subtasks.push({ done: false, subtask: textItem.textContent.trim() });
+  });
+
+  return subtasks;
 }

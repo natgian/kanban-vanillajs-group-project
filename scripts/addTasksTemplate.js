@@ -151,9 +151,9 @@ document.getElementById("contentload").innerHTML = renderAddTask();
  * Template for contacts.
  */
 function addContactToTemplate(person) {
-if (!person || !person.name || !person.color || !person.initials) {
-  return;
-}
+  if (!person || !person.name || !person.color || !person.initials) {
+    return;
+  }
 
   const contactList = document.getElementById("contact-list");
   if (!contactList) return;
@@ -161,11 +161,11 @@ if (!person || !person.name || !person.color || !person.initials) {
   const template = `
     <div class="option" data-value="${person.name}" onclick="selectOption(this)">
       <div style=" display: flex; align-items: center; gap: 15px;">
-        <div class="task-card-avatar " style="background-color: ${person.color}">${person.initials}</div>
+        <div class="task-card-avatar" data-color="${person.color}" style="background-color: ${person.color}">${person.initials}</div>
         <span style="padding-bottom: 0;">${person.name}</span>
       </div>
       <label style="display: flex; cursor: pointer;">
-        <input type="checkbox" class="hidden-checkbox" style="cursor: pointer; z-index: 5"/>
+        <input type="checkbox" class="hidden-checkbox" value="${person.name}" style="cursor: pointer; z-index: 5"/>
         <img src="../assets/icons/checkbox_icon.svg" class="unchecked" style="pointer-events: auto; cursor: pointer;"/>
         <img src="../assets/icons/checkbox_checked_icon.svg" class="checked" style="pointer-events: auto; cursor: pointer;"/>
       </label>
@@ -177,13 +177,13 @@ if (!person || !person.name || !person.color || !person.initials) {
 
 // Creates the Subtask-Templete-Structure for a new subtask.
 function createSubtaskElement(text) {
-    const listItem = document.createElement('li');
-    listItem.className = 'dot';
-    listItem.id = 'subtaskListElement';
-    listItem.onclick = () => toggleEditMode(listItem);
+  const listItem = document.createElement("li");
+  listItem.className = "dot";
+  listItem.id = "subtaskListElement";
+  listItem.onclick = () => toggleEditMode(listItem);
 
-    listItem.innerHTML = `
-        <span id="editableText">${text}</span>
+  listItem.innerHTML = `
+        <span id="editableText" class="subtask-text">${text}</span>
         <div id="editDelate">
             <img src="../assets/icons/editPen.svg" alt="Pen" onclick="toggleEditMode(this)">
             <hr>
@@ -195,6 +195,6 @@ function createSubtaskElement(text) {
             <img src="../assets/icons/checkBlack.svg" alt="Check" onclick="saveAndExitEditMode(this)">
         </div>
     `;
-    
-    return listItem;
+
+  return listItem;
 }

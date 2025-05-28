@@ -224,12 +224,11 @@ function selectOption(element) {
   }
 
   applySelectionStyles(element, checkbox.checked);
-  updateSelectedContacts();
 }
 
 function updateSelectedContacts() {
   const selectedContactsDiv = document.getElementById("selectedContacts");
-  selectedContactsDiv.innerHTML = ""; // Erst leeren, dann neu aufbauen
+  selectedContactsDiv.innerHTML = "";
 
   const checkedElements = document.querySelectorAll(".hidden-checkbox:checked");
 
@@ -244,9 +243,8 @@ function updateSelectedContacts() {
     }
   });
 
-  // Erzwingen, dass der Browser das Layout neu berechnet:
   selectedContactsDiv.style.display = "none";
-  selectedContactsDiv.offsetHeight; // Erzwingt ein Reflow
+  selectedContactsDiv.offsetHeight;
   selectedContactsDiv.style.display = "flex";
 }
 
@@ -599,5 +597,7 @@ async function fetchContacts() {
  */
 async function loadContacts(contacts, assignedTo) {
   if (!contacts.length) return;
-  contacts.forEach(addContactToTemplate, assignedTo);
+  const contactList = document.getElementById("contact-list");
+  contactList.innerHTML = "";
+  contacts.forEach((person) => addContactToTemplate(person, assignedTo));
 }

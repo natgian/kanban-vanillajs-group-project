@@ -325,7 +325,7 @@ function taskOverlayEditTaskTemplate(task, formattedDueDate) {
          </div>
 
          <div class="flex-end">
-            <button class="btn">Ok <img src="../assets/icons/check_icon.svg" alt="check icon"/></button>
+            <button class="btn" onclick="updateTask('${task.taskId}')">Ok <img src="../assets/icons/check_icon.svg" alt="check icon"/></button>
          </div>     
   `;
 }
