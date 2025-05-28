@@ -71,6 +71,7 @@
   align-items: center;
   position: relative;
   width: 100%;
+  padding-right: 80px;
 }
 .inputOrg span {
   font-size: 20px;
