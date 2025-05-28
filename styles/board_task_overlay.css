@@ -200,9 +200,25 @@
 /* MEDIA QUERIES */
 /*-------------- */
 
+@media (max-width: 1174px) {
+  .add-task-wrapper {
+    height: 100%;
+  }
+
+  #add-task-overlay-content {
+    display: flex;
+    align-self: center;
+    overflow-y: scroll;
+  }
+}
+
 @media (max-width: 672px) {
   .task-overlay-title {
     font-size: 36px;
+  }
+
+  #add-task-overlay-content {
+    padding: 16px;
   }
 
   .task-overlay-info-wrapper {
@@ -212,6 +228,11 @@
 
   .priority-btn {
     font-size: 16px;
+  }
+
+  .add-task-wrapper {
+    height: 100%;
+    padding: 20px;
   }
 }
 
@@ -223,6 +244,16 @@
 
   .task-overlay-info-wrapper {
     padding: 20px 10px;
+  }
+
+  .add-task-wrapper {
+    padding: 24px 16px;
+  }
+
+  #add-task-overlay-content {
+    display: block;
+    width: 100%;
+    overflow-y: scroll;
   }
 
   #edit-title-input,
