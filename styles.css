@@ -323,8 +323,8 @@ header {
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translateX(-50%);
-  margin: 24px;
+  transform: translate(-50%, -50%);
+  margin: 16px;
   opacity: 0;
   z-index: 999;
   display: flex;
@@ -338,7 +338,7 @@ header {
   width: 280px;
   box-shadow: 0 0 4px 0 rgb(0, 0, 0, 0.1);
   pointer-events: none;
-  transform: var(--transition);
+  transition: var(--transition);
 }
 
 .message-box.show {
