@@ -33,7 +33,7 @@
   }
   
 }
-@media (max-width: 768px){
+@media (max-width: 905px){
   .bottomButtons{
     position: fixed;
     bottom: 80px;
@@ -47,7 +47,7 @@
     width: 100%;
   }
   .taskCategorysation{
-    padding-bottom: 100px;
+    padding-bottom: 140px;
   }
   #logoImg{
     display: block;
@@ -74,7 +74,7 @@
   .inputOrg{
     padding: 0;
     padding-top: 25px;
-    padding-bottom: 20px;
+    padding-bottom: 80px;
     height: auto;
     position: relative;
     scale: 0.8;
