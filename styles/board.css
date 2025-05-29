@@ -122,7 +122,7 @@
 }
 
 .icon-btn {
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   width: 24px;
@@ -232,6 +232,11 @@
 }
 
 /* MEDIA QUERIES */
+@media (max-width: 1472px) {
+  .icon-btn {
+    display: flex;
+  }
+}
 @media (max-width: 864px) {
   #add-btn-mobile {
     display: block;
