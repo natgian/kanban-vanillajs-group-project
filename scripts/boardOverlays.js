@@ -39,6 +39,21 @@ function openAddTaskOverlay() {
 }
 
 /**
+ * Checks the screen width, if the screen with is equal or under 768px it redirects to the addTask.html
+ * page. If not, it opens the Add Task Overlay.
+ *
+ */
+function openAddTask() {
+  const screenWidth = window.innerWidth;
+
+  if (screenWidth <= 768) {
+    window.location.href = "./addTask.html";
+  } else {
+    openAddTaskOverlay();
+  }
+}
+
+/**
  * closes the add task overlay and enables scrolling
  *
  */
@@ -62,8 +77,8 @@ function renderAddTaskContent() {
  */
 function renderTaskDetails(taskId) {
   const currentTask = allTasks.find((task) => task.taskId === taskId);
-  const { assignedToDetailHTML, subtasksHTML } = prepareTaskOverlayData(currentTask);
-  taskOverlayContentRef.innerHTML = taskOverlayTemplate(currentTask, assignedToDetailHTML, subtasksHTML);
+  const { assignedToDetailHTML, subtasksHTML, formattedDueDate } = prepareTaskOverlayData(currentTask);
+  taskOverlayContentRef.innerHTML = taskOverlayTemplate(currentTask, assignedToDetailHTML, subtasksHTML, formattedDueDate);
 }
 
 /**
@@ -75,10 +90,11 @@ function renderTaskDetails(taskId) {
 function prepareTaskOverlayData(task) {
   const assignedTo = Array.isArray(task.assignedTo) ? task.assignedTo : [];
   const subtasks = Array.isArray(task.subtasks) ? task.subtasks : [];
+  const formattedDueDate = task.dueDate.split("-").reverse().join("/");
   const assignedToDetailHTML = assignedTo.map((person) => assignedToDetailTemplate(person)).join("");
   const subtasksHTML = subtasks.map((subtask, index) => subtasksTemplate(subtask, index, task)).join("");
 
-  return { assignedToDetailHTML, subtasksHTML };
+  return { assignedToDetailHTML, subtasksHTML, formattedDueDate };
 }
 
 /**

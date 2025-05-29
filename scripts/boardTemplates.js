@@ -104,7 +104,7 @@ function noTasksTemplate(containerId) {
  * @param {string} subtasksHTML - The HTML for the subtasks display
  * @returns - The HTML for rendering the task card overelay
  */
-function taskOverlayTemplate(task, assignedToDetailHTML, subtasksHTML) {
+function taskOverlayTemplate(task, assignedToDetailHTML, subtasksHTML, formattedDueDate) {
   return `
           <div class="category-icon-container">
             <span class="task-category ${task.category === "Technical Task" ? "technical" : "userstory"}-category">${task.category}</span>
@@ -120,7 +120,7 @@ function taskOverlayTemplate(task, assignedToDetailHTML, subtasksHTML) {
 
             <div class="task-overlay-data-wrapper">
               <span class="task-overlay-label">Due date:</span>
-              <span>${task.dueDate}</span>
+              <span>${formattedDueDate}</span>
             </div>
 
             <div class="task-overlay-data-wrapper">
@@ -247,13 +247,13 @@ function taskOverlayEditTaskTemplate(task, formattedDueDate) {
               <!-- Title -->
               <div class="spanGlue">
                 <span class="edit-task-label">Title</span>
-                <input type="text" name="title" class="typeBars" placeholder="Enter a title" required value="${task.title}" id="edit-title-input"/>
+                <input type="text" name="title" class="typeBars" placeholder="Enter a title" required value="${task.title}" id="edit-title-input" onfocus="this.select()"/>
               </div>
 
               <!-- Description -->
               <div class="spanGlue mt-20">
                 <span class="edit-task-label">Description</span>
-                <textarea name="description" class="typeBars" id="edit-desc-textarea" placeholder="Enter a description" style="height: 120px; padding: 14px 15px">${
+                <textarea name="description" class="typeBars" id="edit-desc-textarea" placeholder="Enter a description" onfocus="this.select()" style="height: 120px; padding: 14px 15px">${
                   task.description ? task.description : ""
                 }</textarea>
               </div>
