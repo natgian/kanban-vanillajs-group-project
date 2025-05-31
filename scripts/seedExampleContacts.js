@@ -74,7 +74,7 @@ const contacts = [
 ];
 
 /**
- * Creates example tasks to add to the Firebase database
+ * Creates example contacts to add to the Firebase database
  *
  */
 async function seedContacts() {
