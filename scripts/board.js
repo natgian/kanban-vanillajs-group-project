@@ -95,7 +95,10 @@ function prepareTaskDisplayData(task) {
   const subtasks = Array.isArray(task.subtasks) ? task.subtasks : [];
   const assignedTo = Array.isArray(task.assignedTo) ? task.assignedTo : [];
 
-  const assignedToHTML = assignedTo.map((person) => `<div class="task-card-avatar" style="background-color: ${person.color}">${person.initials}</div>`).join("");
+  const assignedToHTML = assignedTo
+    .map((person) => `<div class="task-card-avatar" style="background-color: ${person.color}">${person.initials}</div>`)
+    .slice(0, 5)
+    .join("");
 
   const subtasksTotal = subtasks.length;
   const subtasksDone = subtasks.filter((subt) => subt.done).length;

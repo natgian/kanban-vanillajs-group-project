@@ -91,6 +91,12 @@
 
 .task-card-assignedto-container {
   display: flex;
+  align-items: center;
+}
+
+.plus-counter {
+  margin-left: 4px;
+  font-size: 14px;
 }
 
 .category-icon-container {

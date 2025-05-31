@@ -77,6 +77,7 @@ function cardTemplate(task, subtasksTotal, subtasksDone, progressPercent, assign
             <div class="assignedto-priority-container">
               <div class="task-card-assignedto-container">
                 ${assignedToHTML}
+                <span class="plus-counter">${task.assignedTo.length > 5 ? `+${task.assignedTo.length - 5}` : ""}</span>
               </div>
               <div class="task-card-priority">
                 <img src="../assets/icons/${task.priority}_priority_icon.svg" alt="prioriicon" />
@@ -93,7 +94,7 @@ function cardTemplate(task, subtasksTotal, subtasksDone, progressPercent, assign
  * @returns - HTML template for empty columns with no tasks
  */
 function noTasksTemplate(containerId) {
-  return `<div class="no-task">No tasks ${containerId}</div>`;
+  return `<div class="no-task">No tasks ${containerId.split("-").join(" ")}</div>`;
 }
 
 /**
@@ -139,7 +140,7 @@ function taskOverlayTemplate(task, assignedToDetailHTML, subtasksHTML, formatted
                <span class="task-overlay-label">Subtasks</span>
                <ul class="task-overlay-subtasks-container mt-8">${subtasksHTML}</ul>                 
              </div>
-            </div>
+            
 
              <!-- Action Buttons -->
               <div class="action-btn-wrapper">
@@ -178,6 +179,7 @@ function taskOverlayTemplate(task, assignedToDetailHTML, subtasksHTML, formatted
                   Edit
                 </button>
               </div
+            </div>
             </div>  
           </div>
   `;
