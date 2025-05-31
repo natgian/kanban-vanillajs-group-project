@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
 function initializePriorityButtons() {
     document.querySelectorAll(".priorityBtns").forEach(btn => {
         const img = btn.querySelector("img");
-        img.dataset.originalSrc = img.src; // Stores the original image source
+        img.dataset.originalSrc = img.src; 
 
         btn.addEventListener("click", () => handleButtonClick(btn));
     });
@@ -192,11 +192,21 @@ function validateRequiredFields() {
 }
 
 // ResetBtn
-
-function initReset(){
+/**
+ * Initializes all reset functions upon page load.
+ */
+function initReset() {
     resetFields();
+    resetAllOptions();
+    selectMiddleButton();
+    deselectCategoryOption();
+    resetDateInput();
 }
 
+/**
+ * Resets all elements marked with the "resetTarget" class.
+ * Clears input fields, textareas, resets select elements, and unchecks checkboxes/radio buttons.
+ */
 function resetFields() {
     document.querySelectorAll('.resetTarget').forEach(element => {
         if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
@@ -209,4 +219,76 @@ function resetFields() {
             element.innerHTML = ''; 
         }
     });
+}
+
+/**
+ * Resets all checkboxes within elements with the "option" class.
+ * Applies updated styles to reflect unchecked status.
+ */
+function resetAllOptions() {
+    document.querySelectorAll('.option').forEach(option => {
+        const checkbox = option.querySelector('.hidden-checkbox');
+        if (checkbox) { 
+            checkbox.checked = false;
+            applySelectionStyles(option, checkbox.checked);
+        }
+    });
+}
+
+/**
+ * Ensures resetAllOptions runs when the page loads.
+ */
+window.onload = function() {
+    document.getElementById("resetButton").addEventListener("click", resetAllOptions);
+};
+
+/**
+ * Selects the middle button in the list and resets others.
+ * Applies selected styles and updates the button's image.
+ */
+function selectMiddleButton() {
+    const buttons = document.querySelectorAll(".priorityBtns");
+    const middleIndex = Math.floor(buttons.length / 2);
+    
+    buttons.forEach((btn, index) => {
+        resetButtonStyles(btn);
+        if (index === middleIndex) {
+            applySelectedStyles(btn);
+            const selectedImg = btn.querySelector("img");
+            applyColorFilter(selectedImg, "white"); 
+        }
+    });
+}
+
+/**
+ * Deselects the selected category option and clears the input field.
+ * Ensures the dropdown menu is properly closed.
+ */
+function deselectCategoryOption() {
+    const categoryInput = document.querySelector("input.categoryDropdown");
+    if (!categoryInput) return;
+
+    categoryInput.value = "Select task category"; 
+    categoryInput.dataset.value = ""; 
+
+    setTimeout(() => {
+        closeAllCategoryDropdowns(); 
+    });
+}
+
+/**
+ * Resets the date input field to display the placeholder.
+ * Keeps placeholder visible until the user interacts with the field.
+ */
+function resetDateInput() {
+    const dateInput = document.getElementById("date-input");
+    if (!dateInput) return;
+
+    dateInput.value = "";
+    dateInput.type = "text"; 
+    dateInput.setAttribute("placeholder", "dd/mm/yy"); 
+
+    dateInput.addEventListener("focus", function () {
+        dateInput.type = "date"; 
+    }, { once: true }); 
 }

@@ -23,7 +23,6 @@ function toggleContactDropdown(input) {
     const options = input.closest(".dropdown-container").querySelector(".dropdown-options");
 
     closeAllCategoryDropdowns();
-    replaceInputWithButton();
 
     if (options) {
         options.style.display = options.style.display === "block" ? "none" : "block";
