@@ -8,7 +8,7 @@ function renderAddTask() {
                   <span>Task<label>*</label></span>
                   <input
                     type="text"
-                    class="typeBars"
+                    class="typeBars resetTarget"
                     placeholder="Enter a title"
                     onblur="handleBlur(this)"
                     required
@@ -19,7 +19,7 @@ function renderAddTask() {
                   <span>Description</span>
                   <textarea
                     name="description"
-                    class="typeBars"
+                    class="typeBars resetTarget"
                     placeholder="Enter a Discription"
                     style="height: 120px; padding: 14px 15px"
                   ></textarea>
@@ -29,7 +29,7 @@ function renderAddTask() {
                   <input
                     type="date"
                     id="date-input"
-                    class="typeBars"
+                    class="typeBars resetTarget"
                     placeholder="dd/mm/yy"
                     oninput="checkValue()"
                     onblur="handleBlur(this)"
@@ -86,7 +86,7 @@ function renderAddTask() {
                         
                         </div>
                     </div>
-                    <div id="selectedContacts"></div>
+                    <div class="resetTarget" id="selectedContacts"></div>
                 </div>
 
                 <!-- Category Dropdown -->
@@ -118,7 +118,7 @@ function renderAddTask() {
                       </div>
                     </div>
                   </div>
-                  <ul id="subtaskList">
+                  <ul class="resetTarget" id="subtaskList">
                       <!-- Subtasks -->
                     </ul>
                 </div>
@@ -127,7 +127,7 @@ function renderAddTask() {
             <div class="bottomButtons">
               <span><label>*</label>This field is required</span>
               <div class="bottomButtonsSplice">
-                <button class="bottomButton1" onclick="location.reload()">
+                <button id="resetButton" class="bottomButton1" onclick="initReset()">
                   Clear<div class="x-icon"></div>
                 </button>
                 <button

@@ -23,6 +23,7 @@
   scrollbar-color: rgba(0, 0, 0, 0.5) transparent;
   scrollbar-width: thin;
   font-size: 20px;
+  min-height: 48px;
 }
 .dropdown-options .option {
   padding: 15px;

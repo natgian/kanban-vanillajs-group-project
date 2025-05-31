@@ -190,3 +190,23 @@ function validateRequiredFields() {
     const allFilled = areAllFieldsFilled(requiredFields);
     toggleSubmitButton(allFilled);
 }
+
+// ResetBtn
+
+function initReset(){
+    resetFields();
+}
+
+function resetFields() {
+    document.querySelectorAll('.resetTarget').forEach(element => {
+        if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+            element.value = ''; 
+        } else if (element.tagName === 'SELECT') {
+            element.selectedIndex = 0; 
+        } else if (element.type === 'checkbox' || element.type === 'radio') {
+            element.checked = false; 
+        } else {
+            element.innerHTML = ''; 
+        }
+    });
+}
