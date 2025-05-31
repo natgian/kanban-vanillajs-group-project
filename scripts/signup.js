@@ -1,4 +1,4 @@
-const databasURL = "https://join-458-default-rtdb.europe-west1.firebasedatabase.app/users";
+const databasURL = "https://join-458-default-rtdb.europe-west1.firebasedatabase.app/";
 
 const signupbutton = document.getElementById('signupbutton');
 const checkbox = document.getElementById('checkbox');

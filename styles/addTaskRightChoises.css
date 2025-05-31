@@ -1,0 +1,182 @@
+.dropdown-selected {
+  cursor: pointer;
+  display: flex;
+  width: 100%;
+  text-align: left;
+  background-image: url("../assets/icons/arrow_drop_downaa.png");
+  background-repeat: no-repeat;
+  background-position: calc(100% - 15px) center;
+  background-size: 24px;
+}
+.dropdown-options {
+  display: none;
+  position: absolute;
+  width: 100%;
+  max-width: 440px;
+  background: white;
+  border: 1px solid #ccc;
+  z-index: 60;
+  border-radius: 10px;
+  max-height: 194px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-color: rgba(0, 0, 0, 0.5) transparent;
+  scrollbar-width: thin;
+  font-size: 20px;
+}
+.dropdown-options .option {
+  padding: 15px;
+  cursor: pointer;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 10px;
+}
+.dropdown-options .option:hover {
+  background-color: rgb(240, 240, 240);
+}
+.option.selected:hover {
+  background-color: var(--active-color);
+  cursor: pointer;
+}
+.dropdown-selected img {
+  width: 20px;
+  height: 20px;
+}
+#selectedContacts {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding-top: 10px;
+}
+.hidden-checkbox {
+  width: 24px;
+  height: 24px;
+  opacity: 0;
+  position: absolute;
+  opacity: 0; 
+  z-index: 100;
+  cursor: pointer;
+}
+.hidden-checkbox:checked ~ .unchecked {
+  display: none;
+}
+.hidden-checkbox:not(:checked) ~ .checked {
+  display: none;
+  z-index: 10;
+}
+
+.subtaskNavigator{
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  right: 15px;
+  cursor: pointer;
+}
+.subtaskNavigator img:hover{
+  scale: 0.90;
+}
+.subtaskNavigator hr{
+  height: 24px;
+  margin: 0px 0px;
+  border: none;
+  background-color: var(--outline-color);
+}
+#newSubtask{
+  cursor: pointer;
+}
+#addSubtask{
+  display: block;
+  width: 24px;
+  height: 24px;
+}
+#confirmDeleteNewSubtask{
+  display: none;
+  align-items: center;
+  justify-content: space-around;
+  width: 60px;
+}
+#confirmDeleteNewSubtask img{
+  height: 24px;
+  width: 24px;
+  filter: invert();
+}
+#subtaskList{
+  max-height: 100px;
+  overflow: auto;
+  scrollbar-color: rgba(0, 0, 0, 0.5) transparent;
+  scrollbar-width: thin;
+}
+#subtaskListElement{
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 15px;
+  margin-top: 8px;
+  border-radius: 10px;
+  height: fit-content;
+}
+#subtaskListElement:hover{
+background-color: rgb(240, 240, 240);
+cursor: pointer;
+}
+#subtaskListElement span{
+  border: none; 
+    outline: none;
+    max-width: 320px;
+    overflow-wrap: break-word;
+}
+#editableText{
+  font-size: 15px;
+  padding-bottom: 0;
+}
+#editDelate{
+  display: none;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 15px;
+}
+#editDelate img{
+  height: 24px;
+  width: 24px;
+  cursor: pointer;
+}
+#editDelate img:hover{
+  scale: 0.92;
+}
+#editDelate hr{
+  height: 20px;
+  margin: 0px 6px;
+}
+.dot:hover #editDelate {
+  display: flex;
+}
+.dot::before {
+    content: "•";
+    font-size: 1.2em;
+    padding-right: 5px;
+    padding-bottom: 2px;
+}
+.dot.editing::before {
+    display: none;
+}
+#deleteChange{
+  display: none;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 15px;
+}
+#deleteChange img:hover{
+  scale: 0.92;
+}
+#deleteChange hr{
+  height: 20px;
+  margin: 0px 6px;
+}

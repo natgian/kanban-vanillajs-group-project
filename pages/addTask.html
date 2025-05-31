@@ -9,9 +9,12 @@
       href="../assets/img/join_logo_white.svg"
       type="image/x-icon"
     />
-    <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="../style.css" />
     <link rel="stylesheet" href="../styles/add_task.css" />
     <link rel="stylesheet" href="../styles/board.css" />
+    <link rel="stylesheet" href="../styles/addTaskRight.css" />
+    <link rel="stylesheet" href="../styles/addTaskRightChoises.css" />
+    <link rel="stylesheet" href="../styles/addTaskMediaQueries.css" />
   </head>
   <body>
     <!-- Message Box -->
@@ -92,20 +95,21 @@
       <!-- Footer-Left -->
       <ul class="sidebar-footer">
         <li class="sidebar-footer-link">
-          <a href="#">Privacy Policy</a>
+          <a href="./privacyPolicy.html">Privacy Policy</a>
         </li>
         <li class="sidebar-footer-link">
-          <a href="#">Legal notice</a>
+          <a href="./legalNotice.html">Legal notice</a>
         </li>
       </ul>
     </nav>
     <main class="layout-container">
       <!-- Header -->
       <header>
-        <span>Kanban Project Management Tool</span>
+        <span class="kanban-title">Kanban Project Management Tool</span>
+        <img id="logoImg" src="../assets/img/join_logo_dark.svg" alt="Join Logo">
         <div class="header-icons-container">
           <div class="help-iconBox">
-            <a href="#"
+            <a href="help.html"
               ><img
                 class="help-icon"
                 src="../assets/icons/help_icon.svg"
@@ -115,6 +119,7 @@
           <button class="user-profile-icon"><span>G</span></button>
         </div>
       </header>
+      </div>
       <!-- Content -->
       <div class="contentBox">
         <div
@@ -124,7 +129,7 @@
         ></div>
       </div>
       <!-- Mobile-Navigation -->
-      <nav class="footer-navigation" style="display: none;">
+      <nav class="footer-navigation">
         <ul class="sidebar-menu">
           <li>
             <a href="./summary.html" class="sidebar-menu-link">
@@ -133,27 +138,40 @@
             </a>
           </li>
           <li>
-            <a href="./addTask.html" class="sidebar-menu-link">
-              <img src="../assets/icons/add_task_icon.svg" alt="add task icon" />
+            <a href="./addTask.html" class="sidebar-menu-link active-link">
+              <img
+                src="../assets/icons/add_task_icon.svg"
+                alt="add task icon"
+              />
               Add Task
             </a>
           </li>
           <li>
-            <a href="./board.html" class="sidebar-menu-link active-link">
+            <a href="./board.html" class="sidebar-menu-link">
               <img src="../assets/icons/board_icon.svg" alt="board icon" />
               Board
             </a>
           </li>
           <li>
             <a href="./contacts.html" class="sidebar-menu-link">
-              <img src="../assets/icons/contacts_icon.svg" alt="contacts icon" />
+              <img
+                src="../assets/icons/contacts_icon.svg"
+                alt="contacts icon"
+              />
               Contacts
             </a>
           </li>
         </ul>
       </nav>
     </main>
-    <script src="../scripts/Add Task.js"></script>
+    <script src="../scripts/addTask.js"></script>
+    <script src="../scripts/addTasksTemplate.js"></script>
+    <script src="../script.js"></script>
+    <script type="module" src="../scripts/firebase.js"></script>
+    <script src="../scripts/addTaskSelections.js"></script>
+    <script src="../scripts/addTaskHelperfunctions.js"></script>
+    <script src="../scripts/AddTaskSubtasks.js"></script>
   </body>
 </html>
-<img src="" alt="" />
+
+

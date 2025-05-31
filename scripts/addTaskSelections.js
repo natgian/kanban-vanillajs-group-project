@@ -1,75 +1,29 @@
-// Due to Text-Color-Change
-function checkValue() {
-    let input = document.getElementById("date-input");
-    if (input.value) {
-        input.classList.add("filled");
-    } else {
-        input.classList.remove("filled");
-    }
-}
-
-// Priority Buttons
-function selectButton(button) {
-    document.querySelectorAll('.priorityBtns').forEach(btn => {
-        btn.classList.remove('selected');
-        btn.style.backgroundColor = ''; 
-        btn.style.color = ''; 
-        btn.style.fontWeight = ''; 
-    });
-
-    button.classList.add('selected');
-
-    const color = button.dataset.color || "#ffa800";
-    button.style.backgroundColor = color;
-    button.style.color = "white";
-    button.style.fontWeight = "bold";
-}
-
-// submitbutton enabled
-function getRequiredFields() {
-    return document.querySelectorAll("input[required]");
-}
-function areAllFieldsFilled(fields) {
-    return Array.from(fields).every(field => {
-        if (field.classList.contains("dropdown-selected")) {
-            return field.dataset.value && field.dataset.value.trim() !== "";
-        }
-        return field.value.trim() !== "";
-    });
-}
-function toggleSubmitButton(isEnabled) {
-    const submitBtn = document.getElementById("submitBtn");
-    if (submitBtn) {
-        submitBtn.disabled = !isEnabled;
-        submitBtn.classList.toggle("enabled", isEnabled);
-    }
-}
-function validateRequiredFields() {
-    const requiredFields = getRequiredFields();
-    const allFilled = areAllFieldsFilled(requiredFields);
-    toggleSubmitButton(allFilled);
-}
+/**
+ * Observes changes in dropdown selections.
+ */
 function observeDropdownChanges() {
     document.querySelectorAll(".dropdown-selected").forEach(dropdown => {
         const observer = new MutationObserver(() => validateRequiredFields());
         observer.observe(dropdown, { attributes: true, attributeFilter: ["data-value"] });
     });
 }
+
+// Sets up validation on page load
 document.addEventListener("DOMContentLoaded", function() {
     document.addEventListener("input", validateRequiredFields);
     observeDropdownChanges(); 
 });
 
-// Custom-Select (Assigned to) "IN PROGRESS"
-
 /**
  * Toggles the visibility of the contact dropdown.
+ * 
+ * @param {HTMLInputElement} input - The dropdown input element.
  */
 function toggleContactDropdown(input) {
     const options = input.closest(".dropdown-container").querySelector(".dropdown-options");
 
-    // Close only category dropdowns, but keep contact dropdown separate
     closeAllCategoryDropdowns();
+    replaceInputWithButton();
 
     if (options) {
         options.style.display = options.style.display === "block" ? "none" : "block";
@@ -78,11 +32,12 @@ function toggleContactDropdown(input) {
 
 /**
  * Toggles the visibility of the category dropdown.
+ * 
+ * @param {HTMLInputElement} input - The dropdown input element.
  */
 function toggleCategoryDropdown(input) {
     const options = input.closest(".dropdown-container").querySelector(".dropdown-options");
 
-    // Close only contact dropdowns, but keep category dropdown separate
     closeAllContactDropdowns();
 
     if (options) {
@@ -91,29 +46,24 @@ function toggleCategoryDropdown(input) {
 }
 
 /**
- * Updates the display style of #selectedContacts based on its content.
+ * Updates the display state of selected contacts.
  */
 function updateSelectedContactsDisplay() {
     const selectedDiv = document.getElementById("selectedContacts");
 
-    if (selectedDiv.textContent.trim() !== "") {
-        selectedDiv.style.display = "flex"; // Show when content exists
-    } else {
-        selectedDiv.style.display = "none"; // Hide when empty
-    }
+    selectedDiv.style.display = selectedDiv.textContent.trim() !== "" ? "flex" : "none";
 }
 
 /**
- * Selects an option from the contact dropdown and updates the selectedContacts div.
+ * Selects a contact option and updates the display.
+ * 
+ * @param {HTMLElement} element - The selected contact element.
  */
 function selectContactOption(element) {
     const selectedDiv = document.getElementById("selectedContacts");
     if (!selectedDiv) return;
 
-    // Update the displayed content
     selectedDiv.textContent = element.textContent;
-
-    // Ensure the display is updated correctly
     updateSelectedContactsDisplay();
 
     setTimeout(() => {
@@ -121,15 +71,14 @@ function selectContactOption(element) {
     }, 100);
 }
 
-/**
- * Runs the check on page load to ensure correct display state.
- */
 document.addEventListener("DOMContentLoaded", () => {
     updateSelectedContactsDisplay();
 });
 
 /**
- * Selects an option from the category dropdown and updates the input value.
+ * Selects a category option and updates the input field.
+ * 
+ * @param {HTMLElement} element - The selected category element.
  */
 function selectCategoryOption(element) {
     const dropdown = element.closest(".dropdown-container").querySelector("input.categoryDropdown");
@@ -140,20 +89,11 @@ function selectCategoryOption(element) {
 
     setTimeout(() => {
         closeAllCategoryDropdowns();
-    }, 100); // Short delay ensures value update before closing
-}
-
-/**
- * Filters the contact dropdown options based on user input.
- */
-function filterOptions(query) {
-    document.querySelectorAll("#contactDropdown + .dropdown-options .option").forEach(option => {
-        option.style.display = option.dataset.value.toLowerCase().includes(query.toLowerCase()) ? "block" : "none";
     });
 }
 
 /**
- * Closes only contact dropdowns.
+ * Closes all contact dropdowns.
  */
 function closeAllContactDropdowns() {
     document.querySelectorAll("#contactDropdown + .dropdown-options").forEach(options => {
@@ -162,7 +102,7 @@ function closeAllContactDropdowns() {
 }
 
 /**
- * Closes only category dropdowns.
+ * Closes all category dropdowns.
  */
 function closeAllCategoryDropdowns() {
     document.querySelectorAll(".categoryDropdown + .dropdown-options").forEach(options => {
@@ -187,6 +127,9 @@ document.addEventListener("click", event => {
 
 /**
  * Toggles the checked state of the checkbox and returns the updated state.
+ * 
+ * @param {HTMLElement} element - The parent element containing the checkbox.
+ * @returns {boolean} The updated checked state of the checkbox.
  */
 function toggleCheckbox(element) {
     const checkbox = element.querySelector(".hidden-checkbox");
@@ -196,6 +139,9 @@ function toggleCheckbox(element) {
 
 /**
  * Updates the background color based on the checked state.
+ * 
+ * @param {HTMLElement} element - The element whose background color is updated.
+ * @param {boolean} isChecked - Whether the checkbox is checked.
  */
 function updateBackground(element, isChecked) {
     element.style.backgroundColor = isChecked ? "#2a3647" : "";
@@ -203,6 +149,9 @@ function updateBackground(element, isChecked) {
 
 /**
  * Changes the text color based on the checked state.
+ * 
+ * @param {HTMLElement} element - The element containing the text.
+ * @param {boolean} isChecked - Whether the checkbox is checked.
  */
 function updateTextColor(element, isChecked) {
     const textSpan = element.querySelector("span");
@@ -211,6 +160,9 @@ function updateTextColor(element, isChecked) {
 
 /**
  * Updates the checkbox images, ensuring the selected image turns fully white.
+ * 
+ * @param {HTMLElement} element - The element containing the checkbox images.
+ * @param {boolean} isChecked - Whether the checkbox is checked.
  */
 function updateCheckboxImages(element, isChecked) {
     const uncheckedImg = element.querySelector(".unchecked");
@@ -224,15 +176,21 @@ function updateCheckboxImages(element, isChecked) {
 
 /**
  * Applies all style changes based on selection.
+ * 
+ * @param {HTMLElement} element - The element to apply styles to.
+ * @param {boolean} isChecked - Whether the checkbox is checked.
  */
 function applySelectionStyles(element, isChecked) {
     updateBackground(element, isChecked);
     updateCheckboxImages(element, isChecked);
     updateTextColor(element, isChecked);
+    updateSelectedContacts(element, isChecked);
 }
 
 /**
  * Ensures clicking on images correctly toggles selection.
+ * 
+ * @param {HTMLElement} element - The element containing the images.
  */
 function setupImageClickEvents(element) {
     const checkbox = element.querySelector(".hidden-checkbox");
@@ -249,7 +207,9 @@ function setupImageClickEvents(element) {
 }
 
 /**
- * Main function - Handles selection behavior when an option is clicked.
+ * Handles selection behavior when an option is clicked.
+ * 
+ * @param {HTMLElement} element - The selected option element.
  */
 function selectOption(element) {
     const checkbox = element.querySelector(".hidden-checkbox");
@@ -259,5 +219,94 @@ function selectOption(element) {
     }
 
     applySelectionStyles(element, checkbox.checked);
-    setupImageClickEvents(element);
+    updateSelectedContacts(); 
 }
+
+/**
+ * Updates the selected contacts display based on checked checkboxes.
+ */
+function updateSelectedContacts() {
+    const selectedContactsDiv = document.getElementById("selectedContacts");
+    selectedContactsDiv.innerHTML = ""; 
+
+    const checkedElements = document.querySelectorAll(".hidden-checkbox:checked");
+
+    checkedElements.forEach(checkbox => {
+        const parentElement = checkbox.closest(".option"); 
+        const avatar = parentElement.querySelector(".task-card-avatar");
+
+        if (avatar) {
+            const clonedAvatar = avatar.cloneNode(true);
+            clonedAvatar.dataset.id = avatar.dataset.id;
+            selectedContactsDiv.appendChild(clonedAvatar);
+        }
+    });
+
+    selectedContactsDiv.style.display = "none"; 
+    selectedContactsDiv.offsetHeight; 
+    selectedContactsDiv.style.display = "flex"; 
+}
+
+/**
+ * Toggles the contact search functionality.
+ * 
+ * @param {HTMLElement} element - The element triggering the search toggle.
+ */
+function toggleContactSearch(element) {
+    const dropdownContainer = getDropdownContainer(element);
+    const dropdownOptions = getDropdownOptions(dropdownContainer);
+
+    if (isButtonElement(element)) {
+        replaceButtonWithInput(element, dropdownOptions);
+    }
+}
+
+/**
+ * Replaces a button with an input field for searching contacts.
+ * 
+ * @param {HTMLInputElement} button - The button element to replace.
+ * @param {HTMLElement} dropdownOptions - The dropdown options container.
+ */
+function replaceButtonWithInput(button, dropdownOptions) {
+    const inputField = createInputField(button);
+
+    copyStyles(button, inputField);
+    replaceElement(button, inputField);
+
+    openDropdown(dropdownOptions);
+    addInputEventListeners(inputField, dropdownOptions);
+
+    inputField.focus();
+}
+
+/**
+ * Replaces an input field with a button when the dropdown is closed.
+ * 
+ * @param {HTMLInputElement} input - The input field to replace.
+ * @param {HTMLElement} dropdownOptions - The dropdown options container.
+ */
+function replaceInputWithButton(input, dropdownOptions) {
+    if (!isDropdownClosed(dropdownOptions)) {
+        return;
+    }
+    resetFilter(dropdownOptions);
+
+    input.blur();
+
+    const button = createButton(input);
+    copyStyles(input, button);
+
+    replaceElement(input, button);
+
+    button.blur();
+}
+
+// Event listener to replace input with button when clicking outside
+document.addEventListener("click", function(event) {
+    const dropdownOptions = document.getElementById("contact-list");
+    const activeInput = document.querySelector(".dropdown-container input[type='text']");
+
+    if (activeInput && isDropdownClosed(dropdownOptions)) {
+        replaceInputWithButton(activeInput, dropdownOptions);
+    }
+});

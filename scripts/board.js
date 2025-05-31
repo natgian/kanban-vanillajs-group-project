@@ -1,8 +1,5 @@
 const baseURL = "https://join-458-default-rtdb.europe-west1.firebasedatabase.app";
 
-const taskDetailsRef = document.getElementById("task-overlay");
-const taskDetailsContentRef = document.getElementById("task-overlay-content");
-
 let allTasks = [];
 let currentDraggedElement;
 let currentOpenMenu = null;
@@ -11,10 +8,11 @@ let currentOpenMenu = null;
  * This function initiates the fetching and rendering of the tasks when the board page is loaded and adds an event listener to the task search input field.
  *
  */
-async function init() {
+async function initBoard() {
   allTasks = await fetchTasks();
   initSearch();
   renderBoard();
+  renderAddTaskContent();
 }
 
 /**
@@ -107,116 +105,6 @@ function prepareTaskDisplayData(task) {
 }
 
 /**
- * Opens the task details overlay and prevents background scrolling
- *
- * @param {string} id - ID of the task that should be opened
- */
-function openTaskDetails(taskId) {
-  taskDetailsRef.classList.toggle("show");
-  document.body.classList.add("no-scroll");
-
-  outsideClickHandlerForOverlay(taskDetailsContentRef, closeTaskDetails);
-  // taskDetailsRef.addEventListener("click", outsideClickHandler);
-  renderTaskDetails(taskId);
-}
-
-/**
- * Closes the task details overlay and enables scrolling
- *
- * @param {string} id - ID of the task that should be closed
- */
-function closeTaskDetails() {
-  taskDetailsRef.classList.toggle("show");
-  document.body.classList.remove("no-scroll");
-
-  // taskDetailsRef.removeEventListener("click", outsideClickHandler);
-}
-
-/**
- * Renders the details of the task in the overlay
- *
- * @param {string} taskId - ID of the current task
- */
-function renderTaskDetails(taskId) {
-  const currentTask = allTasks.find((task) => task.taskId === taskId);
-  const { assignedToDetailHTML, subtasksHTML } = prepareTaskOverlayData(currentTask);
-  taskDetailsContentRef.innerHTML = taskOverlayTemplate(currentTask, assignedToDetailHTML, subtasksHTML);
-}
-
-/**
- * Prepares the 'assigned to' and 'subtasks' data to be displayed in the task details overlay
- *
- * @param {Object} task - A task object containing assigned users and subtasks
- * @returns - An object with HTML for assigned users und subtasks
- */
-function prepareTaskOverlayData(task) {
-  const assignedTo = Array.isArray(task.assignedTo) ? task.assignedTo : [];
-  const subtasks = Array.isArray(task.subtasks) ? task.subtasks : [];
-  const assignedToDetailHTML = assignedTo.map((person) => assignedToDetailTemplate(person)).join("");
-  const subtasksHTML = subtasks.map((subtask, index) => subtasksTemplate(subtask, index, task)).join("");
-
-  return { assignedToDetailHTML, subtasksHTML };
-}
-
-/**
- * Updates the completion state of a subtask
- *
- * @param {number} subtaskIndex - Index number of the subtask
- * @param {string} taskId - ID of the current task
- */
-async function updateSubtaskCompletion(subtaskIndex, taskId) {
-  try {
-    const task = await fetchSpecificTask(taskId);
-    task.subtasks[subtaskIndex].done = !task.subtasks[subtaskIndex].done;
-
-    await fetch(`${baseURL}/tasks/${taskId}/subtasks.json`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(task.subtasks),
-    });
-
-    init();
-  } catch (error) {
-    console.error("Update failed:", error);
-  }
-}
-
-/**
- * Deletes the task, closes the task details view, shows a confirmation message and renitializes the task board
- *
- * @param {string} taskId - ID of the current task
- */
-async function deleteTask(taskId) {
-  try {
-    await fetch(`${baseURL}/tasks/${taskId}.json`, {
-      method: "DELETE",
-    });
-
-    closeTaskDetails();
-    showMessage("Task successfully deleted");
-    init();
-  } catch (error) {
-    console.error("Task deletion failed:", error);
-  }
-}
-
-/**
- * Renders the edit task template inside the task overlay.
- * Stops the event from bubbling up and fetches the task data based on its ID,
- * then replaces the overlay content with the corresponding edit form.
- *
- * @param {string} taskId - ID of the current task
- * @param {Event} event - The click event that triggered the function
- */
-function renderEditTaskTemplate(taskId, event) {
-  event.stopPropagation();
-  const currentTask = allTasks.find((task) => task.taskId === taskId);
-  const formattedDueDate = currentTask.dueDate.split("/").reverse().join("-");
-  // const { assignedToDetailHTML, subtasksHTML } = prepareTaskOverlayData(currentTask);
-  taskDetailsContentRef.innerHTML = taskOverlayEditTaskTemplate(currentTask, formattedDueDate);
-}
-
-/**
  * Filters the list of tasks based on a search term entered by the user.
  * Search term must have minimum 3 characters and it filters by title or description.
  *
@@ -297,26 +185,60 @@ function removeHighlight(status) {
 }
 
 /**
- * Moves the currently dragged task to a new status and updates the backend and re-initializes the board
+ * Moves the currently dragged task to a new status, updates the backend and re-initializes the board
  *
- * @param {string} status - The status column ID where the task should be moved to
+ * @param {string} newStatus - The status column ID where the task should be moved to
  */
-async function moveTo(status) {
-  document.getElementById(status).classList.remove("drag-area-highlight");
+async function moveTo(newStatus) {
+  document.getElementById(newStatus).classList.remove("drag-area-highlight");
   try {
-    await fetch(`${baseURL}/tasks/${currentDraggedElement}.json`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ status: status }),
-    });
+    await updateTaskStatus(currentDraggedElement, newStatus);
     document.getElementById(`card${currentDraggedElement}`).classList.remove("dragging");
-    init();
+    initBoard();
   } catch (error) {
     console.error("Failed to move task:", error);
   }
 }
 
-//TODO:
+/**
+ * Moves the current task to the new clicked status, updates the backend and re-initializes the board
+ *
+ * @param {string} taskId - The ID of the task that should be moved
+ * @param {string} newStatus - The status column ID where the task should be moved to
+ */
+async function moveToByClick(taskId, newStatus) {
+  try {
+    await updateTaskStatus(taskId, newStatus);
+    initBoard();
+  } catch (error) {
+    console.error("Failed to move task:", error);
+  }
+}
+
+/**
+ * Updates the new status of the task in the database
+ *
+ * @param {string} taskId taskId - The ID of the task that should be moved
+ * @param {string} newStatus - The status column ID where the task should be moved to
+ */
+async function updateTaskStatus(taskId, newStatus) {
+  await fetch(`${baseURL}/tasks/${taskId}.json`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ status: newStatus }),
+  });
+}
+
+/**
+ * Opens the "Move To" menu for a specific task when the corresponding button is clicked.
+ * Closes any previously open menus, disables the current status item in the menu and
+ * sets up a click handler to close the menu when clicking outside.
+ * If the same menu is already open, it will close on click.
+ *
+ * @param {Event} event - The click event
+ * @param {string} taskId - The ID of the task for which the menu is opened
+ * @param {string} status - The current status of the task (to-do, in-progress...)
+ */
 function openMoveToMenu(event, taskId, status) {
   event.stopPropagation();
   const menuRef = document.getElementById(`move-to-menu${taskId}`);
@@ -330,24 +252,57 @@ function openMoveToMenu(event, taskId, status) {
   closePreviousOpenMenu(menuRef);
   showMenu(menuRef);
   updateDisabledMenuItem(items, status);
-  outsideClickHandlerForMenu(menuRef);
+  setupOutsideClickHandler(menuRef, () => closeMoveToMenu(menuRef));
 }
 
+/**
+ * Checks if the menu is open
+ *
+ * @param {HTMLElement} menuRef - The DOM element of the menu to check
+ * @returns {boolean} - Returns 'true' if the menu is visible, otherwise 'false'
+ */
 function isMenuOpen(menuRef) {
   return !menuRef.classList.contains("hide");
 }
 
+/**
+ * Closes the menu by adding the 'hide' class
+ *
+ * @param {HTMLElement} menuRef - The DOM element of the menu to close
+ */
+function closeMoveToMenu(menuRef) {
+  menuRef.classList.add("hide");
+}
+
+/**
+ * Closes the previously opened menu if it is different from the currently opened one
+ *
+ * @param {HTMLElement} menuRef - The DOM element of the menu that is being opened
+ */
 function closePreviousOpenMenu(menuRef) {
   if (currentOpenMenu && currentOpenMenu !== menuRef) {
     currentOpenMenu.classList.add("hide");
   }
 }
 
+/**
+ * Shows the menu of the currently clicked task by removing the 'hide' class and sets it as the
+ * current open menu.
+ *
+ * @param {HTMLElement} menuRef - The DOM element of the menu that is being opened
+ */
 function showMenu(menuRef) {
   menuRef.classList.remove("hide");
   currentOpenMenu = menuRef;
 }
 
+/**
+ * Iterates through the items and checks the status, if it's equal to the current status it is
+ * disabled. Otherwise the 'disabled' class is removed.
+ *
+ * @param {NodeListOf<HTMLElement>} items - List of menu item elements
+ * @param {string} status - The current status fo the task (to-do, in-progress...)
+ */
 function updateDisabledMenuItem(items, status) {
   items.forEach((item) => {
     const text = item.textContent.trim().toLowerCase().replace(/\s/g, "-");
@@ -356,33 +311,5 @@ function updateDisabledMenuItem(items, status) {
     } else {
       item.classList.remove("disabled");
     }
-  });
-}
-
-function closeMoveToMenu(menuRef) {
-  menuRef.classList.add("hide");
-}
-
-function outsideClickHandlerForMenu(menuRef) {
-  function handleClick(event) {
-    if (!menuRef.contains(event.target)) {
-      closeMoveToMenu(menuRef);
-      document.removeEventListener("click", handleClick);
-    }
-  }
-  requestAnimationFrame(() => {
-    document.addEventListener("click", handleClick);
-  });
-}
-
-function outsideClickHandlerForOverlay(overlayRef, closeFn) {
-  function handleClick(event) {
-    if (!overlayRef.contains(event.target)) {
-      closeFn();
-      document.removeEventListener("click", handleClick);
-    }
-  }
-  requestAnimationFrame(() => {
-    document.addEventListener("click", handleClick);
   });
 }

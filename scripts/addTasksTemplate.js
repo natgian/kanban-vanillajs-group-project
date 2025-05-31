@@ -10,8 +10,10 @@ function renderAddTask() {
                     type="text"
                     class="typeBars"
                     placeholder="Enter a title"
+                    onblur="handleBlur(this)"
                     required
                   />
+                  <span id="showUpRequired" style="display: none; position: absolute;">This field is required</span>
                 </div>
                 <div class="spanGlue">
                   <span>Description</span>
@@ -30,11 +32,13 @@ function renderAddTask() {
                     class="typeBars"
                     placeholder="dd/mm/yy"
                     oninput="checkValue()"
+                    onblur="handleBlur(this)"
                     required
                   />
+                  <span id="showUpRequired" style="display: none; position: absolute;">This field is required</span>
                 </div>
               </form>
-              <hr />
+              <hr class="hrHider"/>
               <section class="taskCategorysation">
                 <div class="spanGlue">
                   <span>Priority</span>
@@ -42,7 +46,6 @@ function renderAddTask() {
                     <button
                       class="priorityBtns"
                       data-color="#FF3D00"
-                      onclick="selectButton(this)"
                     >
                       Urgent
                       <img
@@ -54,7 +57,6 @@ function renderAddTask() {
                     <button
                       class="priorityBtns selected"
                       data-color="#FFA800"
-                      onclick="selectButton(this)"
                     >
                       Medium
                       <img
@@ -66,7 +68,6 @@ function renderAddTask() {
                     <button
                       class="priorityBtns"
                       data-color="#7AE229"
-                      onclick="selectButton(this)"
                     >
                       Low
                       <img
@@ -105,13 +106,21 @@ function renderAddTask() {
                     <input
                       type="text"
                       class="typeBars typePriorityBars"
+                      id="newSubtask"
                       placeholder="Add new subtask"
                     />
-                    <img
-                      src="../assets/icons/Subtasks icons11.png"
-                      alt="cross"
-                    />
+                    <div class="subtaskNavigator">
+                      <img id="addSubtask" src="../assets/icons/Subtasks icons11.png" alt="cross" onclick=""/>
+                      <div id="confirmDeleteNewSubtask">
+                        <img src="../assets/icons/close.svg" alt="X" id="close" onclick="resetElements()"/>
+                        <hr />
+                        <img src="../assets/icons/check.png" alt="Check" id="confirm"onclick="addSubtask()"/>
+                      </div>
+                    </div>
                   </div>
+                  <ul id="subtaskList">
+                      <!-- Subtasks -->
+                    </ul>
                 </div>
               </section>
             </div>
@@ -142,9 +151,9 @@ document.getElementById("contentload").innerHTML = renderAddTask();
  * Template for contacts.
  */
 function addContactToTemplate(person) {
-if (!person || !person.name || !person.color || !person.initials) {
-  return;
-}
+  if (!person || !person.name || !person.color || !person.initials) {
+    return;
+  }
 
   const contactList = document.getElementById("contact-list");
   if (!contactList) return;
@@ -152,11 +161,11 @@ if (!person || !person.name || !person.color || !person.initials) {
   const template = `
     <div class="option" data-value="${person.name}" onclick="selectOption(this)">
       <div style=" display: flex; align-items: center; gap: 15px;">
-        <div class="task-card-avatar " style="background-color: ${person.color}">${person.initials}</div>
+        <div class="task-card-avatar" data-color="${person.color}" style="background-color: ${person.color}">${person.initials}</div>
         <span style="padding-bottom: 0;">${person.name}</span>
       </div>
       <label style="display: flex; cursor: pointer;">
-        <input type="checkbox" class="hidden-checkbox" style="cursor: pointer; z-index: 5"/>
+        <input type="checkbox" class="hidden-checkbox" value="${person.name}" style="cursor: pointer; z-index: 5"/>
         <img src="../assets/icons/checkbox_icon.svg" class="unchecked" style="pointer-events: auto; cursor: pointer;"/>
         <img src="../assets/icons/checkbox_checked_icon.svg" class="checked" style="pointer-events: auto; cursor: pointer;"/>
       </label>
@@ -164,4 +173,28 @@ if (!person || !person.name || !person.color || !person.initials) {
   `;
 
   contactList.insertAdjacentHTML("beforeend", template);
+}
+
+// Creates the Subtask-Templete-Structure for a new subtask.
+function createSubtaskElement(text) {
+  const listItem = document.createElement("li");
+  listItem.className = "dot";
+  listItem.id = "subtaskListElement";
+  listItem.onclick = () => toggleEditMode(listItem);
+
+  listItem.innerHTML = `
+        <span id="editableText" class="subtask-text">${text}</span>
+        <div id="editDelate">
+            <img src="../assets/icons/editPen.svg" alt="Pen" onclick="toggleEditMode(this)">
+            <hr>
+            <img src="../assets/icons/deleteBin.svg" alt="Bin" onclick="deleteSubtask(this)">
+        </div>
+        <div id="deleteChange" style="display: none;">
+            <img src="../assets/icons/deleteBin.svg" alt="Bin" onclick="deleteSubtask(this)">
+            <hr>
+            <img src="../assets/icons/checkBlack.svg" alt="Check" onclick="saveAndExitEditMode(this)">
+        </div>
+    `;
+
+  return listItem;
 }

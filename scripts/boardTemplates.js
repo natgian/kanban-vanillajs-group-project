@@ -10,7 +10,7 @@
  */
 function cardTemplate(task, subtasksTotal, subtasksDone, progressPercent, assignedToHTML) {
   return `
-          <div class="task-card" id="card${task.taskId}" onclick="openTaskDetails('${task.taskId}')" draggable="true" ondragstart="startDragging('${task.taskId}')" ondragend="endDragging()">
+          <div class="task-card" id="card${task.taskId}" onclick="openTaskOverlay('${task.taskId}')" draggable="true" ondragstart="startDragging('${task.taskId}')" ondragend="endDragging()">
             <div class="category-icon-container">
               <span class="task-category ${task.category === "Technical Task" ? "technical" : "userstory"}-category">${task.category}</span>
               <button class="icon-btn" onclick="openMoveToMenu(event, '${task.taskId}', '${task.status}')">
@@ -29,25 +29,25 @@ function cardTemplate(task, subtasksTotal, subtasksDone, progressPercent, assign
                 <div role="menu" class="move-to-menu hide" id="move-to-menu${task.taskId}">
                   <span>Move to</span>
                   <ul>
-                    <li onclick="console.log('geklickt')">
+                    <li onclick="moveToByClick('${task.taskId}', 'to-do')">
                       <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="20px"           fill="currentColor">
                         <path d="M647-520H160v80h487L423-216l57 56 320-320-320-320-57 56 224 224Z" />
                       </svg>
                       To do
                     </li>
-                    <li>
+                    <li onclick="moveToByClick('${task.taskId}', 'in-progress')">
                       <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="20px"           fill="currentColor">
                         <path d="M647-520H160v80h487L423-216l57 56 320-320-320-320-57 56 224 224Z" />
                       </svg>
                       In progress
                     </li>
-                    <li>
+                    <li onclick="moveToByClick('${task.taskId}', 'awaiting-feedback')">
                       <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="20px"           fill="currentColor">
                         <path d="M647-520H160v80h487L423-216l57 56 320-320-320-320-57 56 224 224Z" />
                       </svg>
                       Awaiting feedback
                     </li>
-                    <li>
+                    <li onclick="moveToByClick('${task.taskId}', 'done')">
                       <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="20px"           fill="currentColor">
                         <path d="M647-520H160v80h487L423-216l57 56 320-320-320-320-57 56 224 224Z" />
                       </svg>
@@ -104,23 +104,23 @@ function noTasksTemplate(containerId) {
  * @param {string} subtasksHTML - The HTML for the subtasks display
  * @returns - The HTML for rendering the task card overelay
  */
-function taskOverlayTemplate(task, assignedToDetailHTML, subtasksHTML) {
+function taskOverlayTemplate(task, assignedToDetailHTML, subtasksHTML, formattedDueDate) {
   return `
           <div class="category-icon-container">
             <span class="task-category ${task.category === "Technical Task" ? "technical" : "userstory"}-category">${task.category}</span>
-            <button class="close-btn">
-                <img src="../assets/icons/close_icon.svg" alt="close icon" onclick="closeTaskDetails()" />
+            <button class="close-btn" onclick="closeTaskOverlay()">
+                <img src="../assets/icons/close_icon.svg" alt="close icon"/>
             </button>
           </div>
 
           <div class="task-overlay-content-wrapper">
-           <div class="wrapper">
+           <div class="task-overlay-info-wrapper">
             <p class="task-overlay-title">${task.title}</p>
             <p class="task-overlay-description">${task.description ? task.description : ""}</p>
 
             <div class="task-overlay-data-wrapper">
               <span class="task-overlay-label">Due date:</span>
-              <span>${task.dueDate}</span>
+              <span>${formattedDueDate}</span>
             </div>
 
             <div class="task-overlay-data-wrapper">
@@ -236,73 +236,96 @@ function assignedToDetailTemplate(person) {
 function taskOverlayEditTaskTemplate(task, formattedDueDate) {
   return `
           <div class="flex-end">
-            <button class="close-btn">
-                <img src="../assets/icons/close_icon.svg" alt="close icon" onclick="closeTaskDetails()" />
+            <button class="close-btn" onclick="closeTaskOverlay()">
+                <img src="../assets/icons/close_icon.svg" alt="close icon"/>
             </button>
           </div>
 
           <div class="task-overlay-content-wrapper">
      
-            <form class="wrapper" id="edit-task-form">
+            <div class="wrapper" id="edit-task-wrapper">
+              <!-- Title -->
               <div class="spanGlue">
-                <label class="edit-task-label">Title</label>
-                <input type="text" class="typeBars" placeholder="Enter a title" required value="${task.title}"/>
+                <span class="edit-task-label">Title</span>
+                <input type="text" name="title" class="typeBars" placeholder="Enter a title" required value="${task.title}" id="edit-title-input" onfocus="this.select()"/>
               </div>
-              <div class="spanGlue">
-                <label class="edit-task-label">Description</label>
-                <textarea name="description" class="typeBars" placeholder="Enter a description" style="height: 120px; padding: 14px 15px">${task.description ? task.description : ""}</textarea>
+
+              <!-- Description -->
+              <div class="spanGlue mt-20">
+                <span class="edit-task-label">Description</span>
+                <textarea name="description" class="typeBars" id="edit-desc-textarea" placeholder="Enter a description" onfocus="this.select()" style="height: 120px; padding: 14px 15px">${
+                  task.description ? task.description : ""
+                }</textarea>
               </div>
-              <div class="spanGlue">
-                <label class="edit-task-label">Due date</label>
-                <input type="date" id="date-input" class="typeBars filled" value="${formattedDueDate}" oninput="checkValue()" required />
+
+              <!-- Due Date -->
+              <div class="spanGlue mt-20">
+                <span class="edit-task-label">Due date</span>
+                <input type="date" id="date-input" name="date" class="typeBars filled" value="${formattedDueDate}" oninput="checkValue()" required />
               </div>
-              <div class="spanGlue">
-                <label class="edit-task-label">Priority</label>
-                <div class="priorityArange" style="display: flex">
-                  <button class="priorityBtns" data-color="#FF3D00" onclick="selectButton(this)">
+
+              <!-- Priority -->
+              <div class="spanGlue mt-20">
+                <span class="edit-task-label">Priority</span>
+                <div class="priority-wrapper">
+                  <label class="priority-option" for="urgent">
+                    <input type="radio" name="priority" id="urgent" value="high" ${task.priority === "high" ? "checked" : ""}/>
+                    <span class="priority-btn">
                     Urgent
-                    <img src="../assets/icons/Prio alta.png" style="width: 20px; height: 14.51px; margin-left: 10px" />
-                  </button>
+                    <img src="../assets/icons/high_priority_icon.svg" alt="high priority" />
+                    </span>
+                  </label>
 
-                  <button class="priorityBtns selected" data-color="#FFA800" onclick="selectButton(this)">
+                  <label class="priority-option" for="medium">
+                    <input type="radio" name="priority" id="medium" value="medium" ${task.priority === "medium" ? "checked" : ""} />
+                    <span class="priority-btn">
                     Medium
-                    <img src="../assets/icons/Prio media.png" style="width: 20px; height: 7.45px; margin-left: 10px" />
-                  </button>
+                    <img src="../assets/icons/medium_priority_icon.svg" alt="medium priority" />
+                    </span>
+                  </label>
 
-                  <button class="priorityBtns" data-color="#7AE229" onclick="selectButton(this)">
+                  <label class="priority-option" for="low">
+                    <input type="radio" name="priority" id="low" value="low" ${task.priority === "low" ? "checked" : ""}/>
+                    <span class="priority-btn">
                     Low
-                    <img src="../assets/icons/Prio baja.png" style="width: 20px; height: 14.51px; margin-left: 10px" />
-                  </button>
+                    <img src="../assets/icons/low_priority_icon.svg" alt="low priority" />
+                    </span>
+                    </label>
                 </div>
               </div>
 
-              <div class="spanGlue">
-                <label class="edit-task-label">Assigned to</label>
+              <!-- Assigned to -->
+              <div class="spanGlue mt-20">
+                <span class="edit-task-label">Assigned to</span>
                 <div class="dropdown-container">
-                  <input type="button" value="Select contacts to assign" class="dropdown-selected typeBars" id="contactDropdown" onclick="toggleTextDropdown(this)" />
-                  <div class="dropdown-options">
-                    <div class="option" data-value="Task 1" onclick="selectOption(this)">Task 1</div>
-                    <div class="option" data-value="Task 2" onclick="selectOption(this)">Task 2</div>
-                    <div class="option" data-value="Task 3" onclick="selectOption(this)">Task 3</div>
-                    <div class="option" data-value="Task 4" onclick="selectOption(this)">Task 4</div>
+                  <input type="button" value="Select contacts to assign" class="dropdown-selected typeBars" id="contactDropdown" onclick="toggleContactDropdown(this)" />
+                  <div class="dropdown-options" id="contact-list"></div>
+                </div>
+                <div id="selectedContacts"></div>
+              </div>
+
+              <!-- Subtasks -->
+              <div class="spanGlue mt-20">
+                <span class="edit-task-label">Subtasks</span>
+                <div class="subtask-container">
+                  <input type="text" class="typeBars typePriorityBars" id="newSubtask" placeholder="Add new subtask" />
+                  <div class="subtaskNavigator">
+                    <img id="addSubtask" src="../assets/icons/Subtasks icons11.png" alt="cross" onclick="" />
+                    <div id="confirmDeleteNewSubtask">
+                      <img src="../assets/icons/close.svg" alt="X" id="close" onclick="resetElements()" />
+                      <hr />
+                      <img src="../assets/icons/check.png" alt="Check" id="confirm" onclick="addSubtask()" />
+                    </div>
                   </div>
                 </div>
+                <ul id="subtaskList"></ul>
               </div>
 
-              <div class="spanGlue">
-                <label class="edit-task-label">Subtasks</label>
-                <div class="subtask-container">
-                  <input type="text" class="typeBars typePriorityBars" placeholder="Add new subtask" />
-                  <img src="../assets/icons/Subtasks icons11.png" alt="cross" />
-                </div>
-              </div>
-
- 
-            </form>
+            </div>
          </div>
 
          <div class="flex-end">
-            <button class="btn">Ok <img src="../assets/icons/check_icon.svg" alt="" srcset="" /></button>
+            <button class="btn" onclick="updateTask('${task.taskId}')">Ok <img src="../assets/icons/check_icon.svg" alt="check icon"/></button>
          </div>     
   `;
 }
