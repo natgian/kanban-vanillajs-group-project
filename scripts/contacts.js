@@ -1,19 +1,26 @@
 const databaseURL = "https://join-458-default-rtdb.europe-west1.firebasedatabase.app/contacts";
 
 const colorsObject = {
-  red: "#FF0000",
-  blue: "#0000FF",
-  green: "#008000",
-  yellow: "#FFFF00",
-  orange: "#FFA500",
-  purple: "#800080",
-  pink: "#FFC0CB",
-  brown: "#A52A2A",
-  teal: "#008080",
-  lime: "#00FF00"
+  darkorange: "#FF7902",
+  pink:"#FF5EB3",
+  blue: "#6D52FF",
+  purple:"#9327FF",
+  tuerkis:"#00BDE8",
+  green:"#1ED7C1",
+  bloodorange:"#FE745E",
+  peach:"#FFA35E",
+  magenta:"#FC71FF",
+  darkyellow:"#FFC701",
+  darkblue:"#0138FF",
+  green:"#C3FF2B",
+  lightorange:"#FFE52B",
+  red:"#FE4646",
+  orange:"#FEBB2A"
 };
 
 let contactStore = {};
+let currentEditingContactId = null;
+let newContactMode = false;
 
 function init() {
   cleanNullContacts();
@@ -83,7 +90,7 @@ async function groupContactsByLetter(contactsData) {
   let groupContacts = {};
   let updatePromise= [];
 
-  await groupContactsByLetterIfElse(contactsData, groupContacts);
+  await groupContactsByLetterIfElse(contactsData, groupContacts, updatePromise);
   
   await Promise.all(updatePromise);
 
@@ -124,9 +131,9 @@ async function saveContactColor(contactKey, color) {
   }
 }
 
-function showContactDetails(id){
+function showContactDetails(id) {
   const contact = contactStore[id];
-  if(!contact){
+  if (!contact) {
     return console.error('Kontakt nicht gefunden:', id);
   }
 
@@ -135,27 +142,39 @@ function showContactDetails(id){
 
   const clickedContact = document.querySelector(`.contact[data-id="${id}"]`);
 
-  if(clickedContact){
+  if (window.innerWidth <= 905) {
+    document.getElementById('contact-list').style.display = 'none';
+    document.getElementById('contenttop').style.display = 'block';
+  }
+
+  if (clickedContact) {
     clickedContact.classList.add('active-contact');
   }
+
   document.getElementById('contact-details').innerHTML = templateContactsDetails(contact);
 }
 
 function openNewContact() {
+  newContactMode = true;
+  currentEditingContactId = null;
+
   const refOverlay = document.getElementById('layout');
-    refOverlay.classList.remove('d_none');
-    refOverlay.innerHTML = templateNewContact();
+  refOverlay.innerHTML = templateNewContact();
+  refOverlay.classList.remove('d_none');
+  refOverlay.classList.remove('flex-display');
 }
 
 function popUpClose(){
   const refOverlay = document.getElementById('layout');
   refOverlay.classList.add('d_none');
+  newContactMode = false;
+  currentEditingContactId = null;
 }
 
 function buildContactData(){
   const fullName = document.getElementById('name').value.trim();
-  const email    = document.getElementById('email').value;
-  const phone    = document.getElementById('phone').value;
+  const email    = document.getElementById('email').value.trim();
+  const phone    = document.getElementById('phone').value.trim();
 
   const parts = fullName.split(' ').filter(Boolean);
   let monogram;
@@ -170,7 +189,7 @@ function buildContactData(){
 }
 
 function isDuplicate({ email, name }) {
-  return Object.values(contactStore).find(contact =>
+  return !!Object.values(contactStore).find(contact =>
     contact && (contact.email === email || contact.name === name)
   );
 }
@@ -203,13 +222,14 @@ async function newContactDetails(data, newContact) {
     detailContainer.innerHTML = detailHTML;
   }
 
-  setTimeout(popUpClose, 3000);
+  setTimeout(popUpClose, 2000);
 }
 
 async function createNewContact(event) {
   event.preventDefault();
 
   const newContact = buildContactData();
+  
   if (isDuplicate(newContact)) {
     return showMessage("Contact already exists!");
   }
@@ -229,6 +249,7 @@ async function createNewContact(event) {
   init();
 }
 
+
 function showMessage(text) {
   const messageBox = document.getElementById("message-box");
   const messageText = document.getElementById("message-text");
@@ -238,18 +259,54 @@ function showMessage(text) {
 
   setTimeout(() => {
     messageBox.classList.remove("show");
-  }, 3000);
+  }, 2000);
 }
 
 async function editContact(id) {
+  currentEditingContactId = id; // 💾 ID speichern
+
   const contact = contactStore[id];
   const refOverlay = document.getElementById('layout');
   refOverlay.innerHTML = templateEditContact(contact, id);
   refOverlay.classList.remove('d_none');
+  refOverlay.classList.remove('flex-display');
 
-  const updatedResponse = await fetch(`${databaseURL}/${id}.json`);
-  const updatedContact = await updatedResponse.json();
-  document.getElementById('contact-details').innerHTML = templateContactsDetails(updatedContact);
+  try {
+    const updatedResponse = await fetch(`${databaseURL}/${id}.json`);
+    const updatedContact = await updatedResponse.json();
+    document.getElementById('contact-details').innerHTML = templateContactsDetails(updatedContact);
+    await loadContactsData();  
+  } catch (error) {
+    console.error("Fehler beim Abrufen des Kontakts:", error);
+    showMessage("Fehler beim Laden des Kontakts!");
+  }
+}
+
+
+async function editContactMobile(id) {
+  currentEditingContactId = id;
+  const contact = contactStore[id];
+
+  if(!contact){
+    showMessage("Kontakt nicht gefunden!");
+    return;
+  }
+
+  const contactWithId = {id, ...contact};
+  const refOverlay = document.getElementById('layout');
+  refOverlay.innerHTML = templateEdtContactMobile(contactWithId);
+  refOverlay.classList.remove('d_none');
+  refOverlay.classList.add('flex-display');
+
+  try {
+    const updatedResponse = await fetch(`${databaseURL}/${id}.json`);
+    const updatedContact = await updatedResponse.json();
+    document.getElementById('contact-details').innerHTML = templateContactsDetails(updatedContact);
+    await loadContactsData();  
+  } catch (error) {
+    console.error("Fehler beim Abrufen des Kontakts:", error);
+    showMessage("Fehler beim Laden des Kontakts!");
+  }
 }
 
 
@@ -266,7 +323,8 @@ async function updateContactDetails(id, updated) {
       const updatedContact = await updatedResponse.json();
       document.getElementById('contact-details').innerHTML = templateContactsDetails(updatedContact);
       loadContactsData();
-      setTimeout(popUpClose, 1500);
+      setTimeout(popUpClose, 2000);
+      setTimeout(closeMobilePopUp, 2000);
     }
   } catch (error) {
     console.error('Update failed:', error);
@@ -279,7 +337,7 @@ async function updateContact(event, id) {
 
   const { name, email, phone, monogram } = buildContactData();
 
-  const updated = { name, email, phone, monogram, monogramColor:contactStore[id].monogramColor || getRandomColor() };
+  const updated = {id, name, email, phone, monogram, monogramColor:contactStore[id].monogramColor || getRandomColor() };
 
   await updateContactDetails(id, updated);
 }
@@ -294,7 +352,7 @@ async function deleteContact(event, id) {
     if (res.ok) {
       showMessage('Contact succesfully deleted!');
       loadContactsData();
-      setTimeout(popUpClose, 1500);
+      setTimeout(popUpClose, 2000);
     }
   }catch(error){
     console.error('Update failed:', error);
@@ -317,4 +375,54 @@ async function cleanNullContacts() {
       }
     }
   }
+}
+
+function backTocontacts(){
+  document.getElementById('contact-list').style.display ='block';
+  document.getElementById('contenttop').style.display='none';
+}
+
+function toggleDropdown(id) {
+  const menu = document.getElementById(`dropdown-menu-${id}`);
+  if (menu) {
+    menu.classList.toggle('hidden');
+  }
+}
+
+
+function openNewContactMobile() {
+  newContactMode = true;
+  currentEditingContactId = null;
+
+  const refOverlay = document.getElementById('layout');
+  refOverlay.classList.remove('d_none');
+  refOverlay.classList.add('flex-display');
+  refOverlay.innerHTML = templateNewContactMobile();
+}
+
+function closeMobilePopUp(){
+  const refOverlay = document.getElementById('layout');
+  const refOverlayMobile = document.querySelector('.popupMobile');
+  if (refOverlayMobile) {
+    refOverlayMobile.style.display = 'none';
+  }
+  refOverlay.classList.remove('flex-display');
+  refOverlay.classList.add('d_none');
+
+  newContactMode = false;
+  currentEditingContactId = null;
+}
+
+function showMobileContactDetails() {
+  if (!currentEditingContactId) return;
+
+  const contact = contactStore[currentEditingContactId];
+  if (!contact) return;
+
+  const refOverlay = document.getElementById('layout');
+  refOverlay.classList.remove('d_none');
+  refOverlay.classList.add('flex-display');
+  refOverlay.style.display = 'flex';
+
+  refOverlay.innerHTML = templateContactsDetails(contact);
 }

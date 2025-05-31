@@ -1,18 +1,3 @@
-/*
-@font-face {
-  font-family: "Inter";
-  src: url("./assets/fonts/Inter-VariableFont_opsz,wght.ttf") format("truetype");
-  font-weight: 100 900;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("./assets/fonts/Inter-Italic-VariableFont_opsz,wght.ttf") format("truetype");
-  font-weight: 100 900;
-  font-style: italic;
-}
-*/
 
 :root {
   /* colors */
@@ -49,7 +34,6 @@ a {
 }
 a {
   text-decoration: none;
-  color: var(--ahref-color);
 }
 
 .wrapper{
@@ -59,6 +43,7 @@ a {
 
 body{
   position: relative;
+  /*overflow: auto !important;*/
 }
 
 .d_none{
@@ -69,10 +54,9 @@ body{
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%) !important;
   margin: 24px;
   opacity: 0;
-  z-index: 999;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -85,6 +69,7 @@ body{
   box-shadow: 0 0 4px 0 rgb(0, 0, 0, 0.1);
   pointer-events: none;
   transform: var(--transition);
+  z-index: 1100;
 }
 
 .message-box.show {
@@ -126,7 +111,6 @@ body{
   display: flex;
   flex-direction: column;
   max-width: calc(100% - 220px); /* verhindert Überschuss rechts */
-  width: 100%;
   overflow: hidden;
 }
 
@@ -136,11 +120,12 @@ main{
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
-  display: flex;
+  display: block;
 }
 
 .layout-container{
   overflow: hidden;
+  max-width: calc(1920px - 232px);
 }
 
 .contacts-section{
@@ -149,6 +134,7 @@ main{
 
 #contact-list-body{
   padding-top: 24px;
+  overflow: hidden;
 }
 
 #contact-list{
@@ -218,7 +204,6 @@ main{
 .monogram {
   width: 40px;
   height: 40px;
-  /*background-color: #3498db;*/
   color: white;
   font-size: 16px;
   font-weight: bold;
@@ -246,12 +231,8 @@ main{
   color: var(--white-color);
 }
 
-main{
-  display: block;
-}
-
 /* E-Mail-Adresse */
-main a{
+.email a{
   font-size: 14px;
   margin-top: 5px;
   color: var(--hover-color);
@@ -265,7 +246,7 @@ main a{
   gap: 32px;
 }
 
-.contentfix{
+.contentfix-computer{
   display: flex;
   align-items: center;
   justify-content: center;
@@ -273,12 +254,13 @@ main a{
   padding-bottom: 24px;
 }
 
-.divider {
+.divider-vertical {
   width: 2px;
-  height: 30px;
+  height: 32px;
   background-color: var(--hover-color);
 }
-.contentfix p{
+.contentfix-computer p,
+.contentfix-mobile p{
   color: var(--primary-color);
 }
 
@@ -299,7 +281,8 @@ h1{
 }
 
 #contenttop{
-  margin: 48px auto 0 48px;
+  padding: 48px;
+  display: block;
 }
 
 .contact-monogram{
@@ -326,7 +309,9 @@ h1{
   gap: 8px;
 }
 
-.edit-and-delete svg{
+.edit-and-delete svg,
+.dropdown-menu .edit svg,
+.dropdown-menu .delete svg{
   fill: var(--primary-color);
   height: 20px;
 }
@@ -343,6 +328,9 @@ h1{
   gap: 8px;
   display: flex;
   flex-direction: column;
+}
+.contact-info-item a{
+  color: var(--blue-color);
 }
 
 /*New Contact Pop up/Layout*/
@@ -370,10 +358,11 @@ h1{
 }
 
 .popup-close{
-  position: absolute;
+  position: fixed;
   top: 48px;
   right: 48px;
   cursor: pointer;
+  z-index: 1100;
 }
 .popup-close svg{
   fill: var(--primary-color);
@@ -505,17 +494,222 @@ form{
   fill: var(--white-color);
 }
 
-
-
-
-@media (min-width: 1440px) {
-  .popup {
-    width: 1212px;
-  }
+.mobile-dropdown-wrapper {
+  display: none;
+}
+.popupMobile{
+  display: none;
 }
 
-@media (max-width: 1024px) {
-  .popup {
-    width: 90%;
+@media (max-width: 905px) {
+  body, html{
+    overflow: hidden;
+    height: 100%;
+  }
+
+  #popup{
+    flex-direction: column;
+    width: 80%;
+  }
+
+  #contact-list-body{
+    display: block;
+  }
+
+  #contenttop,
+  #contact-list button,
+  .contentfix-computer,
+  .edit-and-delete{
+    display: none;
+  }
+
+  .popup-left{
+    width: auto;
+    height: 400px;
+  }
+  .popup-right{
+    justify-content: center;
+  }
+
+  #contenttop{
+  padding: 16px;
+  }
+
+  .contacts-section{
+    display: block;
+  }
+
+  #contact-list{
+    position: relative;
+    padding-bottom: 96px;
+  }
+
+  .mobile-add-button,
+  #dropdown{
+    height: 56px;
+    width: 56px;
+    display: block;
+    position: fixed;
+    bottom: 104px;
+    right: 24px;
+    background-color: var(--primary-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 46px;
+    }
+  
+  .divider-horizontal {
+    height: 2px;
+    width: 80px;
+    background-color: var(--hover-color);
+  }
+
+  .contentfix-mobile{
+    display: flex;
+    justify-content: space-between;
+  }
+  .contentfix-mobile-left{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-bottom: 24px;
+  }
+
+  .back-icon{
+  fill: var(--blue-color);
+  cursor: pointer;
+  }
+
+  .edit-and-delete {
+    display: none;
+  }
+
+  .mobile-dropdown-wrapper {
+    display: block;
+    position: relative;
+  }
+
+  .mobile-dropdown-button {
+    height: 56px;
+    width: 56px;
+    display: block;
+    position: fixed;
+    bottom: 104px;
+    right: 24px;
+    background-color: var(--primary-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 46px;
+  }
+  
+
+  .dropdown-menu {
+    position: fixed;
+    bottom: 180px;
+    right: 24px;
+    padding: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    border-radius: 0 0 8px 0;
+}
+
+  .dropdown-menu.hidden {
+    display: none;
+  }
+
+  .dropdown-menu button {
+    background: none;
+    border: none;
+    padding: 12px;
+    text-align: left;
+    width: 100%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .dropdown-menu button p {
+    margin: 0;
+  }
+
+  .dropdown-menu svg {
+    fill: var(--icon-color, #000);
+  }
+
+  .hidden {
+      display: none;
+  }
+
+  #layout.flex-display{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .popupMobile{
+    position: relative;
+    width: 80%;
+    max-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transform: translateY(-24px);
+  }
+
+  .popup-close {
+    position: absolute;
+    top: 36px;
+    right: 16px;
+    cursor: pointer;
+}
+  .popup-close svg {
+    fill: var(--white-color);
+  }
+
+  .popupMobileTop{
+    background-color: var(--primary-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px; 
+    color: white;
+    padding: 168px 0 128px 24px;
+    border-radius: 30px 30px 0 0;
+    flex-shrink: 0;
+  }
+  .profile-logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--border-color);
+    border: 1px solid var(--white-color);
+}
+  .popup-bottom{
+    background-color: var(--white-color);
+    display: flex;
+    align-items: center;
+    gap: 56px;
+    padding: 80px 48px;
+    justify-content: center;
+    border-radius: 0 0 30px 30px;
+    flex-grow: 1;
+    min-height: 0;
+    overflow: hidden;
+  }
+  .create-buttons-div {
+    justify-content: center;
+    padding-top: 16px;
+  } 
+  .create-buttons-div button:first-child{
+    display: none;
   }
 }
