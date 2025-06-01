@@ -326,7 +326,7 @@ header {
   transform: translate(-50%, -50%);
   margin: 16px;
   opacity: 0;
-  z-index: 999;
+  z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -376,7 +376,6 @@ header {
     display: flex;
     justify-content: center;
     flex-direction: column;
-
   }
 
   .sidebar-menu-link img {
@@ -400,15 +399,15 @@ header {
   }
 }
 
-@media (max-width: 350px){
-  .sidebar-menu-link{
+@media (max-width: 350px) {
+  .sidebar-menu-link {
     scale: 0.8;
     width: 80px;
   }
-  .sidebar-menu{
+  .sidebar-menu {
     padding: 0;
   }
-  .sidebar-menu li{
+  .sidebar-menu li {
     width: 64px;
     display: flex;
     flex-direction: column;
