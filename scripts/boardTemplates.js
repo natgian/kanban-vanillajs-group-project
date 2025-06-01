@@ -310,7 +310,7 @@ function taskOverlayEditTaskTemplate(task, formattedDueDate) {
               <div class="spanGlue mt-20">
                 <span class="edit-task-label">Subtasks</span>
                 <div class="subtask-container">
-                  <input type="text" class="typeBars typePriorityBars" id="newSubtask" placeholder="Add new subtask" />
+                  <input type="text" class="typeBars typePriorityBars" id="newEditSubtask" placeholder="Add new subtask" />
                   <div class="subtaskNavigator">
                     <img id="addSubtask" src="../assets/icons/Subtasks icons11.png" alt="cross" onclick="" />
                     <div id="confirmDeleteNewSubtask">

@@ -1,13 +1,12 @@
 async function initEditTaskFields(task) {
   updateSelectedContactsDisplay();
   setContactDropdownEventListeners();
-  initSubtasks();
+  initEditSubtasks();
+  renderSubtasks(task.subtasks);
 
   const contacts = await fetchContacts();
   const assignedTo = task.assignedTo || [];
-  loadContacts(contacts, assignedTo);
-
-  renderSubtasks(task.subtasks);
+  loadEditContacts(contacts, assignedTo);
 }
 
 // CONTACT CODE -- geändert -- //
@@ -367,8 +366,8 @@ function hideValidationError(input, message) {
 }
 
 // SUBTASKS CODE //
-function initSubtasks() {
-  const input = document.getElementById("newSubtask");
+function initEditSubtasks() {
+  const input = document.getElementById("newEditSubtask");
   const addSubtask = document.getElementById("addSubtask");
   const confirmDelete = document.getElementById("confirmDeleteNewSubtask");
   const subtaskContainer = document.querySelector(".subtask-container");
@@ -490,7 +489,7 @@ function saveAndExitEditMode(element) {
 // Add new Subtask
 // Adds a new subtask item to the list
 function addSubtask() {
-  const input = document.getElementById("newSubtask");
+  const input = document.getElementById("newEditSubtask");
   const subtaskList = document.getElementById("subtaskList");
   if (!input || !subtaskList || !input.value.trim()) return;
 
@@ -572,7 +571,7 @@ async function fetchContacts() {
 /**
  * Inserts contacts into the template.
  */
-async function loadContacts(contacts, assignedTo) {
+async function loadEditContacts(contacts, assignedTo) {
   if (!contacts.length) return;
 
   const contactList = document.getElementById("contact-list");
