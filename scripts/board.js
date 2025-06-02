@@ -1,8 +1,16 @@
-const baseURL = "https://join-458-default-rtdb.europe-west1.firebasedatabase.app";
+// const baseURL = "https://join-458-default-rtdb.europe-west1.firebasedatabase.app";
 
 let allTasks = [];
 let currentDraggedElement;
 let currentOpenMenu = null;
+
+let alreadyStarted = false;
+
+function checkIfStared() {
+  if (alreadyStarted) {
+    alreadyStarted = true;
+  }
+}
 
 /**
  * This function initiates the fetching and rendering of the tasks when the board page is loaded and adds an event listener to the task search input field.
@@ -14,6 +22,23 @@ async function initBoard() {
   renderBoard();
   renderAddTaskContent();
 }
+
+// ---------------------NEU---------------------//
+async function initBoardAddTask() {
+  openAddTaskOverlay();
+  initializePriorityButtons();
+  initializeToggleContactSearch();
+  initializeObserveDropdownChanges();
+  updateSelectedContactsDisplay();
+  initializeCloseAllDropdowns();
+  initializeReplaceInputWithButton();
+  initializeSubtasksButtons();
+  initializeSubtasksimulateInputClick();
+  initializeResetAllOptions();
+  const contacts = await fetchContacts();
+  loadContacts(contacts);
+}
+// ---------------------NEU---------------------//
 
 /**
  * Fetches the tasks from the database

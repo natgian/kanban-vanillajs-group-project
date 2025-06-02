@@ -35,7 +35,8 @@ function closeTaskOverlay() {
 function openAddTaskOverlay() {
   addTaskOverlayRef.classList.add("show");
   document.body.classList.add("no-scroll");
-  setupOutsideClickHandler(addTaskWrapperRef, closeAddTaskOverlay);
+
+  // setupOutsideClickHandler(addTaskWrapperRef, closeAddTaskOverlay);
 }
 
 /**
@@ -354,4 +355,13 @@ function removeClickHandler() {
     document.removeEventListener("click", currentOutsideClickHandler);
     currentOutsideClickHandler = null;
   }
+}
+
+function closeOverlay() {
+  document.addEventListener("click", function (event) {
+    if (event.target.id === "add-task-overlay") {
+      closeAddTaskOverlay();
+      addTaskOverlayContentRef.innerHTML = "";
+    }
+  });
 }

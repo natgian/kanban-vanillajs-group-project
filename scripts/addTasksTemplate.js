@@ -145,7 +145,6 @@ function renderAddTask() {
           </div>
             `;
 }
-document.getElementById("contentload").innerHTML = renderAddTask();
 
 /**
  * Template for contacts.
