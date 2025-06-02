@@ -3,14 +3,7 @@
 let allTasks = [];
 let currentDraggedElement;
 let currentOpenMenu = null;
-
-let alreadyStarted = false;
-
-function checkIfStared() {
-  if (alreadyStarted) {
-    alreadyStarted = true;
-  }
-}
+let boardAddTaskAlreadyInitialized = false;
 
 /**
  * This function initiates the fetching and rendering of the tasks when the board page is loaded and adds an event listener to the task search input field.
@@ -25,19 +18,25 @@ async function initBoard() {
 
 // ---------------------NEU---------------------//
 async function initBoardAddTask() {
+  if (!boardAddTaskAlreadyInitialized) {
+    initializePriorityButtons();
+    initializeToggleContactSearch();
+    initializeObserveDropdownChanges();
+
+    initializeCloseAllDropdowns();
+    initializeReplaceInputWithButton();
+    initializeSubtasksButtons();
+    initializeSubtasksimulateInputClick();
+    initializeResetAllOptions();
+    const contacts = await fetchContacts();
+    loadContacts(contacts);
+    boardAddTaskAlreadyInitialized = true;
+  }
+
   openAddTaskOverlay();
-  initializePriorityButtons();
-  initializeToggleContactSearch();
-  initializeObserveDropdownChanges();
   updateSelectedContactsDisplay();
-  initializeCloseAllDropdowns();
-  initializeReplaceInputWithButton();
-  initializeSubtasksButtons();
-  initializeSubtasksimulateInputClick();
-  initializeResetAllOptions();
-  const contacts = await fetchContacts();
-  loadContacts(contacts);
 }
+
 // ---------------------NEU---------------------//
 
 /**

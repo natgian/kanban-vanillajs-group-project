@@ -39,6 +39,14 @@ function openAddTaskOverlay() {
   // setupOutsideClickHandler(addTaskWrapperRef, closeAddTaskOverlay);
 }
 
+function closeOverlay() {
+  document.addEventListener("click", function (event) {
+    if (event.target.id === "add-task-overlay") {
+      closeAddTaskOverlay();
+    }
+  });
+}
+
 /**
  * Checks the screen width, if the screen with is equal or under 768px it redirects to the addTask.html
  * page. If not, it opens the Add Task Overlay.
@@ -355,13 +363,4 @@ function removeClickHandler() {
     document.removeEventListener("click", currentOutsideClickHandler);
     currentOutsideClickHandler = null;
   }
-}
-
-function closeOverlay() {
-  document.addEventListener("click", function (event) {
-    if (event.target.id === "add-task-overlay") {
-      closeAddTaskOverlay();
-      addTaskOverlayContentRef.innerHTML = "";
-    }
-  });
 }
