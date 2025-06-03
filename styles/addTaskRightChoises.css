@@ -3,10 +3,26 @@
   display: flex;
   width: 100%;
   text-align: left;
-  background-image: url("../assets/icons/arrow_drop_downaa.png");
-  background-repeat: no-repeat;
-  background-position: calc(100% - 15px) center;
-  background-size: 24px;
+  
+  position: relative;
+}
+#toggleButtonDropdown{
+  height: 24px;
+  width: 24px;
+  border-radius: 50%;
+  background: none;
+  border: none;
+  display: grid;
+  place-items: center;
+  position: absolute;
+  right: 16px;
+  top: 43px;
+}
+#toggleButtonDropdown img{
+  height: 24px;
+}
+#toggleButtonDropdown:hover{
+  background-color: var(--outline-color);
 }
 .dropdown-options {
   display: none;

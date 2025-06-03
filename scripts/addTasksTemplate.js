@@ -82,6 +82,7 @@ function renderAddTask() {
                     <span>Assigned to</span>
                     <div class="dropdown-container">
                         <input type="button" value="Select contacts to assign" class="dropdown-selected typeBars" id="contactDropdown" onclick="toggleContactDropdown(this)" />
+                        <button id="toggleButtonDropdown"><img src="../assets/icons/arrow_drop_downaa.png" alt="down"></button>
                         <div class="dropdown-options" id="contact-list">
                         
                         </div>
@@ -94,6 +95,7 @@ function renderAddTask() {
                     <span>Category<label>*</label></span>
                     <div class="dropdown-container">
                         <input type="button" value="Select task category" class="dropdown-selected typeBars categoryDropdown" onclick="toggleCategoryDropdown(this)" required />
+                        <button id="toggleButtonDropdown"><img src="../assets/icons/arrow_drop_downaa.png" alt="down"></button>
                         <div class="dropdown-options">
                             <div class="option" data-value="Technical Task" onclick="selectCategoryOption(this)">Technical Task</div>
                             <div class="option" data-value="User Story" onclick="selectCategoryOption(this)">User Story</div>
