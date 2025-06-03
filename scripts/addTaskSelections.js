@@ -300,12 +300,12 @@ function replaceInputWithButton(input, dropdownOptions) {
   button.blur();
 }
 
-// // Event listener to replace input with button when clicking outside
-// document.addEventListener("click", function (event) {
-//   const dropdownOptions = document.getElementById("contact-list");
-//   const activeInput = document.querySelector(".dropdown-container input[type='text']");
+// Event listener to replace input with button when clicking outside
+document.addEventListener("click", function (event) {
+  const dropdownOptions = document.getElementById("contact-list");
+  const activeInput = document.querySelector(".dropdown-container input[type='text']");
 
-//   if (activeInput && isDropdownClosed(dropdownOptions)) {
-//     replaceInputWithButton(activeInput, dropdownOptions);
-//   }
-// });
+  if (activeInput && isDropdownClosed(dropdownOptions)) {
+    replaceInputWithButton(activeInput, dropdownOptions);
+  }
+});

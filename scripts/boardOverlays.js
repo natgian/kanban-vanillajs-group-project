@@ -69,6 +69,7 @@ function openAddTask() {
 function closeAddTaskOverlay() {
   addTaskOverlayRef.classList.remove("show");
   document.body.classList.remove("no-scroll");
+  initReset();
 }
 
 /**
