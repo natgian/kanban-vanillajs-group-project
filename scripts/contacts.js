@@ -76,16 +76,13 @@ async function groupContactsByLetterIfElse(contactsData, groupContacts, updatePr
   for (let key in contactsData) {
     if (contactsData.hasOwnProperty(key)) {
       let contact = contactsData[key];
-
       if (!contact || typeof contact.name !== "string") {
         console.warn(`Ungültiger Kontakt mit Schlüssel: ${key}`);
         continue;
       }
-
       if (!contact.id) {
         contact.id = key;
       }
-
       ensureMonogramColor(contact, key, updatePromise);
       contactsFilterFirstLetter(contact, groupContacts);
     }

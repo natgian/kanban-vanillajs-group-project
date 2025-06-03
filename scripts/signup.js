@@ -89,6 +89,10 @@ async function postData() {
       await saveUserData(data);
       
     }
-    window.location.href = 'nextPage.html';
+    window.location.href = 'summary.html';
     form.reset();
+  }
+
+  function backToLogin(){
+    window.location.href = '/index.html';
   }
