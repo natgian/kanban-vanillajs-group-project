@@ -15,32 +15,60 @@ function observeDropdownChanges() {
 // });
 
 /**
- * Toggles the visibility of the contact dropdown.
- *
- * @param {HTMLInputElement} input - The dropdown input element.
+ * Öffnet oder schließt das Kontakt-Dropdown und schließt das Kategorie-Dropdown.
+ * @param {HTMLElement} input - Das Element, das getoggelt wird.
  */
 function toggleContactDropdown(input) {
-  const options = input.closest(".dropdown-container").querySelector(".dropdown-options");
+  closeAllCategoryDropdowns(); // Schließt zuerst alle Kategorie-Dropdowns
 
-  closeAllCategoryDropdowns();
+  const container = input.closest(".dropdown-container");
+  const options = container.querySelector(".dropdown-options");
+  toggleRotation(input);
 
   if (options) {
-    options.style.display = options.style.display === "block" ? "none" : "block";
+    if (options.classList.contains("active")) {
+      options.classList.remove("active");
+      options.style.display = "none";
+    } else {
+      options.classList.add("active");
+      options.style.display = "block";
+    }
   }
 }
 
 /**
- * Toggles the visibility of the category dropdown.
- *
- * @param {HTMLInputElement} input - The dropdown input element.
+ * Öffnet oder schließt das Kategorie-Dropdown und schließt das Kontakt-Dropdown.
+ * @param {HTMLElement} input - Das Element, das getoggelt wird.
  */
 function toggleCategoryDropdown(input) {
-  const options = input.closest(".dropdown-container").querySelector(".dropdown-options");
+  closeAllContactDropdowns(); // Schließt zuerst alle Kontakt-Dropdowns
 
-  closeAllContactDropdowns();
+  const container = input.closest(".dropdown-container");
+  const options = container.querySelector(".dropdown-options");
+  toggleRotation(input);
 
   if (options) {
-    options.style.display = options.style.display === "block" ? "none" : "block";
+    if (options.classList.contains("active")) {
+      options.classList.remove("active");
+      options.style.display = "none";
+    } else {
+      options.classList.add("active");
+      options.style.display = "block";
+    }
+  }
+}
+
+/**
+ * Rotiert das Button-Bild um 180 Grad, wenn das Dropdown getoggelt wird.
+ *
+ * @param {HTMLElement} element - Das Element, dessen Bild rotiert werden soll.
+ */
+function toggleRotation(element) {
+  const container = element.closest(".dropdown-container");
+  const img = container.querySelector("button img");
+
+  if (img) {
+    img.classList.toggle("rotated");
   }
 }
 
@@ -92,19 +120,19 @@ function selectCategoryOption(element) {
 }
 
 /**
- * Closes all contact dropdowns.
+ * Schließt alle Kontakt-Dropdowns zuverlässig.
  */
 function closeAllContactDropdowns() {
-  document.querySelectorAll("#contactDropdown + .dropdown-options").forEach((options) => {
+  document.querySelectorAll(".dropdown-container .dropdown-options").forEach((options) => {
     options.style.display = "none";
   });
 }
 
 /**
- * Closes all category dropdowns.
+ * Schließt alle Kategorie-Dropdowns zuverlässig.
  */
 function closeAllCategoryDropdowns() {
-  document.querySelectorAll(".categoryDropdown + .dropdown-options").forEach((options) => {
+  document.querySelectorAll(".dropdown-container .dropdown-options").forEach((options) => {
     options.style.display = "none";
   });
 
