@@ -65,6 +65,10 @@
   display: flex;
   align-items: center;
   gap: 3px;
+  margin-top: 10px;
+}
+#selectedContacts:empty {
+  margin-top: 0;
 }
 .hidden-checkbox {
   width: 24px;
@@ -196,10 +200,6 @@ cursor: pointer;
   height: 20px;
   margin: 0px 6px;
 }
-.task-card-avatar{
-  margin-top: 10px;
-}
 .rotated {
   transform: rotate(180deg);
-  
 }
