@@ -6,7 +6,8 @@
     <title>Contacts</title>
     <link rel="stylesheet" href="/style.css">
     <link rel="stylesheet" href="/styles/contacts.css">
-    <script src="/scripts/templateContacts.js" defer></script>
+    <link rel="icon" href="/assets/img/join_logo_dark.svg" />
+    <script src="/scripts/contactsTemplate.js" defer></script>
     <script src="/scripts/contacts.js" defer></script>
 </head>
 <body onload="init()">
@@ -55,7 +56,7 @@
 
         <section class="contacts-section">
             <div id="contact-list">
-                <div id="mobile-add-button" onclick="openNewContactMobile()" class="mobile-add-button">
+                <div id="mobile-add-button" onclick="openNewContact()" class="mobile-add-button">
                     <img src="/assets/icons/person_add.svg" alt="">
                 </div>
                 <button id="openNewContactButton" onclick="openNewContact()" class="btn">Add New Contact <img src="/assets/icons/person_add.svg" alt=""></button>
@@ -67,7 +68,7 @@
                     <div class="divider-vertical"></div>
                     <p>Better with a team</p>
                 </div>
-                <div class="contentfix-mobile d_none">
+                <div class="contentfix-mobile">
                     <div class="contentfix-mobile-left">
                         <h1>Contacts</h1>
                         <p>Better with a team</p>
@@ -82,7 +83,35 @@
                 </div>
             </div>
         </section>
+        <!-- Footer Navigation -->
+      <nav class="footer-navigation">
+        <ul class="sidebar-menu">
+          <li>
+            <a href="./summary.html" class="sidebar-menu-link">
+              <img src="../assets/icons/summary_icon.svg" alt="summary icon" />
+              Summary
+            </a>
+          </li>
+          <li>
+            <a href="./addTask.html" class="sidebar-menu-link">
+              <img src="../assets/icons/add_task_icon.svg" alt="add task icon" />
+              Add Task
+            </a>
+          </li>
+          <li>
+            <a href="./board.html" class="sidebar-menu-link">
+              <img src="../assets/icons/board_icon.svg" alt="board icon" />
+              Board
+            </a>
+          </li>
+          <li>
+            <a href="./contacts.html" class="sidebar-menu-link active-link">
+              <img src="../assets/icons/contacts_icon.svg" alt="contacts icon" />
+              Contacts
+            </a>
+          </li>
+        </ul>
+      </nav>
     </main>
-    <script src="/scripts/contacts.js" defer></script>
   </body>
 </html>

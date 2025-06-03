@@ -43,11 +43,14 @@ a {
 
 body{
   position: relative;
-  /*overflow: auto !important;*/
+  /*overflow: auto !important;*/ 
 }
 
 .d_none{
   display: none;
+}
+.d_block{
+  display: block;
 }
 
 .message-box {
@@ -138,6 +141,7 @@ main{
 }
 
 #contact-list{
+  display: block;
   background-color: #ffffff;
   padding-left: 40px;
   padding-top: 16px;
@@ -282,7 +286,6 @@ h1{
 
 #contenttop{
   padding: 48px;
-  display: block;
 }
 
 .contact-monogram{
@@ -358,9 +361,9 @@ h1{
 }
 
 .popup-close{
-  position: fixed;
-  top: 48px;
-  right: 48px;
+  position: absolute;
+  top: 36px;
+  right: 16px;
   cursor: pointer;
   z-index: 1100;
 }
@@ -497,7 +500,8 @@ form{
 .mobile-dropdown-wrapper {
   display: none;
 }
-.popupMobile{
+
+.contentfix-mobile {
   display: none;
 }
 
@@ -516,7 +520,6 @@ form{
     display: block;
   }
 
-  #contenttop,
   #contact-list button,
   .contentfix-computer,
   .edit-and-delete{
@@ -543,14 +546,31 @@ form{
     position: relative;
     padding-bottom: 96px;
   }
+  #contact-list.d_mobile_none{
+    display: none;
+  }
+
+
+  .mediaqueryy-monogram{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
   .mobile-add-button,
-  #dropdown{
+  .mobile-dropdown-button{
     height: 56px;
     width: 56px;
     display: block;
     position: fixed;
-    bottom: 104px;
+    bottom: 120px;
     right: 24px;
     background-color: var(--primary-color);
     display: flex;
@@ -563,6 +583,10 @@ form{
     height: 2px;
     width: 80px;
     background-color: var(--hover-color);
+  }
+
+  .contentfix-mobile.d_none {
+    display: flex;
   }
 
   .contentfix-mobile{
@@ -589,21 +613,6 @@ form{
     display: block;
     position: relative;
   }
-
-  .mobile-dropdown-button {
-    height: 56px;
-    width: 56px;
-    display: block;
-    position: fixed;
-    bottom: 104px;
-    right: 24px;
-    background-color: var(--primary-color);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 46px;
-  }
-  
 
   .dropdown-menu {
     position: fixed;
@@ -640,7 +649,7 @@ form{
   }
 
   .hidden {
-      display: none;
+      display: none !important;
   }
 
   #layout.flex-display{

@@ -29,7 +29,7 @@ function templateContactsDetails({id, name, email, monogram, phone, monogramColo
               <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M480-160q-33 0-56.5-23.5T400-240q0-33 23.5-56.5T480-320q33 0 56.5 23.5T560-240q0 33-23.5 56.5T480-160Zm0-240q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm0-240q-33 0-56.5-23.5T400-720q0-33 23.5-56.5T480-800q33 0 56.5 23.5T560-720q0 33-23.5 56.5T480-640Z"/></svg>
             </div>
             <div id="dropdown-menu-${id}" class="dropdown-menu hidden">
-              <button class="edit" onclick="editContactMobile('${id}')">
+              <button class="edit" onclick="editContact('${id}')">
                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z"/></svg>
                 <p>Edit</p>
               </button>
@@ -119,7 +119,7 @@ function templateEditContact({id, name, email, monogram, phone, monogramColor })
             <h1>Edit contact</h1>
         </div>
         <div class="popup-right">
-          <div class="contact-monogram monogram" style="background-color: ${monogramColor};">
+          <div class="contact-monogram monogram mediaqueryy-monogram" style="background-color: ${monogramColor};">
           ${monogram}
         </div>
           <form onsubmit="updateContact(event, '${id}')">
@@ -143,7 +143,7 @@ function templateEditContact({id, name, email, monogram, phone, monogramColor })
         </div>
       </div>`
 }
-
+/*
 function templateNewContactMobile(){
   return `<div class="popupMobile">
             <div onclick="closeMobilePopUp()" class="popup-close">
@@ -212,4 +212,4 @@ function templateEdtContactMobile({id, name, email, monogram, phone, monogramCol
             </form>
           </div>
         </div>`
-}
+}*/

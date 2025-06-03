@@ -57,7 +57,22 @@ async function loadContactsData() {
   }
 }
 
-async function groupContactsByLetterIfElse(contactsData, groupContacts, updatePromise) { // ✅ updatePromise als Parameter
+function ensureMonogramColor(contact, key, updatePromise){
+  if (!contact.monogramColor) {
+        contact.monogramColor = getRandomColor();
+        updatePromise.push(saveContactColor(key, contact.monogramColor));
+      }
+}
+
+function contactsFilterFirstLetter(contact, groupContacts){
+  let firstLetter = contact.name.charAt(0).toUpperCase();
+      if (!groupContacts[firstLetter]) {
+        groupContacts[firstLetter] = [];
+      }
+      groupContacts[firstLetter].push(contact);
+}
+
+async function groupContactsByLetterIfElse(contactsData, groupContacts, updatePromise) {
   for (let key in contactsData) {
     if (contactsData.hasOwnProperty(key)) {
       let contact = contactsData[key];
@@ -71,17 +86,8 @@ async function groupContactsByLetterIfElse(contactsData, groupContacts, updatePr
         contact.id = key;
       }
 
-      if (!contact.monogramColor) {
-        contact.monogramColor = getRandomColor();
-        updatePromise.push(saveContactColor(key, contact.monogramColor)); // ✅ Jetzt fügen wir es zur Liste hinzu
-      }
-
-      let firstLetter = contact.name.charAt(0).toUpperCase();
-
-      if (!groupContacts[firstLetter]) {
-        groupContacts[firstLetter] = [];
-      }
-      groupContacts[firstLetter].push(contact);
+      ensureMonogramColor(contact, key, updatePromise);
+      contactsFilterFirstLetter(contact, groupContacts);
     }
   }
 }
@@ -141,18 +147,18 @@ function showContactDetails(id) {
   allContacts.forEach(c => c.classList.remove('active-contact'));
 
   const clickedContact = document.querySelector(`.contact[data-id="${id}"]`);
-
-  if (window.innerWidth <= 905) {
-    document.getElementById('contact-list').style.display = 'none';
-    document.getElementById('contenttop').style.display = 'block';
-  }
-
   if (clickedContact) {
     clickedContact.classList.add('active-contact');
   }
 
+  document.getElementById('contact-list').classList.add('d_mobile_none');
+  document.getElementById('contact-details').classList.add('d_block');
+  if (window.innerWidth <= 905) {
+  document.getElementById('contenttop').classList.add('d_block');
+}
   document.getElementById('contact-details').innerHTML = templateContactsDetails(contact);
 }
+
 
 function openNewContact() {
   newContactMode = true;
@@ -263,8 +269,8 @@ function showMessage(text) {
 }
 
 async function editContact(id) {
-  currentEditingContactId = id; // 💾 ID speichern
-
+  currentEditingContactId = id;
+  
   const contact = contactStore[id];
   const refOverlay = document.getElementById('layout');
   refOverlay.innerHTML = templateEditContact(contact, id);
@@ -359,6 +365,7 @@ async function deleteContact(event, id) {
     showMessage('Update failed. Please try again!');
   }
   document.getElementById('contact-details').innerHTML = '';
+  init();
 }
 
 async function cleanNullContacts() {
@@ -378,8 +385,13 @@ async function cleanNullContacts() {
 }
 
 function backTocontacts(){
-  document.getElementById('contact-list').style.display ='block';
-  document.getElementById('contenttop').style.display='none';
+  document.getElementById('contact-list').classList.remove('d_mobile_none');
+  document.getElementById('contenttop').classList.add('d_mobile_none');
+  document.getElementById('contenttop').classList.remove('d_block');
+  document.getElementById('contact-details').classList.add('d_none');
+  document.getElementById('contact-details').classList.remove('d_block');
+  const allContacts = document.querySelectorAll('.contact');
+  allContacts.forEach(c => c.classList.remove('active-contact'));
 }
 
 function toggleDropdown(id) {
@@ -389,16 +401,6 @@ function toggleDropdown(id) {
   }
 }
 
-
-function openNewContactMobile() {
-  newContactMode = true;
-  currentEditingContactId = null;
-
-  const refOverlay = document.getElementById('layout');
-  refOverlay.classList.remove('d_none');
-  refOverlay.classList.add('flex-display');
-  refOverlay.innerHTML = templateNewContactMobile();
-}
 
 function closeMobilePopUp(){
   const refOverlay = document.getElementById('layout');
@@ -411,18 +413,4 @@ function closeMobilePopUp(){
 
   newContactMode = false;
   currentEditingContactId = null;
-}
-
-function showMobileContactDetails() {
-  if (!currentEditingContactId) return;
-
-  const contact = contactStore[currentEditingContactId];
-  if (!contact) return;
-
-  const refOverlay = document.getElementById('layout');
-  refOverlay.classList.remove('d_none');
-  refOverlay.classList.add('flex-display');
-  refOverlay.style.display = 'flex';
-
-  refOverlay.innerHTML = templateContactsDetails(contact);
 }
