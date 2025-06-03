@@ -1,8 +1,9 @@
-const baseURL = "https://join-458-default-rtdb.europe-west1.firebasedatabase.app";
+// const baseURL = "https://join-458-default-rtdb.europe-west1.firebasedatabase.app";
 
 let allTasks = [];
 let currentDraggedElement;
 let currentOpenMenu = null;
+let boardAddTaskAlreadyInitialized = false;
 
 /**
  * This function initiates the fetching and rendering of the tasks when the board page is loaded and adds an event listener to the task search input field.
@@ -14,6 +15,29 @@ async function initBoard() {
   renderBoard();
   renderAddTaskContent();
 }
+
+// ---------------------NEU---------------------//
+async function initBoardAddTask() {
+  if (!boardAddTaskAlreadyInitialized) {
+    initializePriorityButtons();
+    initializeToggleContactSearch();
+    initializeObserveDropdownChanges();
+
+    initializeCloseAllDropdowns();
+    initializeReplaceInputWithButton();
+    initializeSubtasksButtons();
+    initializeSubtasksimulateInputClick();
+    initializeResetAllOptions();
+    const contacts = await fetchContacts();
+    loadContacts(contacts);
+    boardAddTaskAlreadyInitialized = true;
+  }
+
+  openAddTaskOverlay();
+  updateSelectedContactsDisplay();
+}
+
+// ---------------------NEU---------------------//
 
 /**
  * Fetches the tasks from the database
@@ -95,7 +119,10 @@ function prepareTaskDisplayData(task) {
   const subtasks = Array.isArray(task.subtasks) ? task.subtasks : [];
   const assignedTo = Array.isArray(task.assignedTo) ? task.assignedTo : [];
 
-  const assignedToHTML = assignedTo.map((person) => `<div class="task-card-avatar" style="background-color: ${person.color}">${person.initials}</div>`).join("");
+  const assignedToHTML = assignedTo
+    .map((person) => `<div class="task-card-avatar" style="background-color: ${person.color}">${person.initials}</div>`)
+    .slice(0, 5)
+    .join("");
 
   const subtasksTotal = subtasks.length;
   const subtasksDone = subtasks.filter((subt) => subt.done).length;

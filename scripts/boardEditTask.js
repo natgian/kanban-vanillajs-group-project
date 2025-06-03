@@ -1,13 +1,12 @@
 async function initEditTaskFields(task) {
   updateSelectedContactsDisplay();
   setContactDropdownEventListeners();
-  initSubtasks();
+  initEditSubtasks();
+  renderSubtasks(task.subtasks);
 
   const contacts = await fetchContacts();
   const assignedTo = task.assignedTo || [];
-  loadContacts(contacts, assignedTo);
-
-  renderSubtasks(task.subtasks);
+  loadEditContacts(contacts, assignedTo);
 }
 
 // CONTACT CODE -- geändert -- //
@@ -230,22 +229,32 @@ function selectOption(element, event = null) {
   applySelectionStyles(element, checkbox.checked);
 }
 
+// GEÄNDERT //
 function updateSelectedContacts() {
   const selectedContactsDiv = document.getElementById("selectedContacts");
   selectedContactsDiv.innerHTML = "";
 
   const checkedElements = document.querySelectorAll(".hidden-checkbox:checked");
+  const maxVisibleAvatars = 5;
 
-  checkedElements.forEach((checkbox) => {
+  checkedElements.forEach((checkbox, index) => {
     const parentElement = checkbox.closest(".option");
     const avatar = parentElement.querySelector(".task-card-avatar");
 
-    if (avatar) {
+    if (avatar && index < maxVisibleAvatars) {
       const clonedAvatar = avatar.cloneNode(true);
       clonedAvatar.dataset.id = avatar.dataset.id;
       selectedContactsDiv.appendChild(clonedAvatar);
     }
   });
+
+  const extraCount = checkedElements.length - maxVisibleAvatars;
+  if (extraCount > 0) {
+    const plusCounter = document.createElement("div");
+    plusCounter.classList.add("plus-counter");
+    plusCounter.textContent = `+${extraCount}`;
+    selectedContactsDiv.appendChild(plusCounter);
+  }
 
   selectedContactsDiv.style.display = "none";
   selectedContactsDiv.offsetHeight;
@@ -366,9 +375,9 @@ function hideValidationError(input, message) {
   message.style.display = "none";
 }
 
-// SUBTASKS CODE //
-function initSubtasks() {
-  const input = document.getElementById("newSubtask");
+// GEÄNDERT!! //
+function initEditSubtasks() {
+  const input = document.getElementById("newEditSubtask"); // GEÄNDERT!! //
   const addSubtask = document.getElementById("addSubtask");
   const confirmDelete = document.getElementById("confirmDeleteNewSubtask");
   const subtaskContainer = document.querySelector(".subtask-container");
@@ -490,7 +499,7 @@ function saveAndExitEditMode(element) {
 // Add new Subtask
 // Adds a new subtask item to the list
 function addSubtask() {
-  const input = document.getElementById("newSubtask");
+  const input = document.getElementById("newEditSubtask"); // GEÄNDERT!! //
   const subtaskList = document.getElementById("subtaskList");
   if (!input || !subtaskList || !input.value.trim()) return;
 
@@ -572,7 +581,7 @@ async function fetchContacts() {
 /**
  * Inserts contacts into the template.
  */
-async function loadContacts(contacts, assignedTo) {
+async function loadEditContacts(contacts, assignedTo) {
   if (!contacts.length) return;
 
   const contactList = document.getElementById("contact-list");

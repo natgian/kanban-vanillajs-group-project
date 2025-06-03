@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="../styles/addTaskRightChoises.css" />
     <link rel="stylesheet" href="../styles/addTaskMediaQueries.css" />
   </head>
-  <body>
+  <body onload="initAddTask()">
     <!-- Message Box -->
     <div class="message-box" id="message-box">
       <span id="message-text"></span>
@@ -125,7 +125,6 @@
         <div
           class="contentLimit"
           id="contentload"
-          onload="renderAddTask()"
         ></div>
       </div>
       <!-- Mobile-Navigation -->
@@ -167,10 +166,10 @@
     <script src="../scripts/addTask.js"></script>
     <script src="../scripts/addTasksTemplate.js"></script>
     <script src="../script.js"></script>
-    <script type="module" src="../scripts/firebase.js"></script>
+    <script src="../scripts/firebase.js"></script>
     <script src="../scripts/addTaskSelections.js"></script>
     <script src="../scripts/addTaskHelperfunctions.js"></script>
-    <script src="../scripts/AddTaskSubtasks.js"></script>
+    <script src="../scripts/addTaskSubtasks.js"></script>
   </body>
 </html>
 

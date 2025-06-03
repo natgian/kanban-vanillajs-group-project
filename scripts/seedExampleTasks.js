@@ -2,18 +2,14 @@ const baseURL = "https://join-458-default-rtdb.europe-west1.firebasedatabase.app
 
 const tasks = [
   {
-    status: "to-do",
+    status: "done",
     title: "HTML Base Template Creation",
     description: "Create reusable HTML base templates that will serve as the foundation for other pages in the project.",
     dueDate: "2025-05-05",
     priority: "low",
-    assignedTo: [
-      { name: "Anna Schmitt", initials: "AS", color: "#FF7A00" },
-      { name: "Isabel Kranz", initials: "IK", color: "#FC71FF" },
-      { name: "Carla Unger", initials: "CU", color: "#6E52FF" },
-    ],
+    assignedTo: [{ name: "Anna Schmitt", initials: "AS", color: "#FF7A00" }],
     category: "Technical Task",
-    subtasks: [{ done: false, subtask: "Setup Base Styles" }],
+    subtasks: [{ done: true, subtask: "Setup Base Styles" }],
   },
   {
     status: "in-progress",
@@ -24,8 +20,8 @@ const tasks = [
     assignedTo: [{ name: "David Schwarz", initials: "DS", color: "#9327FF" }],
     category: "User Story",
     subtasks: [
-      { done: false, subtask: "Form Markup" },
-      { done: true, subtask: "Basic Styling" },
+      { done: true, subtask: "Form Markup" },
+      { done: false, subtask: "Basic Styling" },
       { done: false, subtask: "Validation Logic" },
     ],
   },
@@ -35,7 +31,10 @@ const tasks = [
     description: "Implement a navigation bar that adjusts responsively for mobile, tablet, and desktop views.",
     dueDate: "2025-05-12",
     priority: "medium",
-    assignedTo: [{ name: "Emily Hartmann", initials: "EH", color: "#00BEE8" }],
+    assignedTo: [
+      { name: "Emily Hartmann", initials: "EH", color: "#00BEE8" },
+      { name: "Benno Meier", initials: "BM", color: "#FF5EB3" },
+    ],
     category: "User Story",
     subtasks: [
       { done: true, subtask: "Mobile Navigation" },
@@ -84,12 +83,20 @@ const tasks = [
     subtasks: [{ done: false, subtask: "Install Packages" }],
   },
   {
-    status: "done",
+    status: "awaiting-feedback",
     title: "Create Design System Documentation",
     description: "Create comprehensive documentation for the design system, including components and design patterns.",
     dueDate: "2025-05-03",
     priority: "medium",
-    assignedTo: [{ name: "Maximilian Braun", initials: "MB", color: "#FF7A00" }],
+    assignedTo: [
+      { name: "Anna Schmitt", initials: "AS", color: "#FF7A00" },
+      { name: "Benno Meier", initials: "BM", color: "#FF5EB3" },
+      { name: "Carla Unger", initials: "CU", color: "#6E52FF" },
+      { name: "David Schwarz", initials: "DS", color: "#9327FF" },
+      { name: "Emily Hartmann", initials: "EH", color: "#00BEE8" },
+      { name: "Fabian Klein", initials: "FK", color: "#1FD7C1" },
+      { name: "Greta Völker", initials: "GV", color: "#FF745E" },
+    ],
     category: "Technical Task",
     subtasks: [
       { done: true, subtask: "Buttons" },

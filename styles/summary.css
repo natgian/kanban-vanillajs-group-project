@@ -47,6 +47,12 @@
     padding: 24px 56px;
   }
 
+  .summaryFieldsTop {
+    display: flex;
+    align-items: center;
+    padding: 24px 120px;
+  }
+
   button {
     border-radius: 24px;
     border: none;
@@ -168,6 +174,10 @@
 
 @media (max-width: 1700px) {
   .summaryContent {
+    .summaryFieldsTop {
+      padding: 24px 88px;
+    }
+
     .summaryFields {
       padding: 24px 24px;
 
@@ -180,6 +190,26 @@
       h1 {
         font-size: 56px;
       }
+    }
+  }
+}
+
+@media (max-width: 1700px) {
+  .summaryContent {
+    .summaryFieldsTop {
+      padding: 24px 80px;
+    }
+
+    .summaryFields {
+      padding: 24px 24px;
+    }
+  }
+}
+
+@media (max-width: 1570px) {
+  .summaryContent {
+    .summaryFieldsTop {
+      padding: 24px 72px;
     }
   }
 }
@@ -224,10 +254,10 @@
   .summaryContent {
     .leftSection {
       width: 75%;
+    }
 
-      .middleField {
-        padding: 16px;
-      }
+    .middleField {
+      padding: 16px;
     }
 
     .rightSection {
@@ -254,11 +284,11 @@
           font-size: 50px;
         }
       }
+    }
 
-      .middleField {
-        h1 {
-          font-size: 50px;
-        }
+    .middleField {
+      h1 {
+        font-size: 50px;
       }
     }
 
@@ -276,6 +306,20 @@
   }
 }
 
+@media (max-width: 1005px) {
+  .summaryContent {
+    & .leftSection {
+      .summaryFieldsTop {
+        padding: 24px 64px;
+      }
+
+      .summaryFields {
+        padding: 16px 12px;
+      }
+    }
+  }
+}
+
 @media (max-width: 970px) {
   .summaryContent {
     .summaryHeader {
@@ -286,7 +330,7 @@
 
     .leftSection {
       .summaryFields {
-        padding: 8px 10px;
+        padding: 16px 16px;
 
         h1 {
           font-size: 48px;
@@ -296,27 +340,17 @@
           font-size: 12px;
         }
       }
+    }
 
-      .middleField {
-        h1 {
-          font-size: 48px;
-        }
+    .middleField {
+      h1 {
+        font-size: 48px;
       }
     }
   }
 }
 
-@media (max-width: 850px) {
-  .summaryContent {
-    .leftSection {
-      .summaryFields {
-        padding: 8px 8px;
-      }
-    }
-  }
-}
-
-@media (max-width: 768px) {
+@media (max-width: 905px) {
   header {
     #titleSpan {
       display: none;
@@ -330,10 +364,42 @@
   }
 
   .summaryContent {
-    padding: 28px;
+    padding: 36px;
 
     .leftSection {
       width: 100%;
+
+      .summaryFields {
+        padding: 32px 64px;
+
+        h1 {
+          font-size: 56px;
+        }
+
+        p {
+          font-size: 16px;
+        }
+      }
+    }
+
+    .middleField {
+      padding: 24px 16px;
+
+      h1 {
+        font-size: 56px;
+      }
+
+      p {
+        font-size: 24px;
+      }
+
+      span {
+        font-size: 16px;
+      }
+    }
+
+    .rightSection {
+      display: none;
     }
 
     .summaryHeader {
@@ -350,16 +416,90 @@
       }
     }
 
-    .rightSection {
-      display: none;
-    }
-
     .horizontalLine {
       display: block;
       width: 120px;
       height: 3px;
       background-color: var(--hover-color);
       margin: 1rem 0;
+    }
+  }
+}
+
+@media (max-width: 850px) {
+  .summaryContent {
+    & .leftSection {
+      .summaryFields {
+        padding: 32px 56px;
+      }
+    }
+  }
+}
+
+@media (max-width: 800px) {
+  .summaryContent {
+    & .leftSection {
+      .summaryFields {
+        padding: 32px 44px;
+      }
+    }
+  }
+}
+
+@media (max-width: 730px) {
+  .summaryContent {
+    & .leftSection {
+      .summaryFields {
+        padding: 24px 28px;
+      }
+    }
+  }
+}
+
+@media (max-width: 630px) {
+  .summaryContent {
+    & .leftSection {
+      .summaryFields {
+        padding: 24px 16px;
+      }
+    }
+
+    .middleField {
+      padding: 16px 16px;
+    }
+  }
+}
+
+@media (max-width: 560px) {
+  .summaryContent {
+    & .leftSection {
+      .summaryFields {
+        padding: 18px 14px;
+
+        h1 {
+          font-size: 48px;
+        }
+
+        p {
+          font-size: 14px;
+        }
+      }
+    }
+
+    .middleField {
+      padding: 16px 16px;
+
+      h1 {
+        font-size: 48px;
+      }
+
+      p {
+        font-size: 20px;
+      }
+
+      span {
+        font-size: 14px;
+      }
     }
   }
 }

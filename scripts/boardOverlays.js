@@ -35,7 +35,16 @@ function closeTaskOverlay() {
 function openAddTaskOverlay() {
   addTaskOverlayRef.classList.add("show");
   document.body.classList.add("no-scroll");
-  setupOutsideClickHandler(addTaskWrapperRef, closeAddTaskOverlay);
+
+  // setupOutsideClickHandler(addTaskWrapperRef, closeAddTaskOverlay);
+}
+
+function closeOverlay() {
+  document.addEventListener("click", function (event) {
+    if (event.target.id === "add-task-overlay") {
+      closeAddTaskOverlay();
+    }
+  });
 }
 
 /**
@@ -46,7 +55,7 @@ function openAddTaskOverlay() {
 function openAddTask() {
   const screenWidth = window.innerWidth;
 
-  if (screenWidth <= 768) {
+  if (screenWidth <= 905) {
     window.location.href = "./addTask.html";
   } else {
     openAddTaskOverlay();
@@ -228,7 +237,7 @@ function createUpdatedTask(currentTask, updatedPriority, updatedTitle, updatedDe
     dueDate: updatedDueDate,
     priority: updatedPriority,
     status: currentTask.status,
-    subtasks: getSubtasks(),
+    subtasks: getSubtasks(currentTask.subtasks),
     taskId: currentTask.taskId,
     title: updatedTitle,
   };
@@ -261,16 +270,20 @@ function getSelectedContacts() {
  *
  * @returns {Array<Object>} - An array of subtask objects
  */
-function getSubtasks() {
+function getSubtasks(currentSubtasks) {
   const subtaskList = document.getElementById("subtaskList");
   const subtasks = [];
 
-  if (!subtaskList) return subtasks;
+  if (!subtaskList) return currentSubtasks || [];
 
   subtaskList.querySelectorAll("li").forEach((subtask) => {
     const textItem = subtask.querySelector(".subtask-text");
+    if (!textItem) return;
 
-    if (textItem) subtasks.push({ done: false, subtask: textItem.textContent.trim() });
+    const subtaskText = textItem.textContent.trim();
+    const existing = currentSubtasks.find((s) => s.subtask === subtaskText);
+
+    subtasks.push({ done: existing ? existing.done : false, subtask: subtaskText });
   });
 
   return subtasks;

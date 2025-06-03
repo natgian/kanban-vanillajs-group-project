@@ -14,7 +14,7 @@ async function fetchContacts() {
     return Object.entries(data).map(([key, contact]) => ({
       name: contact.name || "Unbekannt",
       initials: contact.monogram || "??",
-      color: contact.monogramColor || "#CCCCCC"
+      color: contact.monogramColor || "#CCCCCC",
     }));
   } catch (error) {
     console.error("Fehler beim Laden der Kontakte:", error);
@@ -30,12 +30,12 @@ async function loadContacts(contacts) {
   contacts.forEach(addContactToTemplate);
 }
 
-/**
- * Initializes the application.
- */
-async function init() {
-  const contacts = await fetchContacts();
-  loadContacts(contacts);
-}
-document.addEventListener("DOMContentLoaded", init);
-// Add Task, END
+// /**
+//  * Initializes the application.
+//  */
+// async function init() {
+//   const contacts = await fetchContacts();
+//   loadContacts(contacts);
+// }
+// document.addEventListener("DOMContentLoaded", init);
+// // Add Task, END
