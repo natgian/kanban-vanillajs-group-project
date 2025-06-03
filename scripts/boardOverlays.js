@@ -167,7 +167,7 @@ function renderEditTaskTemplate(taskId, event) {
     e.stopPropagation();
   });
 
-  initEditTaskFields(currentTask);
+  initEditTask(currentTask);
 }
 
 /**
@@ -325,7 +325,7 @@ function checkAssignedToContacts(assignedTo) {
     if (isAssigned) {
       const checkbox = option.querySelector(".hidden-checkbox");
       if (!checkbox.checked) {
-        selectOption(option);
+        selectEditOption(option);
       }
     }
   });
