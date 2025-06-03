@@ -316,7 +316,7 @@ function taskOverlayEditTaskTemplate(task, formattedDueDate) {
                     <div id="confirmDeleteNewSubtask">
                       <img src="../assets/icons/close.svg" alt="X" id="close" onclick="resetElements()" />
                       <hr />
-                      <img src="../assets/icons/check.png" alt="Check" id="confirm" onclick="addSubtask()" />
+                      <img src="../assets/icons/check.png" alt="Check" id="confirm" onclick="addEditSubtask()" />
                     </div>
                   </div>
                 </div>

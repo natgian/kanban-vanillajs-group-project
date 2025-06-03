@@ -140,7 +140,7 @@ function initEditSubtasks() {
 // GEÄNDERT!! //
 // Add new Subtask
 // Adds a new subtask item to the list
-function addSubtask() {
+function addEditSubtask() {
   const input = document.getElementById("newEditSubtask"); // GEÄNDERT!! //
   const subtaskList = document.getElementById("subtaskList");
   if (!input || !subtaskList || !input.value.trim()) return;
