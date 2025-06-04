@@ -48,7 +48,7 @@ function closeOverlay() {
 }
 
 /**
- * Checks the screen width, if the screen with is equal or under 768px it redirects to the addTask.html
+ * Checks the screen width, if the screen with is equal or under 905px it redirects to the addTask.html
  * page. If not, it opens the Add Task Overlay.
  *
  */

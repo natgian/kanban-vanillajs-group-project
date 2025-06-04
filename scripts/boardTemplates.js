@@ -26,7 +26,7 @@ function cardTemplate(task, subtasksTotal, subtasksDone, progressPercent, assign
                 </g>
                 </svg>
                 <!-- Move-To-Menu -->
-                <div role="menu" class="move-to-menu hide" id="move-to-menu${task.taskId}">
+                <div role="menu" class="menu move-to-menu hide" id="move-to-menu${task.taskId}">
                   <span>Move to</span>
                   <ul>
                     <li onclick="moveToByClick('${task.taskId}', 'to-do')">
@@ -270,7 +270,7 @@ function taskOverlayEditTaskTemplate(task, formattedDueDate) {
               <div class="spanGlue mt-20">
                 <span class="edit-task-label">Priority</span>
                 <div class="priority-wrapper">
-                  <label class="priority-option" for="urgent">
+                  <label class="priority-option" for="urgent" tabindex="0">
                     <input type="radio" name="priority" id="urgent" value="high" ${task.priority === "high" ? "checked" : ""}/>
                     <span class="priority-btn">
                     Urgent
@@ -278,7 +278,7 @@ function taskOverlayEditTaskTemplate(task, formattedDueDate) {
                     </span>
                   </label>
 
-                  <label class="priority-option" for="medium">
+                  <label class="priority-option" for="medium" tabindex="0">
                     <input type="radio" name="priority" id="medium" value="medium" ${task.priority === "medium" ? "checked" : ""} />
                     <span class="priority-btn">
                     Medium
@@ -286,7 +286,7 @@ function taskOverlayEditTaskTemplate(task, formattedDueDate) {
                     </span>
                   </label>
 
-                  <label class="priority-option" for="low">
+                  <label class="priority-option" for="low" tabindex="0">
                     <input type="radio" name="priority" id="low" value="low" ${task.priority === "low" ? "checked" : ""}/>
                     <span class="priority-btn">
                     Low
