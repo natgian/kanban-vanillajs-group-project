@@ -331,7 +331,6 @@ async function updateContactDetails(id, updated) {
       document.getElementById('contact-details').innerHTML = templateContactsDetails(updatedContact);
       loadContactsData();
       setTimeout(popUpClose, 2000);
-      setTimeout(closeMobilePopUp, 2000);
     }
   } catch (error) {
     console.error('Update failed:', error);
@@ -400,18 +399,4 @@ function toggleDropdown(id) {
   if (menu) {
     menu.classList.toggle('hidden');
   }
-}
-
-
-function closeMobilePopUp(){
-  const refOverlay = document.getElementById('layout');
-  const refOverlayMobile = document.querySelector('.popupMobile');
-  if (refOverlayMobile) {
-    refOverlayMobile.style.display = 'none';
-  }
-  refOverlay.classList.remove('flex-display');
-  refOverlay.classList.add('d_none');
-
-  newContactMode = false;
-  currentEditingContactId = null;
 }
