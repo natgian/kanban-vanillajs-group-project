@@ -28,8 +28,7 @@ function initializeObserveDropdownChanges() {
 function initializeCloseAllDropdowns() {
   document.addEventListener("click", (event) => {
     if (!event.target.closest(".dropdown-container") && !event.target.classList.contains("dropdown-selected")) {
-      closeAllContactDropdowns();
-      closeAllCategoryDropdowns();
+      closeAllDropdowns();
     }
   });
 }
@@ -395,7 +394,7 @@ function deselectCategoryOption() {
   categoryInput.dataset.value = "";
 
   setTimeout(() => {
-    closeAllCategoryDropdowns();
+    closeAllDropdowns();
   });
 }
 

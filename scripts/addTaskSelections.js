@@ -19,11 +19,11 @@ function observeDropdownChanges() {
  * @param {HTMLElement} input - Das Element, das getoggelt wird.
  */
 function toggleContactDropdown(input) {
-  closeAllCategoryDropdowns(); // Schließt zuerst alle Kategorie-Dropdowns
+  closeAllDropdowns(); 
 
   const container = input.closest(".dropdown-container");
   const options = container.querySelector(".dropdown-options");
-  toggleRotation(input);
+  toggleContactSearch(document.getElementById("contactDropdown"));
 
   if (options) {
     if (options.classList.contains("active")) {
@@ -41,11 +41,10 @@ function toggleContactDropdown(input) {
  * @param {HTMLElement} input - Das Element, das getoggelt wird.
  */
 function toggleCategoryDropdown(input) {
-  closeAllContactDropdowns(); // Schließt zuerst alle Kontakt-Dropdowns
+  closeAllDropdowns(); 
 
   const container = input.closest(".dropdown-container");
   const options = container.querySelector(".dropdown-options");
-  toggleRotation(input);
 
   if (options) {
     if (options.classList.contains("active")) {
@@ -59,16 +58,22 @@ function toggleCategoryDropdown(input) {
 }
 
 /**
- * Rotiert das Button-Bild um 180 Grad, wenn das Dropdown getoggelt wird.
+ * Rotiert das Button-Bild um 180 Grad, wenn das Dropdown geöffnet ist.
+ * Setzt die Rotation zurück, wenn es geschlossen wird.
  *
  * @param {HTMLElement} element - Das Element, dessen Bild rotiert werden soll.
  */
 function toggleRotation(element) {
   const container = element.closest(".dropdown-container");
   const img = container.querySelector("button img");
+  const dropdown = container.querySelector(".dropdown-options");
 
-  if (img) {
-    img.classList.toggle("rotated");
+  if (img && dropdown) {
+    if (dropdown.classList.contains("active")) {
+      img.classList.add("rotated"); // Bild drehen, wenn Dropdown offen ist
+    } else {
+      img.classList.remove("rotated"); // Rotation zurücksetzen, wenn geschlossen
+    }
   }
 }
 
@@ -94,7 +99,7 @@ function selectContactOption(element) {
   updateSelectedContactsDisplay();
 
   setTimeout(() => {
-    closeAllContactDropdowns();
+    closeAllDropdowns();
   }, 100);
 }
 
@@ -115,24 +120,13 @@ function selectCategoryOption(element) {
   dropdown.dataset.value = element.dataset.value;
 
   setTimeout(() => {
-    closeAllCategoryDropdowns();
+    closeAllDropdowns();
   });
 }
 
-/**
- * Schließt alle Kontakt-Dropdowns zuverlässig.
- */
-function closeAllContactDropdowns() {
+function closeAllDropdowns() {
   document.querySelectorAll(".dropdown-container .dropdown-options").forEach((options) => {
-    options.style.display = "none";
-  });
-}
-
-/**
- * Schließt alle Kategorie-Dropdowns zuverlässig.
- */
-function closeAllCategoryDropdowns() {
-  document.querySelectorAll(".dropdown-container .dropdown-options").forEach((options) => {
+    options.classList.remove("active"); // Aktiv-Zustand entfernen
     options.style.display = "none";
   });
 
@@ -297,11 +291,10 @@ function toggleContactSearch(element) {
 function replaceButtonWithInput(button, dropdownOptions) {
   const inputField = createInputField(button);
 
-  copyStyles(button, inputField);
+  // copyStyles(button, inputField);
   replaceElement(button, inputField);
 
-  openDropdown(dropdownOptions);
-  addInputEventListeners(inputField, dropdownOptions);
+  // addInputEventListeners(inputField, dropdownOptions);
 
   inputField.focus();
 }

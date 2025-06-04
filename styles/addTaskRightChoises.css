@@ -97,7 +97,8 @@
   cursor: pointer;
 }
 .subtaskNavigator img:hover{
-  scale: 0.90;
+  background-color: #ccc;
+  border-radius: 50%;
 }
 .subtaskNavigator hr{
   height: 24px;

@@ -15,6 +15,10 @@ function getDropdownContainer(element) {
  * @returns {HTMLElement} The dropdown options container.
  */
 function getDropdownOptions(dropdownContainer) {
+  if (!dropdownContainer) {
+    console.error("Fehler: dropdownContainer ist null oder nicht definiert.");
+    return null;
+  }
   return dropdownContainer.querySelector(".dropdown-options");
 }
 
@@ -76,76 +80,125 @@ function replaceElement(oldElement, newElement) {
   container.replaceChild(newElement, oldElement);
 }
 
-/**
- * Opens the dropdown options.
- *
- * @param {HTMLElement} dropdownOptions - The dropdown options container.
- */
-function openDropdown(dropdownOptions) {
-  dropdownOptions.style.display = "block";
-}
 
-/**
- * Checks if the dropdown is closed.
- *
- * @param {HTMLElement} dropdownOptions - The dropdown options container.
- * @returns {boolean} True if the dropdown is closed, false otherwise.
- */
-function isDropdownClosed(dropdownOptions) {
-  return dropdownOptions && window.getComputedStyle(dropdownOptions).display === "none";
-}
 
-/**
- * Adds event listeners to the input field for filtering and closing on Escape key.
- *
- * @param {HTMLInputElement} inputField - The input field element.
- * @param {HTMLElement} dropdownOptions - The dropdown options container.
- */
-function addInputEventListeners(inputField, dropdownOptions) {
-  inputField.addEventListener("input", () => filterOptions(inputField.value, dropdownOptions));
-  inputField.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") {
-      replaceInputWithButton(inputField, dropdownOptions);
-    }
-  });
-}
 
-/**
- * Filters dropdown options based on the search query.
- *
- * @param {string} query - The search query entered by the user.
- * @param {HTMLElement} dropdownOptions - The dropdown options container.
- */
-function filterOptions(query, dropdownOptions) {
-  dropdownOptions.querySelectorAll(".option").forEach((option) => {
-    option.style.display = option.textContent.toLowerCase().includes(query.toLowerCase()) ? "flex" : "none";
-  });
-}
 
-/**
- * Resets the filter, displaying all dropdown options.
- *
- * @param {HTMLElement} dropdownOptions - The dropdown options container.
- */
-function resetFilter(dropdownOptions) {
-  dropdownOptions.querySelectorAll(".option").forEach((option) => {
-    option.style.display = "flex";
-  });
-}
 
-/**
- * Copies styles from one element to another.
- *
- * @param {HTMLElement} source - The element to copy styles from.
- * @param {HTMLElement} target - The element to apply copied styles to.
- */
-function copyStyles(source, target) {
-  const computedStyle = window.getComputedStyle(source);
-  target.style.backgroundColor = computedStyle.backgroundColor;
-  target.style.color = computedStyle.color;
-  target.style.fontWeight = computedStyle.fontWeight;
-  target.style.border = computedStyle.border;
-}
+
+// /**
+//  * Opens the dropdown options.
+//  *
+//  * @param {HTMLElement} dropdownOptions - The dropdown options container.
+//  */
+// function openDropdown(dropdownOptions) {
+//   dropdownOptions.style.display = "block";
+// }
+
+// /**
+//  * Checks if the dropdown is closed.
+//  *
+//  * @param {HTMLElement} dropdownOptions - The dropdown options container.
+//  * @returns {boolean} True if the dropdown is closed, false otherwise.
+//  */
+// function isDropdownClosed(dropdownOptions) {
+//   return dropdownOptions && window.getComputedStyle(dropdownOptions).display === "none";
+// }
+
+// /**
+//  * Filters dropdown options based on the search query.
+//  *
+//  * @param {string} query - The search query entered by the user.
+//  * @param {HTMLElement} dropdownOptions - The dropdown options container.
+//  */
+// function filterOptions(query, dropdownOptions) {
+//   query = query.trim().toLowerCase();
+//   dropdownOptions.querySelectorAll(".option").forEach((option) => {
+//     const text = option.textContent.trim().toLowerCase();
+//     option.style.display = text.includes(query) ? "flex" : "none";
+//   });
+// }
+
+// /**
+//  * Resets the filter, displaying all dropdown options.
+//  *
+//  * @param {HTMLElement} dropdownOptions - The dropdown options container.
+//  */
+// function resetFilter(dropdownOptions) {
+//   dropdownOptions.querySelectorAll(".option").forEach((option) => {
+//     option.style.display = "flex";
+//   });
+// }
+
+// /**
+//  * Copies styles from one element to another.
+//  *
+//  * @param {HTMLElement} source - The element to copy styles from.
+//  * @param {HTMLElement} target - The element to apply copied styles to.
+//  */
+// function copyStyles(source, target) {
+//   const computedStyle = window.getComputedStyle(source);
+//   target.style.backgroundColor = computedStyle.backgroundColor;
+//   target.style.color = computedStyle.color;
+//   target.style.fontWeight = computedStyle.fontWeight;
+//   target.style.border = computedStyle.border;
+// }
+
+// function activateSearchField(inputField, dropdownOptions) {
+//   // Falls das Button-Element noch existiert, ersetze es durch ein Input-Feld
+//   if (inputField.type === "button") {
+//     const newInput = document.createElement("input");
+//     newInput.type = "text";
+//     newInput.placeholder = "Suche Kontakte...";
+//     newInput.classList.add("dropdown-selected", "typeBars");
+//     newInput.id = inputField.id;
+//     newInput.value = ""; // Leeres Feld für Eingabe setzen
+
+//     inputField.replaceWith(newInput);
+//     inputField = newInput;
+//   }
+
+//   // Suchfeld aktivieren
+//   inputField.setAttribute("placeholder", "Suche Kontakte...");
+//   inputField.classList.add("active-search");
+
+//   // Dropdown toggeln
+//   if (dropdownOptions.classList.contains("active")) {
+//     dropdownOptions.classList.remove("active");
+//     dropdownOptions.style.display = "none";
+//     resetInputField(inputField);
+//   } else {
+//     dropdownOptions.classList.add("active");
+//     dropdownOptions.style.display = "block";
+//   }
+// }
+
+// function resetInputField(inputField) {
+//   inputField.setAttribute("placeholder", "Select contacts to assign");
+//   inputField.classList.remove("active-search");
+// }
+
+// function toggleContactDropdown(input) {
+//   closeAllDropdowns();
+
+//   const container = input.closest(".dropdown-container");
+//   const options = container.querySelector(".dropdown-options");
+
+//   if (options) {
+//     if (options.classList.contains("active")) {
+//       options.classList.remove("active");
+//       options.style.display = "none";
+//     } else {
+//       options.classList.add("active");
+//       options.style.display = "block";
+//     }
+//   }
+// }
+
+
+
+
+
 
 // // Event listener for initializing contact search functionality
 // document.addEventListener("DOMContentLoaded", function() {
