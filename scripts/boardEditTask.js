@@ -138,8 +138,10 @@ function initEditSubtasks() {
 }
 
 // GEÄNDERT!! //
-// Add new Subtask
-// Adds a new subtask item to the list
+/**
+ * Adds a new subtask item to the list
+ *
+ */
 function addEditSubtask() {
   const input = document.getElementById("newEditSubtask"); // GEÄNDERT!! //
   const subtaskList = document.getElementById("subtaskList");
@@ -152,9 +154,11 @@ function addEditSubtask() {
   toggleButtons(true);
 }
 
-// GEÄNDERT //
 /**
- * Inserts contacts into the template.
+ * Inserts contacts into the template and checks if there are already assigned contacts
+ *
+ * @param {Array<Object>} contacts - Array of objects containing all contacts
+ * @param {Array<Object>} assignedTo - Aarray of contact objects assigned to the task
  */
 async function loadEditContacts(contacts, assignedTo) {
   if (!contacts.length) return;
