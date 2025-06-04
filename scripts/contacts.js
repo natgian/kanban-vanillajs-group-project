@@ -160,6 +160,9 @@ function showContactDetails(id) {
 function openNewContact() {
   newContactMode = true;
   currentEditingContactId = null;
+  const allContacts = document.querySelectorAll('.contact');
+  allContacts.forEach(c => c.classList.remove('active-contact'));
+  document.getElementById('contact-details').innerHTML='';
 
   const refOverlay = document.getElementById('layout');
   refOverlay.innerHTML = templateNewContact();
@@ -172,6 +175,7 @@ function popUpClose(){
   refOverlay.classList.add('d_none');
   newContactMode = false;
   currentEditingContactId = null;
+  init();
 }
 
 function buildContactData(){
@@ -249,7 +253,7 @@ async function createNewContact(event) {
     console.error('Fehler beim Hinzufügen des Kontakts:', error);
     showMessage("Es gab ein Problem beim Speichern des Kontakts.");
   }
-  init();
+  showContactDetails(data.id);
 }
 
 
@@ -327,7 +331,6 @@ async function updateContactDetails(id, updated) {
       document.getElementById('contact-details').innerHTML = templateContactsDetails(updatedContact);
       loadContactsData();
       setTimeout(popUpClose, 2000);
-      setTimeout(closeMobilePopUp, 2000);
     }
   } catch (error) {
     console.error('Update failed:', error);
@@ -396,18 +399,4 @@ function toggleDropdown(id) {
   if (menu) {
     menu.classList.toggle('hidden');
   }
-}
-
-
-function closeMobilePopUp(){
-  const refOverlay = document.getElementById('layout');
-  const refOverlayMobile = document.querySelector('.popupMobile');
-  if (refOverlayMobile) {
-    refOverlayMobile.style.display = 'none';
-  }
-  refOverlay.classList.remove('flex-display');
-  refOverlay.classList.add('d_none');
-
-  newContactMode = false;
-  currentEditingContactId = null;
 }
