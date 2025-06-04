@@ -14,27 +14,7 @@ function observeDropdownChanges() {
 //     observeDropdownChanges();
 // });
 
-/**
- * Öffnet oder schließt das Kontakt-Dropdown und schließt das Kategorie-Dropdown.
- * @param {HTMLElement} input - Das Element, das getoggelt wird.
- */
-function toggleContactDropdown(input) {
-  closeAllDropdowns(); 
 
-  const container = input.closest(".dropdown-container");
-  const options = container.querySelector(".dropdown-options");
-  toggleContactSearch(document.getElementById("contactDropdown"));
-
-  if (options) {
-    if (options.classList.contains("active")) {
-      options.classList.remove("active");
-      options.style.display = "none";
-    } else {
-      options.classList.add("active");
-      options.style.display = "block";
-    }
-  }
-}
 
 /**
  * Öffnet oder schließt das Kategorie-Dropdown und schließt das Kontakt-Dropdown.
@@ -124,17 +104,21 @@ function selectCategoryOption(element) {
   });
 }
 
-function closeAllDropdowns() {
+// Close all Dropdowns
+function closeAllDropdowns(exceptButton) {
   document.querySelectorAll(".dropdown-container .dropdown-options").forEach((options) => {
-    options.classList.remove("active"); // Aktiv-Zustand entfernen
-    options.style.display = "none";
+    if (!exceptButton || !exceptButton.closest(".dropdown-container").contains(options)) {
+      options.classList.remove("show");
+      options.style.display = "none";
+    }
   });
-
-  const categoryInput = document.querySelector("input.categoryDropdown");
-  if (categoryInput && !categoryInput.dataset.value) {
-    categoryInput.value = "Select task category";
-  }
 }
+
+  // const categoryInput = document.querySelector("input.categoryDropdown");
+  // if (categoryInput && !categoryInput.dataset.value) {
+  //   categoryInput.value = "Select task category";
+  // }
+
 
 // /**
 //  * Closes dropdowns when clicking outside.

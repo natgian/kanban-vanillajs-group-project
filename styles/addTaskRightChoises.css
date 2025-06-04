@@ -57,6 +57,12 @@
   background-color: var(--active-color);
   cursor: pointer;
 }
+#contact-list {
+    display: none;
+}
+#contact-list.show {
+    display: block;
+}
 .dropdown-selected img {
   width: 20px;
   height: 20px;

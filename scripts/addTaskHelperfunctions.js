@@ -80,9 +80,20 @@ function replaceElement(oldElement, newElement) {
   container.replaceChild(newElement, oldElement);
 }
 
+// Contact Select
+function toggleContactDropdown(button) {
+  const container = button.closest(".dropdown-container");
+  const dropdown = container.querySelector("#contact-list");
 
-
-
+  if (dropdown) {
+    let isVisible = dropdown.classList.contains("show");
+    
+    closeAllDropdowns(button); 
+    
+    dropdown.classList.toggle("show", !isVisible);
+    dropdown.style.display = isVisible ? "none" : "block"; 
+  }
+}
 
 
 

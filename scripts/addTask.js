@@ -2,7 +2,7 @@
 async function initAddTask() {
   document.getElementById("contentload").innerHTML = renderAddTask();
   initializePriorityButtons();
-  initializeToggleContactSearch();
+  // initializeToggleContactSearch();
   initializeObserveDropdownChanges();
   updateSelectedContactsDisplay();
   initializeCloseAllDropdowns();
