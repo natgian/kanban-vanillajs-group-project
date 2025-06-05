@@ -98,60 +98,115 @@ function toggleCategoryDropdown(input) {
 }
 
 /**
- * Toggles the contact dropdown and updates its state.
- * @param {HTMLElement} element - The clicked button or input.
+ * Toggles dropdown visibility and search field state.
+ * @param {HTMLElement} triggerElement - The triggering element.
  */
-function toggleContactDropdown(element) {
-    const container = element.closest(".dropdown-container");
-    const dropdown = container.querySelector("#contact-list");
-    const button = container.querySelector("#toggleButtonDropdown");
+function toggleContactDropdown(triggerElement) {
+    const container = triggerElement.closest(".dropdown-container"),
+        dropdownOptions = container.querySelector(".dropdown-options"),
+        searchField = container.querySelector(".dropdown-selected"),
+        button = container.querySelector("#toggleButtonDropdown");
 
-    if (!dropdown) return;
-    let isActive = dropdown.classList.contains("active");
-    
-    closeAllDropdowns(element);
-    updateDropdownState(dropdown, button, isActive);
+    if (!dropdownOptions) return;
+    const wasVisible = dropdownOptions.classList.contains("active");
+
+    if (triggerElement === searchField && searchField.type === "button") {
+        activateSearchField(searchField, dropdownOptions);
+        return;
+    }
+
+    if (!wasVisible) closeAllDropdowns();
+    updateDropdownState(dropdownOptions, wasVisible);
+    toggleButtonImageRotation(button, !wasVisible);
+
+    if (!dropdownOptions.classList.contains("active")) resetInputField(searchField);
 }
 
 /**
- * Updates the visibility state of a dropdown.
- * @param {HTMLElement} dropdown - The dropdown element.
- * @param {HTMLElement} button - The toggle button associated with the dropdown.
- * @param {boolean} isActive - Whether the dropdown is currently active.
- */
-function updateDropdownState(dropdown, button, isActive) {
-    dropdown.classList.toggle("active", !isActive);
-    dropdown.style.display = isActive ? "none" : "block";
-    toggleButtonImageRotation(button, !isActive);
-}
-
-/**
- * Rotates the button's image depending on dropdown visibility.
- * @param {HTMLElement} button - The button containing the image.
- * @param {boolean} isVisible - Indicates if the dropdown is visible.
+ * Rotates button image based on dropdown visibility.
+ * @param {HTMLElement} button - Button element.
+ * @param {boolean} isVisible - Dropdown visibility state.
  */
 function toggleButtonImageRotation(button, isVisible) {
+    if (!button) return;
     const img = button.querySelector("img");
     if (img) img.style.transform = isVisible ? "rotate(180deg)" : "rotate(0deg)";
 }
 
 /**
- * Closes all dropdowns except the currently interacted one.
- * @param {HTMLElement} exceptElement - The element to exclude from closing.
+ * Updates dropdown visibility state.
+ * @param {HTMLElement} dropdown - Dropdown element.
+ * @param {boolean} wasVisible - Previous visibility state.
  */
-function closeAllDropdowns(exceptElement) {
+function updateDropdownState(dropdown, wasVisible) {
+    dropdown.classList.toggle("active", !wasVisible);
+    dropdown.style.display = wasVisible ? "none" : "block";
+}
+
+/**
+ * Converts button input into a search field and activates it.
+ * @param {HTMLElement} inputField - Search field element.
+ * @param {HTMLElement} dropdownOptions - Dropdown options container.
+ */
+function activateSearchField(inputField, dropdownOptions) {
+    const container = inputField.closest(".dropdown-container"),
+        button = container.querySelector("#toggleButtonDropdown");
+
+    if (inputField.type === "button") {
+        const newInput = document.createElement("input");
+        Object.assign(newInput, { type: "text", placeholder: "Search contacts...", className: "dropdown-selected typeBars", id: inputField.id, value: "" });
+        newInput.oninput = () => filterDropdownOptions(newInput, dropdownOptions);
+        inputField.replaceWith(newInput);
+        setTimeout(() => newInput.focus(), 0);
+    }
+
+    dropdownOptions.classList.add("active");
+    dropdownOptions.style.display = "block";
+    toggleButtonImageRotation(button, true);
+}
+
+/**
+ * Resets search field back to a button.
+ * @param {HTMLElement} inputField - Search field element.
+ */
+function resetInputField(inputField) {
+    if (inputField && inputField.type === "text") {
+        const newButton = document.createElement("input");
+        Object.assign(newButton, { type: "button", value: "Select contacts to assign", className: "dropdown-selected typeBars", id: inputField.id });
+        newButton.onclick = () => toggleContactDropdown(newButton);
+        inputField.replaceWith(newButton);
+    }
+}
+
+/**
+ * Closes all dropdowns and resets fields if necessary.
+ */
+function closeAllDropdowns() {
     document.querySelectorAll(".dropdown-container .dropdown-options").forEach((options) => {
-        if (!exceptElement || !exceptElement.closest(".dropdown-container").contains(options)) {
+        const container = options.closest(".dropdown-container"),
+            searchField = container.querySelector(".dropdown-selected");
+
+        if (document.activeElement !== searchField || searchField.type !== "text") {
             options.classList.remove("active");
             options.style.display = "none";
+            resetInputField(searchField);
         }
     });
 
-    document.querySelectorAll(".dropdown-container button img").forEach((img) => {
-        img.style.transform = "rotate(0deg)";
-    });
+    document.querySelectorAll(".dropdown-container button img").forEach((img) => img.style.transform = "rotate(0deg)");
 }
 
+/**
+ * Filters dropdown options based on search input.
+ * @param {HTMLElement} input - Search field element.
+ * @param {HTMLElement} dropdownOptions - Dropdown options container.
+ */
+function filterDropdownOptions(input, dropdownOptions) {
+    const searchValue = input.value.toLowerCase();
+    dropdownOptions.querySelectorAll(".option").forEach((option) => {
+        option.style.display = option.textContent.toLowerCase().includes(searchValue) ? "block" : "none";
+    });
+}
 
 // /**
 //  * Opens the dropdown options.

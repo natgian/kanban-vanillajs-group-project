@@ -6,7 +6,7 @@ async function initAddTask() {
   initializeObserveDropdownChanges();
   updateSelectedContactsDisplay();
   initializeCloseAllDropdowns();
-  initializeReplaceInputWithButton();
+  // initializeReplaceInputWithButton();
   initializeSubtasksButtons();
   initializeSubtasksimulateInputClick();
   initializeResetAllOptions();
@@ -33,17 +33,17 @@ function initializeCloseAllDropdowns() {
   });
 }
 
-function initializeReplaceInputWithButton() {
-  // Event listener to replace input with button when clicking outside
-  document.addEventListener("click", function (event) {
-    const dropdownOptions = document.getElementById("contact-list");
-    const activeInput = document.querySelector(".dropdown-container input[type='text']");
+// function initializeReplaceInputWithButton() {
+//   // Event listener to replace input with button when clicking outside
+//   document.addEventListener("click", function (event) {
+//     const dropdownOptions = document.getElementById("contact-list");
+//     const activeInput = document.querySelector(".dropdown-container input[type='text']");
 
-    if (activeInput && isDropdownClosed(dropdownOptions)) {
-      replaceInputWithButton(activeInput, dropdownOptions);
-    }
-  });
-}
+//     if (activeInput && isDropdownClosed(dropdownOptions)) {
+//       replaceInputWithButton(activeInput, dropdownOptions);
+//     }
+//   });
+// }
 
 function initializeSubtasksButtons() {
   const input = document.getElementById("newSubtask");
