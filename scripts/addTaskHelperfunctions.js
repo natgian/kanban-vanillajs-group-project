@@ -80,6 +80,12 @@ function replaceElement(oldElement, newElement) {
   container.replaceChild(newElement, oldElement);
 }
 
+
+
+
+
+
+
 /**
  * Toggles the category dropdown and updates its state.
  * @param {HTMLElement} input - The clicked input element.
@@ -111,7 +117,8 @@ function toggleContactDropdown(triggerElement) {
     if (!dropdownOptions) return;
     const wasVisible = dropdownOptions.classList.contains("active");
 
-    if (triggerElement === searchField && searchField.type === "button") {
+    // Falls der Button oder das alte Button-Input geklickt wird, aktiviere das Suchfeld
+    if ((triggerElement === button || triggerElement === searchField) && searchField.type === "button") {
         activateSearchField(searchField, dropdownOptions);
         return;
     }
