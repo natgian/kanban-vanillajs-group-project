@@ -82,9 +82,9 @@ function renderAddTask() {
                     <span>Assigned to</span>
                     <div class="dropdown-container">
                         <input type="button" value="Select contacts to assign" class="dropdown-selected typeBars" id="contactDropdown"
-                              onclick="toggleContactDropdown(this)">
+                            onclick="toggleContactDropdown(this)">
                         <button id="toggleButtonDropdown"
-                                onclick="toggleContactDropdown(this)">
+                            onclick="toggleContactDropdown(this)">
                             <img src="../assets/icons/arrow_drop_downaa.png" alt="down">
                         </button>
                         <div class="dropdown-options" id="contact-list"></div>

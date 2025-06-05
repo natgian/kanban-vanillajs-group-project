@@ -16,26 +16,7 @@ function observeDropdownChanges() {
 
 
 
-/**
- * Öffnet oder schließt das Kategorie-Dropdown und schließt das Kontakt-Dropdown.
- * @param {HTMLElement} input - Das Element, das getoggelt wird.
- */
-function toggleCategoryDropdown(input) {
-  closeAllDropdowns(); 
 
-  const container = input.closest(".dropdown-container");
-  const options = container.querySelector(".dropdown-options");
-
-  if (options) {
-    if (options.classList.contains("active")) {
-      options.classList.remove("active");
-      options.style.display = "none";
-    } else {
-      options.classList.add("active");
-      options.style.display = "block";
-    }
-  }
-}
 
 /**
  * Rotiert das Button-Bild um 180 Grad, wenn das Dropdown geöffnet ist.
@@ -101,16 +82,6 @@ function selectCategoryOption(element) {
 
   setTimeout(() => {
     closeAllDropdowns();
-  });
-}
-
-// Close all Dropdowns
-function closeAllDropdowns(exceptButton) {
-  document.querySelectorAll(".dropdown-container .dropdown-options").forEach((options) => {
-    if (!exceptButton || !exceptButton.closest(".dropdown-container").contains(options)) {
-      options.classList.remove("show");
-      options.style.display = "none";
-    }
   });
 }
 

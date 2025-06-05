@@ -81,20 +81,76 @@ function replaceElement(oldElement, newElement) {
 }
 
 // Contact Select
-function toggleContactDropdown(button) {
-  const container = button.closest(".dropdown-container");
-  const dropdown = container.querySelector("#contact-list");
+/**
+ * Toggles the category dropdown and updates its state.
+ * @param {HTMLElement} input - The clicked input element.
+ */
+function toggleCategoryDropdown(input) {
+    const container = input.closest(".dropdown-container");
+    const options = container.querySelector(".dropdown-options");
+    const button = container.querySelector("#toggleButtonDropdown");
 
-  if (dropdown) {
-    let isVisible = dropdown.classList.contains("show");
+    if (!options) return;
+    let isActive = options.classList.contains("active");
     
-    closeAllDropdowns(button); 
-    
-    dropdown.classList.toggle("show", !isVisible);
-    dropdown.style.display = isVisible ? "none" : "block"; 
-  }
+    closeAllDropdowns(input);
+    updateDropdownState(options, button, isActive);
 }
 
+/**
+ * Toggles the contact dropdown and updates its state.
+ * @param {HTMLElement} element - The clicked button or input.
+ */
+function toggleContactDropdown(element) {
+    const container = element.closest(".dropdown-container");
+    const dropdown = container.querySelector("#contact-list");
+    const button = container.querySelector("#toggleButtonDropdown");
+
+    if (!dropdown) return;
+    let isActive = dropdown.classList.contains("active");
+    
+    closeAllDropdowns(element);
+    updateDropdownState(dropdown, button, isActive);
+}
+
+/**
+ * Updates the visibility state of a dropdown.
+ * @param {HTMLElement} dropdown - The dropdown element.
+ * @param {HTMLElement} button - The toggle button associated with the dropdown.
+ * @param {boolean} isActive - Whether the dropdown is currently active.
+ */
+function updateDropdownState(dropdown, button, isActive) {
+    dropdown.classList.toggle("active", !isActive);
+    dropdown.style.display = isActive ? "none" : "block";
+    toggleButtonImageRotation(button, !isActive);
+}
+
+/**
+ * Rotates the button's image depending on dropdown visibility.
+ * @param {HTMLElement} button - The button containing the image.
+ * @param {boolean} isVisible - Indicates if the dropdown is visible.
+ */
+function toggleButtonImageRotation(button, isVisible) {
+    const img = button.querySelector("img");
+    if (img) img.style.transform = isVisible ? "rotate(180deg)" : "rotate(0deg)";
+}
+
+/**
+ * Closes all dropdowns except the currently interacted one.
+ * @param {HTMLElement} exceptElement - The element to exclude from closing.
+ */
+function closeAllDropdowns(exceptElement) {
+    document.querySelectorAll(".dropdown-container .dropdown-options").forEach((options) => {
+        if (!exceptElement || !exceptElement.closest(".dropdown-container").contains(options)) {
+            options.classList.remove("active");
+            options.style.display = "none";
+        }
+    });
+
+    document.querySelectorAll(".dropdown-container button img").forEach((img) => {
+        img.style.transform = "rotate(0deg)";
+    });
+}
 
 
 // /**
