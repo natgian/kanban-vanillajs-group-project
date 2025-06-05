@@ -53,6 +53,9 @@
 .dropdown-options .option:hover {
   background-color: rgb(240, 240, 240);
 }
+.dropdown-options.active {
+    display: block !important;
+}
 .option.selected:hover {
   background-color: var(--active-color);
   cursor: pointer;
