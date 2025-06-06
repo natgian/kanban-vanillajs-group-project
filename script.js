@@ -1,3 +1,13 @@
+//------DIESEN CODE FREIGEBEN SOBALD WIR DURCH SIND MIT DER ENTWICKLUNG!! -----//
+// /**
+//  * Checks if user is logged in, if not, it redirects the user to the login page.
+//  * This ensures that the user has no access login protected pages (Summary, Add Task, Board, Contacts).
+//  *
+//  */
+// if (!localStorage.getItem("currentUser")) {
+//   window.location.href = "../index.html";
+// }
+
 /**
  * Renders the current user's initials into the profile UI element
  */
@@ -16,7 +26,7 @@ document.addEventListener("DOMContentLoaded", renderUserInitials);
  * If the current user is "Guest" it returns the string "G", otherwise it returns the initials of the
  * current user.
  *
- * @returns
+ * @returns - A string with the current user's initials or an empty string if there is no current user
  */
 function getCurrentUserInitials() {
   const currentUser = localStorage.getItem("currentUser");
