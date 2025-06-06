@@ -1,3 +1,38 @@
+const userInitials = getCurrentUserInitials();
+
+/**
+ * Gets the current user from the local storage. If there is no current user it returns en empty string.
+ * If the current user is "Guest" it returns the string "G", otherwise it returns the initials of the
+ * current user.
+ *
+ * @returns
+ */
+function getCurrentUserInitials() {
+  const currentUser = localStorage.getItem("currentUser");
+  if (!currentUser) return "";
+
+  if (currentUser === "Guest") {
+    return "G";
+  } else {
+    const userNameArray = currentUser.split(" ");
+    const firstInitial = userNameArray[0].charAt(0).toUpperCase() || "";
+    const secondInitial = userNameArray[1].charAt(0).toUpperCase() || "";
+    return firstInitial + secondInitial;
+  }
+}
+
+/**
+ * Logs out the current user, shows a confirmation message and redirects to the login page
+ *
+ */
+function logout() {
+  localStorage.removeItem("currentUser");
+  showMessage("Logging out...");
+  setTimeout(() => {
+    window.location.href = "../index.html";
+  }, 500);
+}
+
 /**
  * Displays a temporary message by adding a "show" class to the message box element.
  * The message box is shown for 1.5 seconds and then automatically hidden.
@@ -11,13 +46,4 @@ function showMessage(text) {
   setTimeout(() => {
     messageBox.classList.remove("show");
   }, 1500);
-}
-
-/**
- * Logs out the current user and redirects to the login page
- *
- */
-function logout() {
-  localStorage.removeItem("currentUser");
-  window.location.href = "../index.html";
 }
