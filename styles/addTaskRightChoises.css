@@ -22,7 +22,7 @@
   height: 24px;
 }
 #toggleButtonDropdown:hover{
-  background-color: var(--outline-color);
+  background-color: #e6e6e6;
 }
 .dropdown-options {
   display: none;
@@ -106,7 +106,7 @@
   cursor: pointer;
 }
 .subtaskNavigator img:hover{
-  background-color: #ccc;
+  background-color: #e6e6e6;
   border-radius: 50%;
 }
 .subtaskNavigator hr{
