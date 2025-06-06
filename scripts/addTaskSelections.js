@@ -18,25 +18,25 @@ function observeDropdownChanges() {
 
 
 
-/**
- * Rotiert das Button-Bild um 180 Grad, wenn das Dropdown geöffnet ist.
- * Setzt die Rotation zurück, wenn es geschlossen wird.
- *
- * @param {HTMLElement} element - Das Element, dessen Bild rotiert werden soll.
- */
-function toggleRotation(element) {
-  const container = element.closest(".dropdown-container");
-  const img = container.querySelector("button img");
-  const dropdown = container.querySelector(".dropdown-options");
+// /**
+//  * Rotiert das Button-Bild um 180 Grad, wenn das Dropdown geöffnet ist.
+//  * Setzt die Rotation zurück, wenn es geschlossen wird.
+//  *
+//  * @param {HTMLElement} element - Das Element, dessen Bild rotiert werden soll.
+//  */
+// function toggleRotation(element) {
+//   const container = element.closest(".dropdown-container");
+//   const img = container.querySelector("button img");
+//   const dropdown = container.querySelector(".dropdown-options");
 
-  if (img && dropdown) {
-    if (dropdown.classList.contains("active")) {
-      img.classList.add("rotated"); // Bild drehen, wenn Dropdown offen ist
-    } else {
-      img.classList.remove("rotated"); // Rotation zurücksetzen, wenn geschlossen
-    }
-  }
-}
+//   if (img && dropdown) {
+//     if (dropdown.classList.contains("active")) {
+//       img.classList.add("rotated"); // Bild drehen, wenn Dropdown offen ist
+//     } else {
+//       img.classList.remove("rotated"); // Rotation zurücksetzen, wenn geschlossen
+//     }
+//   }
+// }
 
 /**
  * Updates the display state of selected contacts.
@@ -223,58 +223,58 @@ function updateSelectedContacts() {
   selectedContactsDiv.style.display = "flex";
 }
 
-/**
- * Toggles the contact search functionality.
- *
- * @param {HTMLElement} element - The element triggering the search toggle.
- */
-function toggleContactSearch(element) {
-  const dropdownContainer = getDropdownContainer(element);
-  const dropdownOptions = getDropdownOptions(dropdownContainer);
+// /**
+//  * Toggles the contact search functionality.
+//  *
+//  * @param {HTMLElement} element - The element triggering the search toggle.
+//  */
+// function toggleContactSearch(element) {
+//   const dropdownContainer = getDropdownContainer(element);
+//   const dropdownOptions = getDropdownOptions(dropdownContainer);
 
-  if (isButtonElement(element)) {
-    replaceButtonWithInput(element, dropdownOptions);
-  }
-}
+//   if (isButtonElement(element)) {
+//     replaceButtonWithInput(element, dropdownOptions);
+//   }
+// }
 
-/**
- * Replaces a button with an input field for searching contacts.
- *
- * @param {HTMLInputElement} button - The button element to replace.
- * @param {HTMLElement} dropdownOptions - The dropdown options container.
- */
-function replaceButtonWithInput(button, dropdownOptions) {
-  const inputField = createInputField(button);
+// /**
+//  * Replaces a button with an input field for searching contacts.
+//  *
+//  * @param {HTMLInputElement} button - The button element to replace.
+//  * @param {HTMLElement} dropdownOptions - The dropdown options container.
+//  */
+// function replaceButtonWithInput(button, dropdownOptions) {
+//   const inputField = createInputField(button);
 
-  // copyStyles(button, inputField);
-  replaceElement(button, inputField);
+//   // copyStyles(button, inputField);
+//   replaceElement(button, inputField);
 
-  // addInputEventListeners(inputField, dropdownOptions);
+//   // addInputEventListeners(inputField, dropdownOptions);
 
-  inputField.focus();
-}
+//   inputField.focus();
+// }
 
-/**
- * Replaces an input field with a button when the dropdown is closed.
- *
- * @param {HTMLInputElement} input - The input field to replace.
- * @param {HTMLElement} dropdownOptions - The dropdown options container.
- */
-function replaceInputWithButton(input, dropdownOptions) {
-  if (!isDropdownClosed(dropdownOptions)) {
-    return;
-  }
-  resetFilter(dropdownOptions);
+// /**
+//  * Replaces an input field with a button when the dropdown is closed.
+//  *
+//  * @param {HTMLInputElement} input - The input field to replace.
+//  * @param {HTMLElement} dropdownOptions - The dropdown options container.
+//  */
+// function replaceInputWithButton(input, dropdownOptions) {
+//   if (!isDropdownClosed(dropdownOptions)) {
+//     return;
+//   }
+//   resetFilter(dropdownOptions);
 
-  input.blur();
+//   input.blur();
 
-  const button = createButton(input);
-  copyStyles(input, button);
+//   const button = createButton(input);
+//   copyStyles(input, button);
 
-  replaceElement(input, button);
+//   replaceElement(input, button);
 
-  button.blur();
-}
+//   button.blur();
+// }
 
 // Event listener to replace input with button when clicking outside
 // document.addEventListener("click", function (event) {

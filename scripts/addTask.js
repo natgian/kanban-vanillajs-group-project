@@ -59,6 +59,11 @@ function initializeSubtasksButtons() {
   function showConfirmDelete(event) {
     addSubtask.style.display = "none";
     confirmDelete.style.display = "flex";
+
+    if (input) {
+    input.focus();
+    }
+    
     event.stopPropagation();
   }
 

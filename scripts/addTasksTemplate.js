@@ -114,7 +114,7 @@ function renderAddTask() {
                       placeholder="Add new subtask"
                     />
                     <div class="subtaskNavigator">
-                      <img id="addSubtask" src="../assets/icons/Subtasks icons11.png" alt="cross" onclick=""/>
+                      <img id="addSubtask" src="../assets/icons/Subtasks icons11.png" alt="cross" onclick="showConfirmDelete(event)"/>
                       <div id="confirmDeleteNewSubtask">
                         <img src="../assets/icons/close.svg" alt="X" id="close" onclick="resetElements()"/>
                         <hr />

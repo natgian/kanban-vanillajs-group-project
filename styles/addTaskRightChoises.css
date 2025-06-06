@@ -97,12 +97,12 @@
 }
 
 .subtaskNavigator{
-  height: 20px;
+  height: 24px;
   display: flex;
   justify-content: center;
   align-items: center;
   position: absolute;
-  right: 15px;
+  right: 16px;
   cursor: pointer;
 }
 .subtaskNavigator img:hover{
