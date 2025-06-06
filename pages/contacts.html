@@ -4,21 +4,22 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Contacts</title>
-    <link rel="stylesheet" href="/style.css">
-    <link rel="stylesheet" href="/styles/contacts.css">
+    <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="/styles/contacts.css" />
     <link rel="stylesheet" href="/assets/fonts/Inter-Italic-VariableFont_opsz,wght.ttf" />
     <link rel="stylesheet" href="/assets/fonts/Inter-VariableFont_opsz,wght.ttf" />
     <link rel="icon" href="/assets/img/join_logo_dark.svg" />
+    <script src="../script.js" defer></script>
     <script src="/scripts/contactsTemplate.js" defer></script>
     <script src="/scripts/contacts.js" defer></script>
-</head>
-<body onload="init()">
+  </head>
+  <body onload="init()">
     <div id="layout" class="d_none max-width"></div>
 
     <!-- Message Box -->
     <div class="message-box" id="message-box">
-        <span id="message-text"></span>
-        <img src="../assets/icons/check_icon.svg" alt="Success">
+      <span id="message-text"></span>
+      <img src="../assets/icons/check_icon.svg" alt="Success" />
     </div>
 
     <!-- Sidebar -->
@@ -48,44 +49,59 @@
 
     <!-- Main Content -->
     <main class="layout-container">
-        <header>
-            <span>Kanban Project Management Tool</span>
-            <div class="header-icons-container">
-                <a href="#" class="help-iconBox"><img src="../assets/icons/help_icon.svg" alt="Help"></a>
-                <button class="user-profile-icon"><span>G</span></button>
-            </div>
-        </header>
+      <header>
+        <span>Kanban Project Management Tool</span>
+        <div class="header-icons-container">
+          <a href="#" class="help-iconBox"><img src="../assets/icons/help_icon.svg" alt="Help" /></a>
 
-        <section class="contacts-section">
-            <div id="contact-list">
-                <div id="mobile-add-button" onclick="openNewContact()" class="mobile-add-button">
-                    <img src="/assets/icons/person_add.svg" alt="">
-                </div>
-                <button id="openNewContactButton" onclick="openNewContact()" class="btn">Add New Contact <img src="/assets/icons/person_add.svg" alt=""></button>
-                <div id="contact-list-body"></div>
-            </div>
-            <div id="contenttop">
-                <div class="contentfix-computer">
-                    <h1>Contacts</h1>
-                    <div class="divider-vertical"></div>
-                    <p>Better with a team</p>
-                </div>
-                <div class="contentfix-mobile">
-                    <div class="contentfix-mobile-left">
-                        <h1>Contacts</h1>
-                        <p>Better with a team</p>
-                        <div class="divider-horizontal"></div>
-                    </div>
-                    <div onclick="backTocontacts()" class="contentfix-mobile-right">
-                        <svg class="back-icon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg>
-                    </div>
-                </div>
-                <div id="contact-details">
+          <!-- Header Navigation -->
+          <div class="header-nav">
+            <input type="checkbox" id="header-nav-dropdown-toggle" />
+            <label for="header-nav-dropdown-toggle" id="header-menu-btn">
+              <span class="user-profile-icon"><span>G</span></span>
+            </label>
+            <nav class="menu" id="header-nav-dropdown">
+              <ul>
+                <li><a href="help.html">Help</a></li>
+                <li><a href="legalNotice.html">Legal Notice</a></li>
+                <li><a href="privacyPolicy.html">Privacy Policy</a></li>
+                <li><button class="logout-btn" onclick="logout()">Log out</button></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </header>
 
-                </div>
+      <section class="contacts-section">
+        <div id="contact-list">
+          <div id="mobile-add-button" onclick="openNewContact()" class="mobile-add-button">
+            <img src="/assets/icons/person_add.svg" alt="" />
+          </div>
+          <button id="openNewContactButton" onclick="openNewContact()" class="btn">Add New Contact <img src="/assets/icons/person_add.svg" alt="" /></button>
+          <div id="contact-list-body"></div>
+        </div>
+        <div id="contenttop">
+          <div class="contentfix-computer">
+            <h1>Contacts</h1>
+            <div class="divider-vertical"></div>
+            <p>Better with a team</p>
+          </div>
+          <div class="contentfix-mobile">
+            <div class="contentfix-mobile-left">
+              <h1>Contacts</h1>
+              <p>Better with a team</p>
+              <div class="divider-horizontal"></div>
             </div>
-        </section>
-        <!-- Footer Navigation -->
+            <div onclick="backTocontacts()" class="contentfix-mobile-right">
+              <svg class="back-icon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f">
+                <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z" />
+              </svg>
+            </div>
+          </div>
+          <div id="contact-details"></div>
+        </div>
+      </section>
+      <!-- Footer Navigation -->
       <nav class="footer-navigation">
         <ul class="sidebar-menu">
           <li>

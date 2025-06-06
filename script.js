@@ -12,3 +12,12 @@ function showMessage(text) {
     messageBox.classList.remove("show");
   }, 1500);
 }
+
+/**
+ * Logs out the current user and redirects to the login page
+ *
+ */
+function logout() {
+  localStorage.removeItem("currentUser");
+  window.location.href = "../index.html";
+}
