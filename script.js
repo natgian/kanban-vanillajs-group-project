@@ -1,4 +1,15 @@
-const userInitials = getCurrentUserInitials();
+/**
+ * Renders the current user's initials into the profile UI element
+ */
+function renderUserInitials() {
+  const userInitials = getCurrentUserInitials();
+  const userProfileRef = document.getElementById("user-profile-initials");
+  if (userProfileRef) {
+    userProfileRef.textContent = userInitials;
+  }
+}
+
+document.addEventListener("DOMContentLoaded", renderUserInitials);
 
 /**
  * Gets the current user from the local storage. If there is no current user it returns en empty string.
