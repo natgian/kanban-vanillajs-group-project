@@ -132,7 +132,6 @@
 #confirmDeleteNewSubtask img{
   height: 24px;
   width: 24px;
-  filter: invert();
 }
 #subtaskList{
   max-height: 100px;
