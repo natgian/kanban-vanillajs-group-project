@@ -196,6 +196,40 @@
   height: fit-content !important;
 }
 
+/* CUSTOM CHECKBOX */
+/* Hide default checkbox */
+.custom-checkbox {
+  appearance: none;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+  color: var(--primary-color);
+}
+
+.checkbox-label svg {
+  display: none;
+  transition: all 100ms ease-out;
+}
+
+/* Show unchecked by default */
+.custom-checkbox:not(:checked) + .checkbox-label .svg-unchecked {
+  display: block;
+}
+
+/* Show checked when checkbox is checked */
+.custom-checkbox:checked + .checkbox-label .svg-checked {
+  display: block;
+}
+
+.checkbox-label:hover svg path,
+.checkbox-label:hover svg rect {
+  fill: #edf2fa;
+}
+
 /*-------------- */
 /* MEDIA QUERIES */
 /*-------------- */
