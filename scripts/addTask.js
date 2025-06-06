@@ -14,11 +14,11 @@ async function initAddTask() {
   loadContacts(contacts);
 }
 
-function initializeToggleContactSearch() {
-  document.getElementById("contactDropdown").addEventListener("click", function () {
-    toggleContactSearch(this);
-  });
-}
+// function initializeToggleContactSearch() {
+//   document.getElementById("contactDropdown").addEventListener("click", function () {
+//     toggleContactSearch(this);
+//   });
+// }
 
 function initializeObserveDropdownChanges() {
   document.addEventListener("input", validateRequiredFields);

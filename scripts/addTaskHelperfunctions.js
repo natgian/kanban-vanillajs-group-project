@@ -80,12 +80,6 @@ function replaceElement(oldElement, newElement) {
   container.replaceChild(newElement, oldElement);
 }
 
-
-
-
-
-
-
 /**
  * Toggles the category dropdown and updates its state.
  * @param {HTMLElement} input - The clicked input element.
@@ -117,7 +111,6 @@ function toggleContactDropdown(triggerElement) {
     if (!dropdownOptions) return;
     const wasVisible = dropdownOptions.classList.contains("active");
 
-    // Falls der Button oder das alte Button-Input geklickt wird, aktiviere das Suchfeld
     if ((triggerElement === button || triggerElement === searchField) && searchField.type === "button") {
         activateSearchField(searchField, dropdownOptions);
         return;
@@ -216,9 +209,6 @@ function filterDropdownOptions(input, dropdownOptions) {
     });
 }
 
-
-
-
 // // Event listener for initializing contact search functionality
 // document.addEventListener("DOMContentLoaded", function() {
 //     document.getElementById("contactDropdown").addEventListener("click", function() {
@@ -272,4 +262,14 @@ function showValidationError(input, message) {
 function hideValidationError(input, message) {
   input.style.border = "";
   message.style.display = "none";
+}
+
+/**
+ * Checks if the input field is empty and shows a message.
+ */
+function emptyFeedback() {
+    const subtaskInput = document.getElementById("newSubtask");
+    if (!subtaskInput || subtaskInput.value.trim() === "") {
+        showMessage("Please enter a name");
+    }
 }

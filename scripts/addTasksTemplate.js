@@ -81,8 +81,7 @@ function renderAddTask() {
                 <div class="spanGlue">
                     <span>Assigned to</span>
                     <div class="dropdown-container">
-                        <input type="text" value="" class="dropdown-selected typeBars" id="contactDropdown"
-                            placeholder="Search contacts...">
+                        <input type="button" value="Select contacts to assign" class="dropdown-selected typeBars" id="contactDropdown" onclick="toggleContactDropdown(this)">
                         <button id="toggleButtonDropdown"
                             onclick="toggleContactDropdown(this)">
                             <img src="../assets/icons/arrow_drop_downaa.png" alt="down">
@@ -118,7 +117,7 @@ function renderAddTask() {
                       <div id="confirmDeleteNewSubtask">
                         <img src="../assets/icons/closeAddSubtask.svg" alt="X" id="close" onclick="resetElements()"/>
                         <hr />
-                        <img src="../assets/icons/checkNewSubtask.svg" alt="Check" id="confirm"onclick="addSubtask()"/>
+                        <img src="../assets/icons/checkNewSubtask.svg" alt="Check" id="confirm"onclick="addSubtask(); emptyFeedback();"/>
                       </div>
                     </div>
                   </div>
