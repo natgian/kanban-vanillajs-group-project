@@ -10,8 +10,8 @@ async function initAddTask() {
   initializeSubtasksButtons();
   initializeSubtasksimulateInputClick();
   initializeResetAllOptions();
-  const contacts = await fetchContacts();
-  loadContacts(contacts);
+  // const contacts = await fetchContacts();
+  // loadContacts(contacts);
 }
 
 // function initializeToggleContactSearch() {
@@ -44,6 +44,17 @@ function initializeCloseAllDropdowns() {
 //     }
 //   });
 // }
+
+let addTaskStatus = "to-do";
+/**
+ * Sets the addTaskStatus variable to the given status and initializes the board
+ *
+ * @param {string} status - The new task status ("to-do", "in-progress" or "awaiting-feedback")
+ */
+function setAddTaskStatus(status) {
+  addTaskStatus = status;
+  initBoardAddTask();
+}
 
 function initializeSubtasksButtons() {
   const input = document.getElementById("newSubtask");

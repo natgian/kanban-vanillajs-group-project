@@ -9,6 +9,7 @@ function renderAddTask() {
                   <input
                     type="text"
                     class="typeBars resetTarget"
+                    id="taskTitle"
                     placeholder="Enter a title"
                     onblur="handleBlur(this)"
                     required
@@ -20,6 +21,7 @@ function renderAddTask() {
                   <textarea
                     name="description"
                     class="typeBars resetTarget"
+                    id="taskDescription"
                     placeholder="Enter a Discription"
                     style="height: 120px; padding: 14px 15px"
                   ></textarea>
@@ -42,7 +44,7 @@ function renderAddTask() {
               <section class="taskCategorysation">
                 <div class="spanGlue">
                   <span>Priority</span>
-                  <div class="priorityArange" style="display: flex">
+                  <div class="priorityArange" style="display: flex" id="priority">
                     <button
                       class="priorityBtns"
                       data-color="#FF3D00"
@@ -117,7 +119,7 @@ function renderAddTask() {
                       <div id="confirmDeleteNewSubtask">
                         <img src="../assets/icons/closeAddSubtask.svg" alt="X" id="close" onclick="resetElements()"/>
                         <hr />
-                        <img src="../assets/icons/checkNewSubtask.svg" alt="Check" id="confirm"onclick="addSubtask(); emptyFeedback();"/>
+                        <img src="../assets/icons/checkNewSubtask.svg" alt="Check" id="confirm" onclick="emptyFeedback(); addSubtask();"/>
                       </div>
                     </div>
                   </div>
