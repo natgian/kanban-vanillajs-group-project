@@ -77,7 +77,8 @@ function cardTemplate(task, subtasksTotal, subtasksDone, progressPercent, assign
             <div class="assignedto-priority-container">
               <div class="task-card-assignedto-container">
                 ${assignedToHTML}
-                <span class="plus-counter">${task.assignedTo.length > 5 ? `+${task.assignedTo.length - 5}` : ""}</span>
+                <span class="plus-counter">${task.assignedTo?.length > 5 ? `+${task.assignedTo.length - 5}` : ""}
+                </span>
               </div>
               <div class="task-card-priority">
                 <img src="../assets/icons/${task.priority}_priority_icon.svg" alt="prioriicon" />
