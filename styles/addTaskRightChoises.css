@@ -22,7 +22,7 @@
   height: 24px;
 }
 #toggleButtonDropdown:hover{
-  background-color: var(--outline-color);
+  background-color: #e6e6e6;
 }
 .dropdown-options {
   display: none;
@@ -53,9 +53,18 @@
 .dropdown-options .option:hover {
   background-color: rgb(240, 240, 240);
 }
+.dropdown-options.active {
+    display: block !important;
+}
 .option.selected:hover {
   background-color: var(--active-color);
   cursor: pointer;
+}
+#contact-list {
+    display: none;
+}
+#contact-list.show {
+    display: block;
 }
 .dropdown-selected img {
   width: 20px;
@@ -88,16 +97,16 @@
 }
 
 .subtaskNavigator{
-  height: 20px;
+  height: 24px;
   display: flex;
   justify-content: center;
   align-items: center;
   position: absolute;
-  right: 15px;
+  right: 16px;
   cursor: pointer;
 }
 .subtaskNavigator img:hover{
-  background-color: #ccc;
+  background-color: #e6e6e6;
   border-radius: 50%;
 }
 .subtaskNavigator hr{
@@ -123,7 +132,6 @@
 #confirmDeleteNewSubtask img{
   height: 24px;
   width: 24px;
-  filter: invert();
 }
 #subtaskList{
   max-height: 100px;

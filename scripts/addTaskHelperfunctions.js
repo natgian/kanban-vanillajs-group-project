@@ -33,37 +33,6 @@ function isButtonElement(element) {
 }
 
 /**
- * Creates an input field for searching contacts.
- *
- * @param {HTMLInputElement} button - The button element to replace.
- * @returns {HTMLInputElement} The newly created input field.
- */
-function createInputField(button) {
-  const inputField = document.createElement("input");
-  inputField.type = "text";
-  inputField.placeholder = "Search contacts...";
-  inputField.className = button.className;
-  inputField.id = button.id;
-  return inputField;
-}
-
-/**
- * Creates a button to replace an input field.
- *
- * @param {HTMLInputElement} input - The input field to replace.
- * @returns {HTMLInputElement} The newly created button.
- */
-function createButton(input) {
-  const button = document.createElement("input");
-  button.type = "button";
-  button.value = "Select contacts to assign";
-  button.className = input.className;
-  button.id = input.id;
-  button.onclick = () => toggleContactSearch(button);
-  return button;
-}
-
-/**
  * Replaces an old element with a new one inside the dropdown container.
  *
  * @param {HTMLElement} oldElement - The element to be replaced.
@@ -80,132 +49,41 @@ function replaceElement(oldElement, newElement) {
   container.replaceChild(newElement, oldElement);
 }
 
+/**
+ * Observes changes in dropdown selections.
+ */
+function observeDropdownChanges() {
+  document.querySelectorAll(".dropdown-selected").forEach((dropdown) => {
+    const observer = new MutationObserver(() => validateRequiredFields());
+    observer.observe(dropdown, { attributes: true, attributeFilter: ["data-value"] });
+  });
+}
 
+/**
+ * Updates the display state of selected contacts.
+ */
+function updateSelectedContactsDisplay() {
+  const selectedDiv = document.getElementById("selectedContacts");
 
+  selectedDiv.style.display = selectedDiv.textContent.trim() !== "" ? "flex" : "none";
+}
 
+/**
+ * Selects a contact option and updates the display.
+ *
+ * @param {HTMLElement} element - The selected contact element.
+ */
+function selectContactOption(element) {
+  const selectedDiv = document.getElementById("selectedContacts");
+  if (!selectedDiv) return;
 
+  selectedDiv.textContent = element.textContent;
+  updateSelectedContactsDisplay();
 
-
-// /**
-//  * Opens the dropdown options.
-//  *
-//  * @param {HTMLElement} dropdownOptions - The dropdown options container.
-//  */
-// function openDropdown(dropdownOptions) {
-//   dropdownOptions.style.display = "block";
-// }
-
-// /**
-//  * Checks if the dropdown is closed.
-//  *
-//  * @param {HTMLElement} dropdownOptions - The dropdown options container.
-//  * @returns {boolean} True if the dropdown is closed, false otherwise.
-//  */
-// function isDropdownClosed(dropdownOptions) {
-//   return dropdownOptions && window.getComputedStyle(dropdownOptions).display === "none";
-// }
-
-// /**
-//  * Filters dropdown options based on the search query.
-//  *
-//  * @param {string} query - The search query entered by the user.
-//  * @param {HTMLElement} dropdownOptions - The dropdown options container.
-//  */
-// function filterOptions(query, dropdownOptions) {
-//   query = query.trim().toLowerCase();
-//   dropdownOptions.querySelectorAll(".option").forEach((option) => {
-//     const text = option.textContent.trim().toLowerCase();
-//     option.style.display = text.includes(query) ? "flex" : "none";
-//   });
-// }
-
-// /**
-//  * Resets the filter, displaying all dropdown options.
-//  *
-//  * @param {HTMLElement} dropdownOptions - The dropdown options container.
-//  */
-// function resetFilter(dropdownOptions) {
-//   dropdownOptions.querySelectorAll(".option").forEach((option) => {
-//     option.style.display = "flex";
-//   });
-// }
-
-// /**
-//  * Copies styles from one element to another.
-//  *
-//  * @param {HTMLElement} source - The element to copy styles from.
-//  * @param {HTMLElement} target - The element to apply copied styles to.
-//  */
-// function copyStyles(source, target) {
-//   const computedStyle = window.getComputedStyle(source);
-//   target.style.backgroundColor = computedStyle.backgroundColor;
-//   target.style.color = computedStyle.color;
-//   target.style.fontWeight = computedStyle.fontWeight;
-//   target.style.border = computedStyle.border;
-// }
-
-// function activateSearchField(inputField, dropdownOptions) {
-//   // Falls das Button-Element noch existiert, ersetze es durch ein Input-Feld
-//   if (inputField.type === "button") {
-//     const newInput = document.createElement("input");
-//     newInput.type = "text";
-//     newInput.placeholder = "Suche Kontakte...";
-//     newInput.classList.add("dropdown-selected", "typeBars");
-//     newInput.id = inputField.id;
-//     newInput.value = ""; // Leeres Feld für Eingabe setzen
-
-//     inputField.replaceWith(newInput);
-//     inputField = newInput;
-//   }
-
-//   // Suchfeld aktivieren
-//   inputField.setAttribute("placeholder", "Suche Kontakte...");
-//   inputField.classList.add("active-search");
-
-//   // Dropdown toggeln
-//   if (dropdownOptions.classList.contains("active")) {
-//     dropdownOptions.classList.remove("active");
-//     dropdownOptions.style.display = "none";
-//     resetInputField(inputField);
-//   } else {
-//     dropdownOptions.classList.add("active");
-//     dropdownOptions.style.display = "block";
-//   }
-// }
-
-// function resetInputField(inputField) {
-//   inputField.setAttribute("placeholder", "Select contacts to assign");
-//   inputField.classList.remove("active-search");
-// }
-
-// function toggleContactDropdown(input) {
-//   closeAllDropdowns();
-
-//   const container = input.closest(".dropdown-container");
-//   const options = container.querySelector(".dropdown-options");
-
-//   if (options) {
-//     if (options.classList.contains("active")) {
-//       options.classList.remove("active");
-//       options.style.display = "none";
-//     } else {
-//       options.classList.add("active");
-//       options.style.display = "block";
-//     }
-//   }
-// }
-
-
-
-
-
-
-// // Event listener for initializing contact search functionality
-// document.addEventListener("DOMContentLoaded", function() {
-//     document.getElementById("contactDropdown").addEventListener("click", function() {
-//         toggleContactSearch(this);
-//     });
-// });
+  setTimeout(() => {
+    closeAllDropdowns();
+  }, 100);
+}
 
 /**
  * Handles blur event for input fields, showing validation errors if empty.
@@ -254,3 +132,139 @@ function hideValidationError(input, message) {
   input.style.border = "";
   message.style.display = "none";
 }
+
+/**
+ * Checks if the input field is empty and shows a message.
+ */
+function emptyFeedback() {
+    const subtaskInput = document.getElementById("newSubtask");
+    if (!subtaskInput || subtaskInput.value.trim() === "") {
+        showMessage("Please enter a name");
+    }
+}
+
+
+
+// // Sets up validation on page load
+// document.addEventListener("DOMContentLoaded", function() {
+//     document.addEventListener("input", validateRequiredFields);
+//     observeDropdownChanges();
+// });
+
+
+
+
+
+// /**
+//  * Rotiert das Button-Bild um 180 Grad, wenn das Dropdown geöffnet ist.
+//  * Setzt die Rotation zurück, wenn es geschlossen wird.
+//  *
+//  * @param {HTMLElement} element - Das Element, dessen Bild rotiert werden soll.
+//  */
+// function toggleRotation(element) {
+//   const container = element.closest(".dropdown-container");
+//   const img = container.querySelector("button img");
+//   const dropdown = container.querySelector(".dropdown-options");
+
+//   if (img && dropdown) {
+//     if (dropdown.classList.contains("active")) {
+//       img.classList.add("rotated"); // Bild drehen, wenn Dropdown offen ist
+//     } else {
+//       img.classList.remove("rotated"); // Rotation zurücksetzen, wenn geschlossen
+//     }
+//   }
+// }
+
+
+
+// document.addEventListener("DOMContentLoaded", () => {
+//   updateSelectedContactsDisplay();
+// });
+
+
+// // Event listener for initializing contact search functionality
+// document.addEventListener("DOMContentLoaded", function() {
+//     document.getElementById("contactDropdown").addEventListener("click", function() {
+//         toggleContactSearch(this);
+//     });
+// });
+
+
+  // const categoryInput = document.querySelector("input.categoryDropdown");
+  // if (categoryInput && !categoryInput.dataset.value) {
+  //   categoryInput.value = "Select task category";
+  // }
+
+
+// /**
+//  * Closes dropdowns when clicking outside.
+//  */
+// document.addEventListener("click", (event) => {
+//   if (!event.target.closest(".dropdown-container") && !event.target.classList.contains("dropdown-selected")) {
+//     closeAllContactDropdowns();
+//     closeAllCategoryDropdowns();
+//   }
+// });
+
+// /**
+//  * Toggles the contact search functionality.
+//  *
+//  * @param {HTMLElement} element - The element triggering the search toggle.
+//  */
+// function toggleContactSearch(element) {
+//   const dropdownContainer = getDropdownContainer(element);
+//   const dropdownOptions = getDropdownOptions(dropdownContainer);
+
+//   if (isButtonElement(element)) {
+//     replaceButtonWithInput(element, dropdownOptions);
+//   }
+// }
+
+// /**
+//  * Replaces a button with an input field for searching contacts.
+//  *
+//  * @param {HTMLInputElement} button - The button element to replace.
+//  * @param {HTMLElement} dropdownOptions - The dropdown options container.
+//  */
+// function replaceButtonWithInput(button, dropdownOptions) {
+//   const inputField = createInputField(button);
+
+//   // copyStyles(button, inputField);
+//   replaceElement(button, inputField);
+
+//   // addInputEventListeners(inputField, dropdownOptions);
+
+//   inputField.focus();
+// }
+
+// /**
+//  * Replaces an input field with a button when the dropdown is closed.
+//  *
+//  * @param {HTMLInputElement} input - The input field to replace.
+//  * @param {HTMLElement} dropdownOptions - The dropdown options container.
+//  */
+// function replaceInputWithButton(input, dropdownOptions) {
+//   if (!isDropdownClosed(dropdownOptions)) {
+//     return;
+//   }
+//   resetFilter(dropdownOptions);
+
+//   input.blur();
+
+//   const button = createButton(input);
+//   copyStyles(input, button);
+
+//   replaceElement(input, button);
+
+//   button.blur();
+// }
+
+// Event listener to replace input with button when clicking outside
+// document.addEventListener("click", function (event) {
+//   const dropdownOptions = document.getElementById("contact-list");
+//   const activeInput = document.querySelector(".dropdown-container input[type='text']");
+
+//   if (activeInput && isDropdownClosed(dropdownOptions)) {
+//     replaceInputWithButton(activeInput, dropdownOptions);
+//   }
+// });

@@ -26,7 +26,7 @@ function cardTemplate(task, subtasksTotal, subtasksDone, progressPercent, assign
                 </g>
                 </svg>
                 <!-- Move-To-Menu -->
-                <div role="menu" class="move-to-menu hide" id="move-to-menu${task.taskId}">
+                <div role="menu" class="menu move-to-menu hide" id="move-to-menu${task.taskId}">
                   <span>Move to</span>
                   <ul>
                     <li onclick="moveToByClick('${task.taskId}', 'to-do')">
@@ -248,29 +248,31 @@ function taskOverlayEditTaskTemplate(task, formattedDueDate) {
             <div class="wrapper" id="edit-task-wrapper">
               <!-- Title -->
               <div class="spanGlue">
-                <span class="edit-task-label">Title</span>
-                <input type="text" name="title" class="typeBars" placeholder="Enter a title" required value="${task.title}" id="edit-title-input" onfocus="this.select()"/>
+                <label for="edit-title-input" class="edit-task-label">Title</label>
+                <input type="text" name="title" id="edit-title-input" class="typeBars" placeholder="Enter a title" required value="${task.title}" onfocus="this.select()" onblur="handleBlur(this)"/>
+                <span id="showUpRequired" style="display: none; position: absolute;">This field is required</span>
               </div>
 
               <!-- Description -->
               <div class="spanGlue mt-20">
-                <span class="edit-task-label">Description</span>
-                <textarea name="description" class="typeBars" id="edit-desc-textarea" placeholder="Enter a description" onfocus="this.select()" style="height: 120px; padding: 14px 15px">${
+                <label for="edit-desc-textarea" class="edit-task-label">Description</label>
+                <textarea name="description" id="edit-desc-textarea" class="typeBars" placeholder="Enter a description" onfocus="this.select()" style="height: 120px; padding: 14px 15px">${
                   task.description ? task.description : ""
                 }</textarea>
               </div>
 
               <!-- Due Date -->
               <div class="spanGlue mt-20">
-                <span class="edit-task-label">Due date</span>
-                <input type="date" id="date-input" name="date" class="typeBars filled" value="${formattedDueDate}" oninput="checkValue()" required />
+                <label for="date-input" class="edit-task-label">Due date</label>
+                <input type="date" id="date-input" name="date" class="typeBars filled" value="${formattedDueDate}" oninput="checkValue()" required onblur="handleBlur(this)"/>
+                <span id="showUpRequired" style="display: none; position: absolute;">This field is required</span>
               </div>
 
               <!-- Priority -->
               <div class="spanGlue mt-20">
                 <span class="edit-task-label">Priority</span>
                 <div class="priority-wrapper">
-                  <label class="priority-option" for="urgent">
+                  <label class="priority-option" for="urgent" tabindex="0">
                     <input type="radio" name="priority" id="urgent" value="high" ${task.priority === "high" ? "checked" : ""}/>
                     <span class="priority-btn">
                     Urgent
@@ -278,7 +280,7 @@ function taskOverlayEditTaskTemplate(task, formattedDueDate) {
                     </span>
                   </label>
 
-                  <label class="priority-option" for="medium">
+                  <label class="priority-option" for="medium" tabindex="0">
                     <input type="radio" name="priority" id="medium" value="medium" ${task.priority === "medium" ? "checked" : ""} />
                     <span class="priority-btn">
                     Medium
@@ -286,7 +288,7 @@ function taskOverlayEditTaskTemplate(task, formattedDueDate) {
                     </span>
                   </label>
 
-                  <label class="priority-option" for="low">
+                  <label class="priority-option" for="low" tabindex="0">
                     <input type="radio" name="priority" id="low" value="low" ${task.priority === "low" ? "checked" : ""}/>
                     <span class="priority-btn">
                     Low
@@ -298,7 +300,7 @@ function taskOverlayEditTaskTemplate(task, formattedDueDate) {
 
               <!-- Assigned to -->
               <div class="spanGlue mt-20">
-                <span class="edit-task-label">Assigned to</span>
+                <label for="contactDropdown" class="edit-task-label">Assigned to</label>
                 <div class="dropdown-container">
                   <input type="button" value="Select contacts to assign" class="dropdown-selected typeBars" id="contactDropdown" onclick="toggleContactDropdown(this)" />
                   <div class="dropdown-options" id="contact-list"></div>
@@ -308,15 +310,15 @@ function taskOverlayEditTaskTemplate(task, formattedDueDate) {
 
               <!-- Subtasks -->
               <div class="spanGlue mt-20">
-                <span class="edit-task-label">Subtasks</span>
+                <label for="newEditSubtask" class="edit-task-label">Subtasks</label>
                 <div class="subtask-container">
                   <input type="text" class="typeBars typePriorityBars" id="newEditSubtask" placeholder="Add new subtask" />
                   <div class="subtaskNavigator">
-                    <img id="addSubtask" src="../assets/icons/Subtasks icons11.png" alt="cross" onclick="" />
+                    <img id="addSubtask" src="../assets/icons/addIconSubtask.svg" alt="cross" onclick="showConfirmDelete(event)" />
                     <div id="confirmDeleteNewSubtask">
-                      <img src="../assets/icons/close.svg" alt="X" id="close" onclick="resetElements()" />
+                      <img src="../assets/icons/closeAddSubtask.svg" alt="X" id="close" onclick="resetElements()" />
                       <hr />
-                      <img src="../assets/icons/check.png" alt="Check" id="confirm" onclick="addEditSubtask()" />
+                      <img src="../assets/icons/checkNewSubtask.svg" alt="Check" id="confirm" onclick="addSubtaskOnEdit(), emptyFeedback()" />
                     </div>
                   </div>
                 </div>
@@ -327,7 +329,7 @@ function taskOverlayEditTaskTemplate(task, formattedDueDate) {
          </div>
 
          <div class="flex-end">
-            <button class="btn" onclick="updateTask('${task.taskId}')">Ok <img src="../assets/icons/check_icon.svg" alt="check icon"/></button>
+            <button class="btn" id="edit-submit-btn" onclick="updateTask('${task.taskId}')">Ok <img src="../assets/icons/check_icon.svg" alt="check icon"/></button>
          </div>     
   `;
 }

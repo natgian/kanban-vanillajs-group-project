@@ -5,11 +5,11 @@ const databasURL = "https://join-458-default-rtdb.europe-west1.firebasedatabase.
  * and hides the loading screen after a short delay.
  */
 function init() {
-  const loader = document.getElementById('loader');
-  const logo = document.getElementById('logo');
-  logo.classList.add('fly');
+  const loader = document.getElementById("loader");
+  const logo = document.getElementById("logo");
+  logo.classList.add("fly");
   setTimeout(() => {
-    loader.classList.add('hidden');
+    loader.classList.add("hidden");
   }, 1500);
 }
 
@@ -42,7 +42,7 @@ document.getElementById("guestLoginBtn").addEventListener("click", async () => {
     }
     document.querySelector('input[name="Email"]').value = user.email;
     document.querySelector('input[name="Password"]').value = user.password;
-    localStorage.setItem('currentUser', user.name || "Guest");
+    localStorage.setItem("currentUser", "Guest");
     window.location.href = "../pages/summary.html";
   } catch (e) {
     console.error("Error loading guest data:", e);
@@ -60,21 +60,25 @@ document.getElementById("guestLoginBtn").addEventListener("click", async () => {
  * @event submit
  * @returns {Promise<void>} A Promise that resolves after validation and redirection or message display.
  */
-document.querySelector('form').addEventListener('submit', async (e) => {
+document.querySelector("form").addEventListener("submit", async (e) => {
   if (!e.target.checkValidity()) return;
   e.preventDefault();
   const email = e.target.querySelector('input[name="Email"]').value.trim();
   const password = e.target.querySelector('input[name="Password"]').value.trim();
-  const msg = document.getElementById('loginMessage');
-  const showMessage = t => {
-    msg.textContent = t; msg.className = "fade-in";
-    setTimeout(() => { msg.className = "fade-out"; setTimeout(() => msg.textContent = "", 500); }, 3000);
+  const msg = document.getElementById("loginMessage");
+  const showMessage = (t) => {
+    msg.textContent = t;
+    msg.className = "fade-in";
+    setTimeout(() => {
+      msg.className = "fade-out";
+      setTimeout(() => (msg.textContent = ""), 500);
+    }, 3000);
   };
   try {
     const data = await (await fetch(`${databasURL}users.json`)).json();
-    const user = Object.values(data || {}).find(u => u.email === email);
+    const user = Object.values(data || {}).find((u) => u.email === email);
     if (user?.password === password) {
-      localStorage.setItem('currentUser', user.name || user.email);
+      localStorage.setItem("currentUser", user.name || user.email);
       window.location.href = "../pages/summary.html";
     } else {
       showMessage(user ? "Incorrect password." : "Email not registered.");

@@ -2,11 +2,11 @@
 async function initAddTask() {
   document.getElementById("contentload").innerHTML = renderAddTask();
   initializePriorityButtons();
-  initializeToggleContactSearch();
+  // initializeToggleContactSearch();
   initializeObserveDropdownChanges();
   updateSelectedContactsDisplay();
   initializeCloseAllDropdowns();
-  initializeReplaceInputWithButton();
+  // initializeReplaceInputWithButton();
   initializeSubtasksButtons();
   initializeSubtasksimulateInputClick();
   initializeResetAllOptions();
@@ -14,11 +14,11 @@ async function initAddTask() {
   loadContacts(contacts);
 }
 
-function initializeToggleContactSearch() {
-  document.getElementById("contactDropdown").addEventListener("click", function () {
-    toggleContactSearch(this);
-  });
-}
+// function initializeToggleContactSearch() {
+//   document.getElementById("contactDropdown").addEventListener("click", function () {
+//     toggleContactSearch(this);
+//   });
+// }
 
 function initializeObserveDropdownChanges() {
   document.addEventListener("input", validateRequiredFields);
@@ -33,17 +33,17 @@ function initializeCloseAllDropdowns() {
   });
 }
 
-function initializeReplaceInputWithButton() {
-  // Event listener to replace input with button when clicking outside
-  document.addEventListener("click", function (event) {
-    const dropdownOptions = document.getElementById("contact-list");
-    const activeInput = document.querySelector(".dropdown-container input[type='text']");
+// function initializeReplaceInputWithButton() {
+//   // Event listener to replace input with button when clicking outside
+//   document.addEventListener("click", function (event) {
+//     const dropdownOptions = document.getElementById("contact-list");
+//     const activeInput = document.querySelector(".dropdown-container input[type='text']");
 
-    if (activeInput && isDropdownClosed(dropdownOptions)) {
-      replaceInputWithButton(activeInput, dropdownOptions);
-    }
-  });
-}
+//     if (activeInput && isDropdownClosed(dropdownOptions)) {
+//       replaceInputWithButton(activeInput, dropdownOptions);
+//     }
+//   });
+// }
 
 function initializeSubtasksButtons() {
   const input = document.getElementById("newSubtask");
@@ -59,6 +59,11 @@ function initializeSubtasksButtons() {
   function showConfirmDelete(event) {
     addSubtask.style.display = "none";
     confirmDelete.style.display = "flex";
+
+    if (input) {
+    input.focus();
+    }
+    
     event.stopPropagation();
   }
 

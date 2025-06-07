@@ -9,6 +9,10 @@
   display: flex;
   justify-content: space-between;
 }
+.priorityArange span{
+  padding-bottom: 0;
+  padding-right: 6px;
+}
 .priorityBtns {
   height: 56px;
   width: 136px;
@@ -25,6 +29,9 @@
 .priorityBtns:hover {
   transform: scale(0.95);
 }
+.priorityBtns img{
+    margin-left: 10;
+  }
 .selected {
   background-color: #ffa800;
   color: white;

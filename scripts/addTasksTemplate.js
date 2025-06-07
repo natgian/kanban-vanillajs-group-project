@@ -47,10 +47,10 @@ function renderAddTask() {
                       class="priorityBtns"
                       data-color="#FF3D00"
                     >
-                      Urgent
+                      <span>Urgent</span>
                       <img
                         src="../assets/icons/Prio alta.png"
-                        style="width: 20px; height: 14.51px; margin-left: 10px"
+                        style="width: 20px; height: 14.51px;"
                       />
                     </button>
 
@@ -58,10 +58,10 @@ function renderAddTask() {
                       class="priorityBtns selected"
                       data-color="#FFA800"
                     >
-                      Medium
+                      <span>Medium</span>
                       <img
                         src="../assets/icons/Prio media.png"
-                        style="width: 20px; height: 7.45px; margin-left: 10px"
+                        style="width: 20px; height: 7.45px;"
                       />
                     </button>
 
@@ -69,10 +69,10 @@ function renderAddTask() {
                       class="priorityBtns"
                       data-color="#7AE229"
                     >
-                      Low
+                      <span>Low</span>
                       <img
                         src="../assets/icons/Prio baja.png"
-                        style="width: 20px; height: 14.51px; margin-left: 10px"
+                        style="width: 20px; height: 14.51px;"
                       />
                     </button>
                   </div>
@@ -81,10 +81,9 @@ function renderAddTask() {
                 <div class="spanGlue">
                     <span>Assigned to</span>
                     <div class="dropdown-container">
-                        <input type="button" value="Select contacts to assign" class="dropdown-selected typeBars" id="contactDropdown"
-                              onclick="activateSearchField(this, document.getElementById('contact-list'))">
+                        <input type="button" value="Select contacts to assign" class="dropdown-selected typeBars" id="contactDropdown" onclick="toggleContactDropdown(this)">
                         <button id="toggleButtonDropdown"
-                                onclick="activateSearchField(document.getElementById('contactDropdown'), document.getElementById('contact-list'))">
+                            onclick="toggleContactDropdown(this)">
                             <img src="../assets/icons/arrow_drop_downaa.png" alt="down">
                         </button>
                         <div class="dropdown-options" id="contact-list"></div>
@@ -114,11 +113,11 @@ function renderAddTask() {
                       placeholder="Add new subtask"
                     />
                     <div class="subtaskNavigator">
-                      <img id="addSubtask" src="../assets/icons/Subtasks icons11.png" alt="cross" onclick=""/>
+                      <img id="addSubtask" src="../assets/icons/addIconSubtask.svg" alt="cross" onclick="showConfirmDelete(event)"/>
                       <div id="confirmDeleteNewSubtask">
-                        <img src="../assets/icons/close.svg" alt="X" id="close" onclick="resetElements()"/>
+                        <img src="../assets/icons/closeAddSubtask.svg" alt="X" id="close" onclick="resetElements()"/>
                         <hr />
-                        <img src="../assets/icons/check.png" alt="Check" id="confirm"onclick="addSubtask()"/>
+                        <img src="../assets/icons/checkNewSubtask.svg" alt="Check" id="confirm"onclick="addSubtask(); emptyFeedback();"/>
                       </div>
                     </div>
                   </div>
