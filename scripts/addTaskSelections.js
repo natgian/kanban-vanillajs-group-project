@@ -1,72 +1,6 @@
-/**
- * Observes changes in dropdown selections.
- */
-function observeDropdownChanges() {
-  document.querySelectorAll(".dropdown-selected").forEach((dropdown) => {
-    const observer = new MutationObserver(() => validateRequiredFields());
-    observer.observe(dropdown, { attributes: true, attributeFilter: ["data-value"] });
-  });
-}
-
-// // Sets up validation on page load
-// document.addEventListener("DOMContentLoaded", function() {
-//     document.addEventListener("input", validateRequiredFields);
-//     observeDropdownChanges();
-// });
 
 
 
-
-
-// /**
-//  * Rotiert das Button-Bild um 180 Grad, wenn das Dropdown geöffnet ist.
-//  * Setzt die Rotation zurück, wenn es geschlossen wird.
-//  *
-//  * @param {HTMLElement} element - Das Element, dessen Bild rotiert werden soll.
-//  */
-// function toggleRotation(element) {
-//   const container = element.closest(".dropdown-container");
-//   const img = container.querySelector("button img");
-//   const dropdown = container.querySelector(".dropdown-options");
-
-//   if (img && dropdown) {
-//     if (dropdown.classList.contains("active")) {
-//       img.classList.add("rotated"); // Bild drehen, wenn Dropdown offen ist
-//     } else {
-//       img.classList.remove("rotated"); // Rotation zurücksetzen, wenn geschlossen
-//     }
-//   }
-// }
-
-/**
- * Updates the display state of selected contacts.
- */
-function updateSelectedContactsDisplay() {
-  const selectedDiv = document.getElementById("selectedContacts");
-
-  selectedDiv.style.display = selectedDiv.textContent.trim() !== "" ? "flex" : "none";
-}
-
-/**
- * Selects a contact option and updates the display.
- *
- * @param {HTMLElement} element - The selected contact element.
- */
-function selectContactOption(element) {
-  const selectedDiv = document.getElementById("selectedContacts");
-  if (!selectedDiv) return;
-
-  selectedDiv.textContent = element.textContent;
-  updateSelectedContactsDisplay();
-
-  setTimeout(() => {
-    closeAllDropdowns();
-  }, 100);
-}
-
-// document.addEventListener("DOMContentLoaded", () => {
-//   updateSelectedContactsDisplay();
-// });
 
 /**
  * Selects a category option and updates the input field.
@@ -84,22 +18,6 @@ function selectCategoryOption(element) {
     closeAllDropdowns();
   });
 }
-
-  // const categoryInput = document.querySelector("input.categoryDropdown");
-  // if (categoryInput && !categoryInput.dataset.value) {
-  //   categoryInput.value = "Select task category";
-  // }
-
-
-// /**
-//  * Closes dropdowns when clicking outside.
-//  */
-// document.addEventListener("click", (event) => {
-//   if (!event.target.closest(".dropdown-container") && !event.target.classList.contains("dropdown-selected")) {
-//     closeAllContactDropdowns();
-//     closeAllCategoryDropdowns();
-//   }
-// });
 
 /**
  * Toggles the checked state of the checkbox and returns the updated state.
@@ -223,65 +141,163 @@ function updateSelectedContacts() {
   selectedContactsDiv.style.display = "flex";
 }
 
-// /**
-//  * Toggles the contact search functionality.
-//  *
-//  * @param {HTMLElement} element - The element triggering the search toggle.
-//  */
-// function toggleContactSearch(element) {
-//   const dropdownContainer = getDropdownContainer(element);
-//   const dropdownOptions = getDropdownOptions(dropdownContainer);
+/**
+ * Creates an input field for searching contacts.
+ *
+ * @param {HTMLInputElement} button - The button element to replace.
+ * @returns {HTMLInputElement} The newly created input field.
+ */
+function createInputField(button) {
+  const inputField = document.createElement("input");
+  inputField.type = "text";
+  inputField.placeholder = "Search contacts...";
+  inputField.className = button.className;
+  inputField.id = button.id;
+  return inputField;
+}
 
-//   if (isButtonElement(element)) {
-//     replaceButtonWithInput(element, dropdownOptions);
-//   }
-// }
+/**
+ * Creates a button to replace an input field.
+ *
+ * @param {HTMLInputElement} input - The input field to replace.
+ * @returns {HTMLInputElement} The newly created button.
+ */
+function createButton(input) {
+  const button = document.createElement("input");
+  button.type = "button";
+  button.value = "Select contacts to assign";
+  button.className = input.className;
+  button.id = input.id;
+  button.onclick = () => toggleContactSearch(button);
+  return button;
+}
 
-// /**
-//  * Replaces a button with an input field for searching contacts.
-//  *
-//  * @param {HTMLInputElement} button - The button element to replace.
-//  * @param {HTMLElement} dropdownOptions - The dropdown options container.
-//  */
-// function replaceButtonWithInput(button, dropdownOptions) {
-//   const inputField = createInputField(button);
 
-//   // copyStyles(button, inputField);
-//   replaceElement(button, inputField);
+/**
+ * Toggles the category dropdown and updates its state.
+ * @param {HTMLElement} input - The clicked input element.
+ */
+function toggleCategoryDropdown(input) {
+    const container = input.closest(".dropdown-container"),
+        options = container.querySelector(".dropdown-options"),
+        button = container.querySelector("#toggleButtonDropdown");
 
-//   // addInputEventListeners(inputField, dropdownOptions);
+    if (!options) return;
 
-//   inputField.focus();
-// }
+    let isActive = options.classList.contains("active");
 
-// /**
-//  * Replaces an input field with a button when the dropdown is closed.
-//  *
-//  * @param {HTMLInputElement} input - The input field to replace.
-//  * @param {HTMLElement} dropdownOptions - The dropdown options container.
-//  */
-// function replaceInputWithButton(input, dropdownOptions) {
-//   if (!isDropdownClosed(dropdownOptions)) {
-//     return;
-//   }
-//   resetFilter(dropdownOptions);
+    options.classList.toggle("active", !isActive);
 
-//   input.blur();
+    toggleButtonImageRotation(button, !isActive);
+}
 
-//   const button = createButton(input);
-//   copyStyles(input, button);
+/**
+ * Toggles dropdown visibility and search field state.
+ * @param {HTMLElement} triggerElement - The triggering element.
+ */
+function toggleContactDropdown(triggerElement) {
+    const container = triggerElement.closest(".dropdown-container"),
+        dropdownOptions = container.querySelector(".dropdown-options"),
+        searchField = container.querySelector(".dropdown-selected"),
+        button = container.querySelector("#toggleButtonDropdown");
 
-//   replaceElement(input, button);
+    if (!dropdownOptions) return;
+    const wasVisible = dropdownOptions.classList.contains("active");
 
-//   button.blur();
-// }
+    if ((triggerElement === button || triggerElement === searchField) && searchField.type === "button") {
+        activateSearchField(searchField, dropdownOptions);
+        return;
+    }
 
-// Event listener to replace input with button when clicking outside
-// document.addEventListener("click", function (event) {
-//   const dropdownOptions = document.getElementById("contact-list");
-//   const activeInput = document.querySelector(".dropdown-container input[type='text']");
+    if (!wasVisible) closeAllDropdowns();
+    updateDropdownState(dropdownOptions, wasVisible);
+    toggleButtonImageRotation(button, !wasVisible);
 
-//   if (activeInput && isDropdownClosed(dropdownOptions)) {
-//     replaceInputWithButton(activeInput, dropdownOptions);
-//   }
-// });
+    if (!dropdownOptions.classList.contains("active")) resetInputField(searchField);
+}
+
+/**
+ * Rotates button image based on dropdown visibility.
+ * @param {HTMLElement} button - Button element.
+ * @param {boolean} isVisible - Dropdown visibility state.
+ */
+function toggleButtonImageRotation(button, isVisible) {
+    if (!button) return;
+    const img = button.querySelector("img");
+    if (img) img.style.transform = isVisible ? "rotate(180deg)" : "rotate(0deg)";
+}
+
+/**
+ * Updates dropdown visibility state.
+ * @param {HTMLElement} dropdown - Dropdown element.
+ * @param {boolean} wasVisible - Previous visibility state.
+ */
+function updateDropdownState(dropdown, wasVisible) {
+    dropdown.classList.toggle("active", !wasVisible);
+    dropdown.style.display = wasVisible ? "none" : "block";
+}
+
+/**
+ * Converts button input into a search field and activates it.
+ * @param {HTMLElement} inputField - Search field element.
+ * @param {HTMLElement} dropdownOptions - Dropdown options container.
+ */
+function activateSearchField(inputField, dropdownOptions) {
+    const container = inputField.closest(".dropdown-container"),
+        button = container.querySelector("#toggleButtonDropdown");
+
+    if (inputField.type === "button") {
+        const newInput = document.createElement("input");
+        Object.assign(newInput, { type: "text", placeholder: "Search contacts...", className: "dropdown-selected typeBars", id: inputField.id, value: "" });
+        newInput.oninput = () => filterDropdownOptions(newInput, dropdownOptions);
+        inputField.replaceWith(newInput);
+        setTimeout(() => newInput.focus(), 0);
+    }
+
+    dropdownOptions.classList.add("active");
+    dropdownOptions.style.display = "block";
+    toggleButtonImageRotation(button, true);
+}
+
+/**
+ * Resets search field back to a button.
+ * @param {HTMLElement} inputField - Search field element.
+ */
+function resetInputField(inputField) {
+    if (inputField && inputField.type === "text") {
+        const newButton = document.createElement("input");
+        Object.assign(newButton, { type: "button", value: "Select contacts to assign", className: "dropdown-selected typeBars", id: inputField.id });
+        newButton.onclick = () => toggleContactDropdown(newButton);
+        inputField.replaceWith(newButton);
+    }
+}
+
+/**
+ * Closes all dropdowns and resets fields if necessary.
+ */
+function closeAllDropdowns() {
+    document.querySelectorAll(".dropdown-container .dropdown-options").forEach((options) => {
+        const container = options.closest(".dropdown-container"),
+            searchField = container.querySelector(".dropdown-selected");
+
+        if (document.activeElement !== searchField || searchField.type !== "text") {
+            options.classList.remove("active");
+            options.style.display = "none";
+            resetInputField(searchField);
+        }
+    });
+
+    document.querySelectorAll(".dropdown-container button img").forEach((img) => img.style.transform = "rotate(0deg)");
+}
+
+/**
+ * Filters dropdown options based on search input.
+ * @param {HTMLElement} input - Search field element.
+ * @param {HTMLElement} dropdownOptions - Dropdown options container.
+ */
+function filterDropdownOptions(input, dropdownOptions) {
+    const searchValue = input.value.toLowerCase();
+    dropdownOptions.querySelectorAll(".option").forEach((option) => {
+        option.style.display = option.textContent.toLowerCase().includes(searchValue) ? "block" : "none";
+    });
+}
