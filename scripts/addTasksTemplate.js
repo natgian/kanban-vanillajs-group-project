@@ -47,10 +47,10 @@ function renderAddTask() {
                       class="priorityBtns"
                       data-color="#FF3D00"
                     >
-                      Urgent
+                      <span>Urgent</span>
                       <img
                         src="../assets/icons/Prio alta.png"
-                        style="width: 20px; height: 14.51px; margin-left: 10px"
+                        style="width: 20px; height: 14.51px;"
                       />
                     </button>
 
@@ -58,10 +58,10 @@ function renderAddTask() {
                       class="priorityBtns selected"
                       data-color="#FFA800"
                     >
-                      Medium
+                      <span>Medium</span>
                       <img
                         src="../assets/icons/Prio media.png"
-                        style="width: 20px; height: 7.45px; margin-left: 10px"
+                        style="width: 20px; height: 7.45px;"
                       />
                     </button>
 
@@ -69,10 +69,10 @@ function renderAddTask() {
                       class="priorityBtns"
                       data-color="#7AE229"
                     >
-                      Low
+                      <span>Low</span>
                       <img
                         src="../assets/icons/Prio baja.png"
-                        style="width: 20px; height: 14.51px; margin-left: 10px"
+                        style="width: 20px; height: 14.51px;"
                       />
                     </button>
                   </div>

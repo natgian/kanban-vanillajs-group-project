@@ -376,7 +376,7 @@ header {
 }
 
 /* MEDIA QUERIES */
-@media (max-width: 905px) {
+@media (max-width: 1080px) {
   #header-logo {
     display: block;
     height: 56px;

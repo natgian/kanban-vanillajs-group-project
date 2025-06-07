@@ -1,9 +1,14 @@
-@media (max-width: 1172px) {
+@media (max-width: 1190px) {
   .contentWrapper {
     max-width: 440px;
   }
-  .contentWrapper button {
-    scale: 0.9;
+  .priorityArange button {
+    width: 122.4px;
+    height: 50.4px;
+    font-size: 20px;
+  }
+  .priorityArange img{
+    width: 13.5px;
   }
   .inputOrg {
     flex-direction: column;
@@ -33,11 +38,11 @@
     display: none;
   }
 }
-@media (max-width: 905px) {
+@media (max-width: 1080px) {
   .bottomButtons {
     position: fixed;
     bottom: 80px;
-    width: 420px;
+    width: 400px;
     justify-self: center;
   }
   .contentWrapper {
@@ -89,10 +94,22 @@
     scale: 0.8;
     bottom: 72px;
   }
+  .priorityBtns span {
+    display: none;
+  }
+  .priorityBtns img{
+    margin-left: 0;
+  }
   .kanban-title {
     min-width: 230px;
   }
   .priorityBtns {
     font-size: 16px;
+  }
+  .priorityArange{
+    justify-content: space-around;
+  }
+  .priorityArange button{
+    width: 65px;
   }
 }
