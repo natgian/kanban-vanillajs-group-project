@@ -16,15 +16,17 @@ async function initBoard() {
   renderAddTaskContent();
 }
 
-// ---------------------NEU---------------------//
+/**
+ * Initializes the "Add Task" overlay or redirects to the mobile version
+ *
+ */
 async function initBoardAddTask() {
+  openAddTask();
+
   if (!boardAddTaskAlreadyInitialized) {
     initializePriorityButtons();
-    initializeToggleContactSearch();
     initializeObserveDropdownChanges();
-
     initializeCloseAllDropdowns();
-    initializeReplaceInputWithButton();
     initializeSubtasksButtons();
     initializeSubtasksimulateInputClick();
     initializeResetAllOptions();
@@ -35,6 +37,20 @@ async function initBoardAddTask() {
 
   openAddTaskOverlay();
   updateSelectedContactsDisplay();
+}
+
+/**
+ * Checks the screen width, if the screen with is equal or under 1080px it redirects to the addTask.html
+ * page. If not, it opens the Add Task Overlay.
+ *
+ */
+function openAddTask() {
+  const screenWidth = window.innerWidth;
+
+  if (screenWidth <= 1080) {
+    window.location.href = "./addTask.html";
+    return;
+  }
 }
 
 // ---------------------NEU---------------------//

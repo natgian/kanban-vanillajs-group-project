@@ -124,7 +124,7 @@
 
 .edit-task-label {
   color: var(--primary-color);
-  margin-bottom: 8px;
+  margin: 10px 0 8px 0;
 }
 
 #edit-task-wrapper {

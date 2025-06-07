@@ -1,62 +1,48 @@
-async function initEditTask(task) {
-  initializeToggleContactSearch();
+let requiredEditInputs = [];
 
+async function initEditTask(task) {
   initializeObserveDropdownChanges();
+  updateSelectedContactsDisplay();
   initializeCloseAllDropdowns();
-  initializeReplaceInputWithButton();
-  // initializeSubtasksButtons();
   initializeSubtasksimulateInputClick();
   initializeResetAllOptions();
-
-  updateSelectedContactsDisplay();
-  // setContactDropdownEventListeners();
+  updateEditSubmitButtonState();
+  requiredEditInputs = getRequiredEditInputs();
+  initInputValidationListener(requiredEditInputs);
   initEditSubtasks();
   renderSubtasks(task.subtasks);
-
   const contacts = await fetchContacts();
   const assignedTo = task.assignedTo || [];
   loadEditContacts(contacts, assignedTo);
 }
 
-// CONTACT CODE -- geändert -- //
-// function setContactDropdownEventListeners() {
-//   const dropdown = document.getElementById("contactDropdown");
-//   const dropdownContainer = document.querySelector(".dropdown-container");
-//   const dropdownList = document.getElementById("contact-list");
+function getRequiredEditInputs() {
+  const title = document.getElementById("edit-title-input");
+  const date = document.getElementById("date-input");
+  return [title, date];
+}
 
-//   if (!dropdown || !dropdownContainer || !dropdownList) return;
+function areEditInputsValid() {
+  return requiredEditInputs.every((input) => input.checkValidity());
+}
 
-//   dropdown.addEventListener("click", function (event) {
-//     event.stopPropagation();
-//     toggleContactSearch(this); // "this" here is the dropdown element (contactDropdown)
-//   });
+function updateEditSubmitButtonState() {
+  const editSubmitButton = document.getElementById("edit-submit-btn");
+  console.log(editSubmitButton);
+  editSubmitButton.disabled = !areEditInputsValid();
+}
 
-//   taskOverlayContentRef.addEventListener("click", (event) => {
-//     if (!event.target.closest(".dropdown-container") && !event.target.classList.contains("dropdown-selected")) {
-//       closeAllContactDropdowns();
-//     }
-//   });
-// }
+function initInputValidationListener(requiredEditInputs) {
+  requiredEditInputs.forEach((input) => {
+    input.addEventListener("input", updateEditSubmitButtonState);
+  });
+}
 
-// function toggleContactSearch(element) {
-//   const dropdownContainer = getDropdownContainer(element);
-//   const dropdownOptions = getDropdownOptions(dropdownContainer);
-
-//   if (isButtonElement(element)) {
-//     const input = replaceButtonWithInput(element, dropdownOptions);
-
-//     input.addEventListener("click", function (event) {
-//       event.stopPropagation();
-//       toggleContactSearch(this);
-//     });
-//   } else if (element.tagName === "INPUT") {
-//     openDropdown(dropdownOptions);
-//   }
-// }
-
-// GEÄNDERT! //
 /**
- * Main function - Handles selection behavior when an option is clicked.
+ * Handles selection behavior when an option is clicked
+ *
+ * @param {HTMLElement} element - The option element
+ * @param {Event} event - The event triggering the selection
  */
 function selectEditOption(element, event = null) {
   const checkbox = element.querySelector(".hidden-checkbox");
@@ -68,82 +54,96 @@ function selectEditOption(element, event = null) {
   applySelectionStyles(element, checkbox.checked);
 }
 
-// GEÄNDERT // BEI addTaskSelections übernehmen?
-function updateSelectedContacts() {
-  const selectedContactsDiv = document.getElementById("selectedContacts");
-  selectedContactsDiv.innerHTML = "";
-
-  const checkedElements = document.querySelectorAll(".hidden-checkbox:checked");
-  const maxVisibleAvatars = 5;
-
-  checkedElements.forEach((checkbox, index) => {
-    const parentElement = checkbox.closest(".option");
-    const avatar = parentElement.querySelector(".task-card-avatar");
-
-    if (avatar && index < maxVisibleAvatars) {
-      const clonedAvatar = avatar.cloneNode(true);
-      clonedAvatar.dataset.id = avatar.dataset.id;
-      selectedContactsDiv.appendChild(clonedAvatar);
-    }
-  });
-
-  const extraCount = checkedElements.length - maxVisibleAvatars;
-  if (extraCount > 0) {
-    const plusCounter = document.createElement("div");
-    plusCounter.classList.add("plus-counter");
-    plusCounter.textContent = `+${extraCount}`;
-    selectedContactsDiv.appendChild(plusCounter);
-  }
-
-  selectedContactsDiv.style.display = "none";
-  selectedContactsDiv.offsetHeight;
-  selectedContactsDiv.style.display = "flex";
-}
-
-// GEÄNDERT!! //
-function initEditSubtasks() {
+/**
+ * Gets the DOM references related to editing subtasks
+ *
+ * @returns - an object containing references to input, add button, delete confirmation, and the
+ * container element.
+ *
+ */
+function getSubtaskRefs() {
   const input = document.getElementById("newEditSubtask"); // GEÄNDERT!! //
   const addSubtask = document.getElementById("addSubtask");
   const confirmDelete = document.getElementById("confirmDeleteNewSubtask");
   const subtaskContainer = document.querySelector(".subtask-container");
 
-  // Function to show confirmDelete and hide addSubtask
-  function showConfirmDelete(event) {
+  return { input, addSubtask, confirmDelete, subtaskContainer };
+}
+
+/**
+ * Returns an event handler that hides the add button, shows the delete confirmation, and focuses the
+ * input
+ *
+ * @param {{ addSubtask: HTMLElement, confirmDelete: HTMLElement, input: HTMLInputElement }} - Elements
+ * involved in toggling the UI state for editing subtasks
+ * @returns - Event handler to be used on input click
+ */
+function showConfirmDeleteOnEdit({ addSubtask, confirmDelete, input }) {
+  return function (event) {
     addSubtask.style.display = "none";
     confirmDelete.style.display = "flex";
-    event.stopPropagation();
-  }
 
-  // Function to reset everything when clicking outside
-  function resetOnOutsideClick(event) {
-    if (!subtaskContainer.contains(event.target)) {
-      resetElements();
+    if (input) {
+      input.focus();
     }
-  }
 
-  // Function to reset elements to their original state
-  function resetElements() {
+    event.stopPropagation();
+  };
+}
+
+/**
+ * Returns a function that resets the subtask input and related UI elements to their initial state
+ *
+ * @param {{ addSubtask: HTMLElement, confirmDelete: HTMLElement, input: HTMLInputElement }} - Elements
+ * involved in resetting the UI state
+ * @returns - Function that resets the UI
+ */
+function resetElementsOnEdit({ addSubtask, confirmDelete, input }) {
+  return function () {
     addSubtask.style.display = "block";
     confirmDelete.style.display = "none";
     input.value = "";
-  }
+  };
+}
 
+/**
+ * Returns an event handler that resets the subtask UI if a click occurs outside the container
+ *
+ * @param {HTMLElement} subtaskContainer - The container element to detect outside clicks
+ * @param {() => void} closeFunction - The function to call when clicking outside the container
+ * @returns - Event handler for outside clicks
+ */
+function resetOnOutsideClickOnEdit(subtaskContainer, closeFunction) {
+  return function (event) {
+    if (!subtaskContainer.contains(event.target)) {
+      closeFunction();
+    }
+  };
+}
+
+/**
+ * Initializes the editing functionality for subtasks by adding event listeners and making helper
+ * functions globally accessible
+ *
+ */
+function initEditSubtasks() {
+  const { input, addSubtask, confirmDelete, subtaskContainer } = getSubtaskRefs();
+  const showConfirmDelete = showConfirmDeleteOnEdit({ addSubtask, confirmDelete, input });
+  const resetElements = resetElementsOnEdit({ addSubtask, confirmDelete, input });
   // Make function globally accessible
   window.resetElements = resetElements;
   window.showConfirmDelete = showConfirmDelete;
-
   // Add event listeners
   input.addEventListener("click", showConfirmDelete);
-  document.addEventListener("click", resetOnOutsideClick);
+  document.addEventListener("click", resetOnOutsideClickOnEdit(subtaskContainer, resetElements));
 }
 
-// GEÄNDERT!! //
 /**
- * Adds a new subtask item to the list
+ * Adds a new subtask item to the list (on the edit task overlay)
  *
  */
-function addEditSubtask() {
-  const input = document.getElementById("newEditSubtask"); // GEÄNDERT!! //
+function addSubtaskOnEdit() {
+  const input = document.getElementById("newEditSubtask");
   const subtaskList = document.getElementById("subtaskList");
   if (!input || !subtaskList || !input.value.trim()) return;
 
@@ -172,3 +172,35 @@ async function loadEditContacts(contacts, assignedTo) {
     checkAssignedToContacts(assignedTo);
   }, 0);
 }
+
+// GEÄNDERT // BEI addTaskSelections übernehmen?
+// function updateSelectedContacts() {
+//   const selectedContactsDiv = document.getElementById("selectedContacts");
+//   selectedContactsDiv.innerHTML = "";
+
+//   const checkedElements = document.querySelectorAll(".hidden-checkbox:checked");
+//   const maxVisibleAvatars = 5;
+
+//   checkedElements.forEach((checkbox, index) => {
+//     const parentElement = checkbox.closest(".option");
+//     const avatar = parentElement.querySelector(".task-card-avatar");
+
+//     if (avatar && index < maxVisibleAvatars) {
+//       const clonedAvatar = avatar.cloneNode(true);
+//       clonedAvatar.dataset.id = avatar.dataset.id;
+//       selectedContactsDiv.appendChild(clonedAvatar);
+//     }
+//   });
+
+//   const extraCount = checkedElements.length - maxVisibleAvatars;
+//   if (extraCount > 0) {
+//     const plusCounter = document.createElement("div");
+//     plusCounter.classList.add("plus-counter");
+//     plusCounter.textContent = `+${extraCount}`;
+//     selectedContactsDiv.appendChild(plusCounter);
+//   }
+
+//   selectedContactsDiv.style.display = "none";
+//   selectedContactsDiv.offsetHeight;
+//   selectedContactsDiv.style.display = "flex";
+// }
