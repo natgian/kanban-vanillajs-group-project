@@ -14,6 +14,17 @@ async function initBoard() {
   renderAddTaskContent();
 }
 
+let addTaskStatus = "to-do";
+/**
+ * Sets the addTaskStatus variable to the given status and initializes the board
+ *
+ * @param {string} status - The new task status ("to-do", "in-progress" or "awaiting-feedback")
+ */
+function setAddTaskStatus(status) {
+  addTaskStatus = status;
+  initBoardAddTask();
+}
+
 /**
  * Initializes the "Add Task" overlay or redirects to the mobile version
  *

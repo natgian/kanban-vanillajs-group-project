@@ -120,7 +120,9 @@
           <!-- Board header -->
           <section class="board-header">
             <h1>Board</h1>
-            <button class="btn" id="add-btn-mobile" onclick="initBoardAddTask()"><img src="../assets/icons/add_icon.svg" alt="add icon" /></button>
+
+            <!-- Mobile add task button -->
+            <button class="btn" id="add-btn-mobile" onclick="setAddTaskStatus('to-do')"><img src="../assets/icons/add_icon.svg" alt="add icon" /></button>
 
             <div class="board-search-add-wrapper">
               <div class="search-container">
@@ -130,7 +132,7 @@
                   <img src="../assets/icons/search_icon.svg" alt="search icon" />
                 </button>
               </div>
-              <button class="btn" id="add-btn-desktop" onclick="initBoardAddTask()">Add task<img src="../assets/icons/add_icon.svg" alt="add icon" /></button>
+              <button class="btn" id="add-btn-desktop" onclick="setAddTaskStatus('to-do')">Add task<img src="../assets/icons/add_icon.svg" alt="add icon" /></button>
             </div>
           </section>
 
@@ -139,7 +141,7 @@
             <div class="board-column">
               <div class="column-header">
                 <h2 class="task-status">To do</h2>
-                <button class="icon-btn" onclick="initBoardAddTask()">
+                <button class="icon-btn" onclick="setAddTaskStatus('to-do')">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <rect x="1" y="1" width="22" height="22" rx="7" stroke="currentColor" stroke-width="2" />
                     <path d="M12 8V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
@@ -154,7 +156,7 @@
             <div class="board-column">
               <div class="column-header">
                 <h2 class="task-status">In progress</h2>
-                <button class="icon-btn" onclick="initBoardAddTask()">
+                <button class="icon-btn" onclick="setAddTaskStatus('in-progress')">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <rect x="1" y="1" width="22" height="22" rx="7" stroke="currentColor" stroke-width="2" />
                     <path d="M12 8V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
@@ -175,7 +177,7 @@
             <div class="board-column">
               <div class="column-header">
                 <h2 class="task-status">Await feedback</h2>
-                <button class="icon-btn" onclick="initBoardAddTask()">
+                <button class="icon-btn" onclick="setAddTaskStatus('awaiting-feedback')">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <rect x="1" y="1" width="22" height="22" rx="7" stroke="currentColor" stroke-width="2" />
                     <path d="M12 8V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
