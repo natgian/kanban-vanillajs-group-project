@@ -16,22 +16,40 @@ async function initEditTask(task) {
   loadEditContacts(contacts, assignedTo);
 }
 
+/**
+ * Gets the required input elements for editing a task
+ *
+ * @returns - An array of input elements that are required
+ */
 function getRequiredEditInputs() {
   const title = document.getElementById("edit-title-input");
   const date = document.getElementById("date-input");
   return [title, date];
 }
 
+/**
+ * Checks if all required edit inputs are valid
+ *
+ * @returns - "True" if all required inputs are valid, otherwise "false"
+ */
 function areEditInputsValid() {
   return requiredEditInputs.every((input) => input.checkValidity());
 }
 
+/**
+ * Updates the edit submit button's disabled state based on validity check
+ *
+ */
 function updateEditSubmitButtonState() {
   const editSubmitButton = document.getElementById("edit-submit-btn");
-  console.log(editSubmitButton);
   editSubmitButton.disabled = !areEditInputsValid();
 }
 
+/**
+ * Initializes the input listeners to validate and update the submit button
+ *
+ * @param {Array} requiredEditInputs - An array containing the required input elements
+ */
 function initInputValidationListener(requiredEditInputs) {
   requiredEditInputs.forEach((input) => {
     input.addEventListener("input", updateEditSubmitButtonState);

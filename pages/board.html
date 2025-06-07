@@ -202,15 +202,15 @@
           </section>
 
           <!-- Task Overlay -->
-          <div class="task-overlay" id="task-overlay">
+          <div class="task-overlay" id="task-overlay" onclick="closeTaskOverlay('task-overlay')">
             <div class="task-overlay-content" id="task-overlay-content"></div>
           </div>
 
           <!-- Add Task Overlay -->
-          <div class="task-overlay" id="add-task-overlay" onload="renderAddTask()" onclick="closeOverlay()">
+          <div class="task-overlay" id="add-task-overlay" onload="renderAddTask()" onclick="closeAddTaskOverlay('add-task-overlay')">
             <div class="add-task-wrapper" id="add-task-wrapper">
               <div class="flex-end">
-                <button class="close-btn" onclick="closeAddTaskOverlay()">
+                <button class="close-btn" onclick="closeOverlay(addTaskOverlayRef)">
                   <img src="../assets/icons/close_icon.svg" alt="close icon" />
                 </button>
               </div>

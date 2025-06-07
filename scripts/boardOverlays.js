@@ -15,7 +15,6 @@ function openTaskOverlay(taskId) {
   taskOverlayRef.classList.add("show");
   document.body.classList.add("no-scroll");
 
-  setupOutsideClickHandler(taskOverlayContentRef, closeTaskOverlay);
   renderTaskDetails(taskId);
 }
 
@@ -24,27 +23,31 @@ function openTaskOverlay(taskId) {
  *
  */
 function closeTaskOverlay() {
-  taskOverlayRef.classList.remove("show");
+  document.addEventListener("click", function (event) {
+    if (event.target.id === "task-overlay") {
+      taskOverlayRef.classList.remove("show");
+      document.body.classList.remove("no-scroll");
+    }
+  });
+}
+
+/**
+ * Closes the overlay by removing the "show" and "no-scroll" classes from the elements
+ *
+ * @param {HTMLElement} overlayRef - The overelay element to be closed
+ */
+function closeOverlay(overlayRef) {
+  overlayRef.classList.remove("show");
   document.body.classList.remove("no-scroll");
 }
 
 /**
- * Opens the add task overlay, disables background scrolling and sets up the outside click listener
+ * Opens the add task overlay and disables background scrolling
  *
  */
 function openAddTaskOverlay() {
   addTaskOverlayRef.classList.add("show");
   document.body.classList.add("no-scroll");
-
-  // setupOutsideClickHandler(addTaskWrapperRef, closeAddTaskOverlay);
-}
-
-function closeOverlay() {
-  document.addEventListener("click", function (event) {
-    if (event.target.id === "add-task-overlay") {
-      closeAddTaskOverlay();
-    }
-  });
 }
 
 /**
@@ -52,9 +55,13 @@ function closeOverlay() {
  *
  */
 function closeAddTaskOverlay() {
-  addTaskOverlayRef.classList.remove("show");
-  document.body.classList.remove("no-scroll");
-  initReset();
+  document.addEventListener("click", function (event) {
+    if (event.target.id === "add-task-overlay") {
+      addTaskOverlayRef.classList.remove("show");
+      document.body.classList.remove("no-scroll");
+      initReset();
+    }
+  });
 }
 
 /**
@@ -126,7 +133,7 @@ async function deleteTask(taskId) {
       method: "DELETE",
     });
 
-    closeTaskOverlay();
+    closeOverlay(taskOverlayRef);
     showMessage("Task successfully deleted");
     initBoard();
   } catch (error) {
@@ -136,21 +143,15 @@ async function deleteTask(taskId) {
 
 /**
  * Renders the edit task template inside the task overlay.
- * Stops the event from bubbling up and fetches the task data based on its ID,
- * then replaces the overlay content with the corresponding edit form.
+ * Fetches the task data based on its ID, then replaces the overlay content with the corresponding edit form.
  *
  * @param {string} taskId - ID of the current task
- * @param {Event} event - The click event that triggered the function
  */
-function renderEditTaskTemplate(taskId, event) {
-  event.stopPropagation();
+function renderEditTaskTemplate(taskId) {
   const currentTask = allTasks.find((task) => task.taskId === taskId);
   const formattedDueDate = currentTask.dueDate.split("/").reverse().join("-");
 
   taskOverlayContentRef.innerHTML = taskOverlayEditTaskTemplate(currentTask, formattedDueDate);
-  taskOverlayContentRef.addEventListener("click", (e) => {
-    e.stopPropagation();
-  });
 
   initEditTask(currentTask);
 }
@@ -162,7 +163,7 @@ function renderEditTaskTemplate(taskId, event) {
  */
 function updateTask(taskId) {
   const updatedTask = getUpdatedTaskData(taskId);
-  updateEditedTaskinDB(taskId, updatedTask);
+  updateEditedTask(taskId, updatedTask);
 }
 
 /**
@@ -171,7 +172,7 @@ function updateTask(taskId) {
  * @param {string} taskId - ID of the current task
  * @param {Object} updatedTask - The updated task data to be saved in the database
  */
-async function updateEditedTaskinDB(taskId, updatedTask) {
+async function updateEditedTask(taskId, updatedTask) {
   try {
     await fetch(`${baseURL}/tasks/${taskId}.json`, {
       method: "PUT",
@@ -179,7 +180,7 @@ async function updateEditedTaskinDB(taskId, updatedTask) {
       body: JSON.stringify(updatedTask),
     });
 
-    closeTaskOverlay();
+    closeOverlay(taskOverlayRef);
     initBoard();
     setTimeout(() => {
       showMessage("Task successfully updated");

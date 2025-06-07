@@ -109,7 +109,7 @@ function taskOverlayTemplate(task, assignedToDetailHTML, subtasksHTML, formatted
   return `
           <div class="category-icon-container">
             <span class="task-category ${task.category === "Technical Task" ? "technical" : "userstory"}-category">${task.category}</span>
-            <button class="close-btn" onclick="closeTaskOverlay()">
+            <button class="close-btn" onclick="closeOverlay(taskOverlayRef)">
                 <img src="../assets/icons/close_icon.svg" alt="close icon"/>
             </button>
           </div>
@@ -238,7 +238,7 @@ function assignedToDetailTemplate(person) {
 function taskOverlayEditTaskTemplate(task, formattedDueDate) {
   return `
           <div class="flex-end">
-            <button class="close-btn" onclick="closeTaskOverlay()">
+            <button class="close-btn" onclick="closeOverlay(taskOverlayRef)">
                 <img src="../assets/icons/close_icon.svg" alt="close icon"/>
             </button>
           </div>
@@ -303,9 +303,12 @@ function taskOverlayEditTaskTemplate(task, formattedDueDate) {
                 <label for="contactDropdown" class="edit-task-label">Assigned to</label>
                 <div class="dropdown-container">
                   <input type="button" value="Select contacts to assign" class="dropdown-selected typeBars" id="contactDropdown" onclick="toggleContactDropdown(this)" />
+                  <button id="toggleButtonDropdown" onclick="toggleContactDropdown(this)" ">
+                    <img src="../assets/icons/arrow_drop_downaa.png" alt="down">
+                  </button>
                   <div class="dropdown-options" id="contact-list"></div>
                 </div>
-                <div id="selectedContacts"></div>
+                <div class="resetTarget" id="selectedContacts"></div>
               </div>
 
               <!-- Subtasks -->
