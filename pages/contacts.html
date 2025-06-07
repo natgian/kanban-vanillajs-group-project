@@ -57,12 +57,16 @@
         </header>
 
         <section class="contacts-section">
-            <div id="contact-list">
+            <div id="contact-list">                
                 <div id="mobile-add-button" onclick="openNewContact()" class="mobile-add-button">
                     <img src="/assets/icons/person_add.svg" alt="">
                 </div>
-                <button id="openNewContactButton" onclick="openNewContact()" class="btn">Add New Contact <img src="/assets/icons/person_add.svg" alt=""></button>
-                <div id="contact-list-body"></div>
+                <div class="contact-list-header">
+                  <button id="openNewContactButton" onclick="openNewContact()" class="btn">Add New Contact <img src="/assets/icons/person_add.svg" alt=""></button>
+                </div>
+                <div id="contact-list-body">
+
+                </div>
             </div>
             <div id="contenttop">
                 <div class="contentfix-computer">
@@ -76,8 +80,8 @@
                         <p>Better with a team</p>
                         <div class="divider-horizontal"></div>
                     </div>
-                    <div onclick="backTocontacts()" class="contentfix-mobile-right">
-                        <svg class="back-icon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg>
+                    <div class="contentfix-mobile-right">
+                        <svg id="back-icon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg>
                     </div>
                 </div>
                 <div id="contact-details">

@@ -21,6 +21,7 @@ const colorsObject = {
 let contactStore = {};
 let currentEditingContactId = null;
 let newContactMode = false;
+let popupJustClosed = false;
 
 function init() {
   cleanNullContacts();
@@ -37,12 +38,6 @@ async function loadContactsData() {
   try {
     let contactsResponse = await fetch(databaseURL + '.json');
     let contactsData = await contactsResponse.json();
-    
-    if(!contactsData || typeof contactsData !== 'object' || Object.keys(contactsData).length === 0){
-      contactStore ={};
-      document.getElementById('contact-list-body').innerHTML = '<p>Keine Kontakte vorhanden.</p>';
-      return;
-    }
 
     contactStore = contactsData;
     let groupContacts = await groupContactsByLetter(contactsData);
@@ -150,7 +145,7 @@ function showContactDetails(id) {
 
   document.getElementById('contact-list').classList.add('d_mobile_none');
   document.getElementById('contact-details').classList.add('d_block');
-  if (window.innerWidth <= 905) {
+  if (window.innerWidth <= 1000) {
   document.getElementById('contenttop').classList.add('d_block');
 }
   document.getElementById('contact-details').innerHTML = templateContactsDetails(contact);
@@ -160,22 +155,38 @@ function showContactDetails(id) {
 function openNewContact() {
   newContactMode = true;
   currentEditingContactId = null;
+
   const allContacts = document.querySelectorAll('.contact');
   allContacts.forEach(c => c.classList.remove('active-contact'));
-  document.getElementById('contact-details').innerHTML='';
+
+  document.getElementById('contact-details').innerHTML = '';
 
   const refOverlay = document.getElementById('layout');
   refOverlay.innerHTML = templateNewContact();
   refOverlay.classList.remove('d_none');
-  refOverlay.classList.remove('flex-display');
+  const popup = document.getElementById('popup');
+
+  requestAnimationFrame(() => {
+    if (popup) popup.classList.add('show');
+    refOverlay.classList.add('active');
+  });
 }
 
-function popUpClose(){
+
+function popUpClose() {
   const refOverlay = document.getElementById('layout');
-  refOverlay.classList.add('d_none');
-  newContactMode = false;
-  currentEditingContactId = null;
-  init();
+  const popup = document.getElementById('popup');
+  
+  if (popup) popup.classList.remove('show');
+  refOverlay.classList.remove('active');
+
+  setTimeout(() => {
+    refOverlay.classList.add('d_none');
+    refOverlay.innerHTML = '';
+    newContactMode = false;
+    currentEditingContactId = null;
+    init();
+  }, 400);
 }
 
 function buildContactData(){
@@ -250,8 +261,8 @@ async function createNewContact(event) {
     }
     
   } catch (error) {
-    console.error('Fehler beim Hinzufügen des Kontakts:', error);
-    showMessage("Es gab ein Problem beim Speichern des Kontakts.");
+    console.error('There was a problem added the contact:', error);
+    showMessage("There was a problem saving the contact!");
   }
   showContactDetails(data.id);
 }
@@ -269,53 +280,31 @@ function showMessage(text) {
   }, 2000);
 }
 
-async function editContact(id) {
+async function editContact(id, event) {
+  event.stopPropagation();
   currentEditingContactId = id;
-  
+
   const contact = contactStore[id];
   const refOverlay = document.getElementById('layout');
   refOverlay.innerHTML = templateEditContact(contact, id);
   refOverlay.classList.remove('d_none');
   refOverlay.classList.remove('flex-display');
+  const popup = document.getElementById('popup');
+
+  requestAnimationFrame(() => {
+    if (popup) popup.classList.add('show');
+    refOverlay.classList.add('active');
+  });
 
   try {
     const updatedResponse = await fetch(`${databaseURL}/${id}.json`);
     const updatedContact = await updatedResponse.json();
-    document.getElementById('contact-details').innerHTML = templateContactsDetails(updatedContact);
-    await loadContactsData();  
+    await loadContactsData();
   } catch (error) {
-    console.error("Fehler beim Abrufen des Kontakts:", error);
-    showMessage("Fehler beim Laden des Kontakts!");
+    console.error("Failed to retrieve contact:", error);
+    showMessage("There was a problem loading the contact!");
   }
 }
-
-
-async function editContactMobile(id) {
-  currentEditingContactId = id;
-  const contact = contactStore[id];
-
-  if(!contact){
-    showMessage("Kontakt nicht gefunden!");
-    return;
-  }
-
-  const contactWithId = {id, ...contact};
-  const refOverlay = document.getElementById('layout');
-  refOverlay.innerHTML = templateEdtContactMobile(contactWithId);
-  refOverlay.classList.remove('d_none');
-  refOverlay.classList.add('flex-display');
-
-  try {
-    const updatedResponse = await fetch(`${databaseURL}/${id}.json`);
-    const updatedContact = await updatedResponse.json();
-    document.getElementById('contact-details').innerHTML = templateContactsDetails(updatedContact);
-    await loadContactsData();  
-  } catch (error) {
-    console.error("Fehler beim Abrufen des Kontakts:", error);
-    showMessage("Fehler beim Laden des Kontakts!");
-  }
-}
-
 
 async function updateContactDetails(id, updated) {
   try {
@@ -394,9 +383,68 @@ function backTocontacts(){
   allContacts.forEach(c => c.classList.remove('active-contact'));
 }
 
-function toggleDropdown(id) {
+
+
+function toggleDropdown(id, event) {
   const menu = document.getElementById(`dropdown-menu-${id}`);
   if (menu) {
     menu.classList.toggle('hidden');
   }
 }
+document.addEventListener('click', (event) => {
+  const targetID = event.target.id;
+
+  if (targetID === 'save' || targetID === 'delete') {
+    event.stopPropagation();
+    popUpClose();
+    return;
+  }
+
+  const refOverlay = document.getElementById('layout');
+  const popupOpen = refOverlay && !refOverlay.classList.contains('d_none');
+  if (popupOpen) return;
+
+  let dropdownWasOpen = false;
+  document.querySelectorAll('.dropdown-menu').forEach(menu => {
+    if (!menu.classList.contains('hidden')) {
+      const id = menu.id.replace('dropdown-menu-', '');
+      const button = document.querySelector(`.mobile-dropdown-button[onclick*="${id}"]`);
+      if (!menu.contains(event.target) && !(button && button.contains(event.target))) {
+        menu.classList.add('hidden');
+        dropdownWasOpen = true;
+      }
+    }
+  });
+
+  if (dropdownWasOpen) {
+    event.stopPropagation(); 
+    return;
+  }
+});
+
+function handleDropdownOnClick(event) {
+  const refOverlay = document.getElementById('layout');
+  const popupOpen = refOverlay && !refOverlay.classList.contains('d_none');
+  if (popupOpen) return false;
+
+  let dropdownWasOpen = false;
+
+  document.querySelectorAll('.dropdown-menu').forEach(menu => {
+    if (!menu.classList.contains('hidden')) {
+      const id = menu.id.replace('dropdown-menu-', '');
+      const button = document.querySelector(`.mobile-dropdown-button[onclick*="${id}"]`);
+      if (!menu.contains(event.target) && !(button && button.contains(event.target))) {
+        menu.classList.add('hidden');
+        dropdownWasOpen = true;
+      }
+    }
+  });
+  return dropdownWasOpen;
+}
+
+document.getElementById('back-icon').addEventListener('click', (event) => {
+  if (handleDropdownOnClick(event)) {
+    return;
+  }
+  backTocontacts();
+});
