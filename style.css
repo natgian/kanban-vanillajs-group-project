@@ -118,7 +118,7 @@ h1 {
   border: 1px solid var(--primary-color);
 }
 
-.btn:hover {
+.btn:not(:disabled):hover {
   background-color: var(--hover-color);
   border: 1px solid var(--hover-color);
   box-shadow: 0 4px 4px 0 rgb(0, 0, 0, 0.25);
@@ -128,6 +128,13 @@ h1 {
   background-color: var(--active-color);
   border: 1px solid var(--active-color);
   box-shadow: 0 4px 4px 0 rgb(0, 0, 0, 0.25);
+}
+
+.btn:disabled {
+  background-color: var(--outline-color);
+  color: white;
+  border-color: var(--outline-color);
+  cursor: not-allowed;
 }
 
 /* HEADER */
@@ -376,7 +383,7 @@ header {
 }
 
 /* MEDIA QUERIES */
-@media (max-width: 905px) {
+@media (max-width: 1080px) {
   #header-logo {
     display: block;
     height: 56px;
@@ -455,9 +462,6 @@ header {
 }
 
 @media (max-width: 350px) {
-  .header {
-    padding: 20px 16px 20px 116px;
-  }
   .sidebar-menu-link {
     scale: 0.8;
     width: 80px;

@@ -20,7 +20,7 @@
 .board-columns {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: space-between;
   gap: 24px;
   margin: 48px 0;
 }
@@ -228,6 +228,13 @@
     display: flex;
   }
 }
+
+/* @media (min-width: 956px) {
+  .board-columns {
+    justify-content: space-between;
+  }
+} */
+
 @media (max-width: 864px) {
   #add-btn-mobile {
     display: block;
