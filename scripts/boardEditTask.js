@@ -1,5 +1,11 @@
 let requiredEditInputs = [];
 
+/**
+ * Initializes the edit task overlay, sets up event listeners, validation, dropdowns, subtasks and
+ * loads the contact data
+ *
+ * @param {Object} task - The current task object
+ */
 async function initEditTask(task) {
   initializeObserveDropdownChanges();
   updateSelectedContactsDisplay();
@@ -189,6 +195,95 @@ async function loadEditContacts(contacts, assignedTo) {
   setTimeout(() => {
     checkAssignedToContacts(assignedTo);
   }, 0);
+}
+
+/**
+ * Renders the edit task template inside the task overlay.
+ * Fetches the task data based on its ID, then replaces the overlay content with the corresponding edit form.
+ *
+ * @param {string} taskId - ID of the current task
+ */
+function renderEditTaskTemplate(taskId) {
+  const currentTask = allTasks.find((task) => task.taskId === taskId);
+  const formattedDueDate = currentTask.dueDate.split("/").reverse().join("-");
+
+  taskOverlayContentRef.innerHTML = taskOverlayEditTaskTemplate(currentTask, formattedDueDate);
+
+  initEditTask(currentTask);
+}
+
+/**
+ * Get the changed data from the current task and updates the database
+ *
+ * @param {string} taskId - ID of the current task
+ */
+function updateTask(taskId) {
+  const updatedTask = getUpdatedTaskData(taskId);
+  updateEditedTask(taskId, updatedTask);
+}
+
+/**
+ * Updates the task changes in the database then re-initializes the board
+ *
+ * @param {string} taskId - ID of the current task
+ * @param {Object} updatedTask - The updated task data to be saved in the database
+ */
+async function updateEditedTask(taskId, updatedTask) {
+  try {
+    await fetch(`${baseURL}/tasks/${taskId}.json`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updatedTask),
+    });
+
+    closeOverlay(taskOverlayRef);
+    initBoard();
+    setTimeout(() => {
+      showMessage("Task successfully updated");
+    }, 500);
+  } catch (error) {
+    console.error("Something went wrong:", error);
+  }
+}
+
+/**
+ * Gets the updated task values and returns a new task object
+ *
+ * @param {*} taskId - ID of the current task
+ * @returns {Object} - The updated task object with the new values
+ */
+function getUpdatedTaskData(taskId) {
+  const currentTask = allTasks.find((task) => task.taskId === taskId);
+  const updatedPriority = document.querySelector('input[name="priority"]:checked')?.value || null;
+  const updatedTitle = document.getElementById("edit-title-input")?.value || "";
+  const updatedDescription = document.getElementById("edit-desc-textarea")?.value || "";
+  const updatedDueDate = document.getElementById("date-input")?.value || "";
+
+  return createUpdatedTask(currentTask, updatedPriority, updatedTitle, updatedDescription, updatedDueDate);
+}
+
+/**
+ * Creates a new task object with the updated values
+ *
+ * @param {Object} currentTask - The original task object
+ * @param {string} updatedPriority - The updated priority value
+ * @param {string} updatedTitle - The updated title value
+ * @param {string} updatedDescription - The updated description value
+ * @param {string} updatedDueDate - The updated description value
+ * @returns {Object} - The new task object with the updated values
+ */
+function createUpdatedTask(currentTask, updatedPriority, updatedTitle, updatedDescription, updatedDueDate) {
+  return {
+    assignedTo: getSelectedContacts(),
+    category: currentTask.category,
+    description: updatedDescription,
+    dueDate: updatedDueDate,
+    priority: updatedPriority,
+    status: currentTask.status,
+    subtasks: getSubtasks(currentTask.subtasks),
+    taskId: currentTask.taskId,
+    title: updatedTitle,
+  };
 }
 
 // GEÄNDERT // BEI addTaskSelections übernehmen?

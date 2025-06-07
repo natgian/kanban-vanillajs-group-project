@@ -1,5 +1,3 @@
-// const baseURL = "https://join-458-default-rtdb.europe-west1.firebasedatabase.app";
-
 let allTasks = [];
 let currentDraggedElement;
 let currentOpenMenu = null;
@@ -52,8 +50,6 @@ function openAddTask() {
     return;
   }
 }
-
-// ---------------------NEU---------------------//
 
 /**
  * Fetches the tasks from the database
@@ -355,4 +351,39 @@ function updateDisabledMenuItem(items, status) {
       item.classList.remove("disabled");
     }
   });
+}
+
+/**
+ * Sets up a click listener that triggers a function when a click occurs outside the element.
+ * Makes sure only one outside click listener is active by removing any previous one.
+ *
+ * @param {HTMLElement} ref - The element to monitor for outside clicks
+ * @param {Function} closeFunction - The function to call when an outside click is detected
+ *
+ */
+function setupOutsideClickHandler(ref, closeFunction) {
+  removeClickHandler();
+
+  currentOutsideClickHandler = function (event) {
+    if (!ref.contains(event.target)) {
+      closeFunction();
+      removeClickHandler();
+    }
+  };
+
+  // // Delays adding the click listener to avoid catching the opening click event
+  requestAnimationFrame(() => {
+    document.addEventListener("click", currentOutsideClickHandler);
+  });
+}
+
+/**
+ * Removes the current outside click listener (if there is one)
+ *
+ */
+function removeClickHandler() {
+  if (currentOutsideClickHandler) {
+    document.removeEventListener("click", currentOutsideClickHandler);
+    currentOutsideClickHandler = null;
+  }
 }
