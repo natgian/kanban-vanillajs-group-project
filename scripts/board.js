@@ -20,11 +20,10 @@ async function initBoard() {
 async function initBoardAddTask() {
   if (!boardAddTaskAlreadyInitialized) {
     initializePriorityButtons();
-    initializeToggleContactSearch();
+    // initializeToggleContactSearch();
     initializeObserveDropdownChanges();
-
     initializeCloseAllDropdowns();
-    initializeReplaceInputWithButton();
+    // initializeReplaceInputWithButton();
     initializeSubtasksButtons();
     initializeSubtasksimulateInputClick();
     initializeResetAllOptions();
