@@ -22,6 +22,8 @@ let contactStore = {};
 let currentEditingContactId = null;
 let newContactMode = false;
 let popupJustClosed = false;
+let lastOpenedDropdownId = null;
+
 
 function init() {
   cleanNullContacts();
@@ -47,8 +49,8 @@ async function loadContactsData() {
     document.getElementById('contact-list-body').innerHTML = abilityContacts;
 
   } catch (error) {
-    console.error('Fehler bei der Datenbankabfrage:', error);
-    alert("Es gab ein Problem bei der Registrierung. Bitte versuchen Sie es später noch einmal.");
+    console.error('Problem checking the database:', error);
+    alert("There was a problem with the registration. Please try again later.");
   }
 }
 
@@ -72,7 +74,7 @@ async function groupContactsByLetterIfElse(contactsData, groupContacts, updatePr
     if (contactsData.hasOwnProperty(key)) {
       let contact = contactsData[key];
       if (!contact || typeof contact.name !== "string") {
-        console.warn(`Ungültiger Kontakt mit Schlüssel: ${key}`);
+        console.warn(`Invalid contact with this key: ${key}`);
         continue;
       }
       if (!contact.id) {
@@ -122,19 +124,14 @@ async function saveContactColor(contactKey, color) {
     });
 
     if (!res.ok) {
-      throw new Error(`Fehler beim Speichern der Farbe für ${contactKey}: ${res.statusText}`);
+      throw new Error(`There was a problem saving the color for ${contactKey}: ${res.statusText}`);
     }
   } catch (error) {
-    console.error(`Netzwerkfehler beim Speichern der Farbe für ${contactKey}:`, error);
+    console.error(`Network error while saving the color for ${contactKey}:`, error);
   }
 }
 
-function showContactDetails(id) {
-  const contact = contactStore[id];
-  if (!contact) {
-    return console.error('Kontakt nicht gefunden:', id);
-  }
-
+function setActiveContact(id) {
   const allContacts = document.querySelectorAll('.contact');
   allContacts.forEach(c => c.classList.remove('active-contact'));
 
@@ -142,6 +139,15 @@ function showContactDetails(id) {
   if (clickedContact) {
     clickedContact.classList.add('active-contact');
   }
+}
+
+function showContactDetails(id) {
+  const contact = contactStore[id];
+  if (!contact) {
+    return console.error('Contact not found:', id);
+  }
+
+  setActiveContact(id);
 
   document.getElementById('contact-list').classList.add('d_mobile_none');
   document.getElementById('contact-details').classList.add('d_block');
@@ -151,13 +157,33 @@ function showContactDetails(id) {
   document.getElementById('contact-details').innerHTML = templateContactsDetails(contact);
 }
 
+function mobileAddButtonHoverColorAdd(){
+  const openNewContactButton = document.getElementById('mobile-add-button');
+  openNewContactButton.classList.add('button-hover-style');
+}
+function mobileAddButtonHoverColorRemove(){
+  const openNewContactButton = document.getElementById('mobile-add-button');
+  openNewContactButton.classList.remove('button-hover-style');
+}
+
+function clearActiveContacts() {
+  const allContacts = document.querySelectorAll('.contact');
+  allContacts.forEach(c => c.classList.remove('active-contact'));
+}
+
+function showPopup(refOverlay, popup) {
+  requestAnimationFrame(() => {
+    if (popup) popup.classList.add('show');
+    refOverlay.classList.add('active');
+  });
+}
 
 function openNewContact() {
   newContactMode = true;
   currentEditingContactId = null;
+  mobileAddButtonHoverColorAdd();
 
-  const allContacts = document.querySelectorAll('.contact');
-  allContacts.forEach(c => c.classList.remove('active-contact'));
+  clearActiveContacts();
 
   document.getElementById('contact-details').innerHTML = '';
 
@@ -166,16 +192,13 @@ function openNewContact() {
   refOverlay.classList.remove('d_none');
   const popup = document.getElementById('popup');
 
-  requestAnimationFrame(() => {
-    if (popup) popup.classList.add('show');
-    refOverlay.classList.add('active');
-  });
+  showPopup(refOverlay, popup);
 }
-
 
 function popUpClose() {
   const refOverlay = document.getElementById('layout');
   const popup = document.getElementById('popup');
+  mobileAddButtonHoverColorRemove();
   
   if (popup) popup.classList.remove('show');
   refOverlay.classList.remove('active');
@@ -219,14 +242,25 @@ async function postContact(data) {
   });
 }
 
+function renderContactDetails(containerId, contact) {
+  const detailHTML = templateContactsDetails(contact);
+  const container = document.getElementById(containerId);
+  if (container) {
+    container.innerHTML = detailHTML;
+  }
+}
+
+function closePopupAfterDelay(delay = 2000) {
+  setTimeout(popUpClose, delay);
+}
+
 async function newContactDetails(data, newContact) {
   showMessage('Contact successfully added!');
   loadContactsData();
-  const newId = data.name;
-  const monogram = newContact.monogram;
-  const monogramColor = newContact.monogramColor;
 
-  const detailHTML = templateContactsDetails({
+  const newId = data.name;
+
+  renderContactDetails('contact-details', {
     id: newId,
     name: newContact.name,
     email: newContact.email,
@@ -235,38 +269,44 @@ async function newContactDetails(data, newContact) {
     monogramColor: newContact.monogramColor,
   });
 
-  const detailContainer = document.getElementById('contact-details');
-  if (detailContainer) {
-    detailContainer.innerHTML = detailHTML;
-  }
-
-  setTimeout(popUpClose, 2000);
+  closePopupAfterDelay();
 }
 
 async function createNewContact(event) {
   event.preventDefault();
 
   const newContact = buildContactData();
-  
+
   if (isDuplicate(newContact)) {
     return showMessage("Contact already exists!");
   }
 
   try {
-    const response = await postContact({ ...newContact, monogramColor: newContact.monogramColor });
+    const response = await postContact({
+      ...newContact,
+      monogramColor: newContact.monogramColor
+    });
 
-    if(response.ok){
+    if (response.ok) {
       const data = await response.json();
-      await newContactDetails(data, newContact);
+      await handleSuccessfulContactCreation(data, newContact);
+      showContactDetails(data.name); // sicherstellen, dass 'name' = id
+    } else {
+      throw new Error('Server response not ok');
     }
-    
   } catch (error) {
-    console.error('There was a problem added the contact:', error);
-    showMessage("There was a problem saving the contact!");
+    handleContactCreationError(error);
   }
-  showContactDetails(data.id);
 }
 
+function handleSuccessfulContactCreation(data, newContact) {
+  return newContactDetails(data, newContact);
+}
+
+function handleContactCreationError(error) {
+  console.error('There was a problem adding the contact:', error);
+  showMessage("There was a problem saving the contact!");
+}
 
 function showMessage(text) {
   const messageBox = document.getElementById("message-box");
@@ -280,31 +320,41 @@ function showMessage(text) {
   }, 2000);
 }
 
+function showEditContactOverlay(contact, id) {
+  const refOverlay = document.getElementById('layout');
+  refOverlay.innerHTML = templateEditContact(contact, id);
+  refOverlay.classList.remove('d_none', 'flex-display');
+
+  const popup = document.getElementById('popup');
+  requestAnimationFrame(() => {
+    if (popup) popup.classList.add('show');
+    refOverlay.classList.add('active');
+  });
+}
+
+async function refreshContactData(id) {
+  try {
+    const response = await fetch(`${databaseURL}/${id}.json`);
+    const data = await response.json();
+    await loadContactsData();
+    return data;
+  } catch (error) {
+    console.error("Failed to retrieve contact:", error);
+    showMessage("There was a problem loading the contact!");
+    return null;
+  }
+}
+
 async function editContact(id, event) {
   event.stopPropagation();
   currentEditingContactId = id;
 
   const contact = contactStore[id];
-  const refOverlay = document.getElementById('layout');
-  refOverlay.innerHTML = templateEditContact(contact, id);
-  refOverlay.classList.remove('d_none');
-  refOverlay.classList.remove('flex-display');
-  const popup = document.getElementById('popup');
+  showEditContactOverlay(contact, id);
 
-  requestAnimationFrame(() => {
-    if (popup) popup.classList.add('show');
-    refOverlay.classList.add('active');
-  });
-
-  try {
-    const updatedResponse = await fetch(`${databaseURL}/${id}.json`);
-    const updatedContact = await updatedResponse.json();
-    await loadContactsData();
-  } catch (error) {
-    console.error("Failed to retrieve contact:", error);
-    showMessage("There was a problem loading the contact!");
-  }
+  await refreshContactData(id);
 }
+
 
 async function updateContactDetails(id, updated) {
   try {
@@ -312,7 +362,6 @@ async function updateContactDetails(id, updated) {
       method: 'PATCH',
       body: JSON.stringify(updated)
     });
-
     if (res.ok) {
       showMessage('Contact successfully updated!');
       const updatedResponse = await fetch(`${databaseURL}/${id}.json`);
@@ -383,14 +432,58 @@ function backTocontacts(){
   allContacts.forEach(c => c.classList.remove('active-contact'));
 }
 
-
+function mobileDropdownButtonHoverColorAdd(){
+  const button = document.getElementById('mobile-dropdown-button');
+  if (button) button.classList.add('button-hover-style');
+}
+function mobileDropdownButtonHoverColorRemove(){
+  const button = document.getElementById('mobile-dropdown-button');
+  if (button) button.classList.remove('button-hover-style');
+}
 
 function toggleDropdown(id, event) {
+  event.stopPropagation();
   const menu = document.getElementById(`dropdown-menu-${id}`);
-  if (menu) {
-    menu.classList.toggle('hidden');
+  if (!menu) return;
+
+  if (menu.classList.contains('show')) {
+    return;
+  } else {
+    menu.classList.remove('hidden');
+    requestAnimationFrame(() => {
+      menu.classList.add('show');
+    });
+    mobileDropdownButtonHoverColorAdd();
+    lastOpenedDropdownId = id;
   }
 }
+
+function closeAllDropdownsIfClickedOutside(event) {
+  let dropdownWasOpen = false;
+  document.querySelectorAll('.dropdown-menu').forEach(menu => {
+    if (menu.classList.contains('hidden')) return;
+    const id = menu.id.replace('dropdown-menu-', '');
+    const button = document.getElementById(`mobile-dropdown-button-${id}`);
+    const clickedInsideMenu = menu.contains(event.target);
+    const clickedOnButton = button && button.contains(event.target);
+
+    if (!clickedInsideMenu && !clickedOnButton) {
+      if (menu.classList.contains('show')) {
+        menu.classList.remove('show');
+        setTimeout(() => menu.classList.add('hidden'), 300);
+      } else {
+        menu.classList.add('hidden');
+      }
+      dropdownWasOpen = true;
+      setTimeout(() => {
+        mobileDropdownButtonHoverColorRemove();
+        lastOpenedDropdownId = null;
+      }, 1000);
+    }
+  });
+  return dropdownWasOpen;
+}
+
 document.addEventListener('click', (event) => {
   const targetID = event.target.id;
 
@@ -404,22 +497,8 @@ document.addEventListener('click', (event) => {
   const popupOpen = refOverlay && !refOverlay.classList.contains('d_none');
   if (popupOpen) return;
 
-  let dropdownWasOpen = false;
-  document.querySelectorAll('.dropdown-menu').forEach(menu => {
-    if (!menu.classList.contains('hidden')) {
-      const id = menu.id.replace('dropdown-menu-', '');
-      const button = document.querySelector(`.mobile-dropdown-button[onclick*="${id}"]`);
-      if (!menu.contains(event.target) && !(button && button.contains(event.target))) {
-        menu.classList.add('hidden');
-        dropdownWasOpen = true;
-      }
-    }
-  });
-
-  if (dropdownWasOpen) {
-    event.stopPropagation(); 
-    return;
-  }
+  const dropdownWasOpen = closeAllDropdownsIfClickedOutside(event);
+  if (dropdownWasOpen) event.stopPropagation();
 });
 
 function handleDropdownOnClick(event) {
@@ -427,24 +506,5 @@ function handleDropdownOnClick(event) {
   const popupOpen = refOverlay && !refOverlay.classList.contains('d_none');
   if (popupOpen) return false;
 
-  let dropdownWasOpen = false;
-
-  document.querySelectorAll('.dropdown-menu').forEach(menu => {
-    if (!menu.classList.contains('hidden')) {
-      const id = menu.id.replace('dropdown-menu-', '');
-      const button = document.querySelector(`.mobile-dropdown-button[onclick*="${id}"]`);
-      if (!menu.contains(event.target) && !(button && button.contains(event.target))) {
-        menu.classList.add('hidden');
-        dropdownWasOpen = true;
-      }
-    }
-  });
-  return dropdownWasOpen;
+  return closeAllDropdownsIfClickedOutside(event);
 }
-
-document.getElementById('back-icon').addEventListener('click', (event) => {
-  if (handleDropdownOnClick(event)) {
-    return;
-  }
-  backTocontacts();
-});

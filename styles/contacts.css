@@ -99,15 +99,12 @@ p{
   font-size: 21px;
   line-height: 1.2;
   font-weight: 700;
-  padding: 8px 16px;
   border-radius: 10px;
-  border: none;
 }
 .btn:hover {
   background-color: var(--hover-color);
   border: none;
 }
-
 
 .wrapper > .sidebar {
   width: 220px;
@@ -170,7 +167,7 @@ main{
   padding: 24px 0; /* vertikale Padding hier zentral */
 }
 
-.mobile-add-button{
+#mobile-add-button{
   display: none;
 }
 
@@ -762,14 +759,16 @@ form {
     justify-content: center;
   }
 
-  #back-icon {
-    fill: var(--blue-color);
+  .back-icon {
+    fill: var(--blue-color) !important;
     cursor: pointer;
+    width: 40px;
+    height: 40px;
   }
 
   /* === BUTTONS === */
-  .mobile-add-button,
-  .mobile-dropdown-button {
+  #mobile-add-button,
+  #mobile-dropdown-button {
     height: 56px;
     width: 56px;
     display: block;
@@ -799,15 +798,33 @@ form {
   }
 
   .dropdown-menu {
-    position: fixed;
-    bottom: 103px;
-    right: 16px;
-    padding: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-    z-index: 999;
-    border-radius: 0 0 8px 0;
-    background-color: var(--white-color);
-  }
+  position: fixed;
+  bottom: 103px;
+  right: 16px;
+  padding: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  z-index: 999;
+  border-radius: 0 0 8px 0;
+  background-color: var(--white-color);
+
+  /* Für die Animation: start rechts und transparent */
+  transform: translateX(100%);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  pointer-events: none; /* Damit man nicht klicken kann, wenn unsichtbar */
+}
+
+/* Wenn sichtbar: rein schieben und klickbar */
+.dropdown-menu.show {
+  transform: translateX(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Wenn komplett versteckt */
+.dropdown-menu.hidden {
+  display: none;
+}
 
   .dropdown-menu.hidden {
     display: none;
@@ -866,5 +883,9 @@ form {
     transform: translateY(100%);
     opacity: 0;
   }
+}
+
+.button-hover-style{
+  background-color: var(--hover-color) !important;
 }
 }
