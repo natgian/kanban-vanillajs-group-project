@@ -274,7 +274,7 @@ function getUpdatedTaskData(taskId) {
  */
 function createUpdatedTask(currentTask, updatedPriority, updatedTitle, updatedDescription, updatedDueDate) {
   return {
-    assignedTo: getSelectedContacts(),
+    assignedTo: getSelectedContactsData(),
     category: currentTask.category,
     description: updatedDescription,
     dueDate: updatedDueDate,

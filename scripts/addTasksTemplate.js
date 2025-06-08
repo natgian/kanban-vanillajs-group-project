@@ -48,6 +48,7 @@ function renderAddTask() {
                     <button
                       class="priorityBtns"
                       data-color="#FF3D00"
+                      data-priority="high"
                     >
                       <span>Urgent</span>
                       <img
@@ -59,6 +60,7 @@ function renderAddTask() {
                     <button
                       class="priorityBtns selected"
                       data-color="#FFA800"
+                      data-priority="medium"
                     >
                       <span>Medium</span>
                       <img
@@ -70,6 +72,7 @@ function renderAddTask() {
                     <button
                       class="priorityBtns"
                       data-color="#7AE229"
+                      data-priority="low"
                     >
                       <span>Low</span>
                       <img
@@ -138,7 +141,7 @@ function renderAddTask() {
                 <button
                   class="bottomButton2"
                   id="submitBtn"
-                  onclick="showMessage('New task created')"
+                  onclick="addTask()"
                 >
                   Creakte Task<img
                     src="../assets/icons/check.png"

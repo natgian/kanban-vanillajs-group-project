@@ -1,4 +1,3 @@
-// ---------------------NEU---------------------//
 async function initAddTask() {
   document.getElementById("contentload").innerHTML = renderAddTask();
   initializePriorityButtons();
@@ -10,8 +9,28 @@ async function initAddTask() {
   initializeSubtasksButtons();
   initializeSubtasksimulateInputClick();
   initializeResetAllOptions();
-  // const contacts = await fetchContacts();
-  // loadContacts(contacts);
+  const contacts = await fetchContacts();
+  loadContacts(contacts);
+}
+
+/**
+ * Gets the task data from the UI, saves the task, resets the form, shows a success message and redirects
+ * to the board
+ *
+ */
+async function addTask() {
+  const task = getTaskData();
+  try {
+    await saveTask(task);
+  } catch (error) {
+    console.error("Something went wrong:", error);
+  }
+
+  initReset();
+  showMessage("Task successfully created");
+  setTimeout(() => {
+    window.location.href = "./board.html";
+  }, 500);
 }
 
 // function initializeToggleContactSearch() {
@@ -45,17 +64,6 @@ function initializeCloseAllDropdowns() {
 //   });
 // }
 
-let addTaskStatus = "to-do";
-/**
- * Sets the addTaskStatus variable to the given status and initializes the board
- *
- * @param {string} status - The new task status ("to-do", "in-progress" or "awaiting-feedback")
- */
-function setAddTaskStatus(status) {
-  addTaskStatus = status;
-  initBoardAddTask();
-}
-
 function initializeSubtasksButtons() {
   const input = document.getElementById("newSubtask");
   const addSubtask = document.getElementById("addSubtask");
@@ -72,9 +80,9 @@ function initializeSubtasksButtons() {
     confirmDelete.style.display = "flex";
 
     if (input) {
-    input.focus();
+      input.focus();
     }
-    
+
     event.stopPropagation();
   }
 
