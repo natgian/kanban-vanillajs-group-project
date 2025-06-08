@@ -320,6 +320,6 @@ function closeAllDropdowns() {
 function filterDropdownOptions(input, dropdownOptions) {
   const searchValue = input.value.toLowerCase();
   dropdownOptions.querySelectorAll(".option").forEach((option) => {
-    option.style.display = option.textContent.toLowerCase().includes(searchValue) ? "block" : "none";
+    option.style.display = option.textContent.toLowerCase().includes(searchValue) ? "flex" : "none";
   });
 }
