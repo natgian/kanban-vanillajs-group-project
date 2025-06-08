@@ -285,35 +285,3 @@ function createUpdatedTask(currentTask, updatedPriority, updatedTitle, updatedDe
     title: updatedTitle,
   };
 }
-
-// GEÄNDERT // BEI addTaskSelections übernehmen?
-// function updateSelectedContacts() {
-//   const selectedContactsDiv = document.getElementById("selectedContacts");
-//   selectedContactsDiv.innerHTML = "";
-
-//   const checkedElements = document.querySelectorAll(".hidden-checkbox:checked");
-//   const maxVisibleAvatars = 5;
-
-//   checkedElements.forEach((checkbox, index) => {
-//     const parentElement = checkbox.closest(".option");
-//     const avatar = parentElement.querySelector(".task-card-avatar");
-
-//     if (avatar && index < maxVisibleAvatars) {
-//       const clonedAvatar = avatar.cloneNode(true);
-//       clonedAvatar.dataset.id = avatar.dataset.id;
-//       selectedContactsDiv.appendChild(clonedAvatar);
-//     }
-//   });
-
-//   const extraCount = checkedElements.length - maxVisibleAvatars;
-//   if (extraCount > 0) {
-//     const plusCounter = document.createElement("div");
-//     plusCounter.classList.add("plus-counter");
-//     plusCounter.textContent = `+${extraCount}`;
-//     selectedContactsDiv.appendChild(plusCounter);
-//   }
-
-//   selectedContactsDiv.style.display = "none";
-//   selectedContactsDiv.offsetHeight;
-//   selectedContactsDiv.style.display = "flex";
-// }
