@@ -163,7 +163,7 @@ async function createNewContact(event) {
   const newContact = buildContactData();
 
   if (isDuplicate(newContact)) {
-    return showMessage(`Contact already exists! <img src="../assets/icons/check_icon.svg" alt="Success">`);
+    return showMessage(`Contact already exists!`);
   }
 
   try {
@@ -194,7 +194,7 @@ async function postContact(data) {
 }
 
 async function newContactDetails(data, newContact) {
-  showMessage('Contact successfully added!');
+  showMessage('Contact successfully added!', '../assets/icons/check_icon.svg', 'Success');
   loadContactsData();
 
   const newId = data.name;
@@ -322,7 +322,7 @@ async function updateContactDetails(id, updated) {
     });
 
     if (res.ok) {
-      showMessage('Contact successfully updated!');
+      showMessage('Contact successfully updated!', '../assets/icons/check_icon.svg', 'Success');
       document.getElementById('contact-details').innerHTML = templateContactsDetails(updated);
 
       loadContactsData();
@@ -343,7 +343,7 @@ async function deleteContact(event, id) {
       method: 'DELETE',
     });
     if (res.ok) {
-      showMessage('Contact succesfully deleted!');
+      showMessage('Contact successfully deleted!', '../assets/icons/close.svg', 'Error');
       loadContactsData();
       setTimeout(popUpClose, 2000);
     }
@@ -400,23 +400,6 @@ function popUpClose() {
     currentEditingContactId = null;
     init();
   }, 400);
-}
-
-function showMessage(text) {
-  const messageBox = document.getElementById("message-box");
-  const messageText = document.getElementById("message-text");
-
-  const isMobile = window.innerWidth < 1080;
-  const deviceClass = isMobile ? "mobile" : "desktop";
-
-  messageBox.classList.remove("hide", "desktop", "mobile");
-  messageBox.classList.add("show", deviceClass);
-  messageText.textContent = text;
-
-  setTimeout(() => {
-    messageBox.classList.remove("show");
-    messageBox.classList.add("hide");
-  }, 2000);
 }
 
 //
@@ -516,3 +499,20 @@ document.addEventListener('click', (event) => {
   const dropdownWasOpen = closeAllDropdownsIfClickedOutside(event);
   if (dropdownWasOpen) event.stopPropagation();
 });
+
+/*function showMessage(text) {
+  const messageBox = document.getElementById("message-box");
+  const messageText = document.getElementById("message-text");
+
+  const isMobile = window.innerWidth < 1080;
+  const deviceClass = isMobile ? "mobile" : "desktop";
+
+  messageBox.classList.remove("hide", "desktop", "mobile");
+  messageBox.classList.add("show", deviceClass);
+  messageText.textContent = text;
+
+  setTimeout(() => {
+    messageBox.classList.remove("show");
+    messageBox.classList.add("hide");
+  }, 2000);
+}*/
