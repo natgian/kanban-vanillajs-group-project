@@ -213,30 +213,113 @@ function toggleCategoryDropdown(input) {
   toggleButtonImageRotation(button, !isActive);
 }
 
-/**
- * Toggles dropdown visibility and search field state.
- * @param {HTMLElement} triggerElement - The triggering element.
- */
+
+
+
+
+
+
+
+
+
+
+
+
 function toggleContactDropdown(triggerElement) {
-  const container = triggerElement.closest(".dropdown-container"),
-    dropdownOptions = container.querySelector(".dropdown-options"),
-    searchField = container.querySelector(".dropdown-selected"),
-    button = container.querySelector("#toggleButtonDropdown");
-
+  const { dropdownOptions, searchField, button } = getDropdownElements(triggerElement);
   if (!dropdownOptions) return;
-  const wasVisible = dropdownOptions.classList.contains("active");
 
-  if ((triggerElement === button || triggerElement === searchField) && searchField.type === "button") {
+  const wasActive = dropdownOptions.classList.contains("active");
+
+  if (shouldActivateSearch(triggerElement, searchField, button)) {
     activateSearchField(searchField, dropdownOptions);
     return;
   }
 
-  if (!wasVisible) closeAllDropdowns();
-  updateDropdownState(dropdownOptions, wasVisible);
-  toggleButtonImageRotation(button, !wasVisible);
+  closeOtherDropdowns(dropdownOptions);
+  updateDropdownState(dropdownOptions, wasActive);
+  updateButtonState(button, wasActive);
 
+  if (!dropdownOptions.classList.contains("active")) {
+    resetInputField(searchField);
+  }
+}
+
+/**
+ * Handles dropdown visibility and closing other dropdowns.
+ * @param {HTMLElement} triggerElement - The clicked element.
+ * @param {HTMLElement} searchField - The search field element.
+ * @param {HTMLElement} dropdownOptions - The dropdown options container.
+ * @param {boolean} wasActive - Whether the dropdown was previously active.
+ */
+function handleDropdownToggle(triggerElement, searchField, dropdownOptions, wasActive) {
+  closeOtherDropdowns(dropdownOptions);
+
+  if (shouldActivateSearch(triggerElement, searchField)) {
+    activateSearchField(searchField, dropdownOptions);
+    return;
+  }
+
+  updateDropdownState(dropdownOptions, wasActive);
   if (!dropdownOptions.classList.contains("active")) resetInputField(searchField);
 }
+
+/**
+ * Updates the button rotation state.
+ * @param {HTMLElement} button - The button element.
+ * @param {boolean} wasActive - Whether the dropdown was previously active.
+ */
+function updateButtonState(button, wasActive) {
+  resetAllButtonImages();
+  toggleButtonImageRotation(button, !wasActive);
+}
+
+/**
+ * Retrieves dropdown elements based on the trigger element.
+ * @param {HTMLElement} triggerElement - The element triggering the dropdown.
+ * @returns {Object} Object containing dropdown elements.
+ */
+function getDropdownElements(triggerElement) {
+  const container = triggerElement.closest(".dropdown-container");
+  return {
+    dropdownOptions: container?.querySelector(".dropdown-options"),
+    searchField: container?.querySelector(".dropdown-selected"),
+    button: container?.querySelector("#toggleButtonDropdown"),
+  };
+}
+
+/**
+ * Closes all active dropdowns except the specified one.
+ * @param {HTMLElement} currentDropdown - The dropdown to remain active.
+ */
+function closeOtherDropdowns(currentDropdown) {
+  document.querySelectorAll(".dropdown-options.active").forEach((dropdown) => {
+    if (dropdown !== currentDropdown) dropdown.classList.remove("active");
+  });
+}
+
+/**
+ * Determines whether the search field should be activated.
+ */
+function shouldActivateSearch(triggerElement, searchField, button) {
+  return (triggerElement === searchField || triggerElement === button) && searchField.type === "button";
+}
+
+/**
+ * Resets rotation of all dropdown toggle buttons.
+ */
+function resetAllButtonImages() {
+  document.querySelectorAll("#toggleButtonDropdown").forEach((btn) => toggleButtonImageRotation(btn, false));
+}
+
+
+
+
+
+
+
+
+
 
 /**
  * Rotates button image based on dropdown visibility.

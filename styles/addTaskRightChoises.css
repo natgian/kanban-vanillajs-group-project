@@ -31,7 +31,7 @@
   max-width: 440px;
   background: white;
   border: 1px solid #ccc;
-  z-index: 60;
+  z-index: 2;
   border-radius: 10px;
   max-height: 194px;
   overflow-y: auto;
