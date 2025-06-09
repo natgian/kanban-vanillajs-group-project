@@ -58,13 +58,26 @@ function logout() {
  * Displays a temporary message by adding a "show" class to the message box element.
  * The message box is shown for 1.5 seconds and then automatically hidden.
  */
-function showMessage(text) {
+function showMessage(text, iconPath, altText) {
   const messageBox = document.getElementById("message-box");
   const messageText = document.getElementById("message-text");
-  messageBox.classList.add("show");
-  messageText.innerText = text;
+  const messageIcon = document.getElementById("message-icon");
+
+  const isMobile = window.innerWidth < 1080;
+  const deviceClass = isMobile ? "mobile" : "desktop";
+
+  messageText.textContent = text;
+
+  if (iconPath && messageIcon) {
+    messageIcon.src = iconPath;
+    messageIcon.alt = altText || ""; // altText kann leer sein
+  }
+
+  messageBox.classList.remove("hide", "desktop", "mobile");
+  messageBox.classList.add("show", deviceClass);
 
   setTimeout(() => {
     messageBox.classList.remove("show");
-  }, 1500);
+    messageBox.classList.add("hide");
+  }, 2000);
 }
