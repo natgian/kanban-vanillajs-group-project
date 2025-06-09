@@ -213,36 +213,57 @@ function toggleCategoryDropdown(input) {
   toggleButtonImageRotation(button, !isActive);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
+/**
+ * Toggles the contact dropdown based on the trigger element.
+ * @param {HTMLElement} triggerElement - The element that triggered the dropdown toggle.
+ */
 function toggleContactDropdown(triggerElement) {
-  const { dropdownOptions, searchField, button } = getDropdownElements(triggerElement);
-  if (!dropdownOptions) return;
+    const { dropdownOptions, searchField, button, wasActive } = prepareDropdown(triggerElement);
+    toggleDropdown(dropdownOptions, searchField, button, wasActive);
+}
 
-  const wasActive = dropdownOptions.classList.contains("active");
+/**
+ * Prepares the dropdown by retrieving elements and managing existing dropdown states.
+ * @param {HTMLElement} triggerElement - The element that triggered the dropdown toggle.
+ * @returns {{
+ *   dropdownOptions: HTMLElement | null,
+ *   searchField: HTMLElement | null,
+ *   button: HTMLElement | null,
+ *   wasActive: boolean
+ * }} - Object containing dropdown elements and activation state.
+ */
+function prepareDropdown(triggerElement) {
+    const { dropdownOptions, searchField, button } = getDropdownElements(triggerElement);
+    if (!dropdownOptions) return { dropdownOptions: null, searchField: null, button: null, wasActive: false };
 
-  if (shouldActivateSearch(triggerElement, searchField, button)) {
-    activateSearchField(searchField, dropdownOptions);
-    return;
-  }
+    const wasActive = dropdownOptions.classList.contains("active");
+    closeAllDropdowns(dropdownOptions);
 
-  closeOtherDropdowns(dropdownOptions);
-  updateDropdownState(dropdownOptions, wasActive);
-  updateButtonState(button, wasActive);
+    if (shouldActivateSearch(triggerElement, searchField, button)) {
+        activateSearchField(searchField, dropdownOptions);
+        return { dropdownOptions: null, searchField: null, button: null, wasActive: false };
+    }
 
-  if (!dropdownOptions.classList.contains("active")) {
-    resetInputField(searchField);
-  }
+    return { dropdownOptions, searchField, button, wasActive };
+}
+
+/**
+ * Toggles the dropdown state and updates related elements.
+ * @param {HTMLElement | null} dropdownOptions - The dropdown element to toggle.
+ * @param {HTMLElement | null} searchField - The associated search input field.
+ * @param {HTMLElement | null} button - The dropdown toggle button.
+ * @param {boolean} wasActive - Indicates if the dropdown was previously active.
+ */
+function toggleDropdown(dropdownOptions, searchField, button, wasActive) {
+    if (!dropdownOptions) return;
+
+    dropdownOptions.classList.toggle("active");
+    updateDropdownState(dropdownOptions, wasActive);
+    updateButtonState(button, wasActive);
+
+    if (!dropdownOptions.classList.contains("active")) {
+        resetInputField(searchField);
+    }
 }
 
 /**
@@ -312,15 +333,6 @@ function resetAllButtonImages() {
   document.querySelectorAll("#toggleButtonDropdown").forEach((btn) => toggleButtonImageRotation(btn, false));
 }
 
-
-
-
-
-
-
-
-
-
 /**
  * Rotates button image based on dropdown visibility.
  * @param {HTMLElement} button - Button element.
@@ -370,25 +382,40 @@ function activateSearchField(inputField, dropdownOptions) {
  */
 function resetInputField(inputField) {
   if (inputField && inputField.type === "text") {
-    const newButton = document.createElement("input");
-    Object.assign(newButton, { type: "button", value: "Select contacts to assign", className: "dropdown-selected typeBars", id: inputField.id });
-    newButton.onclick = () => toggleContactDropdown(newButton);
-    inputField.replaceWith(newButton);
+    const container = inputField.closest(".dropdown-container");
+    if (!container) return;
+
+    createButtonInput(inputField);
+
+    const dropdownOptions = container.querySelector(".dropdown-options");
+    if (dropdownOptions) {
+      dropdownOptions.querySelectorAll(".option").forEach(option => {
+        option.style.display = "flex";
+      });
+    }
   }
+}
+
+/**
+ * Creates a button and replaces the search field.
+ * @param {HTMLElement} inputField - Search field element.
+ */
+function createButtonInput(inputField) {
+  const newButton = document.createElement("input");
+  Object.assign(newButton, { type: "button", value: "Select contacts to assign", className: "dropdown-selected typeBars", id: inputField.id });
+  newButton.onclick = () => toggleContactDropdown(newButton);
+  inputField.replaceWith(newButton);
 }
 
 /**
  * Closes all dropdowns and resets fields if necessary.
  */
-function closeAllDropdowns() {
+function closeAllDropdowns(excludedDropdown) {
   document.querySelectorAll(".dropdown-container .dropdown-options").forEach((options) => {
-    const container = options.closest(".dropdown-container"),
-      searchField = container.querySelector(".dropdown-selected");
-
-    if (document.activeElement !== searchField || searchField.type !== "text") {
+    if (options !== excludedDropdown) {
       options.classList.remove("active");
       options.style.display = "none";
-      resetInputField(searchField);
+      resetInputField(options.closest(".dropdown-container").querySelector(".dropdown-selected"));
     }
   });
 
