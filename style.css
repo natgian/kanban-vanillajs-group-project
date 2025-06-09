@@ -361,7 +361,6 @@ header {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  margin: 16px;
   opacity: 0;
   z-index: 1000;
   display: flex;
@@ -375,11 +374,69 @@ header {
   width: 280px;
   box-shadow: 0 0 4px 0 rgb(0, 0, 0, 0.1);
   pointer-events: none;
-  transition: var(--transition);
 }
 
-.message-box.show {
-  opacity: 1;
+/* Animationssteuerung per Klasse */
+.message-box.show.desktop {
+  animation: slide-in-right 0.3s forwards;
+}
+.message-box.hide.desktop {
+  animation: slide-out-right 0.3s forwards;
+}
+
+.message-box.show.mobile {
+  animation: slide-in-bottom 0.3s forwards;
+}
+.message-box.hide.mobile {
+  animation: slide-out-bottom 0.3s forwards;
+}
+
+@keyframes slide-in-right {
+  from {
+    transform: translate(150%, -50%);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-out-right {
+  from {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+  to {
+    transform: translate(150%, -50%);
+    opacity: 0;
+  }
+}
+
+@keyframes slide-in-bottom {
+  from {
+    top: 100%;             /* Start komplett außerhalb des Bildschirms */
+    transform: translate(-50%, 0);
+    opacity: 0;
+  }
+  to {
+    top: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-out-bottom {
+  from {
+    top: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+  to {
+    top: 100%;
+    transform: translate(-50%, 0);
+    opacity: 0;
+  }
 }
 
 /* MEDIA QUERIES */

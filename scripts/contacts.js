@@ -6,7 +6,6 @@ const colorsObject = {
   blue: "#6D52FF",
   purple:"#9327FF",
   tuerkis:"#00BDE8",
-  green:"#1ED7C1",
   bloodorange:"#FE745E",
   peach:"#FFA35E",
   magenta:"#FC71FF",
@@ -30,10 +29,20 @@ function init() {
   loadContactsData();
 }
 
-function getRandomColor(){
-  const colorKeys = Object.keys(colorsObject);
-  const randomKey = colorKeys[Math.floor(Math.random() * colorKeys.length)];
-  return colorsObject[randomKey];
+async function cleanNullContacts() {
+  const response = await fetch(databaseURL + '.json');
+  let data = await response.json();
+
+  if(Array.isArray(data)){
+    data = data.filter(item => item !== null);
+  }else{
+    for (const key in data) {
+    if (!data[key]) {
+      await fetch(`${databaseURL}/${key}.json`, { 
+        method: 'DELETE' });
+      }
+    }
+  }
 }
 
 async function loadContactsData() {
@@ -54,19 +63,15 @@ async function loadContactsData() {
   }
 }
 
-function ensureMonogramColor(contact, key, updatePromise){
-  if (!contact.monogramColor) {
-        contact.monogramColor = getRandomColor();
-        updatePromise.push(saveContactColor(key, contact.monogramColor));
-      }
-}
+async function groupContactsByLetter(contactsData) {
+  let groupContacts = {};
+  let updatePromise= [];
 
-function contactsFilterFirstLetter(contact, groupContacts){
-  let firstLetter = contact.name.charAt(0).toUpperCase();
-      if (!groupContacts[firstLetter]) {
-        groupContacts[firstLetter] = [];
-      }
-      groupContacts[firstLetter].push(contact);
+  await groupContactsByLetterIfElse(contactsData, groupContacts, updatePromise);
+  
+  await Promise.all(updatePromise);
+
+  return groupContacts;
 }
 
 async function groupContactsByLetterIfElse(contactsData, groupContacts, updatePromise) {
@@ -86,15 +91,19 @@ async function groupContactsByLetterIfElse(contactsData, groupContacts, updatePr
   }
 }
 
-async function groupContactsByLetter(contactsData) {
-  let groupContacts = {};
-  let updatePromise= [];
+function ensureMonogramColor(contact, key, updatePromise){
+  if (!contact.monogramColor) {
+        contact.monogramColor = getRandomColor();
+        updatePromise.push(saveContactColor(key, contact.monogramColor));
+      }
+}
 
-  await groupContactsByLetterIfElse(contactsData, groupContacts, updatePromise);
-  
-  await Promise.all(updatePromise);
-
-  return groupContacts;
+function contactsFilterFirstLetter(contact, groupContacts){
+  let firstLetter = contact.name.charAt(0).toUpperCase();
+      if (!groupContacts[firstLetter]) {
+        groupContacts[firstLetter] = [];
+      }
+      groupContacts[firstLetter].push(contact);
 }
 
 function generateGroupContactsHTML(groupContacts){
@@ -113,71 +122,7 @@ function generateGroupContactsHTML(groupContacts){
     }
     return abilityContacts;   
 }
-
-async function saveContactColor(contactKey, color) {
-  const contactRef = `${databaseURL}/${contactKey}.json`;
-  
-  try {
-    const res = await fetch(contactRef, {
-      method: 'PATCH',
-      body: JSON.stringify({ monogramColor: color })
-    });
-
-    if (!res.ok) {
-      throw new Error(`There was a problem saving the color for ${contactKey}: ${res.statusText}`);
-    }
-  } catch (error) {
-    console.error(`Network error while saving the color for ${contactKey}:`, error);
-  }
-}
-
-function setActiveContact(id) {
-  const allContacts = document.querySelectorAll('.contact');
-  allContacts.forEach(c => c.classList.remove('active-contact'));
-
-  const clickedContact = document.querySelector(`.contact[data-id="${id}"]`);
-  if (clickedContact) {
-    clickedContact.classList.add('active-contact');
-  }
-}
-
-function showContactDetails(id) {
-  const contact = contactStore[id];
-  if (!contact) {
-    return console.error('Contact not found:', id);
-  }
-
-  setActiveContact(id);
-
-  document.getElementById('contact-list').classList.add('d_mobile_none');
-  document.getElementById('contact-details').classList.add('d_block');
-  if (window.innerWidth <= 1000) {
-  document.getElementById('contenttop').classList.add('d_block');
-}
-  document.getElementById('contact-details').innerHTML = templateContactsDetails(contact);
-}
-
-function mobileAddButtonHoverColorAdd(){
-  const openNewContactButton = document.getElementById('mobile-add-button');
-  openNewContactButton.classList.add('button-hover-style');
-}
-function mobileAddButtonHoverColorRemove(){
-  const openNewContactButton = document.getElementById('mobile-add-button');
-  openNewContactButton.classList.remove('button-hover-style');
-}
-
-function clearActiveContacts() {
-  const allContacts = document.querySelectorAll('.contact');
-  allContacts.forEach(c => c.classList.remove('active-contact'));
-}
-
-function showPopup(refOverlay, popup) {
-  requestAnimationFrame(() => {
-    if (popup) popup.classList.add('show');
-    refOverlay.classList.add('active');
-  });
-}
-
+//
 function openNewContact() {
   newContactMode = true;
   currentEditingContactId = null;
@@ -193,23 +138,6 @@ function openNewContact() {
   const popup = document.getElementById('popup');
 
   showPopup(refOverlay, popup);
-}
-
-function popUpClose() {
-  const refOverlay = document.getElementById('layout');
-  const popup = document.getElementById('popup');
-  mobileAddButtonHoverColorRemove();
-  
-  if (popup) popup.classList.remove('show');
-  refOverlay.classList.remove('active');
-
-  setTimeout(() => {
-    refOverlay.classList.add('d_none');
-    refOverlay.innerHTML = '';
-    newContactMode = false;
-    currentEditingContactId = null;
-    init();
-  }, 400);
 }
 
 function buildContactData(){
@@ -229,10 +157,33 @@ function buildContactData(){
   return { name: fullName, email, phone, monogram, monogramColor };
 }
 
-function isDuplicate({ email, name }) {
-  return !!Object.values(contactStore).find(contact =>
-    contact && (contact.email === email || contact.name === name)
-  );
+async function createNewContact(event) {
+  event.preventDefault();
+
+  const newContact = buildContactData();
+
+  if (isDuplicate(newContact)) {
+    return showMessage(`Contact already exists! <img src="../assets/icons/check_icon.svg" alt="Success">`);
+  }
+
+  try {
+    const response = await postContact({
+      ...newContact,
+      monogramColor: newContact.monogramColor
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      setTimeout(popUpClose, 200);
+      await handleSuccessfulContactCreation(data, newContact);
+      await loadContactsData();
+      showContactDetails(data.name);
+    } else {
+      throw new Error('Server response not ok');
+    }
+  } catch (error) {
+    handleContactCreationError(error);
+  }
 }
 
 async function postContact(data) {
@@ -240,18 +191,6 @@ async function postContact(data) {
     method: 'POST',
     body: JSON.stringify(data)
   });
-}
-
-function renderContactDetails(containerId, contact) {
-  const detailHTML = templateContactsDetails(contact);
-  const container = document.getElementById(containerId);
-  if (container) {
-    container.innerHTML = detailHTML;
-  }
-}
-
-function closePopupAfterDelay(delay = 2000) {
-  setTimeout(popUpClose, delay);
 }
 
 async function newContactDetails(data, newContact) {
@@ -272,31 +211,16 @@ async function newContactDetails(data, newContact) {
   closePopupAfterDelay();
 }
 
-async function createNewContact(event) {
-  event.preventDefault();
-
-  const newContact = buildContactData();
-
-  if (isDuplicate(newContact)) {
-    return showMessage("Contact already exists!");
+function renderContactDetails(containerId, contact) {
+  const detailHTML = templateContactsDetails(contact);
+  const container = document.getElementById(containerId);
+  if (container) {
+    container.innerHTML = detailHTML;
   }
+}
 
-  try {
-    const response = await postContact({
-      ...newContact,
-      monogramColor: newContact.monogramColor
-    });
-
-    if (response.ok) {
-      const data = await response.json();
-      await handleSuccessfulContactCreation(data, newContact);
-      showContactDetails(data.name); // sicherstellen, dass 'name' = id
-    } else {
-      throw new Error('Server response not ok');
-    }
-  } catch (error) {
-    handleContactCreationError(error);
-  }
+function closePopupAfterDelay(delay = 2000) {
+  setTimeout(popUpClose, delay);
 }
 
 function handleSuccessfulContactCreation(data, newContact) {
@@ -308,16 +232,51 @@ function handleContactCreationError(error) {
   showMessage("There was a problem saving the contact!");
 }
 
-function showMessage(text) {
-  const messageBox = document.getElementById("message-box");
-  const messageText = document.getElementById("message-text");
-  
-  messageBox.classList.add("show");
-  messageText.textContent = text;
+function isDuplicate({ email, name }) {
+  return !!Object.values(contactStore).find(contact =>
+    contact && (contact.email === email || contact.name === name)
+  );
+}
+//
+function showContactDetails(id) {
+  const contact = contactStore[id];
+  if (!contact) {
+    return console.error('Contact not found:', id);
+  }
 
-  setTimeout(() => {
-    messageBox.classList.remove("show");
-  }, 2000);
+  setActiveContact(id);
+
+  document.getElementById('contact-list').classList.add('d_mobile_none');
+  document.getElementById('contact-details').classList.add('d_block');
+  if (window.innerWidth <= 1000) {
+  document.getElementById('contenttop').classList.add('d_block');
+}
+  document.getElementById('contact-details').innerHTML = templateContactsDetails(contact);
+}
+
+function setActiveContact(id) {
+  const allContacts = document.querySelectorAll('.contact');
+  allContacts.forEach(c => c.classList.remove('active-contact'));
+
+  const clickedContact = document.querySelector(`.contact[data-id="${id}"]`);
+  if (clickedContact) {
+    clickedContact.classList.add('active-contact');
+  }
+}
+
+function clearActiveContacts() {
+  const allContacts = document.querySelectorAll('.contact');
+  allContacts.forEach(c => c.classList.remove('active-contact'));
+}
+//
+async function editContact(id, event) {
+  event.stopPropagation();
+  currentEditingContactId = id;
+
+  const contact = contactStore[id];
+  showEditContactOverlay(contact, id);
+
+  await refreshContactData(id);
 }
 
 function showEditContactOverlay(contact, id) {
@@ -345,37 +304,6 @@ async function refreshContactData(id) {
   }
 }
 
-async function editContact(id, event) {
-  event.stopPropagation();
-  currentEditingContactId = id;
-
-  const contact = contactStore[id];
-  showEditContactOverlay(contact, id);
-
-  await refreshContactData(id);
-}
-
-
-async function updateContactDetails(id, updated) {
-  try {
-    const res = await fetch(`${databaseURL}/${id}.json`, {
-      method: 'PATCH',
-      body: JSON.stringify(updated)
-    });
-    if (res.ok) {
-      showMessage('Contact successfully updated!');
-      const updatedResponse = await fetch(`${databaseURL}/${id}.json`);
-      const updatedContact = await updatedResponse.json();
-      document.getElementById('contact-details').innerHTML = templateContactsDetails(updatedContact);
-      loadContactsData();
-      setTimeout(popUpClose, 2000);
-    }
-  } catch (error) {
-    console.error('Update failed:', error);
-    showMessage('Update failed. Please try again!');
-  }
-}
-
 async function updateContact(event, id) {
   event.preventDefault();
 
@@ -386,6 +314,27 @@ async function updateContact(event, id) {
   await updateContactDetails(id, updated);
 }
 
+async function updateContactDetails(id, updated) {
+  try {
+    const res = await fetch(`${databaseURL}/${id}.json`, {
+      method: 'PATCH',
+      body: JSON.stringify(updated)
+    });
+
+    if (res.ok) {
+      showMessage('Contact successfully updated!');
+      document.getElementById('contact-details').innerHTML = templateContactsDetails(updated);
+
+      loadContactsData();
+      setTimeout(popUpClose, 2000);
+    }
+  } catch (error) {
+    console.error('Update failed:', error);
+    showMessage('Update failed. Please try again!');
+  }
+}
+
+//
 async function deleteContact(event, id) {
   event.preventDefault();
   const contact = contactStore[id];
@@ -405,31 +354,80 @@ async function deleteContact(event, id) {
   document.getElementById('contact-details').innerHTML = '';
   init();
 }
-
-async function cleanNullContacts() {
-  const response = await fetch(databaseURL + '.json');
-  let data = await response.json();
-
-  if(Array.isArray(data)){
-    data = data.filter(item => item !== null);
-  }else{
-    for (const key in data) {
-    if (!data[key]) {
-      await fetch(`${databaseURL}/${key}.json`, { 
-        method: 'DELETE' });
-      }
-    }
-  }
+//
+function getRandomColor(){
+  const colorKeys = Object.keys(colorsObject);
+  const randomKey = colorKeys[Math.floor(Math.random() * colorKeys.length)];
+  return colorsObject[randomKey];
 }
 
-function backTocontacts(){
-  document.getElementById('contact-list').classList.remove('d_mobile_none');
-  document.getElementById('contenttop').classList.add('d_mobile_none');
-  document.getElementById('contenttop').classList.remove('d_block');
-  document.getElementById('contact-details').classList.add('d_none');
-  document.getElementById('contact-details').classList.remove('d_block');
-  const allContacts = document.querySelectorAll('.contact');
-  allContacts.forEach(c => c.classList.remove('active-contact'));
+async function saveContactColor(contactKey, color) {
+  const contactRef = `${databaseURL}/${contactKey}.json`;
+  
+  try {
+    const res = await fetch(contactRef, {
+      method: 'PATCH',
+      body: JSON.stringify({ monogramColor: color })
+    });
+
+    if (!res.ok) {
+      throw new Error(`There was a problem saving the color for ${contactKey}: ${res.statusText}`);
+    }
+  } catch (error) {
+    console.error(`Network error while saving the color for ${contactKey}:`, error);
+  }
+}
+//
+function showPopup(refOverlay, popup) {
+  requestAnimationFrame(() => {
+    if (popup) popup.classList.add('show');
+    refOverlay.classList.add('active');
+  });
+}
+
+function popUpClose() {
+  const refOverlay = document.getElementById('layout');
+  const popup = document.getElementById('popup');
+  mobileAddButtonHoverColorRemove();
+  
+  if (popup) popup.classList.remove('show');
+  refOverlay.classList.remove('active');
+
+  setTimeout(() => {
+    refOverlay.classList.add('d_none');
+    refOverlay.innerHTML = '';
+    newContactMode = false;
+    currentEditingContactId = null;
+    init();
+  }, 400);
+}
+
+function showMessage(text) {
+  const messageBox = document.getElementById("message-box");
+  const messageText = document.getElementById("message-text");
+
+  const isMobile = window.innerWidth < 1080;
+  const deviceClass = isMobile ? "mobile" : "desktop";
+
+  messageBox.classList.remove("hide", "desktop", "mobile");
+  messageBox.classList.add("show", deviceClass);
+  messageText.textContent = text;
+
+  setTimeout(() => {
+    messageBox.classList.remove("show");
+    messageBox.classList.add("hide");
+  }, 2000);
+}
+
+//
+function mobileAddButtonHoverColorAdd(){
+  const openNewContactButton = document.getElementById('mobile-add-button');
+  openNewContactButton.classList.add('button-hover-style');
+}
+
+function mobileAddButtonHoverColorRemove(){
+  const openNewContactButton = document.getElementById('mobile-add-button');
+  openNewContactButton.classList.remove('button-hover-style');
 }
 
 function mobileDropdownButtonHoverColorAdd(){
@@ -441,6 +439,16 @@ function mobileDropdownButtonHoverColorRemove(){
   if (button) button.classList.remove('button-hover-style');
 }
 
+function backTocontacts(){
+  document.getElementById('contact-list').classList.remove('d_mobile_none');
+  document.getElementById('contenttop').classList.add('d_mobile_none');
+  document.getElementById('contenttop').classList.remove('d_block');
+  document.getElementById('contact-details').classList.add('d_none');
+  document.getElementById('contact-details').classList.remove('d_block');
+  const allContacts = document.querySelectorAll('.contact');
+  allContacts.forEach(c => c.classList.remove('active-contact'));
+}
+//
 function toggleDropdown(id, event) {
   event.stopPropagation();
   const menu = document.getElementById(`dropdown-menu-${id}`);
@@ -484,6 +492,14 @@ function closeAllDropdownsIfClickedOutside(event) {
   return dropdownWasOpen;
 }
 
+function handleDropdownOnClick(event) {
+  const refOverlay = document.getElementById('layout');
+  const popupOpen = refOverlay && !refOverlay.classList.contains('d_none');
+  if (popupOpen) return false;
+
+  return closeAllDropdownsIfClickedOutside(event);
+}
+//
 document.addEventListener('click', (event) => {
   const targetID = event.target.id;
 
@@ -500,11 +516,3 @@ document.addEventListener('click', (event) => {
   const dropdownWasOpen = closeAllDropdownsIfClickedOutside(event);
   if (dropdownWasOpen) event.stopPropagation();
 });
-
-function handleDropdownOnClick(event) {
-  const refOverlay = document.getElementById('layout');
-  const popupOpen = refOverlay && !refOverlay.classList.contains('d_none');
-  if (popupOpen) return false;
-
-  return closeAllDropdownsIfClickedOutside(event);
-}
