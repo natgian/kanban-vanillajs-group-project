@@ -335,7 +335,7 @@ async function updateContactDetails(id, updated) {
 }
 
 //
-async function deleteContact(event, id) {
+async function deleteContact(event, id){ 
   event.preventDefault();
   const contact = contactStore[id];
   try{
@@ -499,20 +499,3 @@ document.addEventListener('click', (event) => {
   const dropdownWasOpen = closeAllDropdownsIfClickedOutside(event);
   if (dropdownWasOpen) event.stopPropagation();
 });
-
-/*function showMessage(text) {
-  const messageBox = document.getElementById("message-box");
-  const messageText = document.getElementById("message-text");
-
-  const isMobile = window.innerWidth < 1080;
-  const deviceClass = isMobile ? "mobile" : "desktop";
-
-  messageBox.classList.remove("hide", "desktop", "mobile");
-  messageBox.classList.add("show", deviceClass);
-  messageText.textContent = text;
-
-  setTimeout(() => {
-    messageBox.classList.remove("show");
-    messageBox.classList.add("hide");
-  }, 2000);
-}*/
