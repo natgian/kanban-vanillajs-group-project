@@ -51,7 +51,7 @@ function openAddTaskOverlay() {
 }
 
 /**
- * closes the add task overlay and enables scrolling
+ * closes the add task overlay, enables scrolling, resets fields and addTaskStatus
  *
  */
 function closeAddTaskOverlay() {
@@ -142,37 +142,18 @@ async function deleteTask(taskId) {
 }
 
 /**
- * Gets the values (name, color, initials) from all selected contacts
- *
- * @returns {Array<Object>} - An array of objects containing the data of each selected contacts
- */
-function getSelectedContacts() {
-  const selectedContacts = [];
-
-  document.querySelectorAll(".hidden-checkbox:checked").forEach((checkbox) => {
-    const option = checkbox.closest(".option");
-    const avatar = option.querySelector(".task-card-avatar");
-    selectedContacts.push({
-      name: checkbox.value,
-      color: avatar.dataset.color,
-      initials: avatar.textContent.trim(),
-    });
-  });
-
-  return selectedContacts;
-}
-
-/**
  * Gets the subtasks values and creates an array of objects containing the subtasks. Each subtask is
  * initialized with 'done: false'.
  *
  * @returns {Array<Object>} - An array of subtask objects
  */
-function getSubtasks(currentSubtasks) {
+function getSubtasks(currentSubtasks = []) {
   const subtaskList = document.getElementById("subtaskList");
   const subtasks = [];
 
-  if (!subtaskList) return currentSubtasks || [];
+  if (!subtaskList || subtaskList.querySelectorAll("li").length === 0) {
+    return currentSubtasks;
+  }
 
   subtaskList.querySelectorAll("li").forEach((subtask) => {
     const textItem = subtask.querySelector(".subtask-text");

@@ -34,12 +34,12 @@ function getCurrentUserInitials() {
 
   if (currentUser === "Guest") {
     return "G";
-  } else {
-    const userNameArray = currentUser.split(" ");
-    const firstInitial = userNameArray[0].charAt(0).toUpperCase() || "";
-    const secondInitial = userNameArray[1].charAt(0).toUpperCase() || "";
-    return firstInitial + secondInitial;
   }
+  const userNameArray = currentUser.trim().split(" ");
+  const firstInitial = userNameArray[0]?.charAt(0).toUpperCase() || "";
+  const secondInitial = userNameArray.length > 1 ? userNameArray[1].charAt(0).toUpperCase() : "";
+
+  return firstInitial + secondInitial;
 }
 
 /**

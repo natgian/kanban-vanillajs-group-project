@@ -5,7 +5,7 @@ const tasks = [
     status: "done",
     title: "HTML Base Template Creation",
     description: "Create reusable HTML base templates that will serve as the foundation for other pages in the project.",
-    dueDate: "2025-05-05",
+    dueDate: "2025-07-05",
     priority: "low",
     assignedTo: [{ name: "Anna Schmitt", initials: "AS", color: "#FF7A00" }],
     category: "Technical Task",
@@ -15,7 +15,7 @@ const tasks = [
     status: "in-progress",
     title: "Implement Login Page",
     description: "Build and style the login page, adding form validation for login credentials.",
-    dueDate: "2025-05-10",
+    dueDate: "2025-07-10",
     priority: "high",
     assignedTo: [{ name: "David Schwarz", initials: "DS", color: "#9327FF" }],
     category: "User Story",
@@ -29,7 +29,7 @@ const tasks = [
     status: "awaiting-feedback",
     title: "Responsive Navigation Bar",
     description: "Implement a navigation bar that adjusts responsively for mobile, tablet, and desktop views.",
-    dueDate: "2025-05-12",
+    dueDate: "2025-07-12",
     priority: "medium",
     assignedTo: [
       { name: "Emily Hartmann", initials: "EH", color: "#00BEE8" },
@@ -47,7 +47,7 @@ const tasks = [
     status: "done",
     title: "Set Up Project Repository",
     description: "Initialize a Git repository and establish a clear branching strategy for team collaboration.",
-    dueDate: "2025-04-30",
+    dueDate: "2025-06-30",
     priority: "low",
     assignedTo: [{ name: "Fabian Klein", initials: "FK", color: "#1FD7C1" }],
     category: "Technical Task",
@@ -60,7 +60,7 @@ const tasks = [
     status: "to-do",
     title: "Design User Registration Flow",
     description: "Design the user flow for registration, including account creation and error handling.",
-    dueDate: "2025-05-15",
+    dueDate: "2025-06-15",
     priority: "high",
     assignedTo: [
       { name: "Greta Völker", initials: "GV", color: "#FF745E" },
@@ -76,7 +76,7 @@ const tasks = [
     status: "in-progress",
     title: "Setup ESLint and Prettier",
     description: "Configure ESLint and Prettier to ensure consistent code formatting across the team.",
-    dueDate: "2025-05-08",
+    dueDate: "2025-07-08",
     priority: "medium",
     assignedTo: [{ name: "Isabel Kranz", initials: "IK", color: "#FC71FF" }],
     category: "Technical Task",
@@ -86,7 +86,7 @@ const tasks = [
     status: "awaiting-feedback",
     title: "Create Design System Documentation",
     description: "Create comprehensive documentation for the design system, including components and design patterns.",
-    dueDate: "2025-05-03",
+    dueDate: "2025-07-03",
     priority: "medium",
     assignedTo: [
       { name: "Anna Schmitt", initials: "AS", color: "#FF7A00" },
@@ -108,7 +108,7 @@ const tasks = [
     status: "to-do",
     title: "Research Analytics Tools",
     description: "Compare and research available analytics tools for user tracking and data insights.",
-    dueDate: "2025-05-25",
+    dueDate: "2025-06-25",
     priority: "low",
     assignedTo: [{ name: "Carla Unger", initials: "CU", color: "#6E52FF" }],
     category: "Technical Task",
@@ -118,7 +118,7 @@ const tasks = [
     status: "in-progress",
     title: "Implement Dark Mode",
     description: "Add support for dark mode to the application, including a toggle for users.",
-    dueDate: "2025-05-22",
+    dueDate: "2025-06-22",
     priority: "high",
     assignedTo: [
       { name: "Anna Schmitt", initials: "AS", color: "#FF7A00" },
@@ -146,7 +146,7 @@ async function seedTasks() {
       });
 
       const postData = await response.json();
-      const taskId = postData.name; // adds the ID created by Firebase to the taskId after the task has been added to the database
+      const taskId = postData.name; // saves the ID created by Firebase to the taskId variable
 
       await fetch(`${baseURL}/tasks/${taskId}.json`, {
         method: "PATCH",

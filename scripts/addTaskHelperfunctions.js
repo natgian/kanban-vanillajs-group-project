@@ -137,23 +137,154 @@ function hideValidationError(input, message) {
  * Checks if the input field is empty and shows a message.
  */
 function emptyFeedback() {
-    const subtaskInput = document.getElementById("newSubtask");
-    if (!subtaskInput || subtaskInput.value.trim() === "") {
-        showMessage("Please enter a name");
-    }
+  const subtaskInput = document.getElementById("newSubtask");
+  if (!subtaskInput || subtaskInput.value.trim() === "") {
+    showMessage("Please enter a name");
+  }
 }
 
+/**
+ * Sets the "addTaskStatus" to the given status depending on screen size.
+ * On small screens (≤ 1080px), it navigates to "addTask.html" with a query parameter.
+ * On larger screens, it opens the Add Task overlay and stores the status temporarily in a global variable.
+ *
+ * @param {string} newStatus - The new task status ("to-do", "in-progress" or "awaiting-feedback")
+ */
+function setAddTaskStatus(newStatus) {
+  const screenWidth = window.innerWidth;
 
+  if (screenWidth <= 1080) {
+    // Small screens: navigate with status in URL
+    window.location.href = `./addTask.html?status=${newStatus}`;
+  } else {
+    // Large screens: store status in global variable and open overlay
+    window.addTaskStatus = newStatus;
+    initBoardAddTask();
+  }
+}
+
+/**
+ * Gets the task status for the Add Task form.
+ * If a status is found in the URL (from a small screen redirect), it is used and the URL is cleaned.
+ * If a global variable (from a large screen overlay) is found, it is used and then cleared.
+ * If no status is available it defaults to "to-do".
+ *
+ *  @returns {string} - The task status ("to-do", "in-progress", "awaiting-feedback")
+ */
+function getAddTaskStatus() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const fromURL = urlParams.get("status");
+
+  if (fromURL) {
+    window.history.replaceState({}, document.title, "./addTask.html"); // cleans URL
+    return fromURL;
+  }
+
+  if (window.addTaskStatus) {
+    const status = window.addTaskStatus;
+    window.addTaskStatus = null; // clears global variable
+    return status;
+  }
+
+  return "to-do";
+}
+
+/**
+ * Gets the values from the task fields and returns a new task object
+ *
+ * @returns {Object} - The created task object
+ */
+function getTaskData() {
+  const title = document.getElementById("taskTitle")?.value || "";
+  const description = document.getElementById("taskDescription")?.value || "";
+  const dueDate = document.getElementById("date-input")?.value || "";
+  const priority = document.querySelector(".priorityBtns.selected")?.dataset.priority || "";
+  const assignedTo = getSelectedContactsData();
+  const category = document.querySelector(".categoryDropdown.dropdown-selected")?.dataset.value || "";
+  const subtasks = getSubtasksData();
+  const status = getAddTaskStatus();
+
+  return createTaskObject(title, description, dueDate, priority, assignedTo, category, subtasks, status);
+}
+
+/**
+ * Creates a new task object with the given parameters
+ *
+ * @param {string} title - The task title
+ * @param {string} description - The task description
+ * @param {string} dueDate - Thetask due date
+ * @param {string} priority - The task priority ("high", "medium", "low")
+ * @param {Array<Object>} assignedTo - Array of assigned contacts objects
+ * @param {string} category - The task category
+ * @param {Array<Object>} subtasks - Array of subtasks objects
+ * @param {string} status - The task status
+ * @returns - The created task object
+ */
+function createTaskObject(title, description, dueDate, priority, assignedTo, category, subtasks, status) {
+  return {
+    assignedTo: assignedTo,
+    category: category,
+    description: description,
+    dueDate: dueDate,
+    priority: priority,
+    status: status,
+    subtasks: subtasks,
+    title: title,
+  };
+}
+
+/**
+ * Gets the subtask data from the DOM and creates an array of subtasks
+ *
+ * @returns - A subtasks array containing the subtask as objects
+ *
+ */
+function getSubtasksData() {
+  const subtaskList = document.getElementById("subtaskList");
+  const subtasks = [];
+
+  if (!subtaskList || subtaskList.querySelectorAll("li").length === 0) {
+    return [];
+  }
+
+  subtaskList.querySelectorAll("li").forEach((subtask) => {
+    const textItem = subtask.querySelector(".subtask-text");
+    if (!textItem) return;
+
+    const subtaskText = textItem.textContent.trim();
+
+    subtasks.push({ done: false, subtask: subtaskText });
+  });
+
+  return subtasks;
+}
+
+/**
+ * Gets the values (name, color, initials) from all selected contacts
+ *
+ * @returns {Array<Object>} - An array of objects containing the data of each selected contacts
+ */
+function getSelectedContactsData() {
+  const selectedContacts = [];
+
+  document.querySelectorAll(".hidden-checkbox:checked").forEach((checkbox) => {
+    const option = checkbox.closest(".option");
+    const avatar = option.querySelector(".task-card-avatar");
+    selectedContacts.push({
+      name: checkbox.value,
+      color: avatar.dataset.color,
+      initials: avatar.textContent.trim(),
+    });
+  });
+
+  return selectedContacts;
+}
 
 // // Sets up validation on page load
 // document.addEventListener("DOMContentLoaded", function() {
 //     document.addEventListener("input", validateRequiredFields);
 //     observeDropdownChanges();
 // });
-
-
-
-
 
 // /**
 //  * Rotiert das Button-Bild um 180 Grad, wenn das Dropdown geöffnet ist.
@@ -175,12 +306,9 @@ function emptyFeedback() {
 //   }
 // }
 
-
-
 // document.addEventListener("DOMContentLoaded", () => {
 //   updateSelectedContactsDisplay();
 // });
-
 
 // // Event listener for initializing contact search functionality
 // document.addEventListener("DOMContentLoaded", function() {
@@ -189,12 +317,10 @@ function emptyFeedback() {
 //     });
 // });
 
-
-  // const categoryInput = document.querySelector("input.categoryDropdown");
-  // if (categoryInput && !categoryInput.dataset.value) {
-  //   categoryInput.value = "Select task category";
-  // }
-
+// const categoryInput = document.querySelector("input.categoryDropdown");
+// if (categoryInput && !categoryInput.dataset.value) {
+//   categoryInput.value = "Select task category";
+// }
 
 // /**
 //  * Closes dropdowns when clicking outside.
