@@ -239,7 +239,7 @@ async function updateEditedTask(taskId, updatedTask) {
     closeOverlay(taskOverlayRef);
     initBoard();
     setTimeout(() => {
-      showMessage("Task successfully updated");
+      showMessage("Task successfully updated", "../assets/icons/check_icon.svg", "Success");
     }, 500);
   } catch (error) {
     console.error("Something went wrong:", error);

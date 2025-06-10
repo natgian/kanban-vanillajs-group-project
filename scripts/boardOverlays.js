@@ -134,7 +134,7 @@ async function deleteTask(taskId) {
     });
 
     closeOverlay(taskOverlayRef);
-    showMessage("Task successfully deleted");
+    showMessage("Task successfully deleted", "../assets/icons/check_icon.svg", "Success");
     initBoard();
   } catch (error) {
     console.error("Task deletion failed:", error);
