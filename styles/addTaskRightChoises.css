@@ -188,6 +188,9 @@ cursor: pointer;
 .dot:hover #editDelate {
   display: flex !important;
 }
+.dot.editing:hover #editDelate {
+  display: none !important;
+}
 .dot::before {
     content: "•";
     font-size: 1.2em;
@@ -206,6 +209,8 @@ cursor: pointer;
 }
 #deleteChange img:hover{
   scale: 0.92;
+  border-radius: 50%;
+  background-color: #e6e6e6;
 }
 #deleteChange hr{
   height: 20px;
