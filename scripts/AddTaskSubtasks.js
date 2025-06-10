@@ -159,7 +159,7 @@ function cancelEditMode(listItem, originalText) {
 function removeEditStyles(listItem, editDelate, deleteChange) {
   listItem.classList.remove("editing");
   listItem.style.backgroundColor = "";
-  editDelate.style.display = "flex";
+  editDelate.style.setProperty("display", "none", "important");
   deleteChange.style.display = "none";
 }
 
