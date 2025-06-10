@@ -54,6 +54,29 @@
   }
 }
 
+.legal-links-container {
+  display: flex;
+  gap: 16px;
+}
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.login-container img {
+  width: 24px;
+  height: 24px;
+}
+
+.logged-out {
+  width: 120px;
+  aspect-ratio: 16 / 9;
+}
+
 @media (max-width: 672px) {
   .content {
     padding: 24px;
@@ -69,5 +92,17 @@
 @media (max-width: 350px) {
   h1 {
     font-size: 36px;
+  }
+
+  .logged-out {
+    aspect-ratio: 16 / 9;
+  }
+
+  .legal-links-container {
+    gap: 36px;
+  }
+
+  .sidebar-menu {
+    justify-content: space-evenly;
   }
 }
