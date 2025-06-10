@@ -301,7 +301,7 @@ function taskOverlayEditTaskTemplate(task, formattedDueDate) {
 
               <!-- Assigned to -->
               <div class="spanGlue mt-20">
-                <label for="contactDropdown" class="edit-task-label">Assigned to</label>
+                <label class="edit-task-label">Assigned to</label>
                 <div class="dropdown-container">
                   <input type="button" value="Select contacts to assign" class="dropdown-selected typeBars" id="contactDropdown" onclick="toggleContactDropdown(this)" />
                   <button id="toggleButtonDropdown" onclick="toggleContactDropdown(this)" ">
@@ -322,7 +322,7 @@ function taskOverlayEditTaskTemplate(task, formattedDueDate) {
                     <div id="confirmDeleteNewSubtask">
                       <img src="../assets/icons/closeAddSubtask.svg" alt="X" id="close" onclick="resetElements()" />
                       <hr />
-                      <img src="../assets/icons/checkNewSubtask.svg" alt="Check" id="confirm" onclick="addSubtaskOnEdit(), emptyFeedback()" />
+                      <img src="../assets/icons/checkNewSubtask.svg" alt="Check" id="confirm" onclick="addSubtaskOnEdit()" />
                     </div>
                   </div>
                 </div>
