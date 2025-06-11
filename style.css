@@ -102,41 +102,6 @@ h1 {
   align-self: flex-end;
 }
 
-/* BUTTONS */
-.btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  background-color: var(--primary-color);
-  color: var(--white-color);
-  font-size: 21px;
-  line-height: 1.2;
-  font-weight: 700;
-  padding: 8px 16px;
-  border-radius: 10px;
-  border: 1px solid var(--primary-color);
-}
-
-.btn:not(:disabled):hover {
-  background-color: var(--hover-color);
-  border: 1px solid var(--hover-color);
-  box-shadow: 0 4px 4px 0 rgb(0, 0, 0, 0.25);
-}
-
-.btn:active {
-  background-color: var(--active-color);
-  border: 1px solid var(--active-color);
-  box-shadow: 0 4px 4px 0 rgb(0, 0, 0, 0.25);
-}
-
-.btn:disabled {
-  background-color: var(--outline-color);
-  color: white;
-  border-color: var(--outline-color);
-  cursor: not-allowed;
-}
-
 /* HEADER */
 header {
   height: 96px;
@@ -261,23 +226,6 @@ header {
   display: none;
 }
 
-.task-card-avatar {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-left: -8px;
-  width: 32px;
-  height: 32px;
-  color: var(--white-color);
-  font-size: 12px;
-  border: 1px solid var(--white-color);
-  border-radius: 50%;
-}
-
-.task-card-avatar:first-child {
-  margin-left: 0;
-}
-
 /* SIDEBAR */
 .logo {
   margin-bottom: 50px;
@@ -353,96 +301,6 @@ header {
 }
 .sidebar-footer-link:hover {
   color: #29abe2;
-}
-
-/* MESSAGE BOX */
-.message-box {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  opacity: 0;
-  z-index: 1000;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  color: var(--white-color);
-  background-color: var(--primary-color);
-  font-size: 16px;
-  border-radius: 20px;
-  padding: 24px 30px;
-  width: 280px;
-  box-shadow: 0 0 4px 0 rgb(0, 0, 0, 0.1);
-  pointer-events: none;
-}
-
-#message-icon {
-  width: 24px;
-  height: 24px;
-  display: inline-block;
-}
-
-/* Animationssteuerung per Klasse */
-.message-box.show.desktop {
-  animation: slide-in-right 0.3s forwards;
-}
-.message-box.hide.desktop {
-  animation: slide-out-right 0.3s forwards;
-}
-
-.message-box.show.mobile {
-  animation: slide-in-bottom 0.3s forwards;
-}
-.message-box.hide.mobile {
-  animation: slide-out-bottom 0.3s forwards;
-}
-
-@keyframes slide-in-right {
-  from {
-    transform: translate(150%, -50%);
-    opacity: 0;
-  }
-  to {
-    transform: translate(-50%, -50%);
-    opacity: 1;
-  }
-}
-
-@keyframes slide-out-right {
-  from {
-    transform: translate(-50%, -50%);
-    opacity: 1;
-  }
-  to {
-    transform: translate(150%, -50%);
-    opacity: 0;
-  }
-}
-
-@keyframes slide-in-bottom {
-  from {
-    top: 100%;             /* Start komplett außerhalb des Bildschirms */
-    transform: translate(-50%, 0);
-    opacity: 0;
-  }
-  to {
-    top: 50%;
-    transform: translate(-50%, -50%);
-    opacity: 1;
-  }
-}
-
-@keyframes slide-out-bottom {
-  from {
-    top: 50%;
-    transform: translate(-50%, -50%);
-    opacity: 1;
-  }
-  to {
-    top: 100%;
-    transform: translate(-50%, 0);
-    opacity: 0;
-  }
 }
 
 /* MEDIA QUERIES */
