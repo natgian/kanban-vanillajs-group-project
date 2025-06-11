@@ -133,38 +133,6 @@ function updateSelectedContacts() {
 }
 
 /**
- * Creates and appends up to 5 avatar elements for the selected contacts
- *
- * @param {NodeList} checkedElements - A list of checked checkboxes representing selected contacts
- */
-function createAvatars(checkedElements, maxVisibleAvatars, selectedContactsDiv) {
-  checkedElements.forEach((checkbox, index) => {
-    const parentElement = checkbox.closest(".option");
-    const avatar = parentElement.querySelector(".task-card-avatar");
-
-    if (avatar && index < maxVisibleAvatars) {
-      const clonedAvatar = avatar.cloneNode(true);
-      clonedAvatar.dataset.id = avatar.dataset.id;
-      selectedContactsDiv.appendChild(clonedAvatar);
-    }
-  });
-}
-
-/**
- * Appends a counter if more than 5 contacts are selected
- *
- * @param {number} extraCount - The number of contacts above the visible avatar limit.
- */
-function createPlusCounter(extraCount, selectedContactsDiv) {
-  if (extraCount > 0) {
-    const plusCounter = document.createElement("div");
-    plusCounter.classList.add("plus-counter");
-    plusCounter.textContent = `+${extraCount}`;
-    selectedContactsDiv.appendChild(plusCounter);
-  }
-}
-
-/**
  * Creates an input field for searching contacts.
  *
  * @param {HTMLInputElement} button - The button element to replace.
@@ -264,25 +232,6 @@ function toggleDropdown(dropdownOptions, searchField, button, wasActive) {
     if (!dropdownOptions.classList.contains("active")) {
         resetInputField(searchField);
     }
-}
-
-/**
- * Handles dropdown visibility and closing other dropdowns.
- * @param {HTMLElement} triggerElement - The clicked element.
- * @param {HTMLElement} searchField - The search field element.
- * @param {HTMLElement} dropdownOptions - The dropdown options container.
- * @param {boolean} wasActive - Whether the dropdown was previously active.
- */
-function handleDropdownToggle(triggerElement, searchField, dropdownOptions, wasActive) {
-  closeOtherDropdowns(dropdownOptions);
-
-  if (shouldActivateSearch(triggerElement, searchField)) {
-    activateSearchField(searchField, dropdownOptions);
-    return;
-  }
-
-  updateDropdownState(dropdownOptions, wasActive);
-  if (!dropdownOptions.classList.contains("active")) resetInputField(searchField);
 }
 
 /**
