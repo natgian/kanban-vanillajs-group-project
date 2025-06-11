@@ -3,6 +3,11 @@
   box-sizing: border-box;
   padding: 0;
 }
+body, html {
+  height: 100%;
+  margin: 0;
+  overflow: hidden; /* verhindert Scrollen */
+}
 
 :root{
   --text-color:#ADADAD;
@@ -19,21 +24,25 @@
   margin: 0 auto;
 }
 
-.wrapper{
+.wrapper {
   position: relative;
-  background-color: #F5F5F5;
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-.logo{
+.logo-div {
   position: absolute;
-  left: 48px;
-  top: 48px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-550px, -284px);
+}
+
+.logo{
   height: 80px;
+  margin: 0;
 }
 
 .back-icon{
@@ -192,7 +201,12 @@ footer a{
   color: var(--text-color);
 }
 
-@media (max-width: 600px){
+@media (max-width: 1100px){
+  .logo-div {
+    position: static;
+    transform: translate(0, 0);
+    margin-bottom: 24px;
+  }
   .logo{
     position: static;
     margin-top: 16px;
