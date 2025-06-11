@@ -15,6 +15,8 @@ function updateSignupState() {
 }
 
 function formAndPasswordIf(password, confirmpassword) {
+  const confirmInput = document.getElementById('confirmpassword');
+
   if (!form.checkValidity()) {
     form.reportValidity();
     return false;
@@ -22,6 +24,8 @@ function formAndPasswordIf(password, confirmpassword) {
 
   if (password !== confirmpassword) {
     passwordError.classList.remove("d-none");
+    confirmInput.classList.add('red-border');
+    console.log(confirmInput.classList)
     return false;
   } else {
     passwordError.classList.add("d-none");
