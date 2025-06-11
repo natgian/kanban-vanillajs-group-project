@@ -49,7 +49,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: start;
-    padding: 72px;
+    padding: 32px 32px 24px 32px;
 
     span {
         margin-right: 16px;
@@ -64,7 +64,6 @@ body {
 }
 
 main {
-    flex-grow: 1;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -76,7 +75,7 @@ main {
 
     input {
         border-radius: 8px;
-        border: 0.5px solid #aaa;
+        border: 2px solid var(--border-color);
     }
 
     .message {
@@ -284,7 +283,11 @@ footer {
     font-size: 16px;
 }
 
-input:focus {
-    border: 2px solid var(--hover-color);
-    outline: none;
+input:hover{
+  border: 2px solid var(--blue-color);
+}
+
+input:focus{
+outline: none;
+border: 2px solid var(--blue-color);
 }

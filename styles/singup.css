@@ -3,6 +3,11 @@
   box-sizing: border-box;
   padding: 0;
 }
+body, html {
+  height: 100%;
+  margin: 0;
+  overflow: hidden; /* verhindert Scrollen */
+}
 
 :root{
   --text-color:#ADADAD;
@@ -19,21 +24,25 @@
   margin: 0 auto;
 }
 
-.wrapper{
+.wrapper {
   position: relative;
-  background-color: #F5F5F5;
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-.logo{
+.logo-div {
   position: absolute;
-  left: 48px;
-  top: 48px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-550px, -284px);
+}
+
+.logo{
   height: 80px;
+  margin: 0;
 }
 
 .back-icon{
@@ -51,7 +60,6 @@ form{
   align-items: center;
   justify-content: space-between;
   border-radius: 16px;
-  gap: 8px;
   background-color: #FFFFFF;
   padding: 32px 56px 32px 56px;
 }
@@ -82,7 +90,7 @@ h1{
 .input-container {
   position: relative;
   width: 100%;
-  margin-bottom: 16px;
+  margin-top: 16px;
 }
 
 .input-container input {
@@ -105,6 +113,7 @@ h1{
 }
 .input-container input:focus{
   outline: none;
+  border: 2px solid var(--blue-color);
 }
 
 .input-container svg{
@@ -192,7 +201,31 @@ footer a{
   color: var(--text-color);
 }
 
-@media (max-width: 600px){
+
+.d-none{
+  display: none !important;
+}
+
+.error-message-div{
+  display: flex;
+  justify-content: flex-start;
+}
+
+.error-message {
+  color: red;
+  font-size: 10px;
+}
+
+.red-border{
+  border: 1px solid red !important;
+}
+
+@media (max-width: 1100px){
+  .logo-div {
+    position: static;
+    transform: translate(0, 0);
+    margin-bottom: 24px;
+  }
   .logo{
     position: static;
     margin-top: 16px;
@@ -215,18 +248,4 @@ footer a{
   form{
     min-width: 420px;
   }
-}
-
-.d-none{
-  display: none !important;
-}
-
-.error-message {
-  color: red;
-  font-size: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  max-width: 300px;
 }

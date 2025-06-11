@@ -5,9 +5,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Join</title>
-  <link rel="icon" type="image/x-icon" href="./assets/img/join_logo_white.svg">
-
+  <link rel="icon" type="image/x-icon" href="/assets/img/join_logo_dark.svg" />
   <link rel="stylesheet" href="/styles/login.css">
+  <link rel="stylesheet" href="/styles/singup.css">
 </head>
 
 <body onload="init()">
@@ -26,10 +26,11 @@
 
 
   <main>
-    <div class="loginBox">
-      <h1>Log in</h1>
-      <hr class="headlineLine">
-      <form action="">
+    <form onsubmit="postData(); return false" class="max-width">
+        <div class="h1div">
+          <h1>Log in</h1>
+        </div>
+        <hr class="headlineLine" />
         <div class="inputWrapper">
           <input required class="mb-12" type="email" name="Email" placeholder="Email">
           <img style="top: 40%;" src="./assets/icons/mail_icon.svg" alt="Email Icon">
@@ -38,6 +39,10 @@
           <input required type="password" name="Password" placeholder="Password" id="passwordInput">
           <img src="./assets/icons/lock_icon.svg" alt="Password Icon">
         </div>
+        <div>
+          <div id="passwordError" class="error-message d-none">The passwords you entered do not match.</div>
+          <div id="accountError" class="error-message d-none">The account already exist!</div>
+        </div>
         <div id="loginMessage" class="message"></div>            
         <div>
           <button class="loginBtn">Log in</button>
@@ -45,6 +50,7 @@
         </div>
       </form>
     </div>
+      </form>
   </main>
 
   <footer>

@@ -13,8 +13,9 @@
   </head>
   <body onload="init()">
     <div class="wrapper max-width">
-      <img class="logo" src="/assets/img/join_logo_dark.svg" alt="" />
-
+      <div class="logo-div">
+        <img class="logo" src="/assets/img/join_logo_dark.svg" alt="" />
+      </div>
       <form onsubmit="postData(); return false" class="max-width">
         <svg onclick="backToLogin()" class="back-icon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f">
           <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z" />
@@ -58,7 +59,7 @@
           </svg>
         </div>
 
-        <div>
+        <div class="error-message-div">
           <div id="passwordError" class="error-message d-none">The passwords you entered do not match.</div>
           <div id="accountError" class="error-message d-none">The account already exist!</div>
         </div>
