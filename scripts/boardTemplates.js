@@ -236,6 +236,19 @@ function assignedToDetailTemplate(person) {
           </li>`;
 }
 
+/**
+ * Returns the HTML template for the task edit overlay
+ *
+ * This template includes editable fields such as title, description, due date,
+ * priority, assigned contacts, and subtasks. It also includes logic to prefill
+ * form inputs based on the given task object and prevents selection of past dates.
+ *
+ * @param {Object} task - The task object containing task data
+ * @param {string} formattedDueDate - The due date formatted as YYYY-MM-DD for the input field
+ * @param {string} today - Today's date formatted as YYYY-MM-DD to set as the minimum allowed date
+ *
+ * @returns {string} - A string containing the full HTML template for the edit task overlay
+ */
 function taskOverlayEditTaskTemplate(task, formattedDueDate, today) {
   return `
           <div class="flex-end">
