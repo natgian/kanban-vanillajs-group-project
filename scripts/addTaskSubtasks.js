@@ -111,7 +111,6 @@ function saveAndExitEditMode(element) {
   const { textElement, editDelate, deleteChange } = getElements(listItem);
   if (!textElement) return;
 
-  console.log("Saving input:", textElement.innerText);
   textElement.blur();
 
   setTimeout(() => {

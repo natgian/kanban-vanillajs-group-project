@@ -200,6 +200,10 @@
   top: 55px !important;
 }
 
+#subtaskList {
+  margin-top: 8px;
+}
+
 /* CUSTOM CHECKBOX */
 /* Hide default checkbox */
 .custom-checkbox {
@@ -306,6 +310,11 @@
 
   #toggleButtonDropdown {
     top: 50px !important;
+  }
+
+  #subtaskListElement {
+    scale: 0.9;
+    padding-left: 0 !important;
   }
 
   .edit-task-label {

@@ -170,6 +170,352 @@
 @media (max-width: 1700px) {
   .summaryContent {
     .summaryFieldsTop {
+      padding: 24px 80px;
+    }
+
+    .summaryFields {
+      padding: 24px 24px;
+    }
+  }
+}
+
+@media (max-width: 1560px) {
+  .summaryContent {
+    .leftSection {
+      width: 70%;
+    }
+
+    .summaryFieldsTop {
+      padding: 24px 64px;
+    }
+
+    .summaryFields {
+      padding: 24px 16px;
+    }
+  }
+}
+
+@media (max-width: 1370px) {
+  .summaryContent {
+    h1 {
+      font-size: 56px;
+    }
+
+    .rightSection {
+      padding-left: 32px;
+
+      h3 {
+        font-size: 56px;
+      }
+    }
+
+    .summaryFieldsTop {
+      padding: 24px 48px;
+    }
+
+    .summaryFields {
+      padding: 24px 8px;
+    }
+  }
+}
+
+@media (max-width: 1240px) {
+  .summaryContent {
+    h1 {
+      font-size: 48px;
+    }
+
+    p,
+    span {
+      font-size: 14px;
+    }
+
+    .rightSection {
+      h3 {
+        font-size: 48px;
+      }
+    }
+
+    .summaryFieldsTop {
+      padding: 20px 40px;
+    }
+
+    .middleField {
+      padding: 16px;
+    }
+
+    .summaryFields {
+      padding: 20px 8px;
+    }
+  }
+}
+
+@media (max-width: 1150px) {
+  .summaryContent {
+    h1 {
+      font-size: 42px;
+    }
+
+    p {
+      font-size: 12px;
+    }
+
+    .rightSection {
+      h2 {
+        font-size: 36px;
+      }
+
+      h3 {
+        font-size: 36px;
+      }
+    }
+
+    .fieldImgs {
+      width: 48px;
+      height: 48px;
+      padding: 14px;
+    }
+
+    .summaryFieldsTop {
+      padding: 20px 40px;
+    }
+
+    .middleField {
+      padding: 16px;
+    }
+
+    .summaryFields {
+      padding: 20px 8px;
+    }
+  }
+}
+
+/*-------------- */
+/* MOBILE VERSION */
+/*-------------- */
+
+@media (max-width: 1080px) {
+  .summaryContent {
+    padding: 36px;
+
+    h1 {
+      font-size: 56px;
+    }
+
+    p,
+    span {
+      font-size: 16px;
+    }
+
+    .fieldImgs {
+      width: 56px;
+      height: 56px;
+      padding: 16px;
+    }
+
+    #verticalLine {
+      display: none;
+    }
+
+    .horizontalLine {
+      display: block;
+      width: 120px;
+      height: 3px;
+      background-color: var(--hover-color);
+      margin: 1rem 0;
+    }
+
+    .leftSection {
+      width: 100%;
+    }
+
+    .summaryFieldsTop {
+      padding: 36px 128px;
+    }
+
+    .middleField {
+      padding: 24px;
+    }
+
+    .summaryFields {
+      padding: 36px 56px;
+    }
+
+    .rightSection {
+      display: none;
+    }
+
+    .summaryHeader {
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding-bottom: 0;
+    }
+  }
+}
+
+@media (max-width: 830px) {
+  .summaryContent {
+    .summaryFieldsTop {
+      padding: 36px 104px;
+    }
+
+    .summaryFields {
+      padding: 36px 36px;
+    }
+  }
+}
+
+@media (max-width: 730px) {
+  .summaryContent {
+    .summaryFieldsTop {
+      padding: 28px 68px;
+    }
+
+    .summaryFields {
+      padding: 28px 16px;
+    }
+  }
+}
+
+@media (max-width: 580px) {
+  .summaryContent {
+    h1 {
+      font-size: 48px;
+    }
+
+    p,
+    span {
+      font-size: 14px;
+    }
+
+    .summaryHeader {
+      p {
+        font-size: 22px;
+      }
+    }
+
+    .summaryFieldsTop {
+      padding: 24px 44px;
+    }
+
+    .middleField {
+      padding: 16px;
+    }
+
+    .summaryFields {
+      padding: 24px 8px;
+    }
+  }
+}
+
+@media (max-width: 475px) {
+  .summaryContent {
+    h1 {
+      font-size: 36px;
+    }
+
+    p,
+    span {
+      font-size: 12px;
+    }
+
+    .summaryHeader {
+      h1 {
+        font-size: 48px;
+      }
+
+      p {
+        font-size: 20px;
+      }
+    }
+
+    .fieldImgs {
+      width: 44px;
+      height: 44px;
+      padding: 12px;
+    }
+
+    .summaryFieldsTop {
+      padding: 20px 32px
+    }
+
+    .middleField {
+      padding: 4px;
+
+      p {
+        font-size: 16px;
+      }
+    }
+
+    .summaryFields {
+      padding: 20px 6px;
+    }
+  }
+}
+
+@media (max-width: 405px) {
+  .summaryContent {
+    padding: 36px 16px;
+
+    h1 {
+      font-size: 32px;
+    }
+
+    p,
+    span {
+      font-size: 10px;
+    }
+
+    .summaryHeader {
+      h1 {
+        font-size: 40px;
+      }
+    }
+
+    .fieldImgs {
+      width: 32px;
+      height: 32px;
+      padding: 9px;
+    }
+
+    .summaryFieldsTop {
+      padding: 16px 32px;
+
+      .bgCirclesGrey {
+        margin-right: 8px;
+      }
+    }
+
+    .middleField {
+      padding: 4px 4px;
+
+      p {
+        font-size: 16px;
+      }
+
+      .bgCirclesRed {
+        margin-right: 8px;
+      }
+    }
+
+    .summaryFields {
+      padding: 16px 6px;
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+/* @media (max-width: 1700px) {
+  .summaryContent {
+    .summaryFieldsTop {
       padding: 24px 88px;
     }
 
@@ -725,4 +1071,4 @@
       }
     }
   }
-}
+} */
