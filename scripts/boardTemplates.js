@@ -236,7 +236,7 @@ function assignedToDetailTemplate(person) {
           </li>`;
 }
 
-function taskOverlayEditTaskTemplate(task, formattedDueDate) {
+function taskOverlayEditTaskTemplate(task, formattedDueDate, today) {
   return `
           <div class="flex-end">
             <button class="close-btn" onclick="closeOverlay(taskOverlayRef)">
@@ -265,7 +265,7 @@ function taskOverlayEditTaskTemplate(task, formattedDueDate) {
               <!-- Due Date -->
               <div class="spanGlue mt-20">
                 <label for="date-input" class="edit-task-label">Due date</label>
-                <input type="date" id="date-input" name="date" class="typeBars filled" value="${formattedDueDate}" oninput="checkValue()" required onblur="handleBlur(this)"/>
+                <input type="date" id="date-input" name="date" class="typeBars filled" value="${formattedDueDate}" oninput="checkValue()" required onblur="handleBlur(this)" min="${today}" />
                 <span id="showUpRequired" style="display: none; position: absolute;">This field is required</span>
               </div>
 

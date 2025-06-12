@@ -206,8 +206,9 @@ async function loadEditContacts(contacts, assignedTo) {
 function renderEditTaskTemplate(taskId) {
   const currentTask = allTasks.find((task) => task.taskId === taskId);
   const formattedDueDate = currentTask.dueDate.split("/").reverse().join("-");
+  const today = new Date().toISOString().split("T")[0];
 
-  taskOverlayContentRef.innerHTML = taskOverlayEditTaskTemplate(currentTask, formattedDueDate);
+  taskOverlayContentRef.innerHTML = taskOverlayEditTaskTemplate(currentTask, formattedDueDate, today);
 
   initEditTask(currentTask);
 }
