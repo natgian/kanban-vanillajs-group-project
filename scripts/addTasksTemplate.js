@@ -49,11 +49,12 @@ function renderAddTask() {
                       class="priorityBtns"
                       data-color="#FF3D00"
                       data-priority="high"
+                      onclick="handleButtonClick(this)"
                     >
                       <span>Urgent</span>
                       <img
-                        src="../assets/icons/Prio alta.png"
-                        style="width: 20px; height: 14.51px;"
+                        src="../assets/icons/Prio high_red.svg"
+                        style="width: 24px; transform: rotate(270deg);"
                       />
                     </button>
 
@@ -61,11 +62,12 @@ function renderAddTask() {
                       class="priorityBtns selected"
                       data-color="#FFA800"
                       data-priority="medium"
+                      onclick="handleButtonClick(this)"
                     >
                       <span>Medium</span>
                       <img
-                        src="../assets/icons/Prio media.png"
-                        style="width: 20px; height: 7.45px;"
+                        src="../assets/icons/Prio medi_orange.svg"
+                        style="width: 24px;"
                       />
                     </button>
 
@@ -73,11 +75,12 @@ function renderAddTask() {
                       class="priorityBtns"
                       data-color="#7AE229"
                       data-priority="low"
+                      onclick="handleButtonClick(this)"
                     >
                       <span>Low</span>
                       <img
-                        src="../assets/icons/Prio baja.png"
-                        style="width: 20px; height: 14.51px;"
+                        src="../assets/icons/Prio low_green.svg"
+                        style="width: 24px; transform: rotate(90deg);"
                       />
                     </button>
                   </div>

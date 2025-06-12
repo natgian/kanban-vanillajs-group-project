@@ -87,6 +87,16 @@ function checkValue() {
   }
 }
 
+
+
+
+
+
+
+
+
+
+
 /**
  * Initializes all priority buttons by storing the original image source
  * and adding an event listener to handle button selection.
@@ -248,6 +258,56 @@ function validateRequiredFields() {
 }
 
 /**
+ * Selects the middle button in the list and resets others.
+ * Applies selected styles to the middle button.
+ */
+function selectMiddleButton() {
+  const buttons = document.querySelectorAll(".priorityBtns");
+  const middleIndex = Math.floor(buttons.length / 2);
+
+  buttons.forEach((btn, index) => {
+    resetButtonStyles(btn);
+    if (index === middleIndex) {
+      applySelectedStyles(btn);
+      const selectedImg = btn.querySelector("img");
+      applyWhiteFilter(selectedImg);
+    }
+  });
+}
+
+/**
+ * Applies a white filter to the given image.
+ * Ensures the filter is applied after the image is loaded.
+ *
+ * @param {HTMLImageElement} img - The image element to modify.
+ */
+function applyWhiteFilter(img) {
+  img.onload = () => {
+    applyColorFilter(img, "white");
+  };
+
+  if (img.complete) {
+    applyColorFilter(img, "white");
+  }
+}
+
+// Executes the function when the page loads
+window.addEventListener("load", () => {
+  selectMiddleButton();
+});
+
+
+
+
+
+
+
+
+
+
+
+
+/**
  * Initializes all reset functions upon page load.
  */
 function initReset() {
@@ -286,24 +346,6 @@ function resetAllOptions() {
     if (checkbox) {
       checkbox.checked = false;
       applySelectionStyles(option, checkbox.checked);
-    }
-  });
-}
-
-/**
- * Selects the middle button in the list and resets others.
- * Applies selected styles and updates the button's image.
- */
-function selectMiddleButton() {
-  const buttons = document.querySelectorAll(".priorityBtns");
-  const middleIndex = Math.floor(buttons.length / 2);
-
-  buttons.forEach((btn, index) => {
-    resetButtonStyles(btn);
-    if (index === middleIndex) {
-      applySelectedStyles(btn);
-      const selectedImg = btn.querySelector("img");
-      applyColorFilter(selectedImg, "white");
     }
   });
 }
