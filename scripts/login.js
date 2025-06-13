@@ -46,7 +46,7 @@ document.getElementById("guestLoginBtn").addEventListener("click", async () => {
     window.location.href = "../pages/summary.html";
   } catch (e) {
     console.error("Error loading guest data:", e);
-    alert("Something went wrong. Please try again later.");
+    showMessage("Something went wrong. Please try again later.");
   }
 });
 
@@ -65,20 +65,20 @@ document.querySelector("form").addEventListener("submit", async (e) => {
   e.preventDefault();
   const email = e.target.querySelector('input[name="Email"]').value.trim();
   const password = e.target.querySelector('input[name="Password"]').value.trim();
-  const EMAIL = document.getElementById("name");
-  const PASSWORD = document.getElementById("password"); 
+  const emailInput = document.getElementById("name");
+  const passwordInput = document.getElementById("password"); 
   const msg = document.getElementById("error-message");
   const showMessage = (t) => {
     msg.textContent = t;
     msg.classList.remove("d-none");
     msg.classList.add("fade-in");
-    EMAIL.classList.add("red-border");
-    PASSWORD.classList.add("red-border");
+    emailInput.classList.add("red-border");
+    passwordInput.classList.add("red-border");
     setTimeout(() => {
         msg.classList.remove("fade-in");
         msg.classList.add("fade-out");
-        EMAIL.classList.remove('red-border');
-        PASSWORD.classList.remove('red-border');
+        emailInput.classList.remove('red-border');
+        passwordInput.classList.remove('red-border');
         setTimeout(() => {
             msg.classList.add("d-none"); // Versteckt wieder die Meldung
             msg.textContent = "";

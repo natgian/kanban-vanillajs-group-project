@@ -307,6 +307,16 @@ main{
   gap: 32px;
 }
 
+.input-container input::placeholder {
+  font-size: 14px;
+}
+
+#name::placeholder,
+#email::placeholder,
+#phone::placeholder{
+  font-size: 14px;
+}
+
 .contact-details-wrapper{
   display: flex;
   flex-direction: column;
@@ -629,8 +639,7 @@ form {
     transform: translateX(-50%) translateY(100%);
     width: 90vw;
     max-width: 600px;
-    height: 80vh;
-    min-height: 600px;
+    height: 90vh;
     max-height: 750px;
     flex-direction: column;
     transition: transform 0.4s ease, opacity 0.4s ease;
@@ -654,7 +663,7 @@ form {
   /* === POPUP INHALTE === */
   .popup-left {
     width: auto;
-    height: 400px;
+    height: 200px;
     padding: 24px;
   }
   .contact-logo {
@@ -665,12 +674,12 @@ form {
     position: relative;
     justify-content: center;
     width: 100%;
-    padding: 72px 48px 16px 48px;
+    padding: 48px 40px 0 40px;
   }
 
   .popup-close {
     position: absolute;
-    top: 36px;
+    top: 16px;
     right: 16px;
     cursor: pointer;
   }
@@ -692,19 +701,40 @@ form {
     overflow: hidden;
   }
 
+  .popup-left h1{
+    font-size: 32px;
+    margin: 8px 0 8px 0;
+  }
+
+  .popup-left p {
+    font-size: 12px;
+    margin: 4px 0 8px 0;
+  }
+
   .profile-logo {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-60px, -220px);
-    width: 120px;
-    height: 120px;
+    transform: translate(-40px, -172px);
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: var(--border-color);
     border: 1px solid var(--white-color);
+  }
+
+  .input-container input {
+    width: 100%;
+    padding: 16px 40px 16px 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    height: 0px; 
+    font-size: 14px;
+    box-sizing: border-box;
+    transition: border 150ms ease;
   }
 
   /* === INHALTSBEREICHE / LISTEN === */
@@ -756,9 +786,9 @@ form {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-60px, -220px);
-    width: 120px;
-    height: 120px;
+    transform: translate(-40px, -175px);
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -791,6 +821,7 @@ form {
   .create-buttons-div {
     justify-content: center;
     padding-top: 16px;
+    margin: 0;
   }
 
   .first-button{

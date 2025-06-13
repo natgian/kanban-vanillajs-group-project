@@ -3,10 +3,12 @@
   box-sizing: border-box;
   padding: 0;
 }
-body, html {
-  height: 100%;
-  margin: 0;
-  overflow: hidden; /* verhindert Scrollen */
+
+body{
+  background-color: #f6f7f8;
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
 }
 
 :root{
@@ -18,36 +20,35 @@ body, html {
   --h2-color: black;
   --blue-color: #29ABE2;
 }
+.wrapper{
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
 
-.max-width-signup{
+.max-width{
   max-width: 1920px;
   margin: 0 auto;
 }
 
-.wrapper-signup {
-  position: relative;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+header{
+  padding: 20px 40px 20px 116px;
+  background-color: transparent;
+  display: block;
+  box-shadow: none;
 }
-
-.logo-div {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-550px, -284px);
-}
-
 .logo{
   height: 80px;
   margin: 0;
 }
 
+.form-div {
+  flex: 1;
+}
+
 .back-icon{
   position: absolute;
-  top: 60px;
+  top: 40px;
   left: 16px;
   fill: var(--blue-color);
   cursor: pointer;
@@ -140,7 +141,7 @@ h1{
   cursor: pointer;
   user-select: none;
   margin-bottom: 24px;
-  margin-top: 8px;
+  margin-top: 24px;
 }
 
 .custom-checkbox-wrapper input[type="checkbox"] {
@@ -188,6 +189,10 @@ form button:disabled{
   cursor: not-allowed;
 }
 
+form input:last-of-type {
+  margin-bottom: 8px;
+}
+
 footer{
   display: flex;
   align-items: center;
@@ -214,6 +219,9 @@ footer a{
 .error-message {
   color: red;
   font-size: 10px;
+  position: absolute;
+  bottom: -8px;
+  left: 0px;
 }
 
 .red-border{
@@ -221,32 +229,5 @@ footer a{
 }
 
 @media (max-width: 900px){
-  .logo-div {
-    position: static;
-    transform: translate(0, 0);
-    margin-bottom: 24px;
-  }
-  .logo{
-    position: static;
-    margin-top: 16px;
-    margin-bottom: 16px;
-  }
-  .wrapper{
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-  }
-  .h1div{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-  }
-}
 
-@media (min-width: 900px) {
-  form{
-    min-width: 420px;
-    margin: 0 8px;
-  }
 }
