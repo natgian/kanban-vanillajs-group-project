@@ -236,7 +236,20 @@ function assignedToDetailTemplate(person) {
           </li>`;
 }
 
-function taskOverlayEditTaskTemplate(task, formattedDueDate) {
+/**
+ * Returns the HTML template for the task edit overlay
+ *
+ * This template includes editable fields such as title, description, due date,
+ * priority, assigned contacts, and subtasks. It also includes logic to prefill
+ * form inputs based on the given task object and prevents selection of past dates.
+ *
+ * @param {Object} task - The task object containing task data
+ * @param {string} formattedDueDate - The due date formatted as YYYY-MM-DD for the input field
+ * @param {string} today - Today's date formatted as YYYY-MM-DD to set as the minimum allowed date
+ *
+ * @returns {string} - A string containing the full HTML template for the edit task overlay
+ */
+function taskOverlayEditTaskTemplate(task, formattedDueDate, today) {
   return `
           <div class="flex-end">
             <button class="close-btn" onclick="closeOverlay(taskOverlayRef)">
@@ -265,7 +278,7 @@ function taskOverlayEditTaskTemplate(task, formattedDueDate) {
               <!-- Due Date -->
               <div class="spanGlue mt-20">
                 <label for="date-input" class="edit-task-label">Due date</label>
-                <input type="date" id="date-input" name="date" class="typeBars filled" value="${formattedDueDate}" oninput="checkValue()" required onblur="handleBlur(this)"/>
+                <input type="date" id="date-input" name="date" class="typeBars filled" value="${formattedDueDate}" oninput="checkValue()" required onblur="handleBlur(this)" min="${today}" />
                 <span id="showUpRequired" style="display: none; position: absolute;">This field is required</span>
               </div>
 

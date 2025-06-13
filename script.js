@@ -55,23 +55,18 @@ function logout() {
 }
 
 /**
- * Displays a temporary message by adding a "show" class to the message box element.
- * The message box is shown for 1.5 seconds and then automatically hidden.
+ * Displays a temporary message with optional icon.
+ * The message is shown by adding a class based on device type and is hidden after 2 seconds.
+ *
+ * @param {string} text - The message text to display
+ * @param {string} iconPath - Optional path to an icon to display alongside the message
+ * @param {string} altText - Optional alt text for the icon
  */
 function showMessage(text, iconPath, altText) {
-  const messageBox = document.getElementById("message-box");
-  const messageText = document.getElementById("message-text");
-  const messageIcon = document.getElementById("message-icon");
+  const { messageBox, messageText, messageIcon } = getMessageElements();
+  const deviceClass = getDeviceClass();
 
-  const isMobile = window.innerWidth < 1080;
-  const deviceClass = isMobile ? "mobile" : "desktop";
-
-  messageText.textContent = text;
-
-  if (iconPath && messageIcon) {
-    messageIcon.src = iconPath;
-    messageIcon.alt = altText || ""; // altText kann leer sein
-  }
+  setTextAndIcon(text, iconPath, altText, messageText, messageIcon);
 
   messageBox.classList.remove("hide", "desktop", "mobile");
   messageBox.classList.add("show", deviceClass);
@@ -80,4 +75,54 @@ function showMessage(text, iconPath, altText) {
     messageBox.classList.remove("show");
     messageBox.classList.add("hide");
   }, 2000);
+}
+
+/**
+ * Retrieves the DOM elements related to the message box display
+ *
+ * @returns {Object} - An object containing the message box container, text element, and icon element
+ */
+function getMessageElements() {
+  const messageBox = document.getElementById("message-box");
+  const messageText = document.getElementById("message-text");
+  const messageIcon = document.getElementById("message-icon");
+
+  return { messageBox, messageText, messageIcon };
+}
+
+/**
+ * Returns the device class based on the current screen width
+ *
+ * @returns {string} - "mobile" if screen width < 1080px, otherwise "desktop"
+ */
+function getDeviceClass() {
+  return window.innerWidth < 1080 ? "mobile" : "desktop";
+}
+
+/**
+ * Sets the text and optionally the icon for the message box
+ *
+ * @param {string} text - The message text to display.
+ * @param {string} iconPath - The path to the icon image
+ * @param {string} altText - The alt text for the icon image (optional)
+ * @param {HTMLElement} messageText - The element where the text will be inserted
+ * @param {HTMLImageElement} messageIcon - The image element for displaying the icon
+ */
+function setTextAndIcon(text, iconPath, altText, messageText, messageIcon) {
+  messageText.textContent = text;
+
+  if (iconPath && messageIcon) {
+    messageIcon.src = iconPath;
+    messageIcon.alt = altText || ""; // altText can be empty
+  }
+}
+
+/**
+ * Navigates the browser to the previous page in the session history.
+ *
+ * This function mimics the behavior of the browser's back button.
+ * If there is no previous page in the history, the function does nothing.
+ */
+function goBack() {
+  window.history.back();
 }

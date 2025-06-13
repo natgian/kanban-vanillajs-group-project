@@ -6,6 +6,7 @@
     <title>Board</title>
     <link rel="icon" href="../assets/img/join_logo_dark.svg" type="image/x-icon" />
     <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="../styles/elements.css" />
     <link rel="stylesheet" href="../styles/board.css" />
     <link rel="stylesheet" href="../styles/boardTaskCard.css" />
     <link rel="stylesheet" href="../styles/boardTaskOverlay.css" />
@@ -116,7 +117,7 @@
 
             <div class="board-search-add-wrapper">
               <div class="search-container">
-                <input type="search" name="find-task" id="find-task" placeholder="Find Task" />
+                <input type="search" name="find-task" id="find-task" placeholder="Find Task" onfocus="this.select()" />
                 <button class="search-btn">
                   <div class="separator"></div>
                   <img src="../assets/icons/search_icon.svg" alt="search icon" />

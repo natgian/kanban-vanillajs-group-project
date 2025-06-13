@@ -5,6 +5,10 @@
   gap: 16px;
   border-radius: 24px;
   padding: 8px;
+  min-height: 250px;
+  max-height: 1800px;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .task-card {

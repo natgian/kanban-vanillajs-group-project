@@ -1,11 +1,16 @@
+/**
+ * Initializes the task addition process by rendering the UI and setting up event listeners.
+ * It also fetches contact data and loads it for selection.
+ *
+ * @async
+ * @function initAddTask
+ */
 async function initAddTask() {
   document.getElementById("contentload").innerHTML = renderAddTask();
   initializePriorityButtons();
-  // initializeToggleContactSearch();
   initializeObserveDropdownChanges();
   updateSelectedContactsDisplay();
   initializeCloseAllDropdowns();
-  // initializeReplaceInputWithButton();
   initializeSubtasksButtons();
   initializeSubtasksimulateInputClick();
   initializeResetAllOptions();
@@ -33,17 +38,23 @@ async function addTask() {
   }, 500);
 }
 
-// function initializeToggleContactSearch() {
-//   document.getElementById("contactDropdown").addEventListener("click", function () {
-//     toggleContactSearch(this);
-//   });
-// }
-
+/**
+ * Initializes observation of dropdown changes by adding an event listener
+ * that triggers validation of required fields.
+ *
+ * @function initializeObserveDropdownChanges
+ */
 function initializeObserveDropdownChanges() {
   document.addEventListener("input", validateRequiredFields);
   observeDropdownChanges();
 }
 
+/**
+ * Sets up an event listener to close all dropdowns when a click occurs outside
+ * of a dropdown container, ensuring only relevant elements remain active.
+ *
+ * @function initializeCloseAllDropdowns
+ */
 function initializeCloseAllDropdowns() {
   document.addEventListener("click", (event) => {
     if (!event.target.closest(".dropdown-container") && !event.target.classList.contains("dropdown-selected")) {
@@ -52,97 +63,17 @@ function initializeCloseAllDropdowns() {
   });
 }
 
-// function initializeReplaceInputWithButton() {
-//   // Event listener to replace input with button when clicking outside
-//   document.addEventListener("click", function (event) {
-//     const dropdownOptions = document.getElementById("contact-list");
-//     const activeInput = document.querySelector(".dropdown-container input[type='text']");
-
-//     if (activeInput && isDropdownClosed(dropdownOptions)) {
-//       replaceInputWithButton(activeInput, dropdownOptions);
-//     }
-//   });
-// }
-
-function initializeSubtasksButtons() {
-  const input = document.getElementById("newSubtask");
-  const addSubtask = document.getElementById("addSubtask");
-  const confirmDelete = document.getElementById("confirmDeleteNewSubtask");
-  const subtaskContainer = document.querySelector(".subtask-container");
-
-  /**
-   * Shows the delete confirmation and hides the add subtask button.
-   *
-   * @param {Event} event - The event triggering the action.
-   */
-  function showConfirmDelete(event) {
-    addSubtask.style.display = "none";
-    confirmDelete.style.display = "flex";
-
-    if (input) {
-      input.focus();
-    }
-
-    event.stopPropagation();
-  }
-
-  /**
-   * Resets elements when clicking outside the subtask container.
-   *
-   * @param {Event} event - The event triggering the reset.
-   */
-  function resetOnOutsideClick(event) {
-    if (!subtaskContainer.contains(event.target)) {
-      resetElements();
-    }
-  }
-
-  /**
-   * Resets elements to their original state.
-   */
-  function resetElements() {
-    addSubtask.style.display = "block";
-    confirmDelete.style.display = "none";
-    input.value = "";
-  }
-
-  // Make functions globally accessible
-  window.resetElements = resetElements;
-  window.showConfirmDelete = showConfirmDelete;
-
-  // Add event listeners
-  input.addEventListener("click", showConfirmDelete);
-  document.addEventListener("click", resetOnOutsideClick);
-}
-
-function initializeSubtasksimulateInputClick() {
-  document.addEventListener("DOMContentLoaded", function () {
-    const input = document.getElementById("newSubtask");
-    const addSubtask = document.getElementById("addSubtask");
-
-    /**
-     * Simulates a click on the input field by setting focus to it.
-     */
-    function simulateInputClick() {
-      input.focus();
-      showConfirmDelete();
-    }
-
-    // Ensures clicking "addSubtask" behaves like clicking the input field
-    addSubtask.addEventListener("click", simulateInputClick);
-  });
-}
-
+/**
+ * Initializes the reset functionality by setting up an event listener
+ * on the reset button that clears all selected options.
+ *
+ * @function initializeResetAllOptions
+ */
 function initializeResetAllOptions() {
-  /**
-   * Ensures resetAllOptions runs when the page loads.
-   */
   window.onload = function () {
-    document.getElementById("resetButton").addEventListener("click", resetAllOptions);
+    document.getElementById("resetButton").addEventListener("click", resetAllOptions); // Adds event listener to reset button
   };
 }
-
-// ---------------------NEU---------------------//
 
 /**
  * Checks if the input field has a value and updates its class accordingly.
@@ -156,11 +87,15 @@ function checkValue() {
   }
 }
 
-// // Priority Buttons
-// // Waits for the DOM to be fully loaded before executing the setup function
-// document.addEventListener("DOMContentLoaded", () => {
-//   initializePriorityButtons();
-// });
+
+
+
+
+
+
+
+
+
 
 /**
  * Initializes all priority buttons by storing the original image source
@@ -301,21 +236,6 @@ function getRequiredFields() {
 }
 
 /**
- * Checks if all required fields are filled.
- *
- * @param {NodeList} fields - The list of required fields.
- * @returns {boolean} True if all fields are filled, false otherwise.
- */
-function areAllFieldsFilled(fields) {
-  return Array.from(fields).every((field) => {
-    if (field.classList.contains("dropdown-selected")) {
-      return field.dataset.value && field.dataset.value.trim() !== "";
-    }
-    return field.value.trim() !== "";
-  });
-}
-
-/**
  * Enables or disables the submit button based on form validation.
  *
  * @param {boolean} isEnabled - Whether the button should be enabled.
@@ -337,7 +257,56 @@ function validateRequiredFields() {
   toggleSubmitButton(allFilled);
 }
 
-// ResetBtn
+/**
+ * Selects the middle button in the list and resets others.
+ * Applies selected styles to the middle button.
+ */
+function selectMiddleButton() {
+  const buttons = document.querySelectorAll(".priorityBtns");
+  const middleIndex = Math.floor(buttons.length / 2);
+
+  buttons.forEach((btn, index) => {
+    resetButtonStyles(btn);
+    if (index === middleIndex) {
+      applySelectedStyles(btn);
+      const selectedImg = btn.querySelector("img");
+      applyWhiteFilter(selectedImg);
+    }
+  });
+}
+
+/**
+ * Applies a white filter to the given image.
+ * Ensures the filter is applied after the image is loaded.
+ *
+ * @param {HTMLImageElement} img - The image element to modify.
+ */
+function applyWhiteFilter(img) {
+  img.onload = () => {
+    applyColorFilter(img, "white");
+  };
+
+  if (img.complete) {
+    applyColorFilter(img, "white");
+  }
+}
+
+// Executes the function when the page loads
+window.addEventListener("load", () => {
+  selectMiddleButton();
+});
+
+
+
+
+
+
+
+
+
+
+
+
 /**
  * Initializes all reset functions upon page load.
  */
@@ -381,31 +350,6 @@ function resetAllOptions() {
   });
 }
 
-// /**
-//  * Ensures resetAllOptions runs when the page loads.
-//  */
-// window.onload = function () {
-//   document.getElementById("resetButton").addEventListener("click", resetAllOptions);
-// };
-
-/**
- * Selects the middle button in the list and resets others.
- * Applies selected styles and updates the button's image.
- */
-function selectMiddleButton() {
-  const buttons = document.querySelectorAll(".priorityBtns");
-  const middleIndex = Math.floor(buttons.length / 2);
-
-  buttons.forEach((btn, index) => {
-    resetButtonStyles(btn);
-    if (index === middleIndex) {
-      applySelectedStyles(btn);
-      const selectedImg = btn.querySelector("img");
-      applyColorFilter(selectedImg, "white");
-    }
-  });
-}
-
 /**
  * Deselects the selected category option and clears the input field.
  * Ensures the dropdown menu is properly closed.
@@ -431,7 +375,7 @@ function resetDateInput() {
   if (!dateInput) return;
 
   dateInput.value = "";
-  dateInput.type = "text";
+  dateInput.type = "date";
   dateInput.setAttribute("placeholder", "dd/mm/yy");
 
   dateInput.addEventListener(

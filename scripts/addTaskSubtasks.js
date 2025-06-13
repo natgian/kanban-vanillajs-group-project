@@ -1,65 +1,3 @@
-// document.addEventListener("DOMContentLoaded", function () {
-//     const input = document.getElementById("newSubtask");
-//     const addSubtask = document.getElementById("addSubtask");
-//     const confirmDelete = document.getElementById("confirmDeleteNewSubtask");
-//     const subtaskContainer = document.querySelector(".subtask-container");
-
-//     /**
-//      * Shows the delete confirmation and hides the add subtask button.
-//      *
-//      * @param {Event} event - The event triggering the action.
-//      */
-//     function showConfirmDelete(event) {
-//         addSubtask.style.display = "none";
-//         confirmDelete.style.display = "flex";
-//         event.stopPropagation();
-//     }
-
-//     /**
-//      * Resets elements when clicking outside the subtask container.
-//      *
-//      * @param {Event} event - The event triggering the reset.
-//      */
-//     function resetOnOutsideClick(event) {
-//         if (!subtaskContainer.contains(event.target)) {
-//             resetElements();
-//         }
-//     }
-
-//     /**
-//      * Resets elements to their original state.
-//      */
-//     function resetElements() {
-//         addSubtask.style.display = "block";
-//         confirmDelete.style.display = "none";
-//         input.value = "";
-//     }
-
-//     // Make functions globally accessible
-//     window.resetElements = resetElements;
-//     window.showConfirmDelete = showConfirmDelete;
-
-//     // Add event listeners
-//     input.addEventListener("click", showConfirmDelete);
-//     document.addEventListener("click", resetOnOutsideClick);
-// });
-
-// document.addEventListener("DOMContentLoaded", function () {
-//   const input = document.getElementById("newSubtask");
-//   const addSubtask = document.getElementById("addSubtask");
-
-//   /**
-//    * Simulates a click on the input field by setting focus to it.
-//    */
-//   function simulateInputClick() {
-//     input.focus();
-//     showConfirmDelete();
-//   }
-
-//   // Ensures clicking "addSubtask" behaves like clicking the input field
-//   addSubtask.addEventListener("click", simulateInputClick);
-// });
-
 /**
  * Deletes a subtask from the list.
  *
@@ -173,7 +111,6 @@ function saveAndExitEditMode(element) {
   const { textElement, editDelate, deleteChange } = getElements(listItem);
   if (!textElement) return;
 
-  console.log("Saving input:", textElement.innerText);
   textElement.blur();
 
   setTimeout(() => {
@@ -219,4 +156,159 @@ function toggleButtons(showAddSubtask) {
 
   if (addSubtaskBtn) addSubtaskBtn.style.display = showAddSubtask ? "block" : "none";
   if (confirmDeleteBtn) confirmDeleteBtn.style.display = showAddSubtask ? "none" : "block";
+}
+
+/**
+ * Gets the values from the task fields and returns a new task object
+ *
+ * @returns {Object} - The created task object
+ */
+function getTaskData() {
+  const title = document.getElementById("taskTitle")?.value || "";
+  const description = document.getElementById("taskDescription")?.value || "";
+  const dueDate = document.getElementById("date-input")?.value || "";
+  const priority = document.querySelector(".priorityBtns.selected")?.dataset.priority || "";
+  const assignedTo = getSelectedContactsData();
+  const category = document.querySelector(".categoryDropdown.dropdown-selected")?.dataset.value || "";
+  const subtasks = getSubtasksData();
+  const status = getAddTaskStatus();
+
+  return createTaskObject(title, description, dueDate, priority, assignedTo, category, subtasks, status);
+}
+
+/**
+ * Creates a new task object with the given parameters
+ *
+ * @param {string} title - The task title
+ * @param {string} description - The task description
+ * @param {string} dueDate - Thetask due date
+ * @param {string} priority - The task priority ("high", "medium", "low")
+ * @param {Array<Object>} assignedTo - Array of assigned contacts objects
+ * @param {string} category - The task category
+ * @param {Array<Object>} subtasks - Array of subtasks objects
+ * @param {string} status - The task status
+ * @returns - The created task object
+ */
+function createTaskObject(title, description, dueDate, priority, assignedTo, category, subtasks, status) {
+  return {
+    assignedTo: assignedTo,
+    category: category,
+    description: description,
+    dueDate: dueDate,
+    priority: priority,
+    status: status,
+    subtasks: subtasks,
+    title: title,
+  };
+}
+
+/**
+ * Gets the subtask data from the DOM and creates an array of subtasks
+ *
+ * @returns - A subtasks array containing the subtask as objects
+ *
+ */
+function getSubtasksData() {
+  const subtaskList = document.getElementById("subtaskList");
+  const subtasks = [];
+
+  if (!subtaskList || subtaskList.querySelectorAll("li").length === 0) {
+    return [];
+  }
+
+  subtaskList.querySelectorAll("li").forEach((subtask) => {
+    const textItem = subtask.querySelector(".subtask-text");
+    if (!textItem) return;
+
+    const subtaskText = textItem.textContent.trim();
+
+    subtasks.push({ done: false, subtask: subtaskText });
+  });
+
+  return subtasks;
+}
+
+/**
+ * Checks if the input field is empty and shows a message.
+ */
+function emptyFeedback() {
+  const subtaskInput = document.getElementById("newSubtask");
+  if (!subtaskInput || subtaskInput.value.trim() === "") {
+    showMessage("Please enter a name");
+  }
+}
+
+/**
+ * Initializes the subtask-related buttons and elements.
+ * Retrieves necessary DOM elements for adding and deleting subtasks.
+ *
+ * @function initializeSubtasksButtons
+ */
+function initializeSubtasksButtons() {
+  const input = document.getElementById("newSubtask");
+  const addSubtask = document.getElementById("addSubtask");
+  const confirmDelete = document.getElementById("confirmDeleteNewSubtask");
+  const subtaskContainer = document.querySelector(".subtask-container");
+
+  /**
+   * Shows the delete confirmation and hides the add subtask button.
+   *
+   * @param {Event} event - The event triggering the action.
+   */
+  function showConfirmDelete(event) {
+    addSubtask.style.display = "none";
+    confirmDelete.style.display = "flex";
+
+    if (input) {
+      input.focus();
+    }
+
+    event.stopPropagation();
+  }
+
+  /**
+   * Resets elements when clicking outside the subtask container.
+   *
+   * @param {Event} event - The event triggering the reset.
+   */
+  function resetOnOutsideClick(event) {
+    if (!subtaskContainer.contains(event.target)) {
+      resetElements();
+    }
+  }
+
+  /**
+   * Resets elements to their original state.
+   */
+  function resetElements() {
+    addSubtask.style.display = "block";
+    confirmDelete.style.display = "none";
+    input.value = "";
+  }
+
+  window.resetElements = resetElements;
+  window.showConfirmDelete = showConfirmDelete;
+
+  input.addEventListener("click", showConfirmDelete);
+  document.addEventListener("click", resetOnOutsideClick);
+}
+
+/**
+ * Sets up an event listener to simulate a click on the subtask input field
+ * when the "Add Subtask" button is clicked. Also triggers a confirmation for deletion.
+ *
+ * @function initializeSubtasksimulateInputClick
+ */
+function initializeSubtasksimulateInputClick() {
+  document.addEventListener("DOMContentLoaded", function () {
+    const input = document.getElementById("newSubtask"); // Input field for new subtasks
+    const addSubtask = document.getElementById("addSubtask"); // Button to add a subtask
+
+    function simulateInputClick() {
+      input.focus(); // Focuses the input field when clicked
+      showConfirmDelete(); // Displays confirmation for deleting a subtask
+    }
+
+    addSubtask.addEventListener("click", simulateInputClick); // Adds event listener to trigger simulation
+  });
 }

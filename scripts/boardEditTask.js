@@ -206,8 +206,9 @@ async function loadEditContacts(contacts, assignedTo) {
 function renderEditTaskTemplate(taskId) {
   const currentTask = allTasks.find((task) => task.taskId === taskId);
   const formattedDueDate = currentTask.dueDate.split("/").reverse().join("-");
+  const today = new Date().toISOString().split("T")[0];
 
-  taskOverlayContentRef.innerHTML = taskOverlayEditTaskTemplate(currentTask, formattedDueDate);
+  taskOverlayContentRef.innerHTML = taskOverlayEditTaskTemplate(currentTask, formattedDueDate, today);
 
   initEditTask(currentTask);
 }
@@ -223,7 +224,7 @@ function updateTask(taskId) {
 }
 
 /**
- * Updates the task changes in the database then re-initializes the board
+ * Updates the task changes in the database, closes the overlay and then re-initializes the board
  *
  * @param {string} taskId - ID of the current task
  * @param {Object} updatedTask - The updated task data to be saved in the database
@@ -238,6 +239,7 @@ async function updateEditedTask(taskId, updatedTask) {
 
     closeOverlay(taskOverlayRef);
     initBoard();
+
     setTimeout(() => {
       showMessage("Task successfully updated", "../assets/icons/check_icon.svg", "Success");
     }, 500);
