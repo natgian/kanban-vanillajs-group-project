@@ -233,6 +233,7 @@ main{
 
 /* Monogramm (Feld) */
 .monogram {
+  aspect-ratio: 1;
   width: 40px;
   height: 40px;
   color: white;
@@ -434,7 +435,6 @@ h1{
   padding: 48px;
   box-sizing: border-box;
   border-top-left-radius: 16px;
-  border-bottom-left-radius: 16px;
 }
 
 .contact-logo {
@@ -655,9 +655,14 @@ form {
   .popup-left {
     width: auto;
     height: 400px;
+    padding: 24px;
+  }
+  .contact-logo {
+    display: none;
   }
 
   .popup-right {
+    position: relative;
     justify-content: center;
     width: 100%;
     padding: 72px 48px 16px 48px;
@@ -691,7 +696,7 @@ form {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -30%);
+    transform: translate(-60px, -220px);
     width: 120px;
     height: 120px;
     border-radius: 50%;
@@ -705,11 +710,12 @@ form {
   /* === INHALTSBEREICHE / LISTEN === */
   #contact-list-body {
     display: block;
+    padding-bottom: 24px;
   }
 
   #contact-list {
     position: relative;
-    padding-bottom: 96px;
+    padding-bottom: 120px;
   }
 
   #contact-list.d_mobile_none {
@@ -750,7 +756,7 @@ form {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -30%);
+    transform: translate(-60px, -220px);
     width: 120px;
     height: 120px;
     border-radius: 50%;
@@ -888,4 +894,11 @@ form {
 .button-hover-style{
   background-color: var(--hover-color) !important;
 }
+}
+
+@media (max-width: 400px){
+  #contact-list{
+    padding-left: 16px;
+    padding-right: 16px;
+  }
 }

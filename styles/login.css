@@ -45,11 +45,25 @@ body {
     min-height: 96vh;
 }
 
+.max-width-login{
+  max-width: 1920px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.wrapper-login{
+  position: relative;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .loginHeader {
     display: flex;
     justify-content: space-between;
     align-items: start;
-    padding: 32px 32px 24px 32px;
+    margin: 32px 60px;
 
     span {
         margin-right: 16px;
@@ -63,10 +77,24 @@ body {
     }
 }
 
-main {
+form{
+  border-radius: 16px;
+  padding: 32px;
+  width: 100%;
+  max-width: 400px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-div{
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 32px;
+    width: 100%;
 
     h1 {
         font-size: 56px;
@@ -84,12 +112,16 @@ main {
         color: red;
     }
 
-    #loginMessage {
-        opacity: 0;
+    #error-message {
+        opacity: 1;
+        visibility: visible;
         transition: opacity 0.5s ease;
         color: red;
         font-size: 0.9rem;
-        margin-top: 10px;
+    }
+
+    .red-border{
+        border: 1px solid red !important;
     }
 
     #loginMessage.fade-in {
@@ -102,10 +134,6 @@ main {
 }
 
 footer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-bottom: 42px;
 
     a {
         text-decoration: none;
@@ -232,7 +260,6 @@ footer {
     border-radius: 6px;
     font-size: 18px;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-    margin-right: 30px;
 }
 
 .loginBtn:hover {
@@ -263,7 +290,8 @@ footer {
 .inputWrapper {
     position: relative;
     margin-bottom: 16px;
-    width: 422px;
+    width: 100%;
+  max-width: 422px;
 }
 
 .inputWrapper img {
@@ -290,4 +318,46 @@ input:hover{
 input:focus{
 outline: none;
 border: 2px solid var(--blue-color);
+}
+
+.d_none{
+    display: none;
+}
+.log-in-form-button-div {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%; /* Damit sich Buttons an Formbreite orientieren können */
+}
+
+@media (max-width: 900px){
+    .loginHeader {
+        div {
+            display: none;
+        }
+    }
+    .mobile-loginheader{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 32px;
+        margin: 40px 0;
+    }
+    .log-in-form-button-div {
+        flex-direction: column;
+    }
+    .wrapper-login{
+        position: relative;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .loginBtn,
+    .guestLoginBtn {
+        width: 100%;
+        max-width: 160px; /* oder was dir gefällt */
+        box-sizing: border-box;
+        text-align: center;
+    }
 }

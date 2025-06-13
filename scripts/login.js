@@ -17,9 +17,9 @@ function init() {
  * Redirects the user to the sign-up page
  * when the "Sign up" button is clicked.
  */
-document.getElementById("signUpBtn").addEventListener("click", () => {
-  window.location.href = "./pages/signUp.html";
-});
+function changeToSignup(){
+  window.location.href = "../pages/signUp.html";
+}
 
 /**
  * Handles guest login button click:
@@ -65,13 +65,24 @@ document.querySelector("form").addEventListener("submit", async (e) => {
   e.preventDefault();
   const email = e.target.querySelector('input[name="Email"]').value.trim();
   const password = e.target.querySelector('input[name="Password"]').value.trim();
-  const msg = document.getElementById("loginMessage");
+  const EMAIL = document.getElementById("name");
+  const PASSWORD = document.getElementById("password"); 
+  const msg = document.getElementById("error-message");
   const showMessage = (t) => {
     msg.textContent = t;
-    msg.className = "fade-in";
+    msg.classList.remove("d-none");
+    msg.classList.add("fade-in");
+    EMAIL.classList.add("red-border");
+    PASSWORD.classList.add("red-border");
     setTimeout(() => {
-      msg.className = "fade-out";
-      setTimeout(() => (msg.textContent = ""), 500);
+        msg.classList.remove("fade-in");
+        msg.classList.add("fade-out");
+        EMAIL.classList.remove('red-border');
+        PASSWORD.classList.remove('red-border');
+        setTimeout(() => {
+            msg.classList.add("d-none"); // Versteckt wieder die Meldung
+            msg.textContent = "";
+        }, 500);
     }, 3000);
   };
   try {
