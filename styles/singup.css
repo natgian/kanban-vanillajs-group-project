@@ -8,8 +8,9 @@ body{
   background-color: #f6f7f8;
   font-family: "Inter", sans-serif;
   font-weight: 400;
-  font-size: 16px;
+
   overflow: hidden;
+  background-color: #f6f7f8;
 }
 
 :root{
@@ -64,7 +65,7 @@ form{
   border-radius: 16px;
   background-color: #FFFFFF;
   padding: 32px 56px 32px 56px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.3);
 }
 
 form > div{
@@ -98,6 +99,7 @@ h1{
 
 .input-container input {
   width: 100%;
+  font-size: 16px;
   padding: 10px 40px 5px 10px;
   border: 2px solid var(--border-color);
   border-radius: 5px;
@@ -233,6 +235,66 @@ footer a:hover{
   border: 1px solid red !important;
 }
 
-@media (max-width: 900px){
+@media (max-width: 600px){
+  header{
+    padding: 16px 16px 16px 16px;
+  }
+  .header-div{
+    display: flex;
+    justify-content: center;
+  }
+  .form-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  form{
+    padding: 8px 16px 8px 16px;
+  }
+  .back-icon{
+    top: 8px;
+  }
+  h1{
+    font-size: 32px;
+  }
+  .headlineLine{
+    width: 120px;
+  }
+  .custom-checkbox-wrapper{
+    margin-bottom: 8px;
+    margin-top: 8px;
+  }
+  footer{
+    margin-top: 16px;
+  }
+}
 
+@media (min-width: 1440px){
+  form{
+    width: 1000px;
+    aspect-ratio: 2/1;
+  }
+  form button{
+    font-size: 24px;
+    padding: 16px 32px 16px 32px;
+  }
+  .logo{
+    height: 100px;
+  }
+  h1{
+    font-size: 56px;
+  }
+  .headlineLine{
+    width: 208px;
+  }
+  p{
+    font-size: 24px;
+  }
+  footer a{
+    font-size: 32px;
+  }
+  .input-container input{
+    font-size: 24px;
+    padding: 10px 40px 12px 10px;
+  }
 }
