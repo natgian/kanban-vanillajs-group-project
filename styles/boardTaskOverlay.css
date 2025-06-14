@@ -33,6 +33,7 @@
   width: 90%;
   max-width: 525px;
   height: 80vh;
+  max-height: 1000px;
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -67,6 +68,13 @@
   flex-direction: column;
   gap: 24px;
   padding: 20px;
+}
+
+.space-between {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .task-overlay-content-wrapper {
