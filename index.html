@@ -5,10 +5,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Join</title>
-  <link rel="icon" type="image/x-icon" href="/assets/img/join_logo_dark.svg" />
+  <link rel="icon" type="image/x-icon" href="./assets/img/join_logo_white.svg">
+
   <link rel="stylesheet" href="/styles/login.css">
-  <link rel="stylesheet" href="/styles/elements.css">
-  <link rel="stylesheet" href="/styles/singup.css">
 </head>
 
 <body onload="init()">
@@ -17,48 +16,48 @@
     <img id="logo" src="./assets/img/join_logo_dark.svg" alt="Logo">
   </div>
 
-  <div class="wrapper-login max-width-login">
-    <header class="loginHeader">
+  <header class="loginHeader">
     <img src="./assets/img/join_logo_dark.svg" alt="Join Logo">
     <div>
       <span>Not a Join User?</span>
-      <button onclick="changeToSignup()" class="singUpBtn">Sign up</button>
+      <button onclick="changeToSignup()" id="signUpBtn" class="singUpBtn">Sign up</button>
     </div>
-    </header>
+  </header>
 
-    <div class="form-div">
-      <form class="max-width">
-          <div class="h1div">
-            <h1>Log in</h1>
-          </div>
-          <hr class="headlineLine" />
-          <div class="inputWrapper">
-            <input required class="mb-12" id="name" type="email" name="Email" placeholder="Email">
-            <img style="top: 40%;" src="./assets/icons/mail_icon.svg" alt="Email Icon">
-          </div>
-          <div class="inputWrapper">
-            <input required type="password" id="password" name="Password" placeholder="Password" id="passwordInput">
-            <img src="./assets/icons/lock_icon.svg" alt="Password Icon">
-          </div>
-          <div class="error-message-div">
-            <div id="error-message">Check your password and email. Please try again.</div>
-          </div>            
-          <div class="log-in-form-button-div">
-            <button class="loginBtn">Log in</button>
-            <button id="guestLoginBtn" class="guestLoginBtn">Guest Log in</button>
-          </div>
+
+  <main>
+    <div class="loginBox">
+      <h1>Log in</h1>
+      <hr class="headlineLine">
+      <form action="">
+        <div class="inputWrapper">
+          <input required class="mb-12" type="email" name="Email" placeholder="Email">
+          <img style="top: 40%;" src="./assets/icons/mail_icon.svg" alt="Email Icon">
+        </div>
+        <div class="inputWrapper">
+          <input required type="password" name="Password" placeholder="Password" id="passwordInput">
+          <img src="./assets/icons/lock_icon.svg" alt="Password Icon">
+        </div>
+        <div id="loginMessage" class="message"></div>
+        <div>
+          <button class="loginBtn">Log in</button>
+          <button id="guestLoginBtn" class="guestLoginBtn">Guest Log in</button>
+        </div>
       </form>
     </div>
-    <div class="mobile-loginheader  d_none">
-        <span>Not a Join User?</span>
-        <button onclick="changeToSignup()" class="singUpBtn">Sign up</button>
-    </div>
 
-    <footer>
-      <a class="pr-40" href="./pages/privacyPolicyWithoutLogin.html">Privacy Policy</a>
-      <a href="./pages/legalNoticeWithoutLogin.html">Legal notice</a>
-    </footer>
-  </div>
+    <div class="mobileLoginheader">
+      <span>Not a Join User?</span>
+      <button onclick="changeToSignup()" class="singUpBtn">Sign up</button>
+    </div>
+  </main>
+
+
+
+  <footer>
+    <a class="pr-40" href="./pages/privacyPolicyWithoutLogin.html">Privacy Policy</a>
+    <a href="./pages/legalNoticeWithoutLogin.html">Legal notice</a>
+  </footer>
 </body>
 <script src="./scripts/login.js"></script>
 
