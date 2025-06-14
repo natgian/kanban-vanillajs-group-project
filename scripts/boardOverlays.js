@@ -42,16 +42,19 @@ function closeOverlay(overlayRef) {
 }
 
 /**
- * Opens the add task overlay and disables background scrolling
+ * Opens the add task overlay, disables background scrolling and sets the buttons background to white
  *
  */
 function openAddTaskOverlay() {
   addTaskOverlayRef.classList.add("show");
   document.body.classList.add("no-scroll");
+  const buttonBackground = document.querySelector(".bottomButtons");
+  buttonBackground.style.backgroundColor = "white";
 }
 
 /**
- * closes the add task overlay, enables scrolling, resets fields and addTaskStatus
+ * closes the add task overlay and enables scrolling.
+ * Resets fields, addTaskStatus and the background color of the buttons container.
  *
  */
 function closeAddTaskOverlay() {
@@ -59,6 +62,8 @@ function closeAddTaskOverlay() {
     if (event.target.id === "add-task-overlay") {
       addTaskOverlayRef.classList.remove("show");
       document.body.classList.remove("no-scroll");
+      const buttonBackground = document.querySelector(".bottomButtons");
+      buttonBackground.style.backgroundColor = "#f6f7f8";
       initReset();
     }
   });
