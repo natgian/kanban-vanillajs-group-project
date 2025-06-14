@@ -21,20 +21,20 @@
 /*----- */
 
 :root {
-  /* colors */
-  --primary-color: #2a3647;
-  --hover-color: #29abe2;
-  --active-color: #091931;
-  --white-color: #ffffff;
-  --black-color: #000000;
-  --outline-color: #d1d1d1;
-  /* transitions */
-  --transition: all 175ms ease-in-out;
+    /* colors */
+    --primary-color: #2a3647;
+    --hover-color: #29abe2;
+    --active-color: #091931;
+    --white-color: #ffffff;
+    --black-color: #000000;
+    --outline-color: #d1d1d1;
+    /* transitions */
+    --transition: all 175ms ease-in-out;
 }
 
 html,
 body {
-    margin: 0;
+    margin: 0 auto;
     padding: 0;
     height: 100%;
     overflow: hidden;
@@ -68,6 +68,8 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 32px;
+    width: 100%;
 
     h1 {
         font-size: 56px;
@@ -284,7 +286,53 @@ footer {
     font-size: 16px;
 }
 
-input:focus {
-    border: 2px solid var(--hover-color);
-    outline: none;
+input:hover{
+  border: 2px solid var(--blue-color);
+}
+
+input:focus{
+outline: none;
+border: 2px solid var(--blue-color);
+}
+
+.d_none{
+    display: none;
+}
+.log-in-form-button-div {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%; /* Damit sich Buttons an Formbreite orientieren können */
+}
+
+@media (max-width: 900px){
+    .loginHeader {
+        div {
+            display: none;
+        }
+    }
+    .mobile-loginheader{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 32px;
+        margin: 40px 0;
+    }
+    .log-in-form-button-div {
+        flex-direction: column;
+    }
+    .wrapper-login{
+        position: relative;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .loginBtn,
+    .guestLoginBtn {
+        width: 100%;
+        max-width: 160px; /* oder was dir gefällt */
+        box-sizing: border-box;
+        text-align: center;
+    }
 }

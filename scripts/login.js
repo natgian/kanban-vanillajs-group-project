@@ -1,17 +1,44 @@
 const databasURL = "https://join-458-default-rtdb.europe-west1.firebasedatabase.app/";
 
 /**
- * Starts the app: triggers the logo animation
- * and hides the loading screen after a short delay.
+ * Initializes the page by starting the logo animation
+ * and hiding the loader after the animation completes.
  */
 function init() {
-  const loader = document.getElementById("loader");
-  const logo = document.getElementById("logo");
-  logo.classList.add("fly");
   setTimeout(() => {
-    loader.classList.add("hidden");
-  }, 1500);
+    animateLogoToHeader();
+    setTimeout(() => {
+      document.getElementById("loader").classList.add("hidden");
+    }, 1000);
+  }, 300);
 }
+
+/**
+ * Animates the loader logo (#logo) to fly to the position of the header logo.
+ * Calculates the target position dynamically based on the current viewport.
+ */
+function animateLogoToHeader() {
+  const flyingLogo = document.getElementById("logo");
+  const headerLogo = document.querySelector(".loginHeader img");
+
+  const headerRect = headerLogo.getBoundingClientRect();
+
+  flyingLogo.style.position = "fixed"; // Important: relative to viewport
+  flyingLogo.style.left = `${headerRect.left}px`;
+  flyingLogo.style.top = `${headerRect.top}px`;
+  flyingLogo.style.transform = `translate(0, 0)`;
+  flyingLogo.classList.add("fly");
+}
+
+/**
+ * Recalculates and repositions the flying logo (#logo) if it is currently animating,
+ * to ensure it stays aligned with the header logo when the window is resized.
+ */
+window.addEventListener("resize", () => {
+  if (document.getElementById("logo").classList.contains("fly")) {
+    animateLogoToHeader();
+  }
+});
 
 /**
  * Redirects the user to the sign-up page
@@ -90,6 +117,81 @@ async function handleSubmit(e) {
     }
   } catch (err) {
     console.error("Login error:", err);
-    showMessage("Login failed. Please try again later.");
+    showError(elements, "Login failed. Please try again later.");
   }
-});
+}
+
+/**
+ * Extracts and returns the email and password input values from the form.
+ * @param {HTMLFormElement} form - The form element containing the inputs.
+ * @returns {{ email: string, password: string }} The extracted email and password.
+ */
+function getFormValues(form) {
+  return {
+    email: form.querySelector('input[name="Email"]').value.trim(),
+    password: form.querySelector('input[name="Password"]').value.trim(),
+  };
+}
+
+/**
+ * Retrieves important DOM elements used for error display and styling.
+ * @returns {{ emailInput: HTMLElement, passwordInput: HTMLElement, msg: HTMLElement }} The required DOM elements.
+ */
+function getFormElements() {
+  return {
+    emailInput: document.getElementById("name"),
+    passwordInput: document.getElementById("password"),
+    msg: document.getElementById("error-message"),
+  };
+}
+
+/**
+ * Fetches all users from the database and returns the one matching the provided email.
+ * @param {string} email - The email to search for.
+ * @returns {Promise<Object|undefined>} The user object if found; otherwise undefined.
+ */
+async function findUserByEmail(email) {
+  const res = await fetch(`${databasURL}users.json`);
+  const data = await res.json();
+  return Object.values(data || {}).find((u) => u.email === email);
+}
+
+/**
+ * Logs in the user by storing their data in local storage and redirecting to the summary page.
+ * @param {Object} user - The user object containing at least email or name.
+ */
+function loginUser(user) {
+  localStorage.setItem("currentUser", user.name || user.email);
+  window.location.href = "../pages/summary.html";
+}
+
+/**
+ * Displays an error message with animation and highlights the email and password inputs.
+ * @param {{ emailInput: HTMLElement, passwordInput: HTMLElement, msg: HTMLElement }} elements - Elements to update for error display.
+ * @param {string} text - The error message text to display.
+ */
+function showError({ emailInput, passwordInput, msg }, text) {
+  msg.textContent = text;
+  msg.classList.remove("d-none");
+  msg.classList.add("fade-in");
+  emailInput.classList.add("red-border");
+  passwordInput.classList.add("red-border");
+
+  setTimeout(() => hideError({ emailInput, passwordInput, msg }), 3000);
+}
+
+/**
+ * Hides the currently displayed error message and resets the styles of inputs.
+ * @param {{ emailInput: HTMLElement, passwordInput: HTMLElement, msg: HTMLElement }} elements - Elements to reset after hiding error.
+ */
+function hideError({ emailInput, passwordInput, msg }) {
+  msg.classList.remove("fade-in");
+  msg.classList.add("fade-out");
+  emailInput.classList.remove("red-border");
+  passwordInput.classList.remove("red-border");
+
+  setTimeout(() => {
+    msg.classList.add("d-none");
+    msg.textContent = "";
+  }, 500);
+}
