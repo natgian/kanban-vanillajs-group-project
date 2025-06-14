@@ -4,9 +4,9 @@
  * @param {HTMLElement} element - The delete button inside the subtask item.
  */
 function deleteSubtask(element) {
-  const listItem = element.closest("li"); // Finds the corresponding <li> element
+  const listItem = element.closest("li"); 
   if (listItem) {
-    listItem.remove(); // Removes the <li> from the list
+    listItem.remove(); 
   }
 }
 
@@ -301,14 +301,14 @@ function initializeSubtasksButtons() {
  */
 function initializeSubtasksimulateInputClick() {
   document.addEventListener("DOMContentLoaded", function () {
-    const input = document.getElementById("newSubtask"); // Input field for new subtasks
-    const addSubtask = document.getElementById("addSubtask"); // Button to add a subtask
+    const input = document.getElementById("newSubtask"); 
+    const addSubtask = document.getElementById("addSubtask"); 
 
     function simulateInputClick() {
-      input.focus(); // Focuses the input field when clicked
-      showConfirmDelete(); // Displays confirmation for deleting a subtask
+      input.focus(); 
+      showConfirmDelete(); 
     }
 
-    addSubtask.addEventListener("click", simulateInputClick); // Adds event listener to trigger simulation
+    addSubtask.addEventListener("click", simulateInputClick); 
   });
 }

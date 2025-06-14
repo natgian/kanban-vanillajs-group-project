@@ -1,3 +1,8 @@
+/**
+ * Renders the interface for adding a new task.
+ *
+ * @returns {string} The HTML content for the add task section.
+ */
 function renderAddTask() {
   return `
             <div class="contentWrapper">
@@ -158,7 +163,12 @@ function renderAddTask() {
 }
 
 /**
- * Template for contacts.
+ * Adds a contact to the contact list template.
+ *
+ * @param {Object} person - The contact information.
+ * @param {string} person.name - The name of the contact.
+ * @param {string} person.color - The color associated with the contact.
+ * @param {string} person.initials - The initials of the contact.
  */
 function addContactToTemplate(person) {
   if (!person || !person.name || !person.color || !person.initials) {
@@ -185,7 +195,12 @@ function addContactToTemplate(person) {
   contactList.insertAdjacentHTML("beforeend", template);
 }
 
-// Creates the Subtask-Templete-Structure for a new subtask.
+/**
+ * Creates the template structure for a new subtask.
+ *
+ * @param {string} text - The text content of the subtask.
+ * @returns {HTMLLIElement} The list item element representing the subtask.
+ */
 function createSubtaskElement(text) {
   const listItem = document.createElement("li");
   listItem.className = "dot";
