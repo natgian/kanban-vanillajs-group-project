@@ -43,7 +43,6 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 96vh;
-    width: 1920px;
 }
 
 .loginHeader {
@@ -297,6 +296,19 @@ input:focus {
 
 .d-none {
     display: none !important;
+}
+
+@media (min-width: 1920px) {
+    .w1920 {
+        width: 1920px;
+    }
+}
+
+@media (max-width: 1920px) {
+    html,
+    body {
+        margin: 0;
+    }
 }
 
 @media (min-width: 901px) {
