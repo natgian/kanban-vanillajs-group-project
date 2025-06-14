@@ -17,9 +17,9 @@ function init() {
  * Redirects the user to the sign-up page
  * when the "Sign up" button is clicked.
  */
-function changeToSignup(){
-  window.location.href = "../pages/signUp.html";
-}
+document.getElementById("signUpBtn").addEventListener("click", () => {
+  window.location.href = "./pages/signUp.html";
+});
 
 /**
  * Handles guest login button click:
@@ -46,7 +46,7 @@ document.getElementById("guestLoginBtn").addEventListener("click", async () => {
     window.location.href = "../pages/summary.html";
   } catch (e) {
     console.error("Error loading guest data:", e);
-    showMessage("Something went wrong. Please try again later.");
+    alert("Something went wrong. Please try again later.");
   }
 });
 
@@ -65,24 +65,13 @@ document.querySelector("form").addEventListener("submit", async (e) => {
   e.preventDefault();
   const email = e.target.querySelector('input[name="Email"]').value.trim();
   const password = e.target.querySelector('input[name="Password"]').value.trim();
-  const emailInput = document.getElementById("name");
-  const passwordInput = document.getElementById("password"); 
-  const msg = document.getElementById("error-message");
+  const msg = document.getElementById("loginMessage");
   const showMessage = (t) => {
     msg.textContent = t;
-    msg.classList.remove("d-none");
-    msg.classList.add("fade-in");
-    emailInput.classList.add("red-border");
-    passwordInput.classList.add("red-border");
+    msg.className = "fade-in";
     setTimeout(() => {
-        msg.classList.remove("fade-in");
-        msg.classList.add("fade-out");
-        emailInput.classList.remove('red-border');
-        passwordInput.classList.remove('red-border');
-        setTimeout(() => {
-            msg.classList.add("d-none"); // Versteckt wieder die Meldung
-            msg.textContent = "";
-        }, 500);
+      msg.className = "fade-out";
+      setTimeout(() => (msg.textContent = ""), 500);
     }, 3000);
   };
   try {
