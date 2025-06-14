@@ -9,6 +9,7 @@
   max-height: 1800px;
   overflow-y: auto;
   overflow-x: hidden;
+  scrollbar-width: thin;
 }
 
 .task-card {

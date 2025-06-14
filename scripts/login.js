@@ -38,8 +38,7 @@ document.getElementById("guestLoginBtn").addEventListener("click", async () => {
     const user = await res.json();
     if (!res.ok || !user?.email || !user?.password) {
       alert("Guest data could not be loaded.");
-      return;
-    }
+      return;}
     document.querySelector('input[name="Email"]').value = user.email;
     document.querySelector('input[name="Password"]').value = user.password;
     localStorage.setItem("currentUser", "Guest");
@@ -50,38 +49,44 @@ document.getElementById("guestLoginBtn").addEventListener("click", async () => {
   }
 });
 
+document.querySelector("form").addEventListener("submit", handleSubmit);
 /**
- * Handles login form submission:
- * Validates the entered credentials against the Firebase database.
- * If the credentials are valid, stores the current user's name or email
- * in localStorage and redirects to the summary page.
- * If invalid, displays a temporary error message.
- *
- * @event submit
- * @returns {Promise<void>} A Promise that resolves after validation and redirection or message display.
+ * Handles the form submission, including validation, user authentication,
+ * and redirecting or displaying error messages.
+ * @param {Event} e - The submit event triggered by the form.
  */
-document.querySelector("form").addEventListener("submit", async (e) => {
+async function handleSubmit(e) {
   if (!e.target.checkValidity()) return;
   e.preventDefault();
   const email = e.target.querySelector('input[name="Email"]').value.trim();
   const password = e.target.querySelector('input[name="Password"]').value.trim();
-  const msg = document.getElementById("loginMessage");
+  const emailInput = document.getElementById("name");
+  const passwordInput = document.getElementById("password"); 
+  const msg = document.getElementById("error-message");
   const showMessage = (t) => {
     msg.textContent = t;
-    msg.className = "fade-in";
+    msg.classList.remove("d-none");
+    msg.classList.add("fade-in");
+    emailInput.classList.add("red-border");
+    passwordInput.classList.add("red-border");
     setTimeout(() => {
-      msg.className = "fade-out";
-      setTimeout(() => (msg.textContent = ""), 500);
+        msg.classList.remove("fade-in");
+        msg.classList.add("fade-out");
+        emailInput.classList.remove('red-border');
+        passwordInput.classList.remove('red-border');
+        setTimeout(() => {
+            msg.classList.add("d-none"); // Versteckt wieder die Meldung
+            msg.textContent = "";
+        }, 500);
     }, 3000);
   };
   try {
     const data = await (await fetch(`${databasURL}users.json`)).json();
     const user = Object.values(data || {}).find((u) => u.email === email);
     if (user?.password === password) {
-      localStorage.setItem("currentUser", user.name || user.email);
-      window.location.href = "../pages/summary.html";
+      loginUser(user);
     } else {
-      showMessage(user ? "Incorrect password." : "Email not registered.");
+      showError(elements, user ? "Incorrect password." : "Email not registered.");
     }
   } catch (err) {
     console.error("Login error:", err);

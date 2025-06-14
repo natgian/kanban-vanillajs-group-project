@@ -33,6 +33,7 @@
   width: 90%;
   max-width: 525px;
   height: 80vh;
+  max-height: 1000px;
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -62,11 +63,18 @@
 .task-overlay-info-wrapper {
   width: 90%;
   max-width: 525px;
-  height: 90vh;
   display: flex;
   flex-direction: column;
   gap: 24px;
   padding: 20px;
+}
+
+.space-between {
+  height: 100%;
+  display: flex;
+  height: 90vh;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .task-overlay-content-wrapper {

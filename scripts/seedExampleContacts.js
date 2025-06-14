@@ -71,6 +71,20 @@ const contacts = [
     name: "Jonas Reuter",
     phone: "+4916012345678",
   },
+  {
+    email: "manuel.neuer@example.com",
+    monogram: "MN",
+    monogramColor: "#1FD7C1",
+    name: "Manuel Neuer",
+    phone: "+4916082345671",
+  },
+  {
+    email: "wolfgang.amadeus@example.com",
+    monogram: "WA",
+    monogramColor: "#00BDE8",
+    name: "Wolfgang Amadeus",
+    phone: "+4916093345672",
+  },
 ];
 
 /**
