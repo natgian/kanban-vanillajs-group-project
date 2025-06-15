@@ -378,12 +378,12 @@ input:focus {
         padding: 24px;
 
         img {
-            height: 88px;
+            height: 64px;
         }
     }
 
     #logo {
-        height: 88px;
+        height: 64px;
     }
 
     .loginBox {
