@@ -23,7 +23,7 @@ function animateLogoToHeader() {
 
   const headerRect = headerLogo.getBoundingClientRect();
 
-  flyingLogo.style.position = "fixed"; // Important: relative to viewport
+  flyingLogo.style.position = "fixed";
   flyingLogo.style.left = `${headerRect.left}px`;
   flyingLogo.style.top = `${headerRect.top}px`;
   flyingLogo.style.transform = `translate(0, 0)`;
@@ -44,9 +44,9 @@ window.addEventListener("resize", () => {
  * Redirects the user to the sign-up page
  * when the "Sign up" button is clicked.
  */
-document.getElementById("signUpBtn").addEventListener("click", () => {
-  window.location.href = "./pages/signUp.html";
-});
+function changeToSignup(){
+  window.location.href = "../pages/signUp.html";
+}
 
 /**
  * Handles guest login button click:
@@ -72,7 +72,7 @@ document.getElementById("guestLoginBtn").addEventListener("click", async () => {
     window.location.href = "../pages/summary.html";
   } catch (e) {
     console.error("Error loading guest data:", e);
-    alert("Something went wrong. Please try again later.");
+    showMessage("Something went wrong. Please try again later.");
   }
 });
 
@@ -85,31 +85,10 @@ document.querySelector("form").addEventListener("submit", handleSubmit);
 async function handleSubmit(e) {
   if (!e.target.checkValidity()) return;
   e.preventDefault();
-  const email = e.target.querySelector('input[name="Email"]').value.trim();
-  const password = e.target.querySelector('input[name="Password"]').value.trim();
-  const emailInput = document.getElementById("name");
-  const passwordInput = document.getElementById("password"); 
-  const msg = document.getElementById("error-message");
-  const showMessage = (t) => {
-    msg.textContent = t;
-    msg.classList.remove("d-none");
-    msg.classList.add("fade-in");
-    emailInput.classList.add("red-border");
-    passwordInput.classList.add("red-border");
-    setTimeout(() => {
-        msg.classList.remove("fade-in");
-        msg.classList.add("fade-out");
-        emailInput.classList.remove('red-border');
-        passwordInput.classList.remove('red-border');
-        setTimeout(() => {
-            msg.classList.add("d-none"); // Versteckt wieder die Meldung
-            msg.textContent = "";
-        }, 500);
-    }, 3000);
-  };
+  const { email, password } = getFormValues(e.target);
+  const elements = getFormElements();
   try {
-    const data = await (await fetch(`${databasURL}users.json`)).json();
-    const user = Object.values(data || {}).find((u) => u.email === email);
+    const user = await findUserByEmail(email);
     if (user?.password === password) {
       loginUser(user);
     } else {
@@ -139,9 +118,9 @@ function getFormValues(form) {
  */
 function getFormElements() {
   return {
-    emailInput: document.getElementById("name"),
-    passwordInput: document.getElementById("password"),
-    msg: document.getElementById("error-message"),
+    emailInput: document.querySelector('input[name="Email"]'),
+    passwordInput: document.getElementById("passwordInput"),
+    msg: document.getElementById("loginMessage"),
   };
 }
 
@@ -171,8 +150,10 @@ function loginUser(user) {
  * @param {string} text - The error message text to display.
  */
 function showError({ emailInput, passwordInput, msg }, text) {
+  msg.classList.remove("fade-in", "fade-out", "d-none");
+  void msg.offsetWidth;
+  
   msg.textContent = text;
-  msg.classList.remove("d-none");
   msg.classList.add("fade-in");
   emailInput.classList.add("red-border");
   passwordInput.classList.add("red-border");
@@ -193,5 +174,6 @@ function hideError({ emailInput, passwordInput, msg }) {
   setTimeout(() => {
     msg.classList.add("d-none");
     msg.textContent = "";
+    msg.classList.remove("fade-out");
   }, 500);
 }
