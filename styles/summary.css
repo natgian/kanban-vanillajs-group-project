@@ -13,18 +13,19 @@
     color: var(--primary-color);
   }
 
-  .verticalLineBlue {
-    width: 3px;
+  .verticalLineBlue,
+  .verticalLineGrey {
+    width: 2px;
     height: 60px;
-    background-color: var(--hover-color);
     margin: 0 24px;
   }
 
+  .verticalLineBlue {
+    background-color: var(--hover-color);
+  }
+
   .verticalLineGrey {
-    width: 2px;
-    height: 100px;
     background-color: var(--outline-color);
-    margin: 0 24px;
   }
 
   .horizontalLine {
@@ -41,15 +42,14 @@
     }
   }
 
-  .summaryFields {
+  .summaryFields,
+  .summaryFieldsTop {
     display: flex;
     align-items: center;
     padding: 24px 56px;
   }
 
   .summaryFieldsTop {
-    display: flex;
-    align-items: center;
     padding: 24px 120px;
   }
 
@@ -59,27 +59,23 @@
     background-color: white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s ease;
-  }
 
-  .fieldImgs path {
-    fill: var(--white-color);
-  }
-
-  button:hover {
-    color: var(--white-color);
-    background-color: var(--primary-color);
-    transform: scale(1.05);
-
-    p {
+    &:hover {
       color: var(--white-color);
-    }
+      background-color: var(--primary-color);
+      transform: scale(1.05);
 
-    .bgCirclesGrey {
-      background-color: var(--white-color);
-    }
+      p {
+        color: var(--white-color);
+      }
 
-    .fieldImgs path {
-      fill: var(--primary-color);
+      .bgCirclesGrey {
+        background-color: var(--white-color);
+      }
+
+      .fieldImgs path {
+        fill: var(--primary-color);
+      }
     }
   }
 
@@ -87,21 +83,28 @@
     width: 60px;
     height: 60px;
     padding: 16px;
+
+    path {
+      fill: var(--white-color);
+    }
+  }
+
+  .bgCirclesGrey,
+  .bgCirclesRed {
+    border-radius: 50px;
+    margin-right: 16px;
   }
 
   .bgCirclesGrey {
-    border-radius: 50px;
     background-color: var(--primary-color);
-    margin-right: 16px;
   }
 
   .bgCirclesRed {
     background-color: #ff3d00;
-    border-radius: 50px;
-    margin-right: 16px;
   }
 
-  .middleFieldContent {
+  .middleFieldContent,
+  .splitSections {
     display: flex;
     align-items: center;
   }
@@ -128,11 +131,6 @@
   .bottomFields {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-  }
-
-  .splitSections {
-    display: flex;
     align-items: center;
   }
 
@@ -167,23 +165,17 @@
   }
 }
 
-/*-------------- */
 /* MEDIA QUERIES */
-/*-------------- */
 
 @media (max-width: 1940px) {
-  .summaryContent {
-    .leftSection {
-      width: 85%;
-    }
+  .summaryContent .leftSection {
+    width: 85%;
   }
 }
 
 @media (max-width: 1620px) {
-  .summaryContent {
-    .leftSection {
-      width: 100%;
-    }
+  .summaryContent .leftSection {
+    width: 100%;
   }
 }
 
@@ -222,20 +214,8 @@
 
 @media (max-width: 1225px) {
   .summaryContent {
-    .summaryFieldsTop {
-      h1 {
-        font-size: 56px;
-      }
-
-      padding: 24px 72px;
-    }
-
-    .middleField {
-      h1 {
-        font-size: 56px;
-      }
-    }
-
+    .summaryFieldsTop,
+    .middleField,
     .summaryFields {
       padding: 24px 16px;
 
@@ -251,10 +231,6 @@
     }
   }
 }
-
-/*-------------- */
-/* MOBILE VERSION */
-/*-------------- */
 
 @media (max-width: 1080px) {
   .summaryContent {
@@ -300,7 +276,6 @@
 
     .summaryHeader {
       flex-direction: column;
-      justify-content: center;
       align-items: flex-start;
       padding-bottom: 0;
     }
@@ -343,10 +318,8 @@
 
 @media (max-width: 620px) {
   .summaryContent {
-    .summaryHeader {
-      h1 {
-        font-size: 56px;
-      }
+    .summaryHeader h1 {
+      font-size: 56px;
     }
 
     .summaryFieldsTop {
@@ -359,322 +332,110 @@
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* @media (min-width: 1920px) {
-  .w1920 {
-    width: 1920px;
-  }
-} */
-
-/* @media (max-width: 1700px) {
-  .summaryContent .summaryFieldsTop {
-    padding: 24px 80px;
-  }
-
-  .summaryContent .summaryFields {
-    padding: 24px 24px;
-  }
-}
-
-@media (max-width: 1560px) {
-  .summaryContent .leftSection {
-    width: 70%;
-  }
-
-  .summaryContent .summaryFieldsTop {
-    padding: 24px 64px;
-  }
-
-  .summaryContent .summaryFields {
-    padding: 24px 16px;
-  }
-}
-
-@media (max-width: 1370px) {
-  .summaryContent h1 {
-    font-size: 56px;
-  }
-
-  .summaryContent .rightSection {
-    padding-left: 32px;
-  }
-
-  .summaryContent .rightSection h3 {
-    font-size: 56px;
-  }
-
-  .summaryContent .summaryFieldsTop {
-    padding: 24px 48px;
-  }
-
-  .summaryContent .summaryFields {
-    padding: 24px 8px;
-  }
-}
-
-@media (max-width: 1240px) {
-  .summaryContent h1 {
-    font-size: 48px;
-  }
-
-  .summaryContent p,
-  .summaryContent span {
-    font-size: 14px;
-  }
-
-  .summaryContent .rightSection h3 {
-    font-size: 48px;
-  }
-
-  .summaryContent .summaryFieldsTop {
-    padding: 20px 40px;
-  }
-
-  .summaryContent .middleField {
-    padding: 16px;
-  }
-
-  .summaryContent .summaryFields {
-    padding: 20px 8px;
-  }
-}
-
-@media (max-width: 1150px) {
-  .summaryContent h1 {
-    font-size: 42px;
-  }
-
-  .summaryContent p {
-    font-size: 12px;
-  }
-
-  .summaryContent .rightSection h2,
-  .summaryContent .rightSection h3 {
-    font-size: 36px;
-  }
-
-  .summaryContent .fieldImgs {
-    width: 48px;
-    height: 48px;
-    padding: 14px;
-  }
-}
-
-@media (max-width: 1080px) {
+@media (max-width: 520px) {
   .summaryContent {
-    padding: 36px;
-  }
+    .summaryHeader h1 {
+      font-size: 48px;
+    }
 
-  .summaryContent h1 {
-    font-size: 56px;
-  }
+    .leftSection h1 {
+      font-size: 48px;
+    }
 
-  .summaryContent p,
-  .summaryContent span {
-    font-size: 16px;
-  }
+    .leftSection p,
+    .leftSection span {
+      font-size: 12px;
+    }
 
-  .summaryContent .fieldImgs {
-    width: 56px;
-    height: 56px;
-    padding: 16px;
-  }
+    .summaryFieldsTop {
+      padding: 24px 36px;
+    }
 
-  .summaryContent #verticalLine {
-    display: none;
-  }
+    .bgCirclesGrey,
+    .bgCirclesRed {
+      margin-right: 8px;
+    }
 
-  .summaryContent .horizontalLine {
-    display: block;
-    width: 120px;
-    height: 3px;
-    background-color: var(--hover-color);
-    margin: 1rem 0;
-  }
+    .middleField {
+      padding: 16px;
+    }
 
-  .summaryContent .leftSection {
-    width: 100%;
+    .summaryFields {
+      padding: 24px 4px;
+    }
   }
+}
 
-  .summaryContent .rightSection {
-    display: none;
+@media (max-width: 400px) {
+  .summaryContent {
+    .summaryHeader h1 {
+      font-size: 42px;
+    }
+
+    .summaryHeader p {
+      font-size: 20px;
+    }
+
+    .leftSection h1 {
+      font-size: 36px;
+    }
+
+    .leftSection p,
+    .leftSection span {
+      font-size: 10px;
+    }
+
+    .summaryFieldsTop {
+      padding: 16px 32px;
+    }
+
+    .middleField {
+      padding: 10px;
+    }
+
+    .summaryFields {
+      padding: 16px 4px;
+    }
+
+    .fieldImgs {
+      width: 42px;
+      height: 42px;
+      padding: 12px;
+    }
   }
+}
 
-  .summaryContent .summaryFieldsTop {
-    padding: 36px 128px;
-  }
-
-  .summaryContent .middleField {
+@media (max-width: 360px) {
+  .summaryContent {
     padding: 24px;
-  }
 
-  .summaryContent .summaryFields {
-    padding: 36px 56px;
-  }
+    .summaryHeader h1 {
+      font-size: 36px;
+    }
 
-  .summaryContent .summaryHeader {
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    padding-bottom: 0;
-  }
+    .summaryHeader p {
+      font-size: 18px;
+    }
 
-  .footer-navigation {
-    margin-top: 56px;
+    .leftSection h1 {
+      font-size: 36px;
+    }
+
+    .leftSection p,
+    .leftSection span {
+      font-size: 10px;
+    }
+
+    .summaryFieldsTop {
+      padding: 16px 28px;
+    }
+
+    .middleField {
+      padding: 10px;
+    }
+
+    .verticalLineGrey {
+      height: 80px;
+    }
   }
 }
-
-@media (max-width: 830px) {
-  .summaryContent .summaryFieldsTop {
-    padding: 36px 104px;
-  }
-
-  .summaryContent .summaryFields {
-    padding: 36px 36px;
-  }
-}
-
-@media (max-width: 730px) {
-  .summaryContent .summaryFieldsTop {
-    padding: 28px 68px;
-  }
-
-  .summaryContent .summaryFields {
-    padding: 28px 16px;
-  }
-}
-
-@media (max-width: 580px) {
-  .summaryContent h1 {
-    font-size: 48px;
-  }
-
-  .summaryContent p,
-  .summaryContent span {
-    font-size: 14px;
-  }
-
-  .summaryContent .summaryHeader p {
-    font-size: 22px;
-  }
-
-  .summaryContent .summaryFieldsTop {
-    padding: 24px 44px;
-  }
-
-  .summaryContent .middleField {
-    padding: 16px;
-  }
-
-  .summaryContent .summaryFields {
-    padding: 24px 8px;
-  }
-}
-
-@media (max-width: 475px) {
-  .summaryContent h1 {
-    font-size: 36px;
-  }
-
-  .summaryContent p,
-  .summaryContent span {
-    font-size: 12px;
-  }
-
-  .summaryContent .summaryHeader h1 {
-    font-size: 48px;
-  }
-
-  .summaryContent .summaryHeader p {
-    font-size: 20px;
-  }
-
-  .summaryContent .fieldImgs {
-    width: 44px;
-    height: 44px;
-    padding: 12px;
-  }
-
-  .summaryContent .summaryFieldsTop {
-    padding: 20px 32px;
-  }
-
-  .summaryContent .middleField {
-    padding: 4px;
-  }
-
-  .summaryContent .middleField p {
-    font-size: 16px;
-  }
-
-  .summaryContent .summaryFields {
-    padding: 20px 6px;
-  }
-}
-
-@media (max-width: 405px) {
-  .summaryContent {
-    padding: 36px 16px;
-  }
-
-  .summaryContent h1 {
-    font-size: 32px;
-  }
-
-  .summaryContent p,
-  .summaryContent span {
-    font-size: 10px;
-  }
-
-  .summaryContent .summaryHeader h1 {
-    font-size: 40px;
-  }
-
-  .summaryContent .fieldImgs {
-    width: 32px;
-    height: 32px;
-    padding: 9px;
-  }
-
-  .summaryContent .summaryFieldsTop {
-    padding: 16px 32px;
-  }
-
-  .summaryContent .summaryFieldsTop .bgCirclesGrey {
-    margin-right: 8px;
-  }
-
-  .summaryContent .middleField {
-    padding: 4px 4px;
-  }
-
-  .summaryContent .middleField .bgCirclesRed {
-    margin-right: 8px;
-  }
-
-  .summaryContent .summaryFields {
-    padding: 16px 6px;
-  }
-} */
