@@ -2,154 +2,397 @@
   width: 100%;
 }
 
+#templateContent {
+  max-width: 1920px;
+}
+
 .summaryContent {
   padding: 100px;
+
+  p {
+    color: var(--primary-color);
+  }
+
+  .verticalLineBlue {
+    width: 3px;
+    height: 60px;
+    background-color: var(--hover-color);
+    margin: 0 24px;
+  }
+
+  .verticalLineGrey {
+    width: 2px;
+    height: 100px;
+    background-color: var(--outline-color);
+    margin: 0 24px;
+  }
+
+  .horizontalLine {
+    display: none;
+  }
+
+  .summaryHeader {
+    display: flex;
+    align-items: center;
+    padding-bottom: 48px;
+
+    p {
+      font-size: 24px;
+    }
+  }
+
+  .summaryFields {
+    display: flex;
+    align-items: center;
+    padding: 24px 56px;
+  }
+
+  .summaryFieldsTop {
+    display: flex;
+    align-items: center;
+    padding: 24px 120px;
+  }
+
+  button {
+    border-radius: 24px;
+    border: none;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+  }
+
+  .fieldImgs path {
+    fill: var(--white-color);
+  }
+
+  button:hover {
+    color: var(--white-color);
+    background-color: var(--primary-color);
+    transform: scale(1.05);
+
+    p {
+      color: var(--white-color);
+    }
+
+    .bgCirclesGrey {
+      background-color: var(--white-color);
+    }
+
+    .fieldImgs path {
+      fill: var(--primary-color);
+    }
+  }
+
+  .fieldImgs {
+    width: 60px;
+    height: 60px;
+    padding: 16px;
+  }
+
+  .bgCirclesGrey {
+    border-radius: 50px;
+    background-color: var(--primary-color);
+    margin-right: 16px;
+  }
+
+  .bgCirclesRed {
+    background-color: #ff3d00;
+    border-radius: 50px;
+    margin-right: 16px;
+  }
+
+  .middleFieldContent {
+    display: flex;
+    align-items: center;
+  }
+
+  .middleField {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 28px;
+
+    p {
+      font-size: 20px;
+      font-weight: 700;
+      padding-bottom: 8px;
+    }
+
+    .dateSection {
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+    }
+  }
+
+  .bottomFields {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .splitSections {
+    display: flex;
+    align-items: center;
+  }
+
+  .leftSection {
+    width: 50%;
+
+    button {
+      margin-bottom: 24px;
+    }
+
+    .topRowDFlex {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+  .rightSection {
+    width: 50%;
+    padding-left: 56px;
+
+    h2 {
+      color: var(--primary-color);
+      font-size: 42px;
+      font-weight: 500;
+    }
+
+    h3 {
+      font-size: 64px;
+      font-weight: bold;
+      color: var(--hover-color);
+    }
+  }
 }
 
-.summaryContent p {
-  color: var(--primary-color);
+/*-------------- */
+/* MEDIA QUERIES */
+/*-------------- */
+
+@media (max-width: 1940px) {
+  .summaryContent {
+    .leftSection {
+      width: 85%;
+    }
+  }
 }
 
-.summaryContent .verticalLineBlue,
-.summaryContent .verticalLineGrey {
-  width: 3px;
-  margin: 0 24px;
-}
-.summaryContent .verticalLineBlue {
-  height: 60px;
-  background-color: var(--hover-color);
-}
-.summaryContent .verticalLineGrey {
-  width: 2px;
-  height: 100px;
-  background-color: var(--outline-color);
+@media (max-width: 1620px) {
+  .summaryContent {
+    .leftSection {
+      width: 100%;
+    }
+  }
 }
 
-.summaryContent .horizontalLine {
-  display: none;
+@media (max-width: 1520px) {
+  .summaryContent {
+    .leftSection {
+      width: 80%;
+    }
+
+    .rightSection {
+      width: 0;
+      padding-left: 44px;
+
+      h2 {
+        font-size: 36px;
+      }
+
+      h3 {
+        font-size: 52px;
+      }
+    }
+  }
 }
 
-.summaryContent .summaryHeader {
-  display: flex;
-  align-items: center;
-  padding-bottom: 48px;
-}
-.summaryContent .summaryHeader p {
-  font-size: 24px;
+@media (max-width: 1350px) {
+  .summaryContent {
+    .summaryFieldsTop {
+      padding: 24px 96px;
+    }
+
+    .summaryFields {
+      padding: 24px 36px;
+    }
+  }
 }
 
-.summaryContent .summaryFields,
-.summaryContent .summaryFieldsTop {
-  display: flex;
-  align-items: center;
-}
-.summaryContent .summaryFields {
-  padding: 24px 56px;
-}
-.summaryContent .summaryFieldsTop {
-  padding: 24px 120px;
+@media (max-width: 1225px) {
+  .summaryContent {
+    .summaryFieldsTop {
+      h1 {
+        font-size: 56px;
+      }
+
+      padding: 24px 72px;
+    }
+
+    .middleField {
+      h1 {
+        font-size: 56px;
+      }
+    }
+
+    .summaryFields {
+      padding: 24px 16px;
+
+      h1 {
+        font-size: 56px;
+      }
+    }
+
+    .fieldImgs {
+      width: 56px;
+      height: 56px;
+      padding: 14px;
+    }
+  }
 }
 
-.summaryContent button {
-  border-radius: 24px;
-  border: none;
-  background-color: white;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease;
+/*-------------- */
+/* MOBILE VERSION */
+/*-------------- */
+
+@media (max-width: 1080px) {
+  .summaryContent {
+    padding: 36px;
+
+    .fieldImgs {
+      width: 56px;
+      height: 56px;
+      padding: 16px;
+    }
+
+    #verticalLine {
+      display: none;
+    }
+
+    .horizontalLine {
+      display: block;
+      width: 120px;
+      height: 3px;
+      background-color: var(--hover-color);
+      margin: 1rem 0;
+    }
+
+    .leftSection {
+      width: 100%;
+    }
+
+    .summaryFieldsTop {
+      padding: 36px 128px;
+    }
+
+    .middleField {
+      padding: 24px;
+    }
+
+    .summaryFields {
+      padding: 36px 56px;
+    }
+
+    .rightSection {
+      display: none;
+    }
+
+    .summaryHeader {
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding-bottom: 0;
+    }
+  }
+
+  .footer-navigation {
+    margin-top: 56px;
+  }
 }
 
-.summaryContent .fieldImgs path {
-  fill: var(--white-color);
+@media (max-width: 830px) {
+  .summaryContent {
+    .summaryFieldsTop {
+      padding: 36px 100px;
+    }
+
+    .summaryFields {
+      padding: 36px 28px;
+    }
+  }
 }
 
-.summaryContent button:hover {
-  color: var(--white-color);
-  background-color: var(--primary-color);
-  transform: scale(1.05);
-}
-.summaryContent button:hover p {
-  color: var(--white-color);
-}
-.summaryContent button:hover .bgCirclesGrey {
-  background-color: var(--white-color);
-}
-.summaryContent button:hover .fieldImgs path {
-  fill: var(--primary-color);
+@media (max-width: 720px) {
+  .summaryContent {
+    .summaryFieldsTop {
+      padding: 36px 80px;
+    }
+
+    .fieldImgs {
+      width: 48px;
+      height: 48px;
+      padding: 14px;
+    }
+
+    .summaryFields {
+      padding: 36px 24px;
+    }
+  }
 }
 
-.summaryContent .fieldImgs {
-  width: 60px;
-  height: 60px;
-  padding: 16px;
+@media (max-width: 620px) {
+  .summaryContent {
+    .summaryHeader {
+      h1 {
+        font-size: 56px;
+      }
+    }
+
+    .summaryFieldsTop {
+      padding: 24px 56px;
+    }
+
+    .summaryFields {
+      padding: 24px 8px;
+    }
+  }
 }
 
-.summaryContent .bgCirclesGrey,
-.summaryContent .bgCirclesRed {
-  border-radius: 50px;
-  margin-right: 16px;
-}
-.summaryContent .bgCirclesGrey {
-  background-color: var(--primary-color);
-}
-.summaryContent .bgCirclesRed {
-  background-color: #ff3d00;
-}
 
-.summaryContent .middleFieldContent,
-.summaryContent .middleField,
-.summaryContent .bottomFields,
-.summaryContent .splitSections {
-  display: flex;
-  align-items: center;
-}
-.summaryContent .middleField {
-  justify-content: space-around;
-  padding: 28px;
-}
-.summaryContent .middleField p {
-  font-size: 20px;
-  font-weight: 700;
-  padding-bottom: 8px;
-}
-.summaryContent .middleField .dateSection {
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-}
-.summaryContent .bottomFields {
-  justify-content: space-between;
-}
 
-.summaryContent .leftSection,
-.summaryContent .rightSection {
-  width: 50%;
-}
-.summaryContent .leftSection button {
-  margin-bottom: 24px;
-}
-.summaryContent .leftSection .topRowDFlex {
-  display: flex;
-  justify-content: space-between;
-}
-.summaryContent .rightSection {
-  padding-left: 56px;
-}
-.summaryContent .rightSection h2 {
-  color: var(--primary-color);
-  font-size: 42px;
-  font-weight: 500;
-}
-.summaryContent .rightSection h3 {
-  font-size: 64px;
-  font-weight: bold;
-  color: var(--hover-color);
-}
 
-/* Media Queries */
-@media (max-width: 1700px) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* @media (min-width: 1920px) {
+  .w1920 {
+    width: 1920px;
+  }
+} */
+
+/* @media (max-width: 1700px) {
   .summaryContent .summaryFieldsTop {
     padding: 24px 80px;
   }
+
   .summaryContent .summaryFields {
     padding: 24px 24px;
   }
@@ -159,9 +402,11 @@
   .summaryContent .leftSection {
     width: 70%;
   }
+
   .summaryContent .summaryFieldsTop {
     padding: 24px 64px;
   }
+
   .summaryContent .summaryFields {
     padding: 24px 16px;
   }
@@ -171,15 +416,19 @@
   .summaryContent h1 {
     font-size: 56px;
   }
+
   .summaryContent .rightSection {
     padding-left: 32px;
   }
+
   .summaryContent .rightSection h3 {
     font-size: 56px;
   }
+
   .summaryContent .summaryFieldsTop {
     padding: 24px 48px;
   }
+
   .summaryContent .summaryFields {
     padding: 24px 8px;
   }
@@ -189,19 +438,24 @@
   .summaryContent h1 {
     font-size: 48px;
   }
+
   .summaryContent p,
   .summaryContent span {
     font-size: 14px;
   }
+
   .summaryContent .rightSection h3 {
     font-size: 48px;
   }
+
   .summaryContent .summaryFieldsTop {
     padding: 20px 40px;
   }
+
   .summaryContent .middleField {
     padding: 16px;
   }
+
   .summaryContent .summaryFields {
     padding: 20px 8px;
   }
@@ -211,13 +465,16 @@
   .summaryContent h1 {
     font-size: 42px;
   }
+
   .summaryContent p {
     font-size: 12px;
   }
+
   .summaryContent .rightSection h2,
   .summaryContent .rightSection h3 {
     font-size: 36px;
   }
+
   .summaryContent .fieldImgs {
     width: 48px;
     height: 48px;
@@ -229,21 +486,26 @@
   .summaryContent {
     padding: 36px;
   }
+
   .summaryContent h1 {
     font-size: 56px;
   }
+
   .summaryContent p,
   .summaryContent span {
     font-size: 16px;
   }
+
   .summaryContent .fieldImgs {
     width: 56px;
     height: 56px;
     padding: 16px;
   }
+
   .summaryContent #verticalLine {
     display: none;
   }
+
   .summaryContent .horizontalLine {
     display: block;
     width: 120px;
@@ -251,27 +513,34 @@
     background-color: var(--hover-color);
     margin: 1rem 0;
   }
+
   .summaryContent .leftSection {
     width: 100%;
   }
+
   .summaryContent .rightSection {
     display: none;
   }
+
   .summaryContent .summaryFieldsTop {
     padding: 36px 128px;
   }
+
   .summaryContent .middleField {
     padding: 24px;
   }
+
   .summaryContent .summaryFields {
     padding: 36px 56px;
   }
+
   .summaryContent .summaryHeader {
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
     padding-bottom: 0;
   }
+
   .footer-navigation {
     margin-top: 56px;
   }
@@ -281,6 +550,7 @@
   .summaryContent .summaryFieldsTop {
     padding: 36px 104px;
   }
+
   .summaryContent .summaryFields {
     padding: 36px 36px;
   }
@@ -290,6 +560,7 @@
   .summaryContent .summaryFieldsTop {
     padding: 28px 68px;
   }
+
   .summaryContent .summaryFields {
     padding: 28px 16px;
   }
@@ -299,19 +570,24 @@
   .summaryContent h1 {
     font-size: 48px;
   }
+
   .summaryContent p,
   .summaryContent span {
     font-size: 14px;
   }
+
   .summaryContent .summaryHeader p {
     font-size: 22px;
   }
+
   .summaryContent .summaryFieldsTop {
     padding: 24px 44px;
   }
+
   .summaryContent .middleField {
     padding: 16px;
   }
+
   .summaryContent .summaryFields {
     padding: 24px 8px;
   }
@@ -321,30 +597,38 @@
   .summaryContent h1 {
     font-size: 36px;
   }
+
   .summaryContent p,
   .summaryContent span {
     font-size: 12px;
   }
+
   .summaryContent .summaryHeader h1 {
     font-size: 48px;
   }
+
   .summaryContent .summaryHeader p {
     font-size: 20px;
   }
+
   .summaryContent .fieldImgs {
     width: 44px;
     height: 44px;
     padding: 12px;
   }
+
   .summaryContent .summaryFieldsTop {
     padding: 20px 32px;
   }
+
   .summaryContent .middleField {
     padding: 4px;
   }
+
   .summaryContent .middleField p {
     font-size: 16px;
   }
+
   .summaryContent .summaryFields {
     padding: 20px 6px;
   }
@@ -354,34 +638,43 @@
   .summaryContent {
     padding: 36px 16px;
   }
+
   .summaryContent h1 {
     font-size: 32px;
   }
+
   .summaryContent p,
   .summaryContent span {
     font-size: 10px;
   }
+
   .summaryContent .summaryHeader h1 {
     font-size: 40px;
   }
+
   .summaryContent .fieldImgs {
     width: 32px;
     height: 32px;
     padding: 9px;
   }
+
   .summaryContent .summaryFieldsTop {
     padding: 16px 32px;
   }
+
   .summaryContent .summaryFieldsTop .bgCirclesGrey {
     margin-right: 8px;
   }
+
   .summaryContent .middleField {
     padding: 4px 4px;
   }
+
   .summaryContent .middleField .bgCirclesRed {
     margin-right: 8px;
   }
+
   .summaryContent .summaryFields {
     padding: 16px 6px;
   }
-}
+} */
