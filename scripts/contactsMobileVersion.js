@@ -1,3 +1,7 @@
+/**
+ * Navigates back to the contact list view on mobile devices.
+ * Hides the contact detail view and removes any active contact styling.
+ */
 function backTocontacts(){
   document.getElementById('contact-list').classList.remove('d_mobile_none');
   document.getElementById('contenttop').classList.add('d_mobile_none');
@@ -8,25 +12,44 @@ function backTocontacts(){
   allContacts.forEach(c => c.classList.remove('active-contact'));
 }
 
+/**
+ * Adds a hover effect style to the mobile "Add Contact" button.
+ */
 function mobileAddButtonHoverColorAdd(){
   const openNewContactButton = document.getElementById('mobile-add-button');
   openNewContactButton.classList.add('button-hover-style');
 }
 
+/**
+ * Removes the hover effect style from the mobile "Add Contact" button.
+ */
 function mobileAddButtonHoverColorRemove(){
   const openNewContactButton = document.getElementById('mobile-add-button');
   openNewContactButton.classList.remove('button-hover-style');
 }
 
+/**
+ * Adds a hover effect style to the mobile dropdown button.
+ */
 function mobileDropdownButtonHoverColorAdd(){
   const button = document.getElementById('mobile-dropdown-button');
   if (button) button.classList.add('button-hover-style');
 }
+
+/**
+ * Removes the hover effect style from the mobile dropdown button.
+ */
 function mobileDropdownButtonHoverColorRemove(){
   const button = document.getElementById('mobile-dropdown-button');
   if (button) button.classList.remove('button-hover-style');
 }
 
+/**
+ * Toggles the visibility of the dropdown menu for a given contact.
+ *
+ * @param {string} id - The ID of the contact for which the dropdown is toggled.
+ * @param {MouseEvent} event - The click event triggering the toggle.
+ */
 function toggleDropdown(id, event) {
   event.stopPropagation();
   const menu = document.getElementById(`dropdown-menu-${id}`);
@@ -44,6 +67,12 @@ function toggleDropdown(id, event) {
   }
 }
 
+/**
+ * Closes all dropdown menus if the user clicks outside of them.
+ *
+ * @param {MouseEvent} event - The click event.
+ * @returns {boolean} - Returns true if a dropdown was open and got closed.
+ */
 function closeAllDropdownsIfClickedOutside(event) {
   let dropdownWasOpen = false;
   document.querySelectorAll('.dropdown-menu').forEach(menu => {
@@ -70,6 +99,12 @@ function closeAllDropdownsIfClickedOutside(event) {
   return dropdownWasOpen;
 }
 
+/**
+ * Handles logic to close dropdowns when clicking outside, unless a popup is open.
+ *
+ * @param {MouseEvent} event - The click event.
+ * @returns {boolean} - Whether a dropdown was closed.
+ */
 function handleDropdownOnClick(event) {
   const refOverlay = document.getElementById('layout');
   const popupOpen = refOverlay && !refOverlay.classList.contains('d_none');
@@ -78,6 +113,10 @@ function handleDropdownOnClick(event) {
   return closeAllDropdownsIfClickedOutside(event);
 }
 
+/**
+ * Global click event listener for the document.
+ * Handles closing popups and dropdowns appropriately.
+ */
 document.addEventListener('click', (event) => {
   const targetID = event.target.id;
 

@@ -1,11 +1,9 @@
-@media (max-width: 1080px) {
-  /* === GLOBAL === */
+@media (max-width: 800px) {
   body, html {
-    overflow: auto;
+    overflow: hidden;
     height: 100%;
   }
 
-  /* === POPUP LAYOUT === */
   #popup {
     position: fixed;
     bottom: 0;
@@ -13,7 +11,8 @@
     transform: translateX(-50%) translateY(100%);
     width: 90vw;
     max-width: 600px;
-    height: 90vh;
+    height: 80vh;
+    min-height: 600px;
     max-height: 750px;
     flex-direction: column;
     transition: transform 0.4s ease, opacity 0.4s ease;
@@ -30,14 +29,13 @@
     justify-content: center;
   }
 
-  #openNewContactButton{
+  .contact-list-header{
     display: none;
   }
 
-  /* === POPUP INHALTE === */
   .popup-left {
     width: auto;
-    height: 200px;
+    height: 360px;
     padding: 24px;
   }
   .contact-logo {
@@ -48,12 +46,12 @@
     position: relative;
     justify-content: center;
     width: 100%;
-    padding: 48px 40px 0 40px;
+    padding: 72px 48px 16px 48px;
   }
 
   .popup-close {
     position: absolute;
-    top: 16px;
+    top: 36px;
     right: 16px;
     cursor: pointer;
   }
@@ -75,23 +73,13 @@
     overflow: hidden;
   }
 
-  .popup-left h1{
-    font-size: 32px;
-    margin: 8px 0 8px 0;
-  }
-
-  .popup-left p {
-    font-size: 12px;
-    margin: 4px 0 8px 0;
-  }
-
   .profile-logo {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-40px, -172px);
-    width: 80px;
-    height: 80px;
+    transform: translate(-60px, -220px);
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -100,18 +88,6 @@
     border: 1px solid var(--white-color);
   }
 
-  .input-container input {
-    width: 100%;
-    padding: 16px 40px 16px 10px;
-    border: 1px solid var(--border-color);
-    border-radius: 5px;
-    height: 0px; 
-    font-size: 14px;
-    box-sizing: border-box;
-    transition: border 150ms ease;
-  }
-
-  /* === INHALTSBEREICHE / LISTEN === */
   #contact-list-body {
     display: block;
     padding-bottom: 24px;
@@ -154,7 +130,7 @@
   #contenttop {
     padding: 40px 16px;
     display: block;
-    max-height: 74vh;
+    max-height: 70vh;
     overflow-y: auto;
   }
 
@@ -162,9 +138,9 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-40px, -175px);
-    width: 80px;
-    height: 80px;
+    transform: translate(-60px, -220px);
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -172,13 +148,12 @@
   }
 
   .back-icon {
-    fill: var(--blue-color) !important;
+    fill: var(--hover-color) !important;
     cursor: pointer;
     width: 40px;
     height: 40px;
   }
 
-  /* === BUTTONS === */
   #mobile-add-button,
   #mobile-dropdown-button {
     height: 56px;
@@ -197,14 +172,12 @@
   .create-buttons-div {
     justify-content: center;
     padding-top: 16px;
-    margin: 0;
   }
 
   .first-button{
     display: none !important;
   }
 
-  /* === DROPDOWN === */
   .mobile-dropdown-wrapper {
     display: block;
     position: relative;
@@ -219,22 +192,18 @@
   z-index: 999;
   border-radius: 0 0 8px 0;
   background-color: var(--white-color);
-
-  /* Für die Animation: start rechts und transparent */
   transform: translateX(100%);
   opacity: 0;
   transition: transform 0.3s ease, opacity 0.3s ease;
-  pointer-events: none; /* Damit man nicht klicken kann, wenn unsichtbar */
+  pointer-events: none;
 }
 
-/* Wenn sichtbar: rein schieben und klickbar */
 .dropdown-menu.show {
   transform: translateX(0);
   opacity: 1;
   pointer-events: auto;
 }
 
-/* Wenn komplett versteckt */
 .dropdown-menu.hidden {
   display: none;
 }
@@ -263,44 +232,42 @@
     fill: var(--icon-color, #000);
   }
 
-  /* === UTILITIES === */
   .hidden {
     display: none !important;
   }
 
-  /* === ANIMATIONEN MOBILE (von unten) === */
-.slide-in-bottom {
-  animation: slideFromBottom 0.3s ease-out forwards;
-}
-.slide-out-bottom {
-  animation: slideToBottom 0.3s ease-in forwards;
-}
+  .slide-in-bottom {
+    animation: slideFromBottom 0.3s ease-out forwards;
+  }
+  .slide-out-bottom {
+    animation: slideToBottom 0.3s ease-in forwards;
+  }
 
-@keyframes slideFromBottom {
-  from {
-    transform: translateY(100%);
-    opacity: 0;
+  @keyframes slideFromBottom {
+    from {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
   }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
 
-@keyframes slideToBottom {
-  from {
-    transform: translateY(0);
-    opacity: 1;
+  @keyframes slideToBottom {
+    from {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateY(100%);
+      opacity: 0;
+    }
   }
-  to {
-    transform: translateY(100%);
-    opacity: 0;
-  }
-}
 
-.button-hover-style{
-  background-color: var(--hover-color) !important;
-}
+  .button-hover-style{
+    background-color: var(--hover-color) !important;
+  }
 }
 
 @media (max-width: 400px){
@@ -308,4 +275,35 @@
     padding-left: 16px;
     padding-right: 16px;
   }
+  .back-icon {
+    width: 30px;
+    height: 30px;
+  }
+  .contentfix-mobile-left h1{
+    font-size: 32px;
+  }
+  #mobile-add-button,
+  #mobile-dropdown-button {
+    height: 40px;
+    width: 40px;
+    bottom: 100px;
+    right: 10px;
+  }
+  #popup{
+    min-height: 400px;
+    height: 94vh;
+  }
+  .popup-close{
+    top: 24px;
+  }
+  .profile-logo{
+    width: 80px;
+    height: 80px;
+    transform: translate(-40px, -200px);
+  }
+  .mediaqueryy-monogram{
+    width: 80px;
+    height: 80px;
+    transform: translate(-40px, -200px);
+  } 
 }

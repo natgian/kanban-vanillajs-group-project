@@ -6,15 +6,18 @@
     <title>Contacts</title>
     <link rel="stylesheet" href="/style.css" />
     <link rel="stylesheet" href="../styles/elements.css" />
+    <link rel="stylesheet" href="/styles/contactsGlobal.css">
     <link rel="stylesheet" href="/styles/contacts.css" />
+    <link rel="stylesheet" href="/styles/contactsPopupInherit.css">
     <link rel="stylesheet" href="/styles/contactsMobile.css">
     <link rel="stylesheet" href="/assets/fonts/Inter-Italic-VariableFont_opsz,wght.ttf" />
     <link rel="stylesheet" href="/assets/fonts/Inter-VariableFont_opsz,wght.ttf" />
     <link rel="icon" href="/assets/img/join_logo_dark.svg" />
-    <script src="../script.js" defer></script>
+    <script src="/scripts/contactsGlobals.js" defer></script>
     <script src="/scripts/contactsTemplate.js" defer></script>
     <script src="/scripts/contacts.js" defer></script>
     <script src="/scripts/contactsMobileVersion.js" defer></script>
+    <script src="/script.js"></script>
   </head>
   <body onload="init()">
     <!-- Mobile Landscape Blocker -->
@@ -26,7 +29,7 @@
       </svg>
       <p>Please rotate your device, this page is best viewed on portrait mode.</p>
     </div>
-    <div id="layout" class="d_none max-width"></div>
+    <div onclick="popUpClose(event)" id="layout" class="d_none max-width"></div>
 
     <!-- Message Box -->
     <div class="message-box" id="message-box">
@@ -94,7 +97,7 @@
             <img src="/assets/icons/person_add.svg" alt="" />
           </div>
           <div class="contact-list-header">
-            <button id="openNewContactButton" onclick="openNewContact()" class="btn">Add New Contact <img src="/assets/icons/person_add.svg" alt="" /></button>
+            <button id="openNewContactButton" onclick="openNewContact()" class="btn">Add new contact <img src="/assets/icons/person_add.svg" alt="" /></button>
           </div>
           <div id="contact-list-body"></div>
         </div>

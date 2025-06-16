@@ -1,0 +1,60 @@
+:root {
+  --text-color:#ADADAD;
+  --inputs-color: #A8A8A8;
+  --border-color: #D1D1D1;
+  --checkbox-color: #2A3647;
+  --submit-button: #2A3647;
+}
+
+*{
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Inter";
+}
+.max-width{
+  max-width: 1920px;
+}
+
+.wrapper{
+  display: flex;
+  height: 100vh;
+}
+
+body{
+  position: relative;
+}
+
+.d_none{
+  display: none;
+}
+.d_block{
+  display: block;
+}
+
+
+
+h2{
+  font-size: 40px;
+}
+p{
+  font-size: 17px;
+}
+
+.wrapper > .sidebar {
+  width: 220px;
+}
+
+.wrapper > div:not(.sidebar) {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.content-area {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  max-width: calc(100% - 220px);
+  overflow: hidden;
+}
+

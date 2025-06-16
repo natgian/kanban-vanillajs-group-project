@@ -65,7 +65,7 @@ form{
   border-radius: 16px;
   background-color: #FFFFFF;
   padding: 32px 56px 32px 56px;
-  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.2);
 }
 
 form > div{
@@ -178,12 +178,12 @@ h1{
 form button{
   background-color: var(--submit-button);
   color: #FFFFFF;
-  font-size: 16x;
   font-weight: bold;
   border: none;
   padding: 8px 16px 8px 16px;
   border-radius: 10px;
   cursor: pointer;
+  font-size: 16px;
 }
 
 form button:disabled{

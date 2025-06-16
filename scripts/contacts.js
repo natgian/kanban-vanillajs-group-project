@@ -1,34 +1,7 @@
-const databaseURL = "https://join-458-default-rtdb.europe-west1.firebasedatabase.app/contacts";
-
-const colorsObject = {
-  darkorange: "#FF7902",
-  pink:"#FF5EB3",
-  blue: "#6D52FF",
-  purple:"#9327FF",
-  tuerkis:"#00BDE8",
-  bloodorange:"#FE745E",
-  peach:"#FFA35E",
-  magenta:"#FC71FF",
-  darkyellow:"#FFC701",
-  darkblue:"#0138FF",
-  green:"#C3FF2B",
-  lightorange:"#FFE52B",
-  red:"#FE4646",
-  orange:"#FEBB2A"
-};
-
-let contactStore = {};
-let currentEditingContactId = null;
-let newContactMode = false;
-let popupJustClosed = false;
-let lastOpenedDropdownId = null;
-
-
-function init() {
-  cleanNullContacts();
-  loadContactsData();
-}
-
+/**
+ * Removes null contacts from the database.
+ * Deletes entries that are null or undefined.
+ */
 async function cleanNullContacts() {
   const response = await fetch(databaseURL + '.json');
   let data = await response.json();
@@ -45,6 +18,10 @@ async function cleanNullContacts() {
   }
 }
 
+/**
+ * Loads all contacts from the database and renders them.
+ * Shows an error message if the request fails.
+ */
 async function loadContactsData() {
   try {
     let contactsResponse = await fetch(databaseURL + '.json');
@@ -63,6 +40,13 @@ async function loadContactsData() {
   }
 }
 
+/**
+ * Groups contacts by the first letter of their name.
+ * Also ensures each contact has a monogram color.
+ * 
+ * @param {Object} contactsData - Key-value contact object from the database.
+ * @returns {Promise<Object>} Grouped contacts by letter.
+ */
 async function groupContactsByLetter(contactsData) {
   let groupContacts = {};
   let updatePromise= [];
@@ -74,6 +58,14 @@ async function groupContactsByLetter(contactsData) {
   return groupContacts;
 }
 
+/**
+ * Helper function that loops through contacts to group them
+ * and assigns monogram colors where needed.
+ * 
+ * @param {Object} contactsData - Contacts from the database.
+ * @param {Object} groupContacts - Object to collect grouped contacts.
+ * @param {Promise[]} updatePromise - Promises for updating contact colors.
+ */
 async function groupContactsByLetterIfElse(contactsData, groupContacts, updatePromise) {
   for (let key in contactsData) {
     if (contactsData.hasOwnProperty(key)) {
@@ -91,6 +83,13 @@ async function groupContactsByLetterIfElse(contactsData, groupContacts, updatePr
   }
 }
 
+/**
+ * Ensures a contact has a monogram color and pushes update promise if not.
+ * 
+ * @param {Object} contact - The contact object.
+ * @param {string} key - Contact's database key.
+ * @param {Promise[]} updatePromise - Array of promises for saving color.
+ */
 function ensureMonogramColor(contact, key, updatePromise){
   if (!contact.monogramColor) {
         contact.monogramColor = getRandomColor();
@@ -98,6 +97,12 @@ function ensureMonogramColor(contact, key, updatePromise){
       }
 }
 
+/**
+ * Groups a contact into an object by the first letter of their name.
+ * 
+ * @param {Object} contact - Contact to be grouped.
+ * @param {Object} groupContacts - Accumulator object for grouped contacts.
+ */
 function contactsFilterFirstLetter(contact, groupContacts){
   let firstLetter = contact.name.charAt(0).toUpperCase();
       if (!groupContacts[firstLetter]) {
@@ -106,6 +111,12 @@ function contactsFilterFirstLetter(contact, groupContacts){
       groupContacts[firstLetter].push(contact);
 }
 
+/**
+ * Generates HTML for displaying grouped contacts by letter.
+ * 
+ * @param {Object} groupContacts - Object with letters as keys and contact arrays as values.
+ * @returns {string} HTML string of all contacts grouped by letter.
+ */
 function generateGroupContactsHTML(groupContacts){
 
   const letters = Object.keys(groupContacts).sort();
@@ -122,7 +133,10 @@ function generateGroupContactsHTML(groupContacts){
     }
     return abilityContacts;   
 }
-//
+
+/**
+ * Opens the overlay to create a new contact.
+ */
 function openNewContact() {
   newContactMode = true;
   currentEditingContactId = null;
@@ -140,6 +154,11 @@ function openNewContact() {
   showPopup(refOverlay, popup);
 }
 
+/**
+ * Builds a contact object using input from the form.
+ * 
+ * @returns {Object} Contact data with name, email, phone, monogram, and color.
+ */
 function buildContactData(){
   const fullName = document.getElementById('name').value.trim();
   const email    = document.getElementById('email').value.trim();
@@ -157,6 +176,12 @@ function buildContactData(){
   return { name: fullName, email, phone, monogram, monogramColor };
 }
 
+/**
+ * Handles form submission to create a new contact.
+ * Checks for duplicates, saves to DB, updates UI.
+ * 
+ * @param {Event} event - Submit event from the form.
+ */
 async function createNewContact(event) {
   event.preventDefault();
 
@@ -186,6 +211,12 @@ async function createNewContact(event) {
   }
 }
 
+/**
+ * Sends a POST request to add a new contact to the database.
+ * 
+ * @param {Object} data - The new contact data.
+ * @returns {Promise<Response>} Fetch response object.
+ */
 async function postContact(data) {
   return fetch(databaseURL + '.json', {
     method: 'POST',
@@ -193,6 +224,12 @@ async function postContact(data) {
   });
 }
 
+/**
+ * Shows success message and renders the new contact details.
+ * 
+ * @param {Object} data - Response data from the server.
+ * @param {Object} newContact - Original contact data submitted.
+ */
 async function newContactDetails(data, newContact) {
   showMessage('Contact successfully added!', '../assets/icons/check_icon.svg', 'Success');
   loadContactsData();
@@ -211,6 +248,12 @@ async function newContactDetails(data, newContact) {
   closePopupAfterDelay();
 }
 
+/**
+ * Renders the contact details view into a specific container.
+ * 
+ * @param {string} containerId - HTML ID of the target container.
+ * @param {Object} contact - The contact data to render.
+ */
 function renderContactDetails(containerId, contact) {
   const detailHTML = templateContactsDetails(contact);
   const container = document.getElementById(containerId);
@@ -219,25 +262,54 @@ function renderContactDetails(containerId, contact) {
   }
 }
 
+/**
+ * Closes the popup after a delay.
+ * 
+ * @param {number} [delay=2000] - Optional delay in milliseconds.
+ */
 function closePopupAfterDelay(delay = 2000) {
   setTimeout(popUpClose, delay);
 }
 
+/**
+ * Handles successful contact creation logic.
+ * 
+ * @param {Object} data - Server response with contact ID.
+ * @param {Object} newContact - Original contact object.
+ */
 function handleSuccessfulContactCreation(data, newContact) {
   return newContactDetails(data, newContact);
 }
 
+
+/**
+ * Handles any error during contact creation.
+ * 
+ * @param {Error} error - Error thrown during operation.
+ */
 function handleContactCreationError(error) {
   console.error('There was a problem adding the contact:', error);
   showMessage("There was a problem saving the contact!");
 }
 
+/**
+ * Checks if a contact with the same email or name already exists.
+ * 
+ * @param {Object} contact - Contact object with name and email.
+ * @returns {boolean} True if duplicate found, false otherwise.
+ */
 function isDuplicate({ email, name }) {
   return !!Object.values(contactStore).find(contact =>
     contact && (contact.email === email || contact.name === name)
   );
 }
 
+
+/**
+ * Displays the detailed view of a selected contact.
+ * 
+ * @param {string} id - Contact's database key.
+ */
 function showContactDetails(id) {
   const contact = contactStore[id];
   if (!contact) {
@@ -254,6 +326,11 @@ function showContactDetails(id) {
   document.getElementById('contact-details').innerHTML = templateContactsDetails(contact);
 }
 
+/**
+ * Highlights the selected contact in the contact list.
+ * 
+ * @param {string} id - ID of the contact to highlight.
+ */
 function setActiveContact(id) {
   const allContacts = document.querySelectorAll('.contact');
   allContacts.forEach(c => c.classList.remove('active-contact'));
@@ -264,11 +341,21 @@ function setActiveContact(id) {
   }
 }
 
+
+/**
+ * Removes the 'active' class from all contacts in the list.
+ */
 function clearActiveContacts() {
   const allContacts = document.querySelectorAll('.contact');
   allContacts.forEach(c => c.classList.remove('active-contact'));
 }
 
+/**
+ * Opens the contact edit overlay for the selected contact.
+ * 
+ * @param {string} id - Contact ID to edit.
+ * @param {Event} event - Click event to prevent bubbling.
+ */
 async function editContact(id, event) {
   event.stopPropagation();
   currentEditingContactId = id;
@@ -279,6 +366,12 @@ async function editContact(id, event) {
   await refreshContactData(id);
 }
 
+/**
+ * Displays the edit overlay with the contact's current info.
+ * 
+ * @param {Object} contact - Contact to be edited.
+ * @param {string} id - Contact ID.
+ */
 function showEditContactOverlay(contact, id) {
   const refOverlay = document.getElementById('layout');
   refOverlay.innerHTML = templateEditContact(contact, id);
@@ -289,114 +382,4 @@ function showEditContactOverlay(contact, id) {
     if (popup) popup.classList.add('show');
     refOverlay.classList.add('active');
   });
-}
-
-async function refreshContactData(id) {
-  try {
-    const response = await fetch(`${databaseURL}/${id}.json`);
-    const data = await response.json();
-    await loadContactsData();
-    return data;
-  } catch (error) {
-    console.error("Failed to retrieve contact:", error);
-    showMessage("There was a problem loading the contact!");
-    return null;
-  }
-}
-
-async function updateContact(event, id) {
-  event.preventDefault();
-
-  const { name, email, phone, monogram } = buildContactData();
-
-  const updated = {id, name, email, phone, monogram, monogramColor:contactStore[id].monogramColor || getRandomColor() };
-
-  await updateContactDetails(id, updated);
-}
-
-async function updateContactDetails(id, updated) {
-  try {
-    const res = await fetch(`${databaseURL}/${id}.json`, {
-      method: 'PATCH',
-      body: JSON.stringify(updated)
-    });
-
-    if (res.ok) {
-      showMessage('Contact successfully updated!', '../assets/icons/check_icon.svg', 'Success');
-      document.getElementById('contact-details').innerHTML = templateContactsDetails(updated);
-
-      loadContactsData();
-      setTimeout(popUpClose, 2000);
-    }
-  } catch (error) {
-    console.error('Update failed:', error);
-    showMessage('Update failed. Please try again!');
-  }
-}
-
-async function deleteContact(event, id){ 
-  event.preventDefault();
-  const contact = contactStore[id];
-  try{
-    const res = await fetch(`${databaseURL}/${id}.json`,{
-      method: 'DELETE',
-    });
-    if (res.ok) {
-      showMessage('Contact successfully deleted!', '../assets/icons/close.svg', 'Error');
-      loadContactsData();
-      setTimeout(popUpClose, 2000);
-    }
-  }catch(error){
-    console.error('Update failed:', error);
-    showMessage('Update failed. Please try again!');
-  }
-  document.getElementById('contact-details').innerHTML = '';
-  init();
-}
-
-function getRandomColor(){
-  const colorKeys = Object.keys(colorsObject);
-  const randomKey = colorKeys[Math.floor(Math.random() * colorKeys.length)];
-  return colorsObject[randomKey];
-}
-
-async function saveContactColor(contactKey, color) {
-  const contactRef = `${databaseURL}/${contactKey}.json`;
-  
-  try {
-    const res = await fetch(contactRef, {
-      method: 'PATCH',
-      body: JSON.stringify({ monogramColor: color })
-    });
-
-    if (!res.ok) {
-      throw new Error(`There was a problem saving the color for ${contactKey}: ${res.statusText}`);
-    }
-  } catch (error) {
-    console.error(`Network error while saving the color for ${contactKey}:`, error);
-  }
-}
-
-function showPopup(refOverlay, popup) {
-  requestAnimationFrame(() => {
-    if (popup) popup.classList.add('show');
-    refOverlay.classList.add('active');
-  });
-}
-
-function popUpClose() {
-  const refOverlay = document.getElementById('layout');
-  const popup = document.getElementById('popup');
-  mobileAddButtonHoverColorRemove();
-  
-  if (popup) popup.classList.remove('show');
-  refOverlay.classList.remove('active');
-
-  setTimeout(() => {
-    refOverlay.classList.add('d_none');
-    refOverlay.innerHTML = '';
-    newContactMode = false;
-    currentEditingContactId = null;
-    init();
-  }, 400);
 }

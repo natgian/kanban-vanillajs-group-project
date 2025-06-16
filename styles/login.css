@@ -68,8 +68,7 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 32px;
-    width: 100%;
+    flex-direction: column;
 
     h1 {
         font-size: 56px;
@@ -286,53 +285,46 @@ footer {
     font-size: 16px;
 }
 
-input:hover{
-  border: 2px solid var(--blue-color);
+input:focus {
+    border: 2px solid var(--hover-color);
+    outline: none;
 }
 
-input:focus{
-outline: none;
-border: 2px solid var(--blue-color);
+.red-border {
+    border: 2px solid red !important;
 }
 
-.d_none{
-    display: none;
-}
-.log-in-form-button-div {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    width: 100%; /* Damit sich Buttons an Formbreite orientieren können */
+.d-none {
+    display: none !important;
 }
 
-@media (max-width: 900px){
+@media (min-width: 1920px) {
+    .w1920 {
+        width: 1920px;
+    }
+}
+
+@media (max-width: 1920px) {
+    html,
+    body {
+        margin: 0;
+    }
+}
+
+@media (min-width: 901px) {
+    .mobileLoginheader {
+        display: none;
+    }
+}
+
+@media (max-width: 900px) {
     .loginHeader {
         div {
             display: none;
         }
     }
-    .mobile-loginheader{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 32px;
-        margin: 40px 0;
-    }
-    .log-in-form-button-div {
-        flex-direction: column;
-    }
-    .wrapper-login{
-        position: relative;
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-    }
-    
-    .loginBtn,
-    .guestLoginBtn {
-        width: 100%;
-        max-width: 160px; /* oder was dir gefällt */
-        box-sizing: border-box;
-        text-align: center;
+
+    .mobileLoginheader {
+        display: block;
     }
 }
