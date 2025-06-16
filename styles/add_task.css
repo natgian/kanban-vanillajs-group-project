@@ -1,14 +1,11 @@
 .contentBox {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  
   min-height: calc(100dvh - 96px);
 }
 .contentLimit {
   max-width: 1440px;
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
   width: calc(100dvw - 232px);
 }
@@ -17,7 +14,7 @@
   align-items: stretch;
   max-width: 941px;
   width: 100%;
-  padding: 20px 20px 0px 20px;
+  padding: 110px 20px 0px 96px;
 }
 .inputOrg {
   display: flex;

@@ -23,7 +23,7 @@ function animateLogoToHeader() {
 
   const headerRect = headerLogo.getBoundingClientRect();
 
-  flyingLogo.style.position = "fixed"; // Important: relative to viewport
+  flyingLogo.style.position = "fixed";
   flyingLogo.style.left = `${headerRect.left}px`;
   flyingLogo.style.top = `${headerRect.top}px`;
   flyingLogo.style.transform = `translate(0, 0)`;
@@ -150,9 +150,14 @@ function loginUser(user) {
  * @param {string} text - The error message text to display.
  */
 function showError({ emailInput, passwordInput, msg }, text) {
+<<<<<<< HEAD
   // Vorbereiten: Animation-Klassen entfernen, damit Animation neu startet
   msg.classList.remove("fade-in", "fade-out", "d-none");
   void msg.offsetWidth; // Trick: Force Reflow, damit CSS-Animation neu startet
+=======
+  msg.classList.remove("fade-in", "fade-out", "d-none");
+  void msg.offsetWidth;
+>>>>>>> 110512bd82596590af24b6e1a7ffd0e20fbafb6b
   
   msg.textContent = text;
   msg.classList.add("fade-in");
@@ -175,6 +180,10 @@ function hideError({ emailInput, passwordInput, msg }) {
   setTimeout(() => {
     msg.classList.add("d-none");
     msg.textContent = "";
+<<<<<<< HEAD
     msg.classList.remove("fade-out"); // Wichtig: Auch fade-out entfernen, damit erneute Animation funktioniert
+=======
+    msg.classList.remove("fade-out");
+>>>>>>> 110512bd82596590af24b6e1a7ffd0e20fbafb6b
   }, 500);
 }

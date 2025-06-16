@@ -305,6 +305,10 @@ input:focus {
 }
 
 @media (max-width: 1920px) {
+<<<<<<< HEAD
+=======
+
+>>>>>>> 110512bd82596590af24b6e1a7ffd0e20fbafb6b
     html,
     body {
         margin: 0;
@@ -324,7 +328,91 @@ input:focus {
         }
     }
 
+<<<<<<< HEAD
     .mobileLoginheader {
         display: block;
     }
+=======
+    .loginBox {
+        div {
+            flex-direction: column;
+        }
+
+        button {
+            margin-top: 16px;
+        }
+    }
+
+    .loginBtn {
+        margin-right: 0;
+        width: 142px;
+    }
+
+    .mobileLoginheader {
+        display: block;
+        margin-top: -32px;
+    }
+}
+
+@media (max-width: 600px) {
+    .loginHeader {
+        img {
+            height: 104px;
+        }
+    }
+
+    #logo {
+        height: 104px;
+    }
+
+    .loginBox {
+        padding: 32px;
+        min-width: 0;
+    }
+
+    .inputWrapper {
+        width: 360px;
+    }
+}
+
+@media (max-width: 460px) {
+    main {
+        h1 {
+            font-size: 48px;
+        }
+    }
+
+    .loginHeader {
+        padding: 24px;
+
+        img {
+            height: 64px;
+        }
+    }
+
+    #logo {
+        height: 64px;
+    }
+
+    .loginBox {
+        padding: 24px;
+        bottom: 48px;
+    }
+
+    .inputWrapper {
+        width: 268px;
+    }
+}
+
+@media (max-width: 350px) {
+    main {
+        h1 {
+            font-size: 44px;
+        }
+    }
+
+    .inputWrapper {
+        width: 220px;
+    }
+>>>>>>> 110512bd82596590af24b6e1a7ffd0e20fbafb6b
 }

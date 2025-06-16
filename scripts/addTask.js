@@ -87,16 +87,6 @@ function checkValue() {
   }
 }
 
-
-
-
-
-
-
-
-
-
-
 /**
  * Initializes all priority buttons by storing the original image source
  * and adding an event listener to handle button selection.
@@ -295,17 +285,6 @@ function applyWhiteFilter(img) {
 window.addEventListener("load", () => {
   selectMiddleButton();
 });
-
-
-
-
-
-
-
-
-
-
-
 
 /**
  * Initializes all reset functions upon page load.

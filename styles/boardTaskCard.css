@@ -111,7 +111,7 @@
 }
 
 /* MEDIA QUERIES */
-@media (max-width: 672px) {
+@media (max-width: 735px) {
   .cards-container {
     flex-direction: unset;
     flex-wrap: nowrap;

@@ -1,6 +1,10 @@
 @media (max-width: 1190px) {
   .contentWrapper {
-    max-width: 440px;
+    max-width: 100%;
+    padding-right: 96px;
+  }
+  .priorityArange{
+    max-width: 405.4px;
   }
   .priorityArange button {
     width: 122.4px;
@@ -18,21 +22,23 @@
   }
   .taskInfomations {
     width: 100%;
+    max-width: 100%;
     padding-bottom: 24px;
   }
   .taskCategorysation {
     width: 100%;
+    max-width: 100%;
     padding-bottom: 60px;
   }
   h1 {
     max-width: 440px;
   }
   .bottomButtons {
+    justify-self: flex-end;
     justify-content: flex-end;
     position: fixed;
     bottom: 0;
-    width: 408px;
-    justify-content: flex-end;
+    width: 67%;
   }
   .bottomButtons span {
     display: none;
@@ -42,8 +48,10 @@
   .bottomButtons {
     position: fixed;
     bottom: 80px;
-    width: 400px;
-    justify-self: center;
+    right: 96px;
+    width: 83%;
+    /* width: ;
+    justify-self: center; */
   }
   .contentWrapper {
     position: relative;
@@ -56,6 +64,19 @@
   }
   .kanban-title {
     color: white;
+  }
+}
+
+@media (max-width: 575px){
+  .contentWrapper{
+    padding: 110px 30px 0px 30px;
+  }
+  .priorityArange{
+    max-width: 100%;
+  }
+  .bottomButtons{
+    right: 30px;
+    width: 100%;
   }
 }
 
@@ -87,18 +108,12 @@
   .contentWrapper h1 {
     scale: 0.8;
     position: absolute;
-    left: 4%;
+    width: 100%;
   }
   .bottomButtons {
-    width: 100%;
+    right: 0;
     scale: 0.8;
     bottom: 72px;
-  }
-  .priorityBtns span {
-    display: none;
-  }
-  .priorityBtns img{
-    margin-left: 0;
   }
   .kanban-title {
     min-width: 230px;
@@ -106,8 +121,23 @@
   .priorityBtns {
     font-size: 16px;
   }
+}
+
+@media (max-width: 435px){
+  .inputOrg{
+    padding-top: 0;
+  }
+}
+
+@media (max-width: 380px){
+  .priorityBtns span {
+    display: none;
+  }
+  .priorityBtns img{
+    margin-left: 0;
+  } */
   .priorityArange{
-    justify-content: space-around;
+    max-width: 250px;
   }
   .priorityArange button{
     width: 65px;
