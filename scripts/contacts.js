@@ -155,36 +155,65 @@ function openNewContact() {
 }
 
 /**
- * Builds a contact object using input from the form.
- * 
- * @returns {Object} Contact data with name, email, phone, monogram, and color.
+ * Builds a contact object using input values from the form.
+ *
+ * @returns {Object} Contact data containing:
+ *   - name {string} Full name (trimmed)
+ *   - email {string} Email address (trimmed)
+ *   - phone {string} Phone number (trimmed, empty if no phone input present)
+ *   - monogram {string} Initials from the full name (1 or 2 letters, uppercase)
+ *   - monogramColor {string} A randomly generated color string
  */
-function buildContactData(){
-  const fullName = document.getElementById('name').value.trim();
-  const email    = document.getElementById('email').value.trim();
-  const phone    = document.getElementById('phone').value.trim();
+function buildContactData() {
+  const fullName = document.getElementById('name')?.value.trim() || '';
+  const email    = document.getElementById('email')?.value.trim() || '';
+  const phoneEl  = document.getElementById('phone');
+  const phone    = phoneEl ? phoneEl.value.trim() : '';
 
   const parts = fullName.split(' ').filter(Boolean);
-  let monogram;
-  if (parts.length >= 2) {
-    monogram = parts[0].charAt(0).toUpperCase() + parts[1].charAt(0).toUpperCase();
-  } else {
-    monogram = fullName.charAt(0).toUpperCase();
-  }
+  const monogram = parts.length >= 2
+    ? parts[0].charAt(0).toUpperCase() + parts[1].charAt(0).toUpperCase()
+    : fullName.charAt(0).toUpperCase();
 
   const monogramColor = getRandomColor();
+
   return { name: fullName, email, phone, monogram, monogramColor };
 }
 
 /**
- * Handles form submission to create a new contact.
- * Checks for duplicates, saves to DB, updates UI.
- * 
- * @param {Event} event - Submit event from the form.
+ * Sends a request to save a contact to the backend.
+ *
+ * @param {Object} contact - The contact data to save.
+ * @param {string} contact.name - Full name of the contact.
+ * @param {string} contact.email - Email address of the contact.
+ * @param {string} contact.phone - Phone number of the contact.
+ * @param {string} contact.monogram - Initials of the contact.
+ * @param {string} contact.monogramColor - Color associated with the contact's monogram.
+ * @returns {Promise<Object>} The JSON response data from the server if successful.
+ * @throws Will throw an error if the server response is not ok.
+ */
+async function saveContact(contact) {
+  const response = await postContact({
+    ...contact,
+    monogramColor: contact.monogramColor,
+  });
+
+  if (!response.ok) {
+    throw new Error('Server response not ok');
+  }
+
+  return await response.json();
+}
+
+/**
+ * Handles the form submission to create a new contact.
+ * Checks for duplicates, saves contact, updates UI and shows details.
+ *
+ * @param {Event} event - The form submit event.
+ * @returns {Promise<void>}
  */
 async function createNewContact(event) {
   event.preventDefault();
-
   const newContact = buildContactData();
 
   if (isDuplicate(newContact)) {
@@ -192,24 +221,16 @@ async function createNewContact(event) {
   }
 
   try {
-    const response = await postContact({
-      ...newContact,
-      monogramColor: newContact.monogramColor
-    });
-
-    if (response.ok) {
-      const data = await response.json();
-      setTimeout(popUpClose, 200);
-      await handleSuccessfulContactCreation(data, newContact);
-      await loadContactsData();
-      showContactDetails(data.name);
-    } else {
-      throw new Error('Server response not ok');
-    }
+    const savedData = await saveContact(newContact);
+    setTimeout(popUpClose, 2000);
+    await handleSuccessfulContactCreation(savedData, newContact);
+    await loadContactsData();
+    showContactDetails(savedData.name);
   } catch (error) {
     handleContactCreationError(error);
   }
 }
+
 
 /**
  * Sends a POST request to add a new contact to the database.
@@ -280,7 +301,6 @@ function closePopupAfterDelay(delay = 2000) {
 function handleSuccessfulContactCreation(data, newContact) {
   return newContactDetails(data, newContact);
 }
-
 
 /**
  * Handles any error during contact creation.

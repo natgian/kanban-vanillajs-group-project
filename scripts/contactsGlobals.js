@@ -73,26 +73,6 @@ function init() {
 }
 
 /**
- * Handles different click events to close the popup if needed.
- * 
- * @param {Event} event - Click event.
- */
-function popUpClose(event) {
-  const refOverlay = document.getElementById('layout');
-  const popup = document.getElementById('popup');
-  const clickedInsidePopup = popup && popup.contains(event.target);
-  const clickedCloseButton = event.target.closest('#popupCloseBtn');
-  const clickedOverlay = event.target.id === 'layout';
-
-  if (clickedOverlay || clickedCloseButton) {
-    event.stopPropagation();
-    closePopupActions(refOverlay, popup);
-  } else if (clickedInsidePopup) {
-    event.stopPropagation();
-  }
-}
-
-/**
  * Shows a popup overlay with animation.
  * 
  * @param {HTMLElement} refOverlay - Overlay element.
@@ -133,6 +113,13 @@ function closePopupActions(refOverlay, popup) {
 function popUpClose(event) {
   const refOverlay = document.getElementById('layout');
   const popup = document.getElementById('popup');
+
+  if (!event) {
+    // Direktes Schließen ohne Klick
+    closePopupActions(refOverlay, popup);
+    return;
+  }
+
   const clickedInsidePopup = popup && popup.contains(event.target);
   const clickedCloseButton = event.target.closest('#popupCloseBtn');
   const clickedOverlay = event.target.id === 'layout';
@@ -144,6 +131,7 @@ function popUpClose(event) {
     event.stopPropagation();
   }
 }
+
 
 /**
  * Deletes a contact from the database and updates the UI.

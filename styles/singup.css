@@ -183,7 +183,7 @@ form button{
   padding: 8px 16px 8px 16px;
   border-radius: 10px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 24px;
 }
 
 form button:disabled{
@@ -235,40 +235,6 @@ footer a:hover{
   border: 1px solid red !important;
 }
 
-@media (max-width: 600px){
-  header{
-    padding: 16px 16px 16px 16px;
-  }
-  .header-div{
-    display: flex;
-    justify-content: center;
-  }
-  .form-div{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  form{
-    padding: 8px 16px 8px 16px;
-  }
-  .back-icon{
-    top: 8px;
-  }
-  h1{
-    font-size: 32px;
-  }
-  .headlineLine{
-    width: 120px;
-  }
-  .custom-checkbox-wrapper{
-    margin-bottom: 8px;
-    margin-top: 8px;
-  }
-  footer{
-    margin-top: 16px;
-  }
-}
-
 @media (min-width: 1440px){
   form{
     width: 1000px;
@@ -296,5 +262,42 @@ footer a:hover{
   .input-container input{
     font-size: 24px;
     padding: 10px 40px 12px 10px;
+  }
+}
+
+@media (max-width: 600px){
+  header{
+    padding: 16px 16px 16px 16px;
+  }
+  .header-div{
+    display: flex;
+    justify-content: center;
+  }
+  .form-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  form{
+    padding: 8px 16px 8px 16px;
+  }
+  form button{
+  font-size: 16px;
+}
+  .back-icon{
+    top: 8px;
+  }
+  h1{
+    font-size: 32px;
+  }
+  .headlineLine{
+    width: 120px;
+  }
+  .custom-checkbox-wrapper{
+    margin-bottom: 8px;
+    margin-top: 8px;
+  }
+  footer{
+    margin-top: 16px;
   }
 }

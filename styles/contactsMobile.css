@@ -1,4 +1,4 @@
-@media (max-width: 800px) {
+@media(max-width: 1000px){
   body, html {
     overflow: hidden;
     height: 100%;
@@ -27,10 +27,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-
-  .contact-list-header{
-    display: none;
   }
 
   .popup-left {
@@ -88,6 +84,30 @@
     border: 1px solid var(--white-color);
   }
 
+  .create-buttons-div {
+    justify-content: center;
+    padding-top: 16px;
+  }
+
+  .first-button{
+    display: none !important;
+  }
+
+  .mediaqueryy-monogram {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-60px, -220px);
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 800px) {
   #contact-list-body {
     display: block;
     padding-bottom: 24px;
@@ -134,19 +154,6 @@
     overflow-y: auto;
   }
 
-  .mediaqueryy-monogram {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-60px, -220px);
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
   .back-icon {
     fill: var(--hover-color) !important;
     cursor: pointer;
@@ -167,15 +174,6 @@
     justify-content: center;
     align-items: center;
     border-radius: 46px;
-  }
-
-  .create-buttons-div {
-    justify-content: center;
-    padding-top: 16px;
-  }
-
-  .first-button{
-    display: none !important;
   }
 
   .mobile-dropdown-wrapper {
@@ -203,6 +201,10 @@
   opacity: 1;
   pointer-events: auto;
 }
+
+.contact-list-header{
+    display: none;
+  }
 
 .dropdown-menu.hidden {
   display: none;

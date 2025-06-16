@@ -52,7 +52,11 @@ function formAndPasswordIf(password, confirmpassword) {
   if (password !== confirmpassword) {
     passwordError.classList.remove("d-none");
     confirmInput.classList.add('red-border');
-    console.log(confirmInput.classList)
+
+    setTimeout(() => {
+      passwordError.classList.add('d-none');
+      confirmInput.classList.remove('red-border');
+    }, 3000);
     return false;
   } else {
     passwordError.classList.add("d-none");
@@ -106,40 +110,86 @@ async function saveUserData(data) {
 }
 
 /**
+ * Extracts and returns the input values from the sign-up form.
+ *
+ * @returns {Object} An object containing name, email, password, and confirmpassword.
+ */
+function getFormValues() {
+  return {
+    name: document.getElementById("name").value.trim(),
+    email: document.getElementById("email").value.trim(),
+    password: document.getElementById("password").value,
+    confirmpassword: document.getElementById("confirmpassword").value
+  };
+}
+
+/**
+ * Saves a new user's data to the database.
+ *
+ * @param {Object} data - The user information.
+ * @param {string} data.name - The user's name.
+ * @param {string} data.email - The user's email.
+ * @param {string} data.password - The user's password.
+ * @returns {Promise<void>}
+ */
+async function saveUser(data) {
+  const userData = {
+    name: data.name,
+    email: data.email,
+    password: data.password,
+    acceptedPolicy: checkbox.checked,
+  };
+  await saveUserData(userData);
+}
+
+/**
+ * Optionally creates a new contact entry for the user
+ * if no duplicate exists.
+ *
+ * @param {Object} param0 - The user contact information.
+ * @param {string} param0.name - The user's name.
+ * @param {string} param0.email - The user's email.
+ * @returns {Promise<void>}
+ */
+async function maybeSaveContact({ name, email }) {
+  const contactData = buildContactData();
+  if (!isDuplicate(contactData)) {
+    await postContact(contactData);
+  }
+}
+
+/**
+ * Finalizes the signup process:
+ * stores current user, redirects to summary, and resets form.
+ *
+ * @param {string} name - The name of the signed-up user.
+ */
+function finishSignUp(name) {
+  localStorage.setItem("currentUser", name);
+  window.location.href = "summary.html";
+  form.reset();
+}
+
+/**
  * Gathers form input, validates it, checks for duplicates, and saves the new user.
  * Redirects to the summary page if successful.
  * 
  * @returns {Promise<void>}
  */
 async function postData() {
-  const name = document.getElementById("name").value;
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
-  const confirmpassword = document.getElementById("confirmpassword").value;
+  const { name, email, password, confirmpassword } = getFormValues();
 
-  if (!formAndPasswordIf(password, confirmpassword)) {
-    return;
-  }
+  if (!formAndPasswordIf(password, confirmpassword)) return;
 
-  const existingID = await checkIfEmailExists(email);
-
-  if (existingID !== null) {
+  if (await checkIfEmailExists(email)) {
     accountError.classList.remove("d-none");
     return;
-  } else {
-    accountError.classList.add("d-none");
-    const data = {
-      name: name,
-      email: email,
-      password: password,
-      acceptedPolicy: checkbox.checked,
-    };
-
-    await saveUserData(data);
-    localStorage.setItem("currentUser", name);
   }
-  window.location.href = "summary.html";
-  form.reset();
+
+  accountError.classList.add("d-none");
+  await saveUser({ name, email, password });
+  await maybeSaveContact({ name, email });
+  finishSignUp(name);
 }
 
 /**
