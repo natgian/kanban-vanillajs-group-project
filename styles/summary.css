@@ -1,13 +1,13 @@
-.w100 {
+/* .w100 {
   width: 100%;
-}
+} */
 
 #templateContent {
   max-width: 1920px;
 }
 
 .summaryContent {
-  padding: 100px;
+  padding: 110px 96px;
 
   p {
     color: var(--primary-color);
@@ -17,7 +17,7 @@
   .verticalLineGrey {
     width: 2px;
     height: 60px;
-    margin: 0 24px;
+    /* margin: 0 24px; */
   }
 
   .verticalLineBlue {
@@ -46,16 +46,18 @@
   .summaryFieldsTop {
     display: flex;
     align-items: center;
-    padding: 24px 56px;
+    padding: 10px;
+    /* padding: 24px 56px; */
   }
 
-  .summaryFieldsTop {
+  /* .summaryFieldsTop {
     padding: 24px 120px;
-  }
+  } */
 
   button {
     border-radius: 24px;
     border: none;
+    min-width: 168px;
     background-color: white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s ease;
@@ -77,6 +79,10 @@
         fill: var(--primary-color);
       }
     }
+  }
+
+  .bottumButtonWrapper{
+    max-width: 93px;
   }
 
   .fieldImgs {
@@ -109,11 +115,18 @@
     align-items: center;
   }
 
+  .middleFieldWrapper {
+    width: 50%;
+    padding: 10px;
+    display: grid;
+    place-items: center;
+  }
+
   .middleField {
     display: flex;
     align-items: center;
     justify-content: space-around;
-    padding: 28px;
+    padding: 10px;
 
     p {
       font-size: 20px;
@@ -132,18 +145,37 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 28px;
+  }
+  .bottomFields button {
+    display: grid;
+    place-items: center;
   }
 
   .leftSection {
-    width: 50%;
+    width: 100%;
+    max-width: 560px;
+    gap: 32px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
 
     button {
-      margin-bottom: 24px;
+      height: 168px;
+      width: 100%;
     }
 
     .topRowDFlex {
+      width: 100%;
       display: flex;
       justify-content: space-between;
+      gap: 32px;
+    }
+    .topRowDFlex button{
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }
 
@@ -165,8 +197,47 @@
   }
 }
 
-/* MEDIA QUERIES */
+@media (max-width: 1080px) {
+  .rightSection{
+    display: none;
+  }
+}
 
+@media (max-width: 750px) {
+  .summaryContent{
+    padding: 110px 40px;
+  }
+  .leftSection button{
+    min-width: 116px;
+    max-height: 110px;
+  }
+  .summaryFieldsTop{
+    scale: 0.7;
+  }
+  .middleFieldWrapper{
+    scale: 0.7;
+  }
+  .bottomFields button{
+    scale: 0.7;
+  }
+  .bottomFields{
+    flex-wrap: wrap;
+  }
+  .bottomFields button{
+    flex: 1 1 168px;
+  }
+}
+
+@media (max-width: 435px) {
+  
+  .summaryContent{
+    padding: 110px 20px;
+  }
+}
+
+
+/* MEDIA QUERIES */
+/* 
 @media (max-width: 1940px) {
   .summaryContent .leftSection {
     width: 85%;
@@ -438,4 +509,4 @@
       height: 80px;
     }
   }
-}
+} */

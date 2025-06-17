@@ -53,7 +53,8 @@ function summaryTemplate(userName = 'user1') {
           <div>
             <button onclick="linkToBoard()" class="w100">
               <div class="middleField">
-                <div class="middleFieldContent">
+                <div class="middleFieldWrapper">
+                  <div class="middleFieldContent">
                   <div class="bgCirclesRed">
                     <img class="fieldImgs" src="../assets/icons/Capa 2.svg" alt="Prio alta">
                   </div>
@@ -62,10 +63,13 @@ function summaryTemplate(userName = 'user1') {
                     <span>Urgent</span>
                   </div>
                 </div>
+              </div>  
                 <div class="verticalLineGrey"></div>
-                <div class="dateSection">
+                <div class="middleFieldWrapper">
+                  <div class="dateSection">
                   <p id="date">Date</p>
                   <span>Upcoming Deadline</span>
+                </div>
                 </div>
               </div>
             </button>
@@ -74,7 +78,7 @@ function summaryTemplate(userName = 'user1') {
           <div class="bottomFields">
             <button onclick="linkToBoard()">
               <div class="summaryFields">
-                <div>
+                <div class="bottumButtonWrapper">
                   <h1 id="amountTasksNumber">1</h1>
                   <p>Tasks in Board</p>
                 </div>
@@ -82,7 +86,7 @@ function summaryTemplate(userName = 'user1') {
             </button>
             <button onclick="linkToBoard()">
               <div class="summaryFields">
-                <div>
+                <div class="bottumButtonWrapper">
                   <h1 id="progressNumber">1</h1>
                   <p>Tasks in Progress</p>
                 </div>
@@ -90,7 +94,7 @@ function summaryTemplate(userName = 'user1') {
             </button>
             <button onclick="linkToBoard()">
               <div class="summaryFields">
-                <div>
+                <div class="bottumButtonWrapper">
                   <h1 id="awaitFeedbackNumber">1</h1>
                   <p>Awaiting Feedback</p>
                 </div>

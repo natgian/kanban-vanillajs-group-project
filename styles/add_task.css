@@ -1,6 +1,5 @@
 .contentBox {
   display: flex;
-  
   min-height: calc(100dvh - 96px);
 }
 .contentLimit {
