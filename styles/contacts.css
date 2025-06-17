@@ -1,27 +1,27 @@
 /*MAIN*/
 
-main{
+main {
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
   display: block;
 }
 
-.layout-container{
+.layout-container {
   overflow: hidden;
   max-width: calc(1920px - 232px);
 }
 
-.contacts-section{
+.contacts-section {
   display: flex;
 }
 
-#contact-list-body{
+#contact-list-body {
   padding-top: 24px;
   padding-top: 24px;
 }
 
-#contact-list{
+#contact-list {
   display: block;
   background-color: #ffffff;
   padding-left: 40px;
@@ -41,9 +41,8 @@ main{
   padding: 24px 0;
 }
 
-#contact-list button{
-  gap:16px;
-  padding: 8px 48px 8px 48px;
+#contact-list button {
+  width: 100%;
 }
 
 .contact-list {
@@ -63,7 +62,7 @@ main{
   padding-bottom: 5px;
 }
 
-.add-new-contact-div{
+.add-new-contact-div {
   position: fixed;
   top: 88px;
   background-color: white;
@@ -77,16 +76,16 @@ main{
   margin-top: 10px;
   padding: 16px 24px;
 }
-.contact:hover{
+.contact:hover {
   cursor: pointer;
   background-color: var(--hover-color);
   border: none;
   border-radius: 15px;
 }
-.contact:hover a{
+.contact:hover a {
   color: white;
 }
-.active-contact{
+.active-contact {
   background-color: var(--primary-color);
   border: none;
   border-radius: 15px;
@@ -94,7 +93,7 @@ main{
 .active-contact:hover {
   background-color: var(--primary-color);
 }
-.active-contact .monogram{
+.active-contact .monogram {
   border: 1px solid var(--white-color);
 }
 
@@ -123,23 +122,23 @@ main{
   font-weight: bold;
   color: #333;
 }
-.active-contact .name{
+.active-contact .name {
   color: var(--white-color);
 }
 
-.email a{
+.email a {
   font-size: 14px;
   margin-top: 5px;
   color: var(--hover-color);
 }
 
-#contact-content-details{
+#contact-content-details {
   display: flex;
   flex-direction: column;
   gap: 32px;
 }
 
-.contentfix-computer{
+.contentfix-computer {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -153,47 +152,47 @@ main{
   background-color: var(--hover-color);
 }
 .divider-horizontal {
-    height: 2px;
-    width: 80px;
-    background-color: var(--hover-color);
-  }
+  height: 2px;
+  width: 80px;
+  background-color: var(--hover-color);
+}
 .contentfix-computer p,
-.contentfix-mobile p{
+.contentfix-mobile p {
   color: var(--primary-color);
 }
 
-.content-top{
+.content-top {
   display: flex;
   align-items: center;
   gap: 32px;
 }
 
-.contact-details-wrapper{
+.contact-details-wrapper {
   display: flex;
   flex-direction: column;
   gap: 32px;
 }
 
-#contenttop{
+#contenttop {
   padding: 48px;
   display: flex;
   flex-direction: column;
   align-items: start;
 }
 
-.contact-details{
+.contact-details {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-.edit-and-delete{
+.edit-and-delete {
   display: flex;
   gap: 16px;
   cursor: pointer;
 }
 .edit,
-.delete{
+.delete {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -201,11 +200,11 @@ main{
 
 .edit-and-delete svg,
 .dropdown-menu .edit svg,
-.dropdown-menu .delete svg{
+.dropdown-menu .delete svg {
   fill: var(--primary-color);
   height: 20px;
 }
-.edit-and-delete p{
+.edit-and-delete p {
   color: var(--primary-color);
 }
 .edit:hover svg,
@@ -216,23 +215,23 @@ main{
   color: var(--hover-color);
 }
 
-.contact-information-title{
+.contact-information-title {
   padding-bottom: 24px;
 }
 
-.contact-info-item{
+.contact-info-item {
   padding-bottom: 24px;
   gap: 16px;
   display: flex;
   flex-direction: column;
 }
-.contact-info-item a{
+.contact-info-item a {
   color: var(--hover-color);
 }
 
 #mobile-add-button,
 .mobile-dropdown-wrapper,
-.contentfix-mobile{
+.contentfix-mobile {
   display: none;
 }
 

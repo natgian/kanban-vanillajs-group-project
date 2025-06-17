@@ -1,5 +1,12 @@
-@media(max-width: 1000px){
-  body, html {
+@media (max-width: 1080px) {
+  #contact-list {
+    height: calc(100vh - 160px);
+  }
+}
+
+@media (max-width: 1000px) {
+  body,
+  html {
     overflow: hidden;
     height: 100%;
   }
@@ -89,7 +96,7 @@
     padding-top: 16px;
   }
 
-  .first-button{
+  .first-button {
     display: none !important;
   }
 
@@ -174,6 +181,7 @@
     justify-content: center;
     align-items: center;
     border-radius: 46px;
+    cursor: pointer;
   }
 
   .mobile-dropdown-wrapper {
@@ -182,33 +190,33 @@
   }
 
   .dropdown-menu {
-  position: fixed;
-  bottom: 103px;
-  right: 16px;
-  padding: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-  z-index: 999;
-  border-radius: 0 0 8px 0;
-  background-color: var(--white-color);
-  transform: translateX(100%);
-  opacity: 0;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-  pointer-events: none;
-}
+    position: fixed;
+    bottom: 103px;
+    right: 16px;
+    padding: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    z-index: 999;
+    border-radius: 0 0 8px 0;
+    background-color: var(--white-color);
+    transform: translateX(100%);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    pointer-events: none;
+  }
 
-.dropdown-menu.show {
-  transform: translateX(0);
-  opacity: 1;
-  pointer-events: auto;
-}
+  .dropdown-menu.show {
+    transform: translateX(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
 
-.contact-list-header{
+  .contact-list-header {
     display: none;
   }
 
-.dropdown-menu.hidden {
-  display: none;
-}
+  .dropdown-menu.hidden {
+    display: none;
+  }
 
   .dropdown-menu.hidden {
     display: none;
@@ -267,13 +275,22 @@
     }
   }
 
-  .button-hover-style{
+  .button-hover-style {
     background-color: var(--hover-color) !important;
   }
 }
 
-@media (max-width: 400px){
-  #contact-list{
+@media (max-width: 450px) {
+  .popup-left h1 {
+    font-size: 36px;
+  }
+  .create-buttons-div {
+    gap: 14px;
+  }
+}
+
+@media (max-width: 400px) {
+  #contact-list {
     padding-left: 16px;
     padding-right: 16px;
   }
@@ -281,7 +298,7 @@
     width: 30px;
     height: 30px;
   }
-  .contentfix-mobile-left h1{
+  .contentfix-mobile-left h1 {
     font-size: 32px;
   }
   #mobile-add-button,
@@ -291,21 +308,21 @@
     bottom: 100px;
     right: 10px;
   }
-  #popup{
+  #popup {
     min-height: 400px;
     height: 94vh;
   }
-  .popup-close{
+  .popup-close {
     top: 24px;
   }
-  .profile-logo{
+  .profile-logo {
     width: 80px;
     height: 80px;
     transform: translate(-40px, -200px);
   }
-  .mediaqueryy-monogram{
+  .mediaqueryy-monogram {
     width: 80px;
     height: 80px;
     transform: translate(-40px, -200px);
-  } 
+  }
 }
