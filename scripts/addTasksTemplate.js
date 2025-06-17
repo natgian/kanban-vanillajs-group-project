@@ -147,9 +147,11 @@ function renderAddTask() {
                   Clear<div class="x-icon"></div>
                 </button>
                 <button
+                  type="button"
                   class="bottomButton2"
                   id="submitBtn"
                   onclick="addTask()"
+                  disabled
                 >
                   Creakte Task<img
                     src="../assets/icons/check.png"

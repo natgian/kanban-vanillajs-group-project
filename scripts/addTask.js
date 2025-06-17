@@ -19,8 +19,8 @@ async function initAddTask() {
 }
 
 /**
- * Gets the task data from the UI, saves the task, resets the form, shows a success message and redirects
- * to the board
+ * Gets the task data from the UI, saves the task, resets the form, shows a success message and
+ * redirects to the board.
  *
  */
 async function addTask() {
@@ -35,7 +35,7 @@ async function addTask() {
   showMessage("Task successfully created");
   setTimeout(() => {
     window.location.href = "./board.html";
-  }, 500);
+  }, 1000);
 }
 
 /**
