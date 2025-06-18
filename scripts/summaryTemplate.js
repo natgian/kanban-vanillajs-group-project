@@ -3,9 +3,10 @@ function summaryTemplate(userName = 'user1') {
       <div>
         <div class="summaryHeader">
           <h1>Join 360</h1>
-          <div id="verticalLine" class="verticalLineBlue"></div>
-          <p>Key Metrics at a Glance</p>
-          <div class="horizontalLine"></div>
+          <div class="switchPlaceBox">
+            <div id="verticalLine" class="verticalLineBlue"></div>
+            <p>Key Metrics at a Glance</p>
+          </div>
         </div>
       </div>
 
@@ -58,7 +59,7 @@ function summaryTemplate(userName = 'user1') {
                   <div class="bgCirclesRed">
                     <img class="fieldImgs" src="../assets/icons/Capa 2.svg" alt="Prio alta">
                   </div>
-                  <div>
+                  <div class="middleFieldLeft">
                     <h1 id="urgentNumber">1</h1>
                     <span>Urgent</span>
                   </div>
