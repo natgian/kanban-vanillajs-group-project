@@ -60,7 +60,7 @@ const tasks = [
     status: "to-do",
     title: "Design User Registration Flow",
     description: "Design the user flow for registration, including account creation and error handling.",
-    dueDate: "2025-06-15",
+    dueDate: "2025-06-28",
     priority: "high",
     assignedTo: [
       { name: "Greta Völker", initials: "GV", color: "#FF745E" },
@@ -108,7 +108,7 @@ const tasks = [
     status: "to-do",
     title: "Research Analytics Tools",
     description: "Compare and research available analytics tools for user tracking and data insights.",
-    dueDate: "2025-06-25",
+    dueDate: "2025-07-25",
     priority: "low",
     assignedTo: [{ name: "Carla Unger", initials: "CU", color: "#6E52FF" }],
     category: "Technical Task",
@@ -118,7 +118,7 @@ const tasks = [
     status: "in-progress",
     title: "Implement Dark Mode",
     description: "Add support for dark mode to the application, including a toggle for users.",
-    dueDate: "2025-06-22",
+    dueDate: "2025-06-30",
     priority: "high",
     assignedTo: [
       { name: "Anna Schmitt", initials: "AS", color: "#FF7A00" },
