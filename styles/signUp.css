@@ -129,6 +129,11 @@ h1 {
   fill: var(--text-color);
 }
 
+.last-input-container {
+  position: relative;
+  margin-bottom: 16px;
+}
+
 .checkbox-input-container {
   position: relative;
   width: 100%;
@@ -226,8 +231,8 @@ footer a:hover {
   color: red;
   font-size: 14px;
   position: absolute;
-  bottom: 0;
-  left: 0px;
+  bottom: -6px;
+  left: 4px;
 }
 
 .red-border {
@@ -313,5 +318,12 @@ footer a:hover {
   }
   .logo {
     width: 48px;
+  }
+  .custom-checkbox-wrapper {
+    font-size: 14px;
+    margin-bottom: 14px;
+  }
+  form {
+    padding-inline: 16px;
   }
 }
