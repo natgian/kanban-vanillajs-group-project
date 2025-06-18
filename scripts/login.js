@@ -19,7 +19,7 @@ function init() {
  */
 function animateLogoToHeader() {
   const flyingLogo = document.getElementById("logo");
-  const headerLogo = document.querySelector(".loginHeader img");
+  const headerLogo = document.querySelector("header img");
 
   const headerRect = headerLogo.getBoundingClientRect();
 
@@ -44,9 +44,9 @@ window.addEventListener("resize", () => {
  * Redirects the user to the sign-up page
  * when the "Sign up" button is clicked.
  */
-function changeToSignup(){
-  window.location.href = "../pages/signUp.html";
-}
+function changeToSignup() {
+    window.location.href = "pages/signUp.html";
+  }
 
 /**
  * Handles guest login button click:
@@ -120,7 +120,7 @@ function getFormElements() {
   return {
     emailInput: document.querySelector('input[name="Email"]'),
     passwordInput: document.getElementById("passwordInput"),
-    msg: document.getElementById("loginMessage"),
+    msg: document.getElementById("loginError"),
   };
 }
 
@@ -150,15 +150,10 @@ function loginUser(user) {
  * @param {string} text - The error message text to display.
  */
 function showError({ emailInput, passwordInput, msg }, text) {
-<<<<<<< HEAD
-  // Vorbereiten: Animation-Klassen entfernen, damit Animation neu startet
-  msg.classList.remove("fade-in", "fade-out", "d-none");
-  void msg.offsetWidth; // Trick: Force Reflow, damit CSS-Animation neu startet
-=======
   msg.classList.remove("fade-in", "fade-out", "d-none");
   void msg.offsetWidth;
->>>>>>> 110512bd82596590af24b6e1a7ffd0e20fbafb6b
-  
+  msg.classList.remove("fade-in", "fade-out", "d-none");
+  void msg.offsetWidth;
   msg.textContent = text;
   msg.classList.add("fade-in");
   emailInput.classList.add("red-border");
@@ -180,10 +175,6 @@ function hideError({ emailInput, passwordInput, msg }) {
   setTimeout(() => {
     msg.classList.add("d-none");
     msg.textContent = "";
-<<<<<<< HEAD
-    msg.classList.remove("fade-out"); // Wichtig: Auch fade-out entfernen, damit erneute Animation funktioniert
-=======
     msg.classList.remove("fade-out");
->>>>>>> 110512bd82596590af24b6e1a7ffd0e20fbafb6b
   }, 500);
 }

@@ -73,12 +73,13 @@ function formAndPasswordIf(password, confirmpassword) {
  */
 async function checkIfEmailExists(email) {
   try {
-    let response = await fetch(databasURL + ".json");
+    let response = await fetch(databasURL + "users.json");
     let responseJSON = await response.json();
 
     for (let id in responseJSON) {
       const user = responseJSON[id];
       if (user.email === email) {
+
         return id;
       }
     }
@@ -171,26 +172,53 @@ function finishSignUp(name) {
 }
 
 /**
- * Gathers form input, validates it, checks for duplicates, and saves the new user.
- * Redirects to the summary page if successful.
+ * Displays an error on the email input field and hides it after 3 seconds.
+ */
+function showEmailError() {
+  const confirmEmailInput = document.getElementById('email');
+  accountError.classList.remove("d-none");
+  confirmEmailInput.classList.add('red-border');
+
+  setTimeout(() => {
+    confirmEmailInput.classList.remove('red-border');
+    accountError.classList.add("d-none");
+  }, 3000);
+}
+
+/**
+ * Checks if the email already exists in the database and shows an error if it does.
  * 
- * @returns {Promise<void>}
+ * @param {string} email - The email address to check.
+ * @returns {Promise<boolean>} - Returns true if the email exists, otherwise false.
+ */
+async function validateEmailUniqueness(email) {
+  if (await checkIfEmailExists(email)) {
+    showEmailError();
+    return true;
+  }
+  return false;
+}
+
+/**
+ * Collects form input, validates password and confirmation, checks for duplicate emails,
+ * saves the new user, and completes the signup process.
+ * 
+ * @returns {Promise<void>} - Resolves when the signup process is complete.
  */
 async function postData() {
   const { name, email, password, confirmpassword } = getFormValues();
 
   if (!formAndPasswordIf(password, confirmpassword)) return;
 
-  if (await checkIfEmailExists(email)) {
-    accountError.classList.remove("d-none");
+  if (await validateEmailUniqueness(email)) {
     return;
   }
 
-  accountError.classList.add("d-none");
   await saveUser({ name, email, password });
   await maybeSaveContact({ name, email });
   finishSignUp(name);
 }
+
 
 /**
  * Navigates the user back to the login page.

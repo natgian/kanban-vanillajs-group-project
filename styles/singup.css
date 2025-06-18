@@ -74,9 +74,6 @@ form > div{
   justify-content: center;
 }
 
-.h1div{
-  margin-bottom: 32px;
-}
 h1{
   font-size: 40px;
   font-weight: bold;
@@ -87,7 +84,6 @@ h1{
   height: 3px;
   background-color: #29abe2;
   border: none;
-  margin-top: -24px;
   margin-bottom: 32px;
 }
 
@@ -225,14 +221,14 @@ footer a:hover{
 
 .error-message {
   color: red;
-  font-size: 10px;
+  font-size: 12px;
   position: absolute;
   bottom: -8px;
   left: 0px;
 }
 
 .red-border{
-  border: 1px solid red !important;
+  border: 2px solid red !important;
 }
 
 @media (min-width: 1440px){
@@ -257,7 +253,7 @@ footer a:hover{
     font-size: 24px;
   }
   footer a{
-    font-size: 32px;
+    font-size: 40px;
   }
   .input-container input{
     font-size: 24px;
@@ -268,10 +264,6 @@ footer a:hover{
 @media (max-width: 600px){
   header{
     padding: 16px 16px 16px 16px;
-  }
-  .header-div{
-    display: flex;
-    justify-content: center;
   }
   .form-div{
     display: flex;
