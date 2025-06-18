@@ -1,6 +1,7 @@
 
 #templateContent {
   max-width: 1920px;
+  position: relative;
 }
 
 .summaryContent {
@@ -238,7 +239,7 @@
   .verticalLineBlue {
     width: 90px !important;
     height: 2px !important;
-    margin: 15px 0 !important;
+    margin: 15px 0 0 0 !important;
   }
   .switchPlaceBox{
     flex-direction: column-reverse;

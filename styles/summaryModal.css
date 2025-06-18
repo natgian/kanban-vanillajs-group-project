@@ -1,0 +1,27 @@
+#greetingModal{
+    position: absolute;
+    top: 110px;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 110px);
+    z-index: 3;
+    background-color: rgb(144, 53, 144);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-size: 36px;
+    padding-bottom: 80px;
+}
+
+.greetingUser{
+    background-color: aquamarine;
+}
+.greetingUser h2{
+    font-size: 47px;
+    font-weight: 700;
+    color: var(--hover-color);
+}
+.greetingGuest{
+    background-color: aqua;
+}
