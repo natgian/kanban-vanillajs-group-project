@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Join</title>
     <link rel="stylesheet" href="../styles/elements.css" />
-    <link rel="stylesheet" href="/styles/singup.css" />
+    <link rel="stylesheet" href="/styles/signUp.css" />
     <link rel="stylesheet" href="/assets/fonts/Inter-Italic-VariableFont_opsz,wght.ttf" />
     <link rel="stylesheet" href="/assets/fonts/Inter-VariableFont_opsz,wght.ttf" />
     <link rel="icon" href="/assets/img/join_logo_dark.svg" />
@@ -20,9 +20,9 @@
           <img class="logo" src="/assets/img/join_logo_dark.svg" alt="" />
         </div>
       </header>
-      <div class="form-div max-width">
+      <div class="form-div">
         <form onsubmit="postData(); return false">
-          <svg onclick="backToLogin()" class="back-icon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f">
+          <svg onclick="backToLogin()" class="back-icon" xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 -960 960 960" width="32px" fill="#1f1f1f">
             <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z" />
           </svg>
 
@@ -55,18 +55,17 @@
               />
             </svg>
           </div>
-          <div style="position: relative;">
+          <div style="position: relative">
             <div class="input-container">
-                <input required type="password" id="confirmpassword" placeholder="Confim Password" minlength="6" />
-                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f">
-                  <path
-                    d="M240-80q-33 0-56.5-23.5T160-160v-400q0-33 23.5-56.5T240-640h40v-80q0-83 58.5-141.5T480-920q83 0 141.5 58.5T680-720v80h40q33 0 56.5 23.5T800-560v400q0 33-23.5 56.5T720-80H240Zm0-80h480v-400H240v400Zm240-120q33 0 56.5-23.5T560-360q0-33-23.5-56.5T480-440q-33 0-56.5 23.5T400-360q0 33 23.5 56.5T480-280ZM360-640h240v-80q0-50-35-85t-85-35q-50 0-85 35t-35 85v80ZM240-160v-400 400Z"
-                  />
-                </svg>
-              </div>
-              <span id="passwordError" class="error-message   d-none">The passwords you entered do not match.</span>
-              <span id="accountError" class="error-message  d-none">The account already exist!
-              </span>
+              <input required type="password" id="confirmpassword" placeholder="Confim Password" minlength="6" />
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f">
+                <path
+                  d="M240-80q-33 0-56.5-23.5T160-160v-400q0-33 23.5-56.5T240-640h40v-80q0-83 58.5-141.5T480-920q83 0 141.5 58.5T680-720v80h40q33 0 56.5 23.5T800-560v400q0 33-23.5 56.5T720-80H240Zm0-80h480v-400H240v400Zm240-120q33 0 56.5-23.5T560-360q0-33-23.5-56.5T480-440q-33 0-56.5 23.5T400-360q0 33 23.5 56.5T480-280ZM360-640h240v-80q0-50-35-85t-85-35q-50 0-85 35t-35 85v80ZM240-160v-400 400Z"
+                />
+              </svg>
+            </div>
+            <span id="passwordError" class="error-message d-none">The passwords you entered do not match.</span>
+            <span id="accountError" class="error-message d-none">The account already exist! </span>
           </div>
 
           <label class="custom-checkbox-wrapper">
