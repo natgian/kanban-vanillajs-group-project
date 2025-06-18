@@ -40,14 +40,12 @@
 
 html,
 body {
-  padding: 0;
-  height: 100%;
-  overflow: hidden;
   font-family: "Inter", sans-serif;
   background-color: #f6f7f8;
   display: flex;
   flex-direction: column;
-  min-height: 96vh;
+  overflow: auto;
+  height: 100dvh;
 }
 
 .header-div {
@@ -79,18 +77,12 @@ body {
 
 #logo {
   height: 122px;
-  transition: transform 1s ease, top 1s ease, left 1s ease;
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%) scale(1);
+  transition: transform 1s ease, top 1s ease, left 1s ease;
   z-index: 10000;
-}
-
-#logo.fly {
-  top: 72px;
-  left: 72px;
-  transform: translate(0, 0);
 }
 
 #loader.hidden {
@@ -220,6 +212,13 @@ input:focus {
 }
 
 @media (max-width: 900px) {
+  #loader {
+    background: var(--primary-color);
+  }
+  #logo {
+    content: url("../assets/img/join_logo_white.svg");
+    height: 122px;
+  }
   .mobileLoginheader {
     display: flex;
     justify-content: center;
@@ -248,7 +247,6 @@ input:focus {
       margin-top: 16px;
     }
   }
-
   .loginBtn {
     margin-right: 0;
     width: 142px;

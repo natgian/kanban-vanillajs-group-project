@@ -22,12 +22,40 @@ function animateLogoToHeader() {
   const headerLogo = document.querySelector("header img");
 
   const headerRect = headerLogo.getBoundingClientRect();
+  const logoRect = flyingLogo.getBoundingClientRect();
 
-  flyingLogo.style.position = "fixed";
-  flyingLogo.style.left = `${headerRect.left}px`;
-  flyingLogo.style.top = `${headerRect.top}px`;
-  flyingLogo.style.transform = `translate(0, 0)`;
+  const { offsetX, offsetY, scaleX, scaleY } = calculateLogoTransform(headerRect, logoRect);
+
   flyingLogo.classList.add("fly");
+  flyingLogo.style.transform = `translate(calc(-50% + ${offsetX}px), calc(-50% + ${offsetY}px)) scale(${scaleX}, ${scaleY})`;
+}
+
+/**
+ * Calculates how far and how much to scale the loader logo so it moves and resizes to match the
+ * header logo.
+ *
+ * @param {DOMRect} headerRect - The target header logo position and size
+ * @param {DOMRect} logoRect - The current loader logo position and size
+ * @returns {Object} An object containing:
+ *  - {number} offsetX - Horizontal distance from loader logo to header logo (in px)
+ *  - {number} offsetY - Vertical distance from loader logo to header logo (in px)
+ *  - {number} scaleX - Width scaling factor
+ *  - {number} scaleY - Height scaling factor
+ */
+function calculateLogoTransform(headerRect, logoRect) {
+  const headerCenterX = headerRect.left + headerRect.width / 2;
+  const headerCenterY = headerRect.top + headerRect.height / 2;
+
+  const logoCenterX = logoRect.left + logoRect.width / 2;
+  const logoCenterY = logoRect.top + logoRect.height / 2;
+
+  const offsetX = headerCenterX - logoCenterX;
+  const offsetY = headerCenterY - logoCenterY;
+
+  const scaleX = headerRect.width / logoRect.width;
+  const scaleY = headerRect.height / logoRect.height;
+
+  return { offsetX, offsetY, scaleX, scaleY };
 }
 
 /**
@@ -45,8 +73,8 @@ window.addEventListener("resize", () => {
  * when the "Sign up" button is clicked.
  */
 function changeToSignup() {
-    window.location.href = "pages/signUp.html";
-  }
+  window.location.href = "pages/signUp.html";
+}
 
 /**
  * Handles guest login button click:
@@ -65,7 +93,8 @@ document.getElementById("guestLoginBtn").addEventListener("click", async () => {
     const user = await res.json();
     if (!res.ok || !user?.email || !user?.password) {
       alert("Guest data could not be loaded.");
-      return;}
+      return;
+    }
     document.querySelector('input[name="Email"]').value = user.email;
     document.querySelector('input[name="Password"]').value = user.password;
     localStorage.setItem("currentUser", "Guest");

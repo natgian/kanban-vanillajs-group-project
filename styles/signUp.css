@@ -10,6 +10,7 @@ body {
   font-weight: 400;
   background-color: #f6f7f8;
   overflow: auto;
+  height: 100dvh;
 }
 
 :root {
@@ -239,7 +240,7 @@ footer a:hover {
   border: 2px solid red !important;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 750px) {
   form {
     max-width: 396px;
     padding: 32px;
@@ -286,11 +287,11 @@ footer a:hover {
 
 @media (max-width: 600px) {
   header {
-    padding: 16px;
+    padding: 24px;
   }
 
   .logo {
-    width: 48px;
+    width: 64px;
   }
 
   form button {
@@ -313,17 +314,21 @@ footer a:hover {
 }
 
 @media (max-width: 480px) {
-  header {
-    padding: 16px;
-  }
-  .logo {
-    width: 48px;
-  }
   .custom-checkbox-wrapper {
     font-size: 14px;
     margin-bottom: 14px;
   }
   form {
     padding-inline: 16px;
+  }
+}
+
+@media (max-width: 375px) {
+  .logo {
+    width: 48px;
+  }
+  .back-icon {
+    top: 40px;
+    left: 25px;
   }
 }
