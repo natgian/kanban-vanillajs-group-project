@@ -116,15 +116,17 @@
       <!-- Content -->
       <div id="templateContent"></div>
       <!-- GreetingModal -->
-        <div id="greetingModal">
-        <section class="greetingUser">
-          <span>Good ${daytime},</span>
-          <h2>User</h2>
-        </section>
-        <section class="greetingGuest">
-          <span>Good ${daytime}!</span>
-        </section>
-      </div>
+        <div id="greetingModal" onload="getDaytimeGreeting()">
+          <div class="greetingBox">
+            <section class="greetingUser">
+              <span id="salutationUser">Good <span id="dayTime">${daytime}</span>,</span>
+              <h2>${userName}</h2>
+            </section>
+            <section class="greetingGuest">
+              <span id="salutationGuest">Good <span id="dayTime">${daytime}</span>!</span>
+            </section>
+          </div>
+        </div>
       <!-- Responsive Footer Links -->
       <nav class="footer-navigation">
         <ul class="sidebar-menu">

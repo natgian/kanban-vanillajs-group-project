@@ -97,3 +97,57 @@ function getNextUpcomingDate(tasks) {
 function linkToBoard() {
   window.location.href = "../pages/board.html";
 }
+
+
+
+
+/**
+ * Returns a greeting based on the current time of day.
+ * 
+ * @returns {string} One of "morning", "afternoon", "evening", or "night"
+ */
+function getDaytimeGreeting() {
+  const currentHour = new Date().getHours();
+  let greeting;
+
+  if (currentHour >= 5 && currentHour < 12) {
+    greeting = "morning";
+  } else if (currentHour >= 12 && currentHour < 17) {
+    greeting = "afternoon";
+  } else if (currentHour >= 17 && currentHour < 22) {
+    greeting = "evening";
+  } else {
+    greeting = "night";
+  }
+
+  return greeting;
+}
+
+const daytime = getDaytimeGreeting();
+
+// Insert the greeting into the HTML for both user and guest
+document.querySelector("#salutationUser #dayTime").textContent = daytime;
+document.querySelector("#salutationGuest #dayTime").textContent = daytime;
+
+/**
+ * Retrieves the current user's name from local storage.
+ * If the user is "Guest", returns "Guest".
+ * If a real user is stored, returns the trimmed full name.
+ * 
+ * @returns {string} The username or guest label
+ */
+function getCurrentUserName() {
+  const currentUser = localStorage.getItem("currentUser");
+  if (!currentUser) return "";
+
+  if (currentUser === "Guest") {
+    return "Guest";
+  }
+
+  return currentUser.trim();
+}
+
+const userName = getCurrentUserName();
+
+// Insert the username into the greeting section
+document.querySelector(".greetingUser h2").textContent = userName;
