@@ -102,6 +102,26 @@ function linkToBoard() {
 
 
 /**
+ * Toggles visibility of user or guest greeting sections
+ * based on the current user's name stored in localStorage.
+ */
+function toggleGreetingSections() {
+  const currentUser = localStorage.getItem("currentUser");
+  const isGuest = !currentUser || currentUser === "Guest";
+
+  const userSection = document.querySelector(".greetingUser");
+  const guestSection = document.querySelector(".greetingGuest");
+
+  if (isGuest) {
+    if (userSection) userSection.style.display = "none";
+    if (guestSection) guestSection.style.display = "block";
+  } else {
+    if (userSection) userSection.style.display = "block";
+    if (guestSection) guestSection.style.display = "none";
+  }
+}
+
+/**
  * Returns a greeting based on the current time of day.
  * 
  * @returns {string} One of "morning", "afternoon", "evening", or "night"
@@ -151,3 +171,21 @@ const userName = getCurrentUserName();
 
 // Insert the username into the greeting section
 document.querySelector(".greetingUser h2").textContent = userName;
+
+toggleGreetingSections();
+
+/**
+ * Hides the greeting modal smoothly after a given delay.
+ * 
+ * @param {number} delay - Time in milliseconds before fading out the modal
+ */
+function autoCloseGreetingModal(delay = 4000) {
+  const modal = document.querySelector("#greetingModal");
+  if (!modal) return;
+
+  setTimeout(() => {
+    modal.classList.add("fade-out");
+  }, delay);
+}
+
+autoCloseGreetingModal(2000);
