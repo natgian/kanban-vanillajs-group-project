@@ -98,11 +98,6 @@ function linkToBoard() {
   window.location.href = "../pages/board.html";
 }
 
-
-
-
-
-
 /**
  * Toggles visibility of user or guest greeting sections
  * based on the current user's name stored in localStorage.
