@@ -48,7 +48,7 @@ function getCurrentUserInitials() {
  */
 function logout() {
   localStorage.removeItem("currentUser");
-  localStorage.removeItem("greetingModalShown");
+  localStorage.removeItem("hasSeenGreetingModal");
   showMessage("Logging out...", "../assets/icons/check_icon.svg", "Success");
   setTimeout(() => {
     window.location.href = "../index.html";

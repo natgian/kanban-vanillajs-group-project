@@ -177,20 +177,40 @@ document.querySelector(".greetingUser h2").textContent = userName;
 toggleGreetingSections();
 
 /**
- * Hides the greeting modal smoothly after a given delay.
- * 
- * @param {number} delay - Time in milliseconds before fading out the modal
+ * Applies the greeting modal logic on first load and delegates
+ * hiding behavior. Only acts if the modal exists.
+ *
+ * @param {number} delay - Time in ms before hiding the modal
  */
-function autoCloseGreetingModal(delay = 4000) {
+function handleGreetingModal(delay = 4000) {
   const modal = document.querySelector("#greetingModal");
   if (!modal) return;
 
-  setTimeout(() => {
-    modal.classList.add("fade-out");
-  }, delay);
+  const hasSeen = localStorage.getItem("hasSeenGreetingModal");
+  if (!hasSeen) {
+    modal.classList.remove("fade-out", "hiddenInstantly");
+    scheduleFadeOut(modal, delay);
+  } else {
+    modal.classList.add("hiddenInstantly");
+  }
 }
 
-autoCloseGreetingModal(2000);
+/**
+ * Adds fade-out effect, then hides modal and marks it as shown.
+ *
+ * @param {HTMLElement} modal - The greeting modal element
+ * @param {number} delay - Delay before hiding in milliseconds
+ */
+function scheduleFadeOut(modal, delay) {
+  setTimeout(() => {
+    modal.classList.add("fade-out");
+    setTimeout(() => {
+      modal.classList.remove("fade-out");
+      modal.classList.add("hiddenInstantly");
+      localStorage.setItem("hasSeenGreetingModal", "true");
+    }, 500);
+  }, delay);
+}
 
 /**
  * Transfers the current user's name from the greeting modal
