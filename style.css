@@ -157,14 +157,8 @@ header {
   font-weight: 700;
 }
 
-.user-profile-icon:hover,
-.user-profile-icon:active {
+.user-profile-icon:hover {
   background-color: rgb(12, 46, 98, 0.12);
-}
-
-.header-nav {
-  background-color: rgb(12, 46, 98, 0.12);
-  border-radius: 50%;
 }
 
 #header-nav-dropdown-toggle {
