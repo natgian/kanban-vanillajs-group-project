@@ -217,14 +217,8 @@
     align-items: flex-start !important;
     flex-direction: column-reverse;
   }
-<<<<<<< HEAD
   .rightSection{
     padding: 0 0 56px 0 !important;
-=======
-
-  .rightSection {
-    padding: 56px 0 0 0 !important;
->>>>>>> 2d8c82e635f1a1a2bbe1b553942d956deb4a92c1
   }
 }
 
