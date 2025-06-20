@@ -10,9 +10,10 @@
     <link rel="stylesheet" href="/assets/fonts/Inter-Italic-VariableFont_opsz,wght.ttf" />
     <link rel="stylesheet" href="/assets/fonts/Inter-VariableFont_opsz,wght.ttf" />
     <link rel="icon" href="/assets/img/join_logo_dark.svg" />
-    <script src="/scripts/contactsGlobals.js"></script>
+    <script src="/scripts/contactsGlobals.js" defer></script>
     <script src="/scripts/signup.js" defer></script>
-    <script src="/scripts/contacts.js"></script>
+    <script src="/scripts/contacts.js" defer></script>
+    <script src="/script.js"></script>
   </head>
   <body onload="init()">
     <!-- Mobile Landscape Blocker -->
@@ -23,6 +24,11 @@
         ></path>
       </svg>
       <p>Please rotate your device, this page is best viewed on portrait mode.</p>
+    </div>
+    <!-- Message Box -->
+    <div class="message-box" id="message-box">
+      <span id="message-text"></span>
+      <img id="message-icon" />
     </div>
     <div class="wrapper">
       <header>
