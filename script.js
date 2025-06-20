@@ -4,7 +4,7 @@
  * This ensures that the user has no access login protected pages (Summary, Add Task, Board, Contacts).
  *
  */
-if (!localStorage.getItem("currentUser")) {
+if (!localStorage.getItem("currentUser") && !window.location.pathname.endsWith("/pages/signUp.html")) {
   window.location.href = "../index.html";
 }
 
