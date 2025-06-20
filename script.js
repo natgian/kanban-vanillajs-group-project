@@ -1,12 +1,12 @@
 //------DIESEN CODE FREIGEBEN SOBALD WIR DURCH SIND MIT DER ENTWICKLUNG!! -----//
-// /**
-//  * Checks if user is logged in, if not, it redirects the user to the login page.
-//  * This ensures that the user has no access login protected pages (Summary, Add Task, Board, Contacts).
-//  *
-//  */
-// if (!localStorage.getItem("currentUser")) {
-//   window.location.href = "../index.html";
-// }
+/**
+ * Checks if user is logged in, if not, it redirects the user to the login page.
+ * This ensures that the user has no access login protected pages (Summary, Add Task, Board, Contacts).
+ *
+ */
+if (!localStorage.getItem("currentUser")) {
+  window.location.href = "../index.html";
+}
 
 /**
  * Renders the current user's initials into the profile UI element
