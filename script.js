@@ -1,12 +1,12 @@
 //------DIESEN CODE FREIGEBEN SOBALD WIR DURCH SIND MIT DER ENTWICKLUNG!! -----//
-// /**
-//  * Checks if user is logged in, if not, it redirects the user to the login page.
-//  * This ensures that the user has no access login protected pages (Summary, Add Task, Board, Contacts).
-//  *
-//  */
-// if (!localStorage.getItem("currentUser")) {
-//   window.location.href = "../index.html";
-// }
+/**
+ * Checks if user is logged in, if not, it redirects the user to the login page.
+ * This ensures that the user has no access login protected pages (Summary, Add Task, Board, Contacts).
+ *
+ */
+if (!localStorage.getItem("currentUser")) {
+  window.location.href = "../index.html";
+}
 
 /**
  * Renders the current user's initials into the profile UI element
@@ -126,3 +126,29 @@ function setTextAndIcon(text, iconPath, altText, messageText, messageIcon) {
 function goBack() {
   window.history.back();
 }
+
+/**
+ * Closes the header navigation dropdown if the user clicks outside of it
+ *
+ * @param {event} - The click event triggered by the user
+ */
+document.addEventListener("click", (event) => {
+  const nav = document.querySelector(".header-nav");
+  const checkbox = document.getElementById("header-nav-dropdown-toggle");
+
+  if (checkbox && !nav.contains(event.target)) {
+    checkbox.checked = false;
+  }
+});
+
+/**
+ * Makes sure the header navigation dropdown is closed when the page is (re)loaded.
+ * Using the "pageshow" event instead of "DOMContentLoaded" because it also runs when the user goes
+ * back to the page using the browser's back button. In that case, the browser may restore the
+ * previous state, including the open menu.
+ * This makes sure the menu is always closed when the page loads.
+ */
+window.addEventListener("pageshow", () => {
+  const checkbox = document.getElementById("header-nav-dropdown-toggle");
+  if (checkbox) checkbox.checked = false;
+});

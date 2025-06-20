@@ -148,7 +148,7 @@ async function deleteContact(event, id) {
       method: "DELETE",
     });
     if (res.ok) {
-      showMessage("Contact successfully deleted!", "../assets/icons/close.svg", "Error");
+      showMessage("Contact successfully deleted", "../assets/icons/check_icon.svg", "Success");
       loadContactsData();
       setTimeout(popUpClose, 2000);
     }
