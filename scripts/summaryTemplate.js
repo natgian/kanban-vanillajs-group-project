@@ -104,9 +104,14 @@ function summaryTemplate(userName = 'user1') {
           </div>
         </section>
 
-        <section class="rightSection">
-          <h2>Good morning,</h2>
-          <h3 id="userName">Lade Benutzer...</h3>
+        <section class="rightSection" onload="transferUserName()">
+          <section class="greetingUser">
+            <span id="salutationUser">Good <span id="dayTime">${daytime}</span>,</span>
+            <h2>${userName}</h2>
+          </section>
+          <section class="greetingGuest">
+            <span id="salutationGuest">Good <span id="dayTime">${daytime}</span>!</span>
+          </section>
         </section>
       </div>
     </div>`;

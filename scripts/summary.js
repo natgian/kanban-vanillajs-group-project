@@ -98,6 +98,11 @@ function linkToBoard() {
   window.location.href = "../pages/board.html";
 }
 
+
+
+
+
+
 /**
  * Toggles visibility of user or guest greeting sections
  * based on the current user's name stored in localStorage.
@@ -186,3 +191,20 @@ function autoCloseGreetingModal(delay = 4000) {
 }
 
 autoCloseGreetingModal(2000);
+
+/**
+ * Transfers the current user's name from the greeting modal
+ * to the corresponding h2 element in the right section of the template.
+ *
+ * This function looks for the username inside the '#greetingModal' element,
+ * and updates the content of the '.rightSection' accordingly, if both elements are found.
+ */
+function transferUserName() {
+  const modalUserNameElement = document.querySelector('#greetingModal .greetingUser h2');
+  const modalUserName = modalUserNameElement ? modalUserNameElement.textContent : '';
+
+  const rightSectionUserNameElement = document.querySelector('.rightSection .greetingUser h2');
+  if (rightSectionUserNameElement && modalUserName) {
+    rightSectionUserNameElement.textContent = modalUserName;
+  }
+}
