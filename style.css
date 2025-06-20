@@ -48,14 +48,12 @@ a {
 
 /* GENERAL */
 :root {
-  /* colors */
   --primary-color: #2a3647;
   --hover-color: #29abe2;
   --active-color: #091931;
   --white-color: #ffffff;
   --black-color: #000000;
   --outline-color: #d1d1d1;
-  /* transitions */
   --transition: all 175ms ease-in-out;
 }
 
@@ -162,6 +160,10 @@ header {
 .user-profile-icon:hover,
 .user-profile-icon:active {
   background-color: rgb(12, 46, 98, 0.12);
+}
+
+.header-nav {
+  background-color: rgb(12, 46, 98, 0.12);
   border-radius: 50%;
 }
 
@@ -214,7 +216,6 @@ header {
 .menu li {
   font-size: 16px;
   color: #cdcdcd;
-  /* padding: 12px 16px; */
 }
 
 .logout-btn {
