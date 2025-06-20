@@ -126,3 +126,17 @@ function setTextAndIcon(text, iconPath, altText, messageText, messageIcon) {
 function goBack() {
   window.history.back();
 }
+
+/**
+ * Closes the header navigation dropdown if the user clicks outside of it
+ *
+ * @param {event} - The click event triggered by the user
+ */
+document.addEventListener("click", (event) => {
+  const nav = document.querySelector(".header-nav");
+  const checkbox = document.getElementById("header-nav-dropdown-toggle");
+
+  if (checkbox && !nav.contains(event.target)) {
+    checkbox.checked = false;
+  }
+});
