@@ -140,3 +140,15 @@ document.addEventListener("click", (event) => {
     checkbox.checked = false;
   }
 });
+
+/**
+ * Makes sure the header navigation dropdown is closed when the page is (re)loaded.
+ * Using the "pageshow" event instead of "DOMContentLoaded" because it also runs when the user goes
+ * back to the page using the browser's back button. In that case, the browser may restore the
+ * previous state, including the open menu.
+ * This makes sure the menu is always closed when the page loads.
+ */
+window.addEventListener("pageshow", () => {
+  const checkbox = document.getElementById("header-nav-dropdown-toggle");
+  if (checkbox) checkbox.checked = false;
+});
