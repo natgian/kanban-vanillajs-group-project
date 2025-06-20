@@ -1,3 +1,23 @@
+@media (max-width: 1325px) {
+  h2 {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 1185px) {
+  .email a {
+    max-width: 185px;
+  }
+
+  .name {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 185px;
+  }
+}
+
 @media (max-width: 1080px) {
   #contact-list {
     height: calc(100vh - 160px);
@@ -114,7 +134,15 @@
   }
 }
 
-@media (max-width: 800px) {
+@media (max-width: 860px) {
+  .email a {
+    max-width: 100%;
+  }
+
+  .name {
+    max-width: 100%;
+  }
+
   #contact-list-body {
     display: block;
     padding-bottom: 24px;
@@ -122,7 +150,6 @@
 
   #contact-list {
     position: relative;
-    padding-bottom: 120px;
   }
 
   #contact-list.d_mobile_none {
@@ -289,7 +316,7 @@
   }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 420px) {
   #contact-list {
     padding-left: 16px;
     padding-right: 16px;
@@ -324,5 +351,15 @@
     width: 80px;
     height: 80px;
     transform: translate(-40px, -200px);
+  }
+}
+
+@media (max-width: 385px) {
+  .email a {
+    max-width: 185px;
+  }
+
+  .name {
+    max-width: 185px;
   }
 }
