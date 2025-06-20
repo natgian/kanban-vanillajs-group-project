@@ -4,9 +4,9 @@
  * @param {HTMLElement} element - The delete button inside the subtask item.
  */
 function deleteSubtask(element) {
-  const listItem = element.closest("li"); 
+  const listItem = element.closest("li");
   if (listItem) {
-    listItem.remove(); 
+    listItem.remove();
   }
 }
 
@@ -234,7 +234,7 @@ function getSubtasksData() {
 function emptyFeedback() {
   const subtaskInput = document.getElementById("newSubtask");
   if (!subtaskInput || subtaskInput.value.trim() === "") {
-    showMessage("Please enter a name");
+    showMessage("Please enter a name", "../assets/icons/close.svg", "error");
   }
 }
 
@@ -301,14 +301,14 @@ function initializeSubtasksButtons() {
  */
 function initializeSubtasksimulateInputClick() {
   document.addEventListener("DOMContentLoaded", function () {
-    const input = document.getElementById("newSubtask"); 
-    const addSubtask = document.getElementById("addSubtask"); 
+    const input = document.getElementById("newSubtask");
+    const addSubtask = document.getElementById("addSubtask");
 
     function simulateInputClick() {
-      input.focus(); 
-      showConfirmDelete(); 
+      input.focus();
+      showConfirmDelete();
     }
 
-    addSubtask.addEventListener("click", simulateInputClick); 
+    addSubtask.addEventListener("click", simulateInputClick);
   });
 }

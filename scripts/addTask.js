@@ -32,7 +32,7 @@ async function addTask() {
   }
 
   initReset();
-  showMessage("Task successfully created");
+  showMessage("Task successfully created", "../assets/icons/check_icon.svg", "Success");
   setTimeout(() => {
     window.location.href = "./board.html";
   }, 1000);
