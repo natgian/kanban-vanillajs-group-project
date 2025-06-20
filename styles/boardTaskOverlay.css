@@ -204,10 +204,6 @@
   height: fit-content !important;
 }
 
-#toggleButtonDropdown {
-  top: 55px !important;
-}
-
 #subtaskList {
   margin-top: 8px;
 }
@@ -314,10 +310,6 @@
   #newEditSubtask,
   #editableText {
     font-size: 14px;
-  }
-
-  #toggleButtonDropdown {
-    top: 50px !important;
   }
 
   #subtaskListElement {

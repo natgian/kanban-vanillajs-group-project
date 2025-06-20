@@ -313,7 +313,7 @@ function taskOverlayEditTaskTemplate(task, formattedDueDate, today) {
                 <label class="edit-task-label">Assigned to</label>
                 <div class="dropdown-container">
                   <input type="button" value="Select contacts to assign" class="dropdown-selected typeBars" id="contactDropdown" onclick="toggleContactDropdown(this)" />
-                  <button id="toggleButtonDropdown" onclick="toggleContactDropdown(this)">
+                  <button id="toggleButtonDropdown" onclick="toggleContactDropdown(this)" style="top:40% !important">
                     <img src="../assets/icons/arrow_drop_downaa.png" alt="down">
                   </button>
                   <div class="dropdown-options" id="contact-list"></div>
