@@ -1,7 +1,7 @@
-//------DIESEN CODE FREIGEBEN SOBALD WIR DURCH SIND MIT DER ENTWICKLUNG!! -----//
 /**
  * Checks if user is logged in, if not, it redirects the user to the login page.
- * This ensures that the user has no access login protected pages (Summary, Add Task, Board, Contacts).
+ * This ensures that the user has no access to login protected pages (Summary, Add Task, Board,
+ * Contacts).
  *
  */
 if (!localStorage.getItem("currentUser") && !window.location.pathname.endsWith("/pages/signUp.html")) {
