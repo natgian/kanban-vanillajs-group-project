@@ -16,7 +16,7 @@ function summaryTemplate(userName = 'user1') {
             <button onclick="linkToBoard()">
               <div class="summaryFieldsTop">
                 <div class="bgCirclesGrey">
-                  <svg class="fieldImgs" xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
+                  <svg class="fieldImgsGreyLeft" xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
                     <path
                       d="M3.16667 22.3332H5.03333L16.5333 10.8332L14.6667 8.9665L3.16667 20.4665V22.3332ZM22.2333 8.89984L16.5667 3.29984L18.4333 1.43317C18.9444 0.922059 19.5722 0.666504 20.3167 0.666504C21.0611 0.666504 21.6889 0.922059 22.2 1.43317L24.0667 3.29984C24.5778 3.81095 24.8444 4.42761 24.8667 5.14984C24.8889 5.87206 24.6444 6.48873 24.1333 6.99984L22.2333 8.89984ZM20.3 10.8665L6.16667 24.9998H0.5V19.3332L14.6333 5.19984L20.3 10.8665Z" />
                   </svg>
@@ -30,7 +30,7 @@ function summaryTemplate(userName = 'user1') {
             <button onclick="linkToBoard()">
               <div class="summaryFieldsTop">
                 <div class="bgCirclesGrey">
-                  <svg class="fieldImgs" xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25"
+                  <svg class="fieldImgsGreyRight" xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25"
                     fill="none">
                     <mask id="mask0_314602_5159" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0"
                       width="24" height="25">
@@ -57,7 +57,7 @@ function summaryTemplate(userName = 'user1') {
                 <div class="middleFieldWrapper">
                   <div class="middleFieldContent">
                   <div class="bgCirclesRed">
-                    <img class="fieldImgs" src="../assets/icons/Capa 2.svg" alt="Prio alta">
+                    <img class="fieldImgsRed" src="../assets/icons/Capa 2.svg" alt="Prio alta">
                   </div>
                   <div class="middleFieldLeft">
                     <h1 id="urgentNumber">1</h1>

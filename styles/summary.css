@@ -1,4 +1,3 @@
-
 #templateContent {
   max-width: 1920px;
   position: relative;
@@ -26,7 +25,7 @@
     background-color: var(--outline-color);
   }
 
-  .switchPlaceBox{
+  .switchPlaceBox {
     display: flex;
     align-items: center;
   }
@@ -46,12 +45,7 @@
     display: flex;
     align-items: center;
     padding: 10px;
-    /* padding: 24px 56px; */
   }
-
-  /* .summaryFieldsTop {
-    padding: 24px 120px;
-  } */
 
   button {
     border-radius: 24px;
@@ -74,19 +68,40 @@
         background-color: var(--white-color);
       }
 
-      .fieldImgs path {
+      .fieldImgsGreyLeft path,
+      .fieldImgsGreyRight path {
         fill: var(--primary-color);
+        stroke: var(--primary-color);
       }
     }
   }
 
-  .bottumButtonWrapper{
+  .bottumButtonWrapper {
     max-width: 93px;
   }
 
-  .fieldImgs {
+  .fieldImgsGreyLeft {
     width: 25px;
     height: 25px;
+
+    path {
+      fill: var(--white-color);
+    }
+  }
+
+  .fieldImgsGreyRight {
+    width: 60px;
+    height: 60px;
+    stroke: white;
+
+    path {
+      fill: var(--white-color);
+    }
+  }
+
+  .fieldImgsRed {
+    width: 42px;
+    height: 42px;
 
     path {
       fill: var(--white-color);
@@ -149,6 +164,7 @@
     align-items: center;
     gap: 28px;
   }
+
   .bottomFields button {
     display: grid;
     place-items: center;
@@ -173,7 +189,8 @@
       justify-content: space-between;
       gap: 32px;
     }
-    .topRowDFlex button{
+
+    .topRowDFlex button {
       width: 100%;
       display: flex;
       justify-content: center;
@@ -194,124 +211,171 @@
   }
 }
 
-@media (max-width: 1316px){
-  .splitSections{
+@media (max-width: 1316px) {
+  .splitSections {
     display: flex;
     align-items: flex-start !important;
     flex-direction: column-reverse;
   }
+<<<<<<< HEAD
   .rightSection{
     padding: 0 0 56px 0 !important;
+=======
+
+  .rightSection {
+    padding: 56px 0 0 0 !important;
+>>>>>>> 2d8c82e635f1a1a2bbe1b553942d956deb4a92c1
   }
 }
 
 @media (max-width: 1080px) {
-  .templateContent{
+  .templateContent {
     display: grid;
     place-items: center;
   }
-  #greetingModal{
+
+  #greetingModal {
     display: flex !important;
   }
-  .rightSection{
+
+  .rightSection {
     display: none;
   }
 }
 
-@media (max-width: 750px){
-  .summaryContent{
+@media (max-width: 750px) {
+  .summaryContent {
     padding: 110px 30px;
   }
-  .splitSections{
+
+  .splitSections {
     width: 100%;
   }
-  .leftSection{
+
+  .leftSection {
     max-width: 100% !important;
   }
 }
 
 @media (max-width: 630px) {
-  .summaryContent{
+  .summaryContent {
     padding-top: 60px;
   }
+
   .summaryContent p,
   .summaryContent span {
     font-size: 22px;
   }
-  .summaryHeader{
+
+  .summaryHeader {
     flex-direction: column;
     align-items: flex-start !important;
   }
+
   .verticalLineBlue {
     width: 90px !important;
     height: 2px !important;
     margin: 15px 0 0 0 !important;
   }
-  .switchPlaceBox{
+
+  .switchPlaceBox {
     flex-direction: column-reverse;
     align-items: flex-start !important;
   }
-  .leftSection{
+
+  .leftSection {
     gap: 20px !important;
   }
-  .leftSection button{
+
+  .leftSection button {
     min-width: 116px;
     max-height: 116px;
   }
-  .topRowDFlex{
+
+  .topRowDFlex {
     gap: 20px !important;
   }
-  .middleField{
+
+  .middleField {
     height: 110px;
   }
-  .summaryFields{
+
+  .summaryFields {
     height: 110px;
   }
-  .bottomFields{
+
+  .bottomFields {
     flex-wrap: wrap;
     gap: 20px !important;
   }
-  .bottomFields button{
+
+  .bottomFields button {
     flex: 1 1 116px;
     min-width: 116px;
     height: 116px;
   }
-  .dateSection p{
+
+  .dateSection p {
     font-size: 16px;
   }
-  .dateSection span{
+
+  .dateSection span {
     font-size: 14px;
   }
-  .leftSection p{
+
+  .leftSection p {
     font-size: 14px
   }
-  .leftSection h1{
+
+  .leftSection h1 {
     font-size: 47px;
   }
-  .middleFieldLeft span{
+
+  .middleFieldLeft span {
     font-size: 14px;
   }
-  .bgCirclesGrey, 
-  .bgCirclesRed{
-    width: 40px !important;
-    height: 40px !important;
+
+  .bgCirclesGrey,
+  .bgCirclesRed {
+    width: 45px !important;
+    height: 45px !important;
   }
-  .bgCirclesGrey img{
+
+  .bgCirclesGrey img {
     width: 17.36px !important;
     height: 12.83px !important;
   }
+
+  .summaryContent {
+    .fieldImgsGreyRight {
+      width: 35px;
+      height: 35px;
+      stroke: none;
+    }
+
+    .fieldImgsGreyLeft {
+      width: 20px;
+      height: 20px;
+    }
+
+    .fieldImgsRed {
+      width: 26px;
+      height: 26px;
+    }
+  }
 }
 
-@media (max-width: 520px){
+@media (max-width: 520px) {
+
   .dateSection p,
-  .dateSection span{
+  .dateSection span {
     text-align: left;
   }
 }
 
 @media (max-width: 450px) {
-  
-  .summaryContent{
+
+  .summaryContent {
     padding: 60px 20px;
   }
 }
