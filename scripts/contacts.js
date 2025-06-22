@@ -3,16 +3,17 @@
  * Deletes entries that are null or undefined.
  */
 async function cleanNullContacts() {
-  const response = await fetch(databaseURL + '.json');
+  const response = await fetch(databaseURL + ".json");
   let data = await response.json();
 
-  if(Array.isArray(data)){
-    data = data.filter(item => item !== null);
-  }else{
+  if (Array.isArray(data)) {
+    data = data.filter((item) => item !== null);
+  } else {
     for (const key in data) {
-    if (!data[key]) {
-      await fetch(`${databaseURL}/${key}.json`, { 
-        method: 'DELETE' });
+      if (!data[key]) {
+        await fetch(`${databaseURL}/${key}.json`, {
+          method: "DELETE",
+        });
       }
     }
   }
@@ -24,7 +25,7 @@ async function cleanNullContacts() {
  */
 async function loadContactsData() {
   try {
-    let contactsResponse = await fetch(databaseURL + '.json');
+    let contactsResponse = await fetch(databaseURL + ".json");
     let contactsData = await contactsResponse.json();
 
     contactStore = contactsData;
@@ -32,10 +33,9 @@ async function loadContactsData() {
 
     let abilityContacts = generateGroupContactsHTML(groupContacts);
 
-    document.getElementById('contact-list-body').innerHTML = abilityContacts;
-
+    document.getElementById("contact-list-body").innerHTML = abilityContacts;
   } catch (error) {
-    console.error('Problem checking the database:', error);
+    console.error("Problem checking the database:", error);
     alert("There was a problem with the registration. Please try again later.");
   }
 }
@@ -43,16 +43,16 @@ async function loadContactsData() {
 /**
  * Groups contacts by the first letter of their name.
  * Also ensures each contact has a monogram color.
- * 
+ *
  * @param {Object} contactsData - Key-value contact object from the database.
  * @returns {Promise<Object>} Grouped contacts by letter.
  */
 async function groupContactsByLetter(contactsData) {
   let groupContacts = {};
-  let updatePromise= [];
+  let updatePromise = [];
 
   await groupContactsByLetterIfElse(contactsData, groupContacts, updatePromise);
-  
+
   await Promise.all(updatePromise);
 
   return groupContacts;
@@ -61,7 +61,7 @@ async function groupContactsByLetter(contactsData) {
 /**
  * Helper function that loops through contacts to group them
  * and assigns monogram colors where needed.
- * 
+ *
  * @param {Object} contactsData - Contacts from the database.
  * @param {Object} groupContacts - Object to collect grouped contacts.
  * @param {Promise[]} updatePromise - Promises for updating contact colors.
@@ -85,53 +85,52 @@ async function groupContactsByLetterIfElse(contactsData, groupContacts, updatePr
 
 /**
  * Ensures a contact has a monogram color and pushes update promise if not.
- * 
+ *
  * @param {Object} contact - The contact object.
  * @param {string} key - Contact's database key.
  * @param {Promise[]} updatePromise - Array of promises for saving color.
  */
-function ensureMonogramColor(contact, key, updatePromise){
+function ensureMonogramColor(contact, key, updatePromise) {
   if (!contact.monogramColor) {
-        contact.monogramColor = getRandomColor();
-        updatePromise.push(saveContactColor(key, contact.monogramColor));
-      }
+    contact.monogramColor = getRandomColor();
+    updatePromise.push(saveContactColor(key, contact.monogramColor));
+  }
 }
 
 /**
  * Groups a contact into an object by the first letter of their name.
- * 
+ *
  * @param {Object} contact - Contact to be grouped.
  * @param {Object} groupContacts - Accumulator object for grouped contacts.
  */
-function contactsFilterFirstLetter(contact, groupContacts){
+function contactsFilterFirstLetter(contact, groupContacts) {
   let firstLetter = contact.name.charAt(0).toUpperCase();
-      if (!groupContacts[firstLetter]) {
-        groupContacts[firstLetter] = [];
-      }
-      groupContacts[firstLetter].push(contact);
+  if (!groupContacts[firstLetter]) {
+    groupContacts[firstLetter] = [];
+  }
+  groupContacts[firstLetter].push(contact);
 }
 
 /**
  * Generates HTML for displaying grouped contacts by letter.
- * 
+ *
  * @param {Object} groupContacts - Object with letters as keys and contact arrays as values.
  * @returns {string} HTML string of all contacts grouped by letter.
  */
-function generateGroupContactsHTML(groupContacts){
-
+function generateGroupContactsHTML(groupContacts) {
   const letters = Object.keys(groupContacts).sort();
 
-  let abilityContacts = '';
+  let abilityContacts = "";
 
-    for (const letter of letters) {
-      abilityContacts += `
+  for (const letter of letters) {
+    abilityContacts += `
         <div class="letter-section">
           <div class="letter">${letter}</div>
-          ${groupContacts[letter].map(contact => templateContacts(contact)).join('')}
+          ${groupContacts[letter].map((contact) => templateContacts(contact)).join("")}
         </div>
       `;
-    }
-    return abilityContacts;   
+  }
+  return abilityContacts;
 }
 
 /**
@@ -144,12 +143,12 @@ function openNewContact() {
 
   clearActiveContacts();
 
-  document.getElementById('contact-details').innerHTML = '';
+  document.getElementById("contact-details").innerHTML = "";
 
-  const refOverlay = document.getElementById('layout');
+  const refOverlay = document.getElementById("layout");
   refOverlay.innerHTML = templateNewContact();
-  refOverlay.classList.remove('d_none');
-  const popup = document.getElementById('popup');
+  refOverlay.classList.remove("d_none");
+  const popup = document.getElementById("popup");
 
   showPopup(refOverlay, popup);
 }
@@ -165,15 +164,13 @@ function openNewContact() {
  *   - monogramColor {string} A randomly generated color string
  */
 function buildContactData() {
-  const fullName = document.getElementById('name')?.value.trim() || '';
-  const email    = document.getElementById('email')?.value.trim() || '';
-  const phoneEl  = document.getElementById('phone');
-  const phone    = phoneEl ? phoneEl.value.trim() : '';
+  const fullName = document.getElementById("name")?.value.trim() || "";
+  const email = document.getElementById("email")?.value.trim() || "";
+  const phoneEl = document.getElementById("phone");
+  const phone = phoneEl ? phoneEl.value.trim() : "";
 
-  const parts = fullName.split(' ').filter(Boolean);
-  const monogram = parts.length >= 2
-    ? parts[0].charAt(0).toUpperCase() + parts[1].charAt(0).toUpperCase()
-    : fullName.charAt(0).toUpperCase();
+  const parts = fullName.split(" ").filter(Boolean);
+  const monogram = parts.length >= 2 ? parts[0].charAt(0).toUpperCase() + parts[1].charAt(0).toUpperCase() : fullName.charAt(0).toUpperCase();
 
   const monogramColor = getRandomColor();
 
@@ -199,7 +196,7 @@ async function saveContact(contact) {
   });
 
   if (!response.ok) {
-    throw new Error('Server response not ok');
+    throw new Error("Server response not ok");
   }
 
   return await response.json();
@@ -215,9 +212,9 @@ async function saveContact(contact) {
 async function createNewContact(event) {
   event.preventDefault();
 
-  const fullName = document.getElementById('name')?.value.trim() || '';
-  const email    = document.getElementById('email')?.value.trim() || '';
-  const phone    = document.getElementById('phone')?.value.trim() || '';
+  const fullName = document.getElementById("name")?.value.trim() || "";
+  const email = document.getElementById("email")?.value.trim() || "";
+  const phone = document.getElementById("phone")?.value.trim() || "";
 
   const errors = validateContact(email, phone);
 
@@ -228,7 +225,7 @@ async function createNewContact(event) {
   const newContact = buildContactData();
 
   if (isDuplicate(newContact)) {
-    return showMessage('Contact already exists!', '../assets/icons/close.svg', 'Error');
+    return showMessage("Contact already exists!", "../assets/icons/close.svg", "Error");
   }
 
   try {
@@ -251,14 +248,14 @@ async function createNewContact(event) {
  */
 function validateContact(email, phone) {
   const errors = [];
-  const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|de|at|org|net)$/;
-  const phonePattern = /^\+(49|43)[0-9]{7,}$/;
+  const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  const phonePattern = /^\+\d{6,15}$/;
 
   if (!emailPattern.test(email)) {
-    errors.push("Please enter a valid email ending with .com, .de, .at, .org or .net");
+    errors.push("Please enter a valid email address.");
   }
   if (!phonePattern.test(phone)) {
-    errors.push("Please enter a valid phone number starting with +49 or +43 and at least 7 digits after");
+    errors.push("Please enter a valid phone number in international format (e.g. +491701234567).");
   }
 
   return errors;
@@ -271,37 +268,36 @@ function validateContact(email, phone) {
  * @returns {void}
  */
 function displayErrors(errors) {
-  const errorText = errors.join('\n');
-  return showMessage(errorText, '../assets/icons/close.svg', 'Error');
+  const errorText = errors.join("\n");
+  return showMessage(errorText, "../assets/icons/close.svg", "Error");
 }
-
 
 /**
  * Sends a POST request to add a new contact to the database.
- * 
+ *
  * @param {Object} data - The new contact data.
  * @returns {Promise<Response>} Fetch response object.
  */
 async function postContact(data) {
-  return fetch(databaseURL + '.json', {
-    method: 'POST',
-    body: JSON.stringify(data)
+  return fetch(databaseURL + ".json", {
+    method: "POST",
+    body: JSON.stringify(data),
   });
 }
 
 /**
  * Shows success message and renders the new contact details.
- * 
+ *
  * @param {Object} data - Response data from the server.
  * @param {Object} newContact - Original contact data submitted.
  */
 async function newContactDetails(data, newContact) {
-  showMessage('Contact successfully added!', '../assets/icons/check_icon.svg', 'Success');
+  showMessage("Contact successfully added!", "../assets/icons/check_icon.svg", "Success");
   loadContactsData();
 
   const newId = data.name;
 
-  renderContactDetails('contact-details', {
+  renderContactDetails("contact-details", {
     id: newId,
     name: newContact.name,
     email: newContact.email,
@@ -315,7 +311,7 @@ async function newContactDetails(data, newContact) {
 
 /**
  * Renders the contact details view into a specific container.
- * 
+ *
  * @param {string} containerId - HTML ID of the target container.
  * @param {Object} contact - The contact data to render.
  */
@@ -329,7 +325,7 @@ function renderContactDetails(containerId, contact) {
 
 /**
  * Closes the popup after a delay.
- * 
+ *
  * @param {number} [delay=2000] - Optional delay in milliseconds.
  */
 function closePopupAfterDelay(delay = 2000) {
@@ -338,7 +334,7 @@ function closePopupAfterDelay(delay = 2000) {
 
 /**
  * Handles successful contact creation logic.
- * 
+ *
  * @param {Object} data - Server response with contact ID.
  * @param {Object} newContact - Original contact object.
  */
@@ -348,75 +344,71 @@ function handleSuccessfulContactCreation(data, newContact) {
 
 /**
  * Handles any error during contact creation.
- * 
+ *
  * @param {Error} error - Error thrown during operation.
  */
 function handleContactCreationError(error) {
-  console.error('There was a problem adding the contact:', error);
+  console.error("There was a problem adding the contact:", error);
   showMessage("There was a problem saving the contact!");
 }
 
 /**
  * Checks if a contact with the same email or name already exists.
- * 
+ *
  * @param {Object} contact - Contact object with name and email.
  * @returns {boolean} True if duplicate found, false otherwise.
  */
 function isDuplicate({ email, name }) {
-  return !!Object.values(contactStore).find(contact =>
-    contact && (contact.email === email || contact.name === name)
-  );
+  return !!Object.values(contactStore).find((contact) => contact && (contact.email === email || contact.name === name));
 }
-
 
 /**
  * Displays the detailed view of a selected contact.
- * 
+ *
  * @param {string} id - Contact's database key.
  */
 function showContactDetails(id) {
   const contact = contactStore[id];
   if (!contact) {
-    return console.error('Contact not found:', id);
+    return console.error("Contact not found:", id);
   }
 
   setActiveContact(id);
 
-  document.getElementById('contact-list').classList.add('d_mobile_none');
-  document.getElementById('contact-details').classList.add('d_block');
+  document.getElementById("contact-list").classList.add("d_mobile_none");
+  document.getElementById("contact-details").classList.add("d_block");
   if (window.innerWidth <= 1000) {
-  document.getElementById('contenttop').classList.add('d_block');
-}
-  document.getElementById('contact-details').innerHTML = templateContactsDetails(contact);
+    document.getElementById("contenttop").classList.add("d_block");
+  }
+  document.getElementById("contact-details").innerHTML = templateContactsDetails(contact);
 }
 
 /**
  * Highlights the selected contact in the contact list.
- * 
+ *
  * @param {string} id - ID of the contact to highlight.
  */
 function setActiveContact(id) {
-  const allContacts = document.querySelectorAll('.contact');
-  allContacts.forEach(c => c.classList.remove('active-contact'));
+  const allContacts = document.querySelectorAll(".contact");
+  allContacts.forEach((c) => c.classList.remove("active-contact"));
 
   const clickedContact = document.querySelector(`.contact[data-id="${id}"]`);
   if (clickedContact) {
-    clickedContact.classList.add('active-contact');
+    clickedContact.classList.add("active-contact");
   }
 }
-
 
 /**
  * Removes the 'active' class from all contacts in the list.
  */
 function clearActiveContacts() {
-  const allContacts = document.querySelectorAll('.contact');
-  allContacts.forEach(c => c.classList.remove('active-contact'));
+  const allContacts = document.querySelectorAll(".contact");
+  allContacts.forEach((c) => c.classList.remove("active-contact"));
 }
 
 /**
  * Opens the contact edit overlay for the selected contact.
- * 
+ *
  * @param {string} id - Contact ID to edit.
  * @param {Event} event - Click event to prevent bubbling.
  */
@@ -432,18 +424,18 @@ async function editContact(id, event) {
 
 /**
  * Displays the edit overlay with the contact's current info.
- * 
+ *
  * @param {Object} contact - Contact to be edited.
  * @param {string} id - Contact ID.
  */
 function showEditContactOverlay(contact, id) {
-  const refOverlay = document.getElementById('layout');
+  const refOverlay = document.getElementById("layout");
   refOverlay.innerHTML = templateEditContact(contact, id);
-  refOverlay.classList.remove('d_none', 'flex-display');
+  refOverlay.classList.remove("d_none", "flex-display");
 
-  const popup = document.getElementById('popup');
+  const popup = document.getElementById("popup");
   requestAnimationFrame(() => {
-    if (popup) popup.classList.add('show');
-    refOverlay.classList.add('active');
+    if (popup) popup.classList.add("show");
+    refOverlay.classList.add("active");
   });
 }
