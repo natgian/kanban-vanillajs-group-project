@@ -39,7 +39,34 @@ function getRequiredEditInputs() {
  * @returns - "True" if all required inputs are valid, otherwise "false"
  */
 function areEditInputsValid() {
-  return requiredEditInputs.every((input) => input.checkValidity());
+  const dateInput = document.getElementById("date-input");
+  const selectedDate = getLocalDate(dateInput.value);
+  const today = new Date(new Date().setHours(0, 0, 0, 0));
+
+  const isDateValid = selectedDate >= today;
+
+  if (!isDateValid) {
+    dateInput.setCustomValidity("The due date must not be in the past.");
+    dateInput.reportValidity();
+  } else {
+    dateInput.setCustomValidity("");
+  }
+
+  const isEveryInputValid = requiredEditInputs.every((input) => input.checkValidity());
+
+  return isEveryInputValid && isDateValid;
+}
+
+/**
+ * Creates a date string in "YYYY-MM-DD" format and returns a Date object representing the date
+ * in the local timezone, with time set to 00:00:00
+ *
+ * @param {string} date - The date string in "YYYY-MM-DD" format
+ * @returns - A Date object for the given date at local midnight time
+ */
+function getLocalDate(date) {
+  const [year, month, day] = date.split("-").map(Number);
+  return new Date(year, month - 1, day);
 }
 
 /**
