@@ -13,7 +13,7 @@ function cardTemplate(task, subtasksTotal, subtasksDone, progressPercent, assign
           <div class="task-card" id="card${task.taskId}" onclick="openTaskOverlay('${task.taskId}')" draggable="true" ondragstart="startDragging('${task.taskId}')" ondragend="endDragging()">
             <div class="category-icon-container">
               <span class="task-category ${task.category === "Technical Task" ? "technical" : "userstory"}-category">${task.category}</span>
-              <button class="icon-btn" onclick="openMoveToMenu(event, '${task.taskId}', '${task.status}')">
+              <button class="icon-btn card-menu-btn" onclick="openMoveToMenu(event, '${task.taskId}', '${task.status}')">
                 <svg width="24" height="26" viewBox="0 0 24 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <rect x="0.75" y="25.25" width="24.5" height="22.5" rx="5.25" transform="rotate(-90 0.75 25.25)" stroke="#2A3647" stroke-width="1.5" />
                 <mask id="mask0_294678_9869" style="mask-type: alpha" maskUnits="userSpaceOnUse" x="2" y="3" width="20" height="20">

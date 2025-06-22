@@ -122,8 +122,11 @@
   display: none;
 }
 
-.icon-btn {
+.card-menu-btn {
   display: none;
+}
+
+.icon-btn {
   align-items: center;
   justify-content: center;
   width: 24px;
@@ -224,17 +227,11 @@
 }
 
 /* MEDIA QUERIES */
-@media (max-width: 1472px) {
-  .icon-btn {
+@media (max-width: 1435px) {
+  .card-menu-btn {
     display: flex;
   }
 }
-
-/* @media (min-width: 956px) {
-  .board-columns {
-    justify-content: space-between;
-  }
-} */
 
 @media (max-width: 864px) {
   #add-btn-mobile {
