@@ -172,17 +172,54 @@ document.querySelector(".greetingUser h2").textContent = userName;
 toggleGreetingSections();
 
 /**
- * Hides the greeting modal smoothly after a given delay.
- * 
- * @param {number} delay - Time in milliseconds before fading out the modal
+ * Applies the greeting modal logic on first load and delegates
+ * hiding behavior. Only acts if the modal exists.
+ *
+ * @param {number} delay - Time in ms before hiding the modal
  */
-function autoCloseGreetingModal(delay = 4000) {
+function handleGreetingModal(delay = 4000) {
   const modal = document.querySelector("#greetingModal");
   if (!modal) return;
 
+  const hasSeen = localStorage.getItem("hasSeenGreetingModal");
+  if (!hasSeen) {
+    modal.classList.remove("fade-out", "hiddenInstantly");
+    scheduleFadeOut(modal, delay);
+  } else {
+    modal.classList.add("hiddenInstantly");
+  }
+}
+
+/**
+ * Adds fade-out effect, then hides modal and marks it as shown.
+ *
+ * @param {HTMLElement} modal - The greeting modal element
+ * @param {number} delay - Delay before hiding in milliseconds
+ */
+function scheduleFadeOut(modal, delay) {
   setTimeout(() => {
     modal.classList.add("fade-out");
+    setTimeout(() => {
+      modal.classList.remove("fade-out");
+      modal.classList.add("hiddenInstantly");
+      localStorage.setItem("hasSeenGreetingModal", "true");
+    }, 500);
   }, delay);
 }
 
-autoCloseGreetingModal(2000);
+/**
+ * Transfers the current user's name from the greeting modal
+ * to the corresponding h2 element in the right section of the template.
+ *
+ * This function looks for the username inside the '#greetingModal' element,
+ * and updates the content of the '.rightSection' accordingly, if both elements are found.
+ */
+function transferUserName() {
+  const modalUserNameElement = document.querySelector('#greetingModal .greetingUser h2');
+  const modalUserName = modalUserNameElement ? modalUserNameElement.textContent : '';
+
+  const rightSectionUserNameElement = document.querySelector('.rightSection .greetingUser h2');
+  if (rightSectionUserNameElement && modalUserName) {
+    rightSectionUserNameElement.textContent = modalUserName;
+  }
+}

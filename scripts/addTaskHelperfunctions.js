@@ -246,3 +246,8 @@ function areAllFieldsFilled(fields) {
     return field.value.trim() !== "";
   });
 }
+
+function noBehindDate(){
+  const heute = new Date().toISOString().split("T")[0];
+  document.getElementById("date-input").setAttribute("min", heute);
+}

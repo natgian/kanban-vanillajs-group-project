@@ -7,11 +7,6 @@ main {
   display: block;
 }
 
-.layout-container {
-  overflow: hidden;
-  max-width: calc(1920px - 232px);
-}
-
 .contacts-section {
   display: flex;
 }

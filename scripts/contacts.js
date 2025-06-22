@@ -183,14 +183,14 @@ function buildContactData() {
 /**
  * Sends a request to save a contact to the backend.
  *
- * @param {Object} contact - The contact data to save.
+ * @param {Object} contact - The contact data to be saved.
  * @param {string} contact.name - Full name of the contact.
  * @param {string} contact.email - Email address of the contact.
  * @param {string} contact.phone - Phone number of the contact.
- * @param {string} contact.monogram - Initials of the contact.
+ * @param {string} contact.monogram - Initials (monogram) of the contact.
  * @param {string} contact.monogramColor - Color associated with the contact's monogram.
- * @returns {Promise<Object>} The JSON response data from the server if successful.
- * @throws Will throw an error if the server response is not ok.
+ * @returns {Promise<Object>} The parsed JSON response from the server if successful.
+ * @throws {Error} If the server response is not ok.
  */
 async function saveContact(contact) {
   const response = await postContact({
@@ -206,18 +206,29 @@ async function saveContact(contact) {
 }
 
 /**
- * Handles the form submission to create a new contact.
- * Checks for duplicates, saves contact, updates UI and shows details.
+ * Handles the form submission event to create a new contact.
+ * Validates input, checks for duplicates, saves the contact, updates UI, and shows contact details.
  *
  * @param {Event} event - The form submit event.
  * @returns {Promise<void>}
  */
 async function createNewContact(event) {
   event.preventDefault();
+
+  const fullName = document.getElementById('name')?.value.trim() || '';
+  const email    = document.getElementById('email')?.value.trim() || '';
+  const phone    = document.getElementById('phone')?.value.trim() || '';
+
+  const errors = validateContact(email, phone);
+
+  if (errors.length > 0) {
+    return displayErrors(errors);
+  }
+
   const newContact = buildContactData();
 
   if (isDuplicate(newContact)) {
-    return showMessage(`Contact already exists!`);
+    return showMessage('Contact already exists!', '../assets/icons/close.svg', 'Error');
   }
 
   try {
@@ -229,6 +240,39 @@ async function createNewContact(event) {
   } catch (error) {
     handleContactCreationError(error);
   }
+}
+
+/**
+ * Validates email and phone input values.
+ *
+ * @param {string} email - The email address to validate.
+ * @param {string} phone - The phone number to validate.
+ * @returns {string[]} An array of error messages (empty if all inputs are valid).
+ */
+function validateContact(email, phone) {
+  const errors = [];
+  const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|de|at|org|net)$/;
+  const phonePattern = /^\+(49|43)[0-9]{7,}$/;
+
+  if (!emailPattern.test(email)) {
+    errors.push("Please enter a valid email ending with .com, .de, .at, .org or .net");
+  }
+  if (!phonePattern.test(phone)) {
+    errors.push("Please enter a valid phone number starting with +49 or +43 and at least 7 digits after");
+  }
+
+  return errors;
+}
+
+/**
+ * Displays one or more validation errors using the showMessage function.
+ *
+ * @param {string[]} errors - An array of error messages to be displayed.
+ * @returns {void}
+ */
+function displayErrors(errors) {
+  const errorText = errors.join('\n');
+  return showMessage(errorText, '../assets/icons/close.svg', 'Error');
 }
 
 
