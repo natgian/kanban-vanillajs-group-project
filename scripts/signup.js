@@ -15,7 +15,6 @@ const accountError = document.getElementById("accountError");
 /** @type {HTMLFormElement} */
 const form = document.querySelector("form");
 
-
 /**
  * Initializes the signup form state.
  */
@@ -32,13 +31,13 @@ function updateSignupState() {
 
 /**
  * Validates form fields and checks if the password matches the confirmation.
- * 
+ *
  * @param {string} password - The password entered by the user.
  * @param {string} confirmpassword - The confirmed password entered by the user.
  * @returns {boolean} - True if the form is valid and passwords match; otherwise false.
  */
 function formAndPasswordIf(password, confirmpassword) {
-  const confirmInput = document.getElementById('confirmpassword');
+  const confirmInput = document.getElementById("confirmpassword");
 
   if (!form.checkValidity()) {
     form.reportValidity();
@@ -47,11 +46,11 @@ function formAndPasswordIf(password, confirmpassword) {
 
   if (password !== confirmpassword) {
     passwordError.classList.remove("d-none");
-    confirmInput.classList.add('red-border');
+    confirmInput.classList.add("red-border");
 
     setTimeout(() => {
-      passwordError.classList.add('d-none');
-      confirmInput.classList.remove('red-border');
+      passwordError.classList.add("d-none");
+      confirmInput.classList.remove("red-border");
     }, 3000);
     return false;
   } else {
@@ -63,7 +62,7 @@ function formAndPasswordIf(password, confirmpassword) {
 
 /**
  * Checks if the email address already exists in the database.
- * 
+ *
  * @param {string} email - The email to check.
  * @returns {Promise<string|null>} - The user ID if the email exists, or null otherwise.
  */
@@ -75,7 +74,6 @@ async function loadTasksFromFirebase() {
     for (let id in responseJSON) {
       const user = responseJSON[id];
       if (user.email === email) {
-
         return id;
       }
     }
@@ -88,7 +86,7 @@ async function loadTasksFromFirebase() {
 
 /**
  * Saves a new user's data to the Firebase Realtime Database.
- * 
+ *
  * @param {{name: string, email: string, password: string, acceptedPolicy: boolean}} data - The user data to store.
  * @returns {Promise<void>}
  */
@@ -115,7 +113,7 @@ function getFormValues() {
     name: document.getElementById("name").value.trim(),
     email: document.getElementById("email").value.trim(),
     password: document.getElementById("password").value,
-    confirmpassword: document.getElementById("confirmpassword").value
+    confirmpassword: document.getElementById("confirmpassword").value,
   };
 }
 
@@ -173,19 +171,19 @@ function finishSignUp(name) {
  * based on the current user's name stored in localStorage.
  */
 function showEmailError() {
-  const confirmEmailInput = document.getElementById('email');
+  const confirmEmailInput = document.getElementById("email");
   accountError.classList.remove("d-none");
-  confirmEmailInput.classList.add('red-border');
+  confirmEmailInput.classList.add("red-border");
 
   setTimeout(() => {
-    confirmEmailInput.classList.remove('red-border');
+    confirmEmailInput.classList.remove("red-border");
     accountError.classList.add("d-none");
   }, 3000);
 }
 
 /**
  * Checks if the email already exists in the database and shows an error if it does.
- * 
+ *
  * @param {string} email - The email address to check.
  * @returns {Promise<boolean>} - Returns true if the email exists, otherwise false.
  */
@@ -201,7 +199,7 @@ async function validateEmailUniqueness(email) {
 /**
  * Collects form input, validates password and confirmation, checks for duplicate emails,
  * saves the new user, and completes the signup process.
- * 
+ *
  * @returns {Promise<void>} - Resolves when the signup process is complete.
  */
 async function postData() {
@@ -209,19 +207,14 @@ async function postData() {
 
   if (!formAndPasswordIf(password, confirmpassword)) return;
 
-  if (currentUser === "Guest") {
-    return "Guest";
-  }
-
-  await saveUser({ name, email, password });
+  await saveUserData({ name, email, password });
   await maybeSaveContact({ name, email });
   finishSignUp(name);
 }
 
-
 /**
  * Hides the greeting modal smoothly after a given delay.
- * 
+ *
  * @param {number} delay - Time in milliseconds before fading out the modal
  */
 function backToLogin() {
