@@ -14,6 +14,9 @@ const checkbox = document.getElementById("checkbox");
 const passwordError = document.getElementById("passwordError");
 
 /** @type {HTMLElement} */
+const emailError = document.getElementById("emailError");
+
+/** @type {HTMLElement} */
 const accountError = document.getElementById("accountError");
 
 /** @type {HTMLFormElement} */
@@ -59,6 +62,34 @@ function formAndPasswordIf(password, confirmpassword) {
     return false;
   } else {
     passwordError.classList.add("d-none");
+  }
+
+  return true;
+}
+
+/**
+ * Validates the format of an email address during signup.
+ * If the email is invalid, it displays an error message.
+ * The message is hidden after 3 seconds.
+ *
+ * @param {string} email - The email address to validate
+ * @returns - "True" if the email is valid, otherwise "false"
+ */
+function validateSignupEmail(email) {
+  const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  const emailInput = document.getElementById("email");
+
+  if (!emailPattern.test(email.trim())) {
+    emailError.classList.remove("d-none");
+    emailInput.classList.add("red-border");
+
+    setTimeout(() => {
+      emailError.classList.add("d-none");
+      emailInput.classList.remove("red-border");
+    }, 3000);
+    return false;
+  } else {
+    emailError.classList.add("d-none");
   }
 
   return true;
@@ -210,6 +241,8 @@ async function postData() {
   const { name, email, password, confirmpassword } = getFormValues();
 
   if (!formAndPasswordIf(password, confirmpassword)) return;
+
+  if (!validateSignupEmail(email)) return;
 
   if (await validateEmailUniqueness(email)) {
     return;
