@@ -1,3 +1,7 @@
+/**
+ * The base URL of the Firebase Realtime Database.
+ * @constant {string}
+ */
 const databasURL = "https://join-458-default-rtdb.europe-west1.firebasedatabase.app/";
 
 /** @type {HTMLButtonElement} */
@@ -66,7 +70,7 @@ function formAndPasswordIf(password, confirmpassword) {
  * @param {string} email - The email to check.
  * @returns {Promise<string|null>} - The user ID if the email exists, or null otherwise.
  */
-async function loadTasksFromFirebase() {
+async function checkIfEmailExists(email) {
   try {
     let response = await fetch(databasURL + "users.json");
     let responseJSON = await response.json();
@@ -79,8 +83,9 @@ async function loadTasksFromFirebase() {
     }
     return null;
   } catch (error) {
-    console.error("Fehler beim Laden der Tasks aus Firebase:", error);
-    return [];
+    console.error("Fehler bei der Datenbankabfrage:", error);
+    showMessage("There was a problem with the registration. Please try again later.", "../assets/icons/close.svg", "error");
+    return null;
   }
 }
 
@@ -99,7 +104,7 @@ async function saveUserData(data) {
     });
   } catch (error) {
     console.error("Fehler bei der Datenbankabfrage:", error);
-    alert("Es gab ein Problem bei der Registrierung. Bitte versuchen Sie es später noch einmal.");
+    showMessage("There was a problem with the registration. Please try again later.", "../assets/icons/close.svg", "error");
   }
 }
 
@@ -118,29 +123,27 @@ function getFormValues() {
 }
 
 /**
- * Counts the number of tasks that match a specific status.
+ * Saves a new user's data to the database.
  *
- * @param {Array<Object>} tasks - An array of task objects. Each task should contain a `status` property.
- * @param {string} status - The status to filter tasks by (e.g., 'to-do', 'done', 'in-progress').
- * @returns {number} The number of tasks that have the specified status.
+ * @param {Object} data - The user information.
+ * @param {string} data.name - The user's name.
+ * @param {string} data.email - The user's email.
+ * @param {string} data.password - The user's password.
+ * @returns {Promise<void>}
  */
-function countByStatus(tasks, status) {
-  return tasks.filter((task) => task.status === status).length;
+async function saveUser(data) {
+  const userData = {
+    name: data.name,
+    email: data.email,
+    password: data.password,
+    acceptedPolicy: checkbox.checked,
+  };
+  await saveUserData(userData);
 }
 
 /**
- * Counts the number of tasks that match a specific priority.
- *
- * @param {Array<Object>} tasks - An array of task objects. Each task should contain a `priority` property.
- * @param {string} priority - The priority to filter tasks by (e.g., 'high', 'medium', 'low').
- * @returns {number} The number of tasks that have the specified priority.
- */
-function countByPriority(tasks, priority) {
-  return tasks.filter((task) => task.priority === priority).length;
-}
-
-/**
- * Gets the next upcoming due date from a list of tasks.
+ * Optionally creates a new contact entry for the user
+ * if no duplicate exists.
  *
  * @param {Object} param0 - The user contact information.
  * @param {string} param0.name - The user's name.
@@ -162,13 +165,15 @@ async function maybeSaveContact({ name, email }) {
  */
 function finishSignUp(name) {
   localStorage.setItem("currentUser", name);
-  window.location.href = "summary.html";
+  showMessage("You signed up successfully", "../assets/icons/check_icon.svg", "Success");
   form.reset();
+  setTimeout(() => {
+    window.location.href = "summary.html";
+  }, 1000);
 }
 
 /**
- * Toggles visibility of user or guest greeting sections
- * based on the current user's name stored in localStorage.
+ * Displays an error on the email input field and hides it after 3 seconds.
  */
 function showEmailError() {
   const confirmEmailInput = document.getElementById("email");
@@ -192,8 +197,7 @@ async function validateEmailUniqueness(email) {
     showEmailError();
     return true;
   }
-
-  return greeting;
+  return false;
 }
 
 /**
@@ -207,15 +211,17 @@ async function postData() {
 
   if (!formAndPasswordIf(password, confirmpassword)) return;
 
-  await saveUserData({ name, email, password });
+  if (await validateEmailUniqueness(email)) {
+    return;
+  }
+
+  await saveUser({ name, email, password });
   await maybeSaveContact({ name, email });
   finishSignUp(name);
 }
 
 /**
- * Hides the greeting modal smoothly after a given delay.
- *
- * @param {number} delay - Time in milliseconds before fading out the modal
+ * Navigates the user back to the login page.
  */
 function backToLogin() {
   window.location.href = "/index.html";
