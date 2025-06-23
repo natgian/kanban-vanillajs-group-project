@@ -28,6 +28,7 @@ async function initBoardAddTask() {
     initializeSubtasksButtons();
     initializeSubtasksimulateInputClick();
     initializeResetAllOptions();
+    noBehindDate();
     const contacts = await fetchContacts();
     loadContacts(contacts);
     boardAddTaskAlreadyInitialized = true;
