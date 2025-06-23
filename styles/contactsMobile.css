@@ -69,7 +69,7 @@
     position: relative;
     justify-content: center;
     width: 100%;
-    padding: 72px 48px 16px 48px;
+    padding: 60px 48px 16px 48px;
   }
 
   .popup-close {
@@ -100,7 +100,7 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-60px, -220px);
+    transform: translate(-60px, -240px);
     width: 120px;
     height: 120px;
     border-radius: 50%;
@@ -124,7 +124,7 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-60px, -220px);
+    transform: translate(-60px, -240px);
     width: 120px;
     height: 120px;
     border-radius: 50%;
@@ -339,6 +339,9 @@
     min-height: 400px;
     height: 94vh;
   }
+  .popup-right {
+    padding: 60px 24px 16px 24px;
+  }
   .popup-close {
     top: 24px;
   }
@@ -350,7 +353,7 @@
   .mediaqueryy-monogram {
     width: 80px;
     height: 80px;
-    transform: translate(-40px, -200px);
+    transform: translate(-40px, -220px);
   }
 }
 

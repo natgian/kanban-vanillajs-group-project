@@ -283,6 +283,9 @@ async function updateContact(event, id) {
 
   const { name, email, phone, monogram } = buildContactData();
 
+  const isValid = validateContact(name, email, phone);
+  if (!isValid) return;
+
   const updated = { id, name, email, phone, monogram, monogramColor: contactStore[id].monogramColor || getRandomColor() };
 
   await updateContactDetails(id, updated);

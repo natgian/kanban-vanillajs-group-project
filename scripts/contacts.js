@@ -151,6 +151,7 @@ function openNewContact() {
   const popup = document.getElementById("popup");
 
   showPopup(refOverlay, popup);
+  initFocusHideValidation();
 }
 
 /**
@@ -212,15 +213,10 @@ async function saveContact(contact) {
 async function createNewContact(event) {
   event.preventDefault();
 
-  const fullName = document.getElementById("name")?.value.trim() || "";
-  const email = document.getElementById("email")?.value.trim() || "";
-  const phone = document.getElementById("phone")?.value.trim() || "";
+  const { fullName, email, phone } = getInputValues();
+  const isValid = validateContact(fullName, email, phone);
 
-  const errors = validateContact(email, phone);
-
-  if (errors.length > 0) {
-    return displayErrors(errors);
-  }
+  if (!isValid) return;
 
   const newContact = buildContactData();
 
@@ -237,39 +233,6 @@ async function createNewContact(event) {
   } catch (error) {
     handleContactCreationError(error);
   }
-}
-
-/**
- * Validates email and phone input values.
- *
- * @param {string} email - The email address to validate.
- * @param {string} phone - The phone number to validate.
- * @returns {string[]} An array of error messages (empty if all inputs are valid).
- */
-function validateContact(email, phone) {
-  const errors = [];
-  const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-  const phonePattern = /^\+\d{6,15}$/;
-
-  if (!emailPattern.test(email)) {
-    errors.push("Please enter a valid email address.");
-  }
-  if (!phonePattern.test(phone)) {
-    errors.push("Please enter a valid phone number in international format (e.g. +491701234567).");
-  }
-
-  return errors;
-}
-
-/**
- * Displays one or more validation errors using the showMessage function.
- *
- * @param {string[]} errors - An array of error messages to be displayed.
- * @returns {void}
- */
-function displayErrors(errors) {
-  const errorText = errors.join("\n");
-  return showMessage(errorText, "../assets/icons/close.svg", "Error");
 }
 
 /**
@@ -418,6 +381,7 @@ async function editContact(id, event) {
 
   const contact = contactStore[id];
   showEditContactOverlay(contact, id);
+  initFocusHideValidation();
 
   await refreshContactData(id);
 }

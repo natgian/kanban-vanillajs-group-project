@@ -11,6 +11,10 @@ main {
   display: flex;
 }
 
+.layout-container {
+  overflow-y: hidden;
+}
+
 #contact-list-body {
   padding-top: 24px;
   padding-top: 24px;
