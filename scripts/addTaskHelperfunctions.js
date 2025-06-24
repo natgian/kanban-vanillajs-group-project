@@ -247,7 +247,25 @@ function areAllFieldsFilled(fields) {
   });
 }
 
-function noBehindDate(){
+/**
+ * Sets the minimum selectable date of a date input field to today's date.
+ * Also clears the input value if the user manually enters a past date.
+ *
+ * This function is intended to prevent the user from selecting or inputting
+ * any date earlier than today. It automatically enforces the restriction 
+ * both visually (via min attribute) and functionally (via event listener).
+ */
+function noBehindDate() {
+  const dateInput = document.getElementById("date-input");
   const heute = new Date().toISOString().split("T")[0];
-  document.getElementById("date-input").setAttribute("min", heute);
+
+  // Set minimum date to today
+  dateInput.setAttribute("min", heute);
+
+  // Clear input if a date in the past is manually entered
+  dateInput.addEventListener("change", function () {
+    if (dateInput.value < heute) {
+      dateInput.value = "";
+    }
+  });
 }
