@@ -1,227 +1,233 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Help</title>
-    <link rel="icon" href="../assets/img/join_logo_dark.svg" type="image/x-icon" />
-    <link rel="stylesheet" href="../style.css" />
-    <link rel="stylesheet" href="../styles/elements.css" />
-    <link rel="stylesheet" href="../styles/legalPages.css" />
-    <script src="../script.js" defer></script>
-  </head>
 
-  <body>
-    <!-- Mobile Landscape Blocker -->
-    <div class="mobile-landscape-blocker">
-      <svg xmlns="http://www.w3.org/2000/svg" width="84" height="84" fill="#2a3647" viewBox="0 0 256 256">
-        <path
-          d="M176,18H80A22,22,0,0,0,58,40V216a22,22,0,0,0,22,22h96a22,22,0,0,0,22-22V40A22,22,0,0,0,176,18ZM70,62H186V194H70ZM80,30h96a10,10,0,0,1,10,10V50H70V40A10,10,0,0,1,80,30Zm96,196H80a10,10,0,0,1-10-10V206H186v10A10,10,0,0,1,176,226Z"
-        ></path>
-      </svg>
-      <p>Please rotate your device, this page is best viewed on portrait mode.</p>
-    </div>
-    <!-- Message Box -->
-    <div class="message-box" id="message-box">
-      <span id="message-text"></span>
-      <img id="message-icon" />
-    </div>
-    <!-- Sidebar -->
-    <nav class="sidebar">
-      <div class="sidebar-container">
-        <!-- Logo -->
-        <div>
-          <img src="../assets/img/join_logo_white.svg" alt="Join logo" class="logo" />
-        </div>
-        <!-- Navigation -->
-        <ul class="sidebar-menu">
-          <li>
-            <a href="./summary.html" class="sidebar-menu-link">
-              <img src="../assets/icons/summary_icon.svg" alt="summary icon" />
-              Summary
-            </a>
-          </li>
-          <li>
-            <a href="./addTask.html" class="sidebar-menu-link">
-              <img src="../assets/icons/add_task_icon.svg" alt="add task icon" />
-              Add Task
-            </a>
-          </li>
-          <li>
-            <a href="./board.html" class="sidebar-menu-link">
-              <img src="../assets/icons/board_icon.svg" alt="board icon" />
-              Board
-            </a>
-          </li>
-          <li>
-            <a href="./contacts.html" class="sidebar-menu-link">
-              <img src="../assets/icons/contacts_icon.svg" alt="contacts icon" />
-              Contacts
-            </a>
-          </li>
-        </ul>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Help</title>
+  <link rel="icon" href="../assets/img/join_logo_dark.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="../styles/elements.css" />
+  <link rel="stylesheet" href="../styles/legalPages.css" />
+  <script src="../script.js" defer></script>
+</head>
+
+<body>
+  <!-- Mobile Landscape Blocker -->
+  <div class="mobile-landscape-blocker">
+    <svg xmlns="http://www.w3.org/2000/svg" width="84" height="84" fill="#2a3647" viewBox="0 0 256 256">
+      <path
+        d="M176,18H80A22,22,0,0,0,58,40V216a22,22,0,0,0,22,22h96a22,22,0,0,0,22-22V40A22,22,0,0,0,176,18ZM70,62H186V194H70ZM80,30h96a10,10,0,0,1,10,10V50H70V40A10,10,0,0,1,80,30Zm96,196H80a10,10,0,0,1-10-10V206H186v10A10,10,0,0,1,176,226Z">
+      </path>
+    </svg>
+    <p>Please rotate your device, this page is best viewed on portrait mode.</p>
+  </div>
+  <!-- Message Box -->
+  <div class="message-box" id="message-box">
+    <span id="message-text"></span>
+    <img id="message-icon" />
+  </div>
+  <!-- Sidebar -->
+  <nav class="sidebar">
+    <div class="sidebar-container">
+      <!-- Logo -->
+      <div>
+        <img src="../assets/img/join_logo_white.svg" alt="Join logo" class="logo" />
       </div>
-      <!-- Footer-Links -->
-      <ul class="sidebar-footer">
-        <li class="sidebar-footer-link">
-          <a href="./privacyPolicy.html">Privacy Policy</a>
+      <!-- Navigation -->
+      <ul class="sidebar-menu">
+        <li>
+          <a href="./summary.html" class="sidebar-menu-link">
+            <img src="../assets/icons/summary_icon.svg" alt="summary icon" />
+            Summary
+          </a>
         </li>
-        <li class="sidebar-footer-link">
-          <a href="./legalNotice.html">Legal notice</a>
+        <li>
+          <a href="./addTask.html" class="sidebar-menu-link">
+            <img src="../assets/icons/add_task_icon.svg" alt="add task icon" />
+            Add Task
+          </a>
+        </li>
+        <li>
+          <a href="./board.html" class="sidebar-menu-link">
+            <img src="../assets/icons/board_icon.svg" alt="board icon" />
+            Board
+          </a>
+        </li>
+        <li>
+          <a href="./contacts.html" class="sidebar-menu-link">
+            <img src="../assets/icons/contacts_icon.svg" alt="contacts icon" />
+            Contacts
+          </a>
+        </li>
+      </ul>
+    </div>
+    <!-- Footer-Links -->
+    <ul class="sidebar-footer">
+      <li class="sidebar-footer-link">
+        <a href="./privacyPolicy.html">Privacy Policy</a>
+      </li>
+      <li class="sidebar-footer-link">
+        <a href="./legalNotice.html">Legal notice</a>
+      </li>
+    </ul>
+  </nav>
+  <main class="layout-container">
+    <!-- Header -->
+    <header>
+      <main class="headerLimit">
+        <img id="header-logo" src="../assets/img/join_logo_dark.svg" alt="Join Logo" />
+        <span id="header-title">Kanban Project Management Tool</span>
+        <div class="header-icons-container">
+
+          <!-- Header Navigation -->
+          <div class="header-nav">
+            <input type="checkbox" id="header-nav-dropdown-toggle" />
+            <label for="header-nav-dropdown-toggle" id="header-menu-btn">
+              <span class="user-profile-icon"><span id="user-profile-initials"></span></span>
+            </label>
+            <nav class="menu" id="header-nav-dropdown">
+              <ul>
+                <li><a href="help.html">Help</a></li>
+                <li><a href="legalNotice.html">Legal Notice</a></li>
+                <li><a href="privacyPolicy.html">Privacy Policy</a></li>
+                <li class="logout-btn" onclick="logout()">Log out</li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </main>
+    </header>
+    <!-- Content -->
+    <div class="content">
+      <div class="dFlexForBtn">
+        <h1><b>Help</b></h1>
+        <br />
+        <button onclick="goBack()">←</button>
+      </div>
+      <br />
+      <br />
+      <p>
+        Welcome to the help page for <i>Join</i>, your guide to using our kanban project management tool. Here, we'll
+        provide an overview of what <i>Join</i> is, how it can benefit you, and how to
+        use it.
+      </p>
+      <br />
+
+      <h2>What is Join?</h2>
+      <br />
+      <p>
+        <i>Join</i> is a kanban-based project management tool designed and built by a group of dedicated students as
+        part of their web development bootcamp at the Developer Akademie.<br />
+        <br />
+        Kanban, a Japanese term meaning "billboard", is a highly effective method to visualize work, limit
+        work-in-progress, and maximize efficiency (or flow). <i>Join</i> leverages the principles
+        of kanban to help users manage their tasks and projects in an intuitive, visual interface.<br />
+        <br />
+        It is important to note that <i>Join</i> is designed as an educational exercise and is not intended for
+        extensive business usage. While we strive to ensure the best possible user experience,
+        we cannot guarantee consistent availability, reliability, accuracy, or other aspects of quality regarding
+        <i>Join</i>.
+      </p>
+      <br />
+
+      <h2>How to use it</h2>
+      <br />
+      <p>Here is a step-by-step guide on how to use <i>Join</i>:</p>
+      <div class="dFlex">
+        <span>1.</span>
+        <div>
+          <h2>Exploring the Board</h2>
+          <p>When you log in to <i>Join</i>, you'll find a default board. This board represents your project and
+            contains four default lists: "To Do", "In Progress", “Await feedback” and "Done".</p>
+        </div>
+      </div>
+      <br />
+      <div class="dFlex">
+        <span>2.</span>
+        <div>
+          <h2>Creating Contacts</h2>
+          <p>
+            In <i>Join</i>, you can add contacts to collaborate on your projects. Go to the "Contacts" section, click on
+            "New contact", and fill in the required information. Once added, these
+            contacts can be assigned tasks and they can interact with the tasks on the board.
+          </p>
+        </div>
+      </div>
+      <br />
+      <div class="dFlex">
+        <span>3.</span>
+        <div>
+          <h2>Adding Cards</h2>
+          <p>
+            Now that you've added your contacts, you can start adding cards. Cards represent individual tasks. Click the
+            "+" button under the appropriate list to create a new card. Fill in the task
+            details in the card, like task name, description, due date, assignees, etc.
+          </p>
+        </div>
+      </div>
+      <br />
+      <div class="dFlex">
+        <span>4.</span>
+        <div>
+          <h2>Moving Cards</h2>
+          <p>As the task moves from one stage to another, you can reflect that on the board by dragging and dropping the
+            card from one list to another.</p>
+        </div>
+      </div>
+      <br />
+      <div class="dFlex">
+        <span>5.</span>
+        <div>
+          <h2>Deleting Cards</h2>
+          <p>
+            Once a task is completed, you can either move it to the "Done" list or delete it. Deleting a card will
+            permanently remove it from the board. Please exercise caution when deleting cards,
+            as this action is irreversible.<br />
+            <br />
+            Remember that using <i>Join</i> effectively requires consistent updates from you and your team to ensure the
+            board reflects the current state of your project.<br />
+            <br />
+            Have more questions about <i>Join</i>? Feel free to contact us at <b>support@join.de</b>. We're here to help
+            you!
+          </p>
+        </div>
+      </div>
+      <br />
+      <br />
+      <h2>Enjoy using Join!</h2>
+    </div>
+
+    <!-- Footer Navigation -->
+    <nav class="footer-navigation">
+      <ul class="sidebar-menu">
+        <li>
+          <a href="./summary.html" class="sidebar-menu-link">
+            <img src="../assets/icons/summary_icon.svg" alt="summary icon" />
+            Summary
+          </a>
+        </li>
+        <li>
+          <a href="./addTask.html" class="sidebar-menu-link">
+            <img src="../assets/icons/add_task_icon.svg" alt="add task icon" />
+            Add Task
+          </a>
+        </li>
+        <li>
+          <a href="./board.html" class="sidebar-menu-link">
+            <img src="../assets/icons/board_icon.svg" alt="board icon" />
+            Board
+          </a>
+        </li>
+        <li>
+          <a href="./contacts.html" class="sidebar-menu-link">
+            <img src="../assets/icons/contacts_icon.svg" alt="contacts icon" />
+            Contacts
+          </a>
         </li>
       </ul>
     </nav>
-    <main class="layout-container">
-      <!-- Header -->
-      <header>
-        <main class="headerLimit">
-          <img id="header-logo" src="../assets/img/join_logo_dark.svg" alt="Join Logo" />
-          <span id="header-title">Kanban Project Management Tool</span>
-          <div class="header-icons-container">
-            <div class="help-iconBox">
-              <a href="help.html"
-                ><img
-                  class="help-icon"
-                  src="../assets/icons/help_icon.svg"
-                  alt="help icon"
-              /></a>
-            </div>
-            
-            <!-- Header Navigation -->
-            <div class="header-nav">
-              <input type="checkbox" id="header-nav-dropdown-toggle" />
-              <label for="header-nav-dropdown-toggle" id="header-menu-btn">
-                <span class="user-profile-icon"><span id="user-profile-initials"></span></span>
-              </label>
-              <nav class="menu" id="header-nav-dropdown">
-                <ul>
-                  <li><a href="help.html">Help</a></li>
-                  <li><a href="legalNotice.html">Legal Notice</a></li>
-                  <li><a href="privacyPolicy.html">Privacy Policy</a></li>
-                  <li class="logout-btn" onclick="logout()">Log out</li>
-                </ul>
-              </nav>
-            </div>
-          </div>
-        </main>
-      </header>
-      <!-- Content -->
-      <div class="content">
-        <div class="dFlexForBtn">
-          <h1><b>Help</b></h1>
-          <br />
-          <button onclick="goBack()">←</button>
-        </div>
-        <br />
-        <br />
-        <p>
-          Welcome to the help page for <i>Join</i>, your guide to using our kanban project management tool. Here, we'll provide an overview of what <i>Join</i> is, how it can benefit you, and how to
-          use it.
-        </p>
-        <br />
+  </main>
+</body>
 
-        <h2>What is Join?</h2>
-        <br />
-        <p>
-          <i>Join</i> is a kanban-based project management tool designed and built by a group of dedicated students as part of their web development bootcamp at the Developer Akademie.<br />
-          <br />
-          Kanban, a Japanese term meaning "billboard", is a highly effective method to visualize work, limit work-in-progress, and maximize efficiency (or flow). <i>Join</i> leverages the principles
-          of kanban to help users manage their tasks and projects in an intuitive, visual interface.<br />
-          <br />
-          It is important to note that <i>Join</i> is designed as an educational exercise and is not intended for extensive business usage. While we strive to ensure the best possible user experience,
-          we cannot guarantee consistent availability, reliability, accuracy, or other aspects of quality regarding <i>Join</i>.
-        </p>
-        <br />
-
-        <h2>How to use it</h2>
-        <br />
-        <p>Here is a step-by-step guide on how to use <i>Join</i>:</p>
-        <div class="dFlex">
-          <span>1.</span>
-          <div>
-            <h2>Exploring the Board</h2>
-            <p>When you log in to <i>Join</i>, you'll find a default board. This board represents your project and contains four default lists: "To Do", "In Progress", “Await feedback” and "Done".</p>
-          </div>
-        </div>
-        <br />
-        <div class="dFlex">
-          <span>2.</span>
-          <div>
-            <h2>Creating Contacts</h2>
-            <p>
-              In <i>Join</i>, you can add contacts to collaborate on your projects. Go to the "Contacts" section, click on "New contact", and fill in the required information. Once added, these
-              contacts can be assigned tasks and they can interact with the tasks on the board.
-            </p>
-          </div>
-        </div>
-        <br />
-        <div class="dFlex">
-          <span>3.</span>
-          <div>
-            <h2>Adding Cards</h2>
-            <p>
-              Now that you've added your contacts, you can start adding cards. Cards represent individual tasks. Click the "+" button under the appropriate list to create a new card. Fill in the task
-              details in the card, like task name, description, due date, assignees, etc.
-            </p>
-          </div>
-        </div>
-        <br />
-        <div class="dFlex">
-          <span>4.</span>
-          <div>
-            <h2>Moving Cards</h2>
-            <p>As the task moves from one stage to another, you can reflect that on the board by dragging and dropping the card from one list to another.</p>
-          </div>
-        </div>
-        <br />
-        <div class="dFlex">
-          <span>5.</span>
-          <div>
-            <h2>Deleting Cards</h2>
-            <p>
-              Once a task is completed, you can either move it to the "Done" list or delete it. Deleting a card will permanently remove it from the board. Please exercise caution when deleting cards,
-              as this action is irreversible.<br />
-              <br />
-              Remember that using <i>Join</i> effectively requires consistent updates from you and your team to ensure the board reflects the current state of your project.<br />
-              <br />
-              Have more questions about <i>Join</i>? Feel free to contact us at <b>support@join.de</b>. We're here to help you!
-            </p>
-          </div>
-        </div>
-        <br />
-        <br />
-        <h2>Enjoy using Join!</h2>
-      </div>
-
-      <!-- Footer Navigation -->
-      <nav class="footer-navigation">
-        <ul class="sidebar-menu">
-          <li>
-            <a href="./summary.html" class="sidebar-menu-link">
-              <img src="../assets/icons/summary_icon.svg" alt="summary icon" />
-              Summary
-            </a>
-          </li>
-          <li>
-            <a href="./addTask.html" class="sidebar-menu-link">
-              <img src="../assets/icons/add_task_icon.svg" alt="add task icon" />
-              Add Task
-            </a>
-          </li>
-          <li>
-            <a href="./board.html" class="sidebar-menu-link">
-              <img src="../assets/icons/board_icon.svg" alt="board icon" />
-              Board
-            </a>
-          </li>
-          <li>
-            <a href="./contacts.html" class="sidebar-menu-link">
-              <img src="../assets/icons/contacts_icon.svg" alt="contacts icon" />
-              Contacts
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </main>
-  </body>
 </html>
