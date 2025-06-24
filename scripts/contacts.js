@@ -151,7 +151,7 @@ function openNewContact() {
   const popup = document.getElementById("popup");
 
   showPopup(refOverlay, popup);
-  initFocusHideValidation();
+  initLiveValidation();
 }
 
 /**
@@ -381,7 +381,7 @@ async function editContact(id, event) {
 
   const contact = contactStore[id];
   showEditContactOverlay(contact, id);
-  initFocusHideValidation();
+  initLiveValidation();
 
   await refreshContactData(id);
 }

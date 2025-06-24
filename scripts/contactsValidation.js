@@ -82,17 +82,31 @@ function validatePhone(phone) {
 }
 
 /**
- * Adds focus event listeners to the input fields.
- * Hides the validation message when the input is focused.
- *
+ * Initializes live validation on input fields.
+ * Adds a "blur" event listener to each input to validate the field when the user leaves it.
+ * If the value is invalid, a corresponding error message is shown.
+ * Adds a "focus" event listener to hide the message when the user clicks into the input field.
  */
-function initFocusHideValidation() {
-  ["name", "email", "phone"].forEach((id) => {
+function initLiveValidation() {
+  const fields = [
+    { id: "name", validate: validateFullName, errorId: "name-validation" },
+    { id: "email", validate: validateEmail, errorId: "email-validation" },
+    { id: "phone", validate: validatePhone, errorId: "phone-validation" },
+  ];
+
+  fields.forEach(({ id, validate, errorId }) => {
     const input = document.getElementById(id);
-    const validationElement = document.getElementById(`${id}-validation`);
+    const errorElement = document.getElementById(errorId);
+
+    if (!input || !errorElement) return;
+
+    input.addEventListener("blur", () => {
+      const isValid = validate(input.value);
+      toggleValidationMessage(isValid, errorId);
+    });
 
     input.addEventListener("focus", () => {
-      validationElement.classList.add("d_none");
+      errorElement.classList.add("d_none");
     });
   });
 }
