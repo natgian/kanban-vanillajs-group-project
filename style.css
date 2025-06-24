@@ -107,7 +107,7 @@ header {
   position: sticky;
   box-shadow: 0 4px 4px rgb(0, 0, 0, 0.1);
   background-color: var(--white-color);
-  z-index: 2000;
+  z-index: 10;
 }
 
 .headerLimit{
@@ -122,7 +122,6 @@ header {
   flex-grow: 1;
   top: 0;
   left: 0;
-  z-index: 999;
 }
 
 #header-logo {
