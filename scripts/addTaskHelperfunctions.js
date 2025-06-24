@@ -259,12 +259,11 @@ function noBehindDate() {
   const dateInput = document.getElementById("date-input");
   const heute = new Date().toISOString().split("T")[0];
 
-  // Set minimum date to today
   dateInput.setAttribute("min", heute);
 
-  // Clear input if a date in the past is manually entered
-  dateInput.addEventListener("change", function () {
-    if (dateInput.value < heute) {
+  dateInput.addEventListener("blur", function () {
+    const eingegebenesDatum = dateInput.value;
+    if (eingegebenesDatum && eingegebenesDatum < heute) {
       dateInput.value = "";
     }
   });
