@@ -107,6 +107,7 @@ header {
   position: sticky;
   box-shadow: 0 4px 4px rgb(0, 0, 0, 0.1);
   background-color: var(--white-color);
+  z-index: 2000;
 }
 
 .headerLimit{
@@ -192,7 +193,7 @@ header {
 #header-nav-dropdown-toggle:checked ~ #header-nav-dropdown {
   transform: translateX(0);
   opacity: 100;
-  pointer-events: all;
+  pointer-events: all !important;
 }
 
 #header-nav-dropdown a {
@@ -387,11 +388,11 @@ header {
   }
 }
 
-@media (max-width: 672px) {
+/* @media (max-width: 672px) {
   header {
-    padding: 20px 16px 20px 92px;
+    padding: 20px 16px 20px 16px;
   }
-}
+} */
 
 @media (max-width: 350px) {
   .sidebar-menu-link {
