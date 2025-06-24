@@ -179,18 +179,20 @@ header {
 
 #header-nav-dropdown {
   position: absolute;
-  right: 20px;
-  top: 96px;
+  right: -20px;
+  top: 77px;
   transform: translateX(150%);
   transition: var(--transition);
   min-width: 152.68px;
   transition: 700ms;
   opacity: 0;
+  pointer-events: none;
 }
 
 #header-nav-dropdown-toggle:checked ~ #header-nav-dropdown {
   transform: translateX(0);
   opacity: 100;
+  pointer-events: all;
 }
 
 #header-nav-dropdown a {
