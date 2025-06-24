@@ -121,7 +121,7 @@ async function handleSubmit(e) {
     if (user?.password === password) {
       loginUser(user);
     } else {
-      showError(elements, user ? "Incorrect password." : "Email not registered.");
+      showError(elements, "Incorrect password or email.");
     }
   } catch (err) {
     console.error("Login error:", err);
