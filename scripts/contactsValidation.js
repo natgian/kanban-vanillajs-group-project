@@ -81,6 +81,12 @@ function validatePhone(phone) {
   return phonePattern.test(phone.trim());
 }
 
+const fields = [
+  { id: "name", validate: validateFullName, errorId: "name-validation" },
+  { id: "email", validate: validateEmail, errorId: "email-validation" },
+  { id: "phone", validate: validatePhone, errorId: "phone-validation" },
+];
+
 /**
  * Initializes live validation on input fields.
  * Adds a "blur" event listener to each input to validate the field when the user leaves it.
@@ -88,19 +94,17 @@ function validatePhone(phone) {
  * Adds a "focus" event listener to hide the message when the user clicks into the input field.
  */
 function initLiveValidation() {
-  const fields = [
-    { id: "name", validate: validateFullName, errorId: "name-validation" },
-    { id: "email", validate: validateEmail, errorId: "email-validation" },
-    { id: "phone", validate: validatePhone, errorId: "phone-validation" },
-  ];
-
   fields.forEach(({ id, validate, errorId }) => {
     const input = document.getElementById(id);
     const errorElement = document.getElementById(errorId);
-
     if (!input || !errorElement) return;
 
     input.addEventListener("blur", () => {
+      const value = input.value.trim();
+      if (value === "") {
+        errorElement.classList.add("d_none");
+        return;
+      }
       const isValid = validate(input.value);
       toggleValidationMessage(isValid, errorId);
     });

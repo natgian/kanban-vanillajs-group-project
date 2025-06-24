@@ -11,22 +11,30 @@ const signupbutton = document.getElementById("signupbutton");
 const checkbox = document.getElementById("checkbox");
 
 /** @type {HTMLElement} */
-const passwordError = document.getElementById("passwordError");
+const passwordError = document.getElementById("password-error");
 
 /** @type {HTMLElement} */
-const emailError = document.getElementById("emailError");
+const emailError = document.getElementById("email-error");
 
 /** @type {HTMLElement} */
-const accountError = document.getElementById("accountError");
+const accountError = document.getElementById("account-error");
 
 /** @type {HTMLFormElement} */
 const form = document.querySelector("form");
 
+const fields = [
+  { id: "name", validate: validateSignupName, errorId: "name-error" },
+  { id: "email", validate: validateSignupEmail, errorId: "email-error" },
+  { id: "password", validate: validateSignupPassword, errorId: "password-error" },
+  { id: "confirmpassword", validate: validatePasswordMatch, errorId: "password-match-error" },
+];
+
 /**
- * Initializes the signup form state.
+ * Initializes the signup form state and initiates the input fields live validation.
  */
 function init() {
   updateSignupState();
+  initSignupLiveValidation();
 }
 
 /**
@@ -37,62 +45,120 @@ function updateSignupState() {
 }
 
 /**
- * Validates form fields and checks if the password matches the confirmation.
+ * Initializes live validation on signup input fields.
+ * Adds a "blur" event listener to each input to validate the field when the user leaves it.
+ * If the value is invalid, a corresponding error message is shown.
+ * Adds a "focus" event listener to hide the message when the user clicks into the input field.
  *
- * @param {string} password - The password entered by the user.
- * @param {string} confirmpassword - The confirmed password entered by the user.
- * @returns {boolean} - True if the form is valid and passwords match; otherwise false.
  */
-function formAndPasswordIf(password, confirmpassword) {
-  const confirmInput = document.getElementById("confirmpassword");
+function initSignupLiveValidation() {
+  fields.forEach(({ id, validate, errorId }) => {
+    const input = document.getElementById(id);
+    const errorElement = document.getElementById(errorId);
+    if (!input || !errorElement) return;
 
-  if (!form.checkValidity()) {
-    form.reportValidity();
-    return false;
-  }
+    input.addEventListener("blur", () => {
+      const value = input.value.trim();
+      if (value === "") {
+        errorElement.classList.add("d-none");
+        return;
+      }
 
-  if (password !== confirmpassword) {
-    passwordError.classList.remove("d-none");
-    confirmInput.classList.add("red-border");
+      const isValid = validate(value);
+      toggleSignupValidationMessage(isValid, errorId);
+    });
 
-    setTimeout(() => {
-      passwordError.classList.add("d-none");
-      confirmInput.classList.remove("red-border");
-    }, 3000);
-    return false;
-  } else {
-    passwordError.classList.add("d-none");
-  }
-
-  return true;
+    input.addEventListener("focus", () => {
+      errorElement.classList.add("d-none");
+    });
+  });
 }
 
 /**
- * Validates the format of an email address during signup.
- * If the email is invalid, it displays an error message.
- * The message is hidden after 3 seconds.
+ * Checks if the name is in a valid format
  *
- * @param {string} email - The email address to validate
- * @returns - "True" if the email is valid, otherwise "false"
+ * @param {string} name - The full name to validate
+ * @returns - "true" if the name is valid, otherwise "false"
+ */
+function validateSignupName(name) {
+  const fullNamePattern = /^[A-Za-zÀ-ÖØ-öø-ÿ'’\-]+(?: [A-Za-zÀ-ÖØ-öø-ÿ'’\-]+)+$/;
+  return fullNamePattern.test(name.trim());
+}
+
+/**
+ * Checks if the email is in a valid format
+ *
+ * @param {string} email - The email address
+ * @returns - "true" if the email is valid, otherwise "false"
  */
 function validateSignupEmail(email) {
   const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-  const emailInput = document.getElementById("email");
+  return emailPattern.test(email.trim());
+}
 
-  if (!emailPattern.test(email.trim())) {
-    emailError.classList.remove("d-none");
-    emailInput.classList.add("red-border");
+/**
+ * Checks if the password is in a valid format
+ *
+ * @param {string} password - The password
+ * @returns - "true" if the password is valid, otherwise "false"
+ */
+function validateSignupPassword(password) {
+  return password.trim().length >= 6;
+}
 
-    setTimeout(() => {
-      emailError.classList.add("d-none");
-      emailInput.classList.remove("red-border");
-    }, 3000);
-    return false;
-  } else {
-    emailError.classList.add("d-none");
+/**
+ *
+ * @param {string} confirmPassword - The confirmation password
+ * @returns - "true" if the password is and confirmPassword are the same, otherwise "false"
+ */
+function validatePasswordMatch(confirmPassword) {
+  const password = document.getElementById("password").value;
+  return confirmPassword === password;
+}
+
+/**
+ * Shows or hides the validation message
+ *
+ * @param {boolean} isValid - Is the input valid (true or false)
+ * @param {string} elementId - The ID of the validation message element
+ */
+function toggleSignupValidationMessage(isValid, elementId) {
+  const element = document.getElementById(elementId);
+  if (!element) return;
+  element.classList.toggle("d-none", isValid);
+}
+
+/**
+ * Validates the full signup form (name, email, password and password match)
+ *
+ * @returns {boolean} - True if all validations pass
+ */
+function validateSignupForm() {
+  const { name, email, password, confirmPassword } = getFormValues();
+
+  let isValid = true;
+
+  if (!validateSignupName(name)) {
+    toggleSignupValidationMessage(false, "name-error");
+    isValid = false;
   }
 
-  return true;
+  if (!validateSignupEmail(email)) {
+    toggleSignupValidationMessage(false, "email-error");
+    isValid = false;
+  }
+
+  if (!validateSignupPassword(password)) {
+    toggleSignupValidationMessage(false, "password-error");
+    isValid = false;
+  }
+
+  if (!validatePasswordMatch(confirmPassword)) {
+    toggleSignupValidationMessage(false, "password-match-error");
+    isValid = false;
+  }
+
+  return isValid;
 }
 
 /**
@@ -114,7 +180,7 @@ async function checkIfEmailExists(email) {
     }
     return null;
   } catch (error) {
-    console.error("Fehler bei der Datenbankabfrage:", error);
+    console.error("Error during database query:", error);
     showMessage("There was a problem with the registration. Please try again later.", "../assets/icons/close.svg", "error");
     return null;
   }
@@ -134,7 +200,7 @@ async function saveUserData(data) {
       body: JSON.stringify(data),
     });
   } catch (error) {
-    console.error("Fehler bei der Datenbankabfrage:", error);
+    console.error("Error during database query:", error);
     showMessage("There was a problem with the registration. Please try again later.", "../assets/icons/close.svg", "error");
   }
 }
@@ -149,7 +215,7 @@ function getFormValues() {
     name: document.getElementById("name").value.trim(),
     email: document.getElementById("email").value.trim(),
     password: document.getElementById("password").value,
-    confirmpassword: document.getElementById("confirmpassword").value,
+    confirmPassword: document.getElementById("confirmpassword").value,
   };
 }
 
@@ -181,7 +247,7 @@ async function saveUser(data) {
  * @param {string} param0.email - The user's email.
  * @returns {Promise<void>}
  */
-async function maybeSaveContact({ name, email }) {
+async function maybeSaveContact() {
   const contactData = buildContactData();
   if (!isDuplicate(contactData)) {
     await postContact(contactData);
@@ -199,7 +265,7 @@ function finishSignUp(name) {
   showMessage("You signed up successfully", "../assets/icons/check_icon.svg", "Success");
   form.reset();
   setTimeout(() => {
-    window.location.href = "summary.html";
+    window.location.href = "../index.html?skipAnimation=true";
   }, 1000);
 }
 
@@ -238,18 +304,15 @@ async function validateEmailUniqueness(email) {
  * @returns {Promise<void>} - Resolves when the signup process is complete.
  */
 async function postData() {
-  const { name, email, password, confirmpassword } = getFormValues();
-
-  if (!formAndPasswordIf(password, confirmpassword)) return;
-
-  if (!validateSignupEmail(email)) return;
+  const { name, email, password } = getFormValues();
+  if (!validateSignupForm()) return;
 
   if (await validateEmailUniqueness(email)) {
     return;
   }
 
   await saveUser({ name, email, password });
-  await maybeSaveContact({ name, email });
+  await maybeSaveContact();
   finishSignUp(name);
 }
 
@@ -257,5 +320,5 @@ async function postData() {
  * Navigates the user back to the login page.
  */
 function backToLogin() {
-  window.location.href = "/index.html";
+  window.location.href = "../index.html?skipAnimation=true";
 }

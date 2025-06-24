@@ -1,15 +1,24 @@
 const databasURL = "https://join-458-default-rtdb.europe-west1.firebasedatabase.app/";
 
 /**
- * Initializes the page by starting the logo animation
- * and hiding the loader after the animation completes.
+ * Initializes the page by handling the loader animation.
+ * If "skipAnimation=true" is in the URL, the loader is hidden immediately.
+ * Otherwise it runs the logo animation before hiding the loader.
+ * Cleans up the URL by removing query parameters.
  */
 function init() {
+  const loader = document.getElementById("loader");
+  const skip = new URLSearchParams(location.search).get("skipAnimation") === "true";
+
+  if (history.replaceState) {
+    history.replaceState(null, "", location.origin + location.pathname);
+  }
+
+  if (skip) return loader.classList.add("hidden");
+
   setTimeout(() => {
     animateLogoToHeader();
-    setTimeout(() => {
-      document.getElementById("loader").classList.add("hidden");
-    }, 1000);
+    setTimeout(() => loader.classList.add("hidden"), 1000);
   }, 300);
 }
 

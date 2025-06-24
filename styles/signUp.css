@@ -70,11 +70,16 @@ form {
   box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.2);
 }
 
-form>div {
+form > div {
   position: relative;
   width: 100%;
   display: flex;
   justify-content: center;
+}
+
+.form-control {
+  position: relative;
+  margin-bottom: 8px;
 }
 
 h1 {
@@ -133,11 +138,6 @@ h1 {
   fill: var(--text-color);
 }
 
-.last-input-container {
-  position: relative;
-  margin-bottom: 16px;
-}
-
 .checkbox-input-container {
   position: relative;
   width: 100%;
@@ -173,7 +173,7 @@ h1 {
   transition: background-color 0.2s;
 }
 
-.custom-checkbox-wrapper input[type="checkbox"]:checked+.custom-checkbox {
+.custom-checkbox-wrapper input[type="checkbox"]:checked + .custom-checkbox {
   /* background-color: var(--checkbox-color); */
   border-color: #373535;
 }
@@ -187,8 +187,8 @@ h1 {
   text-decoration: none;
 }
 
-.custom-checkbox-wrapper input[type="checkbox"]:checked+.custom-checkbox::after {
-  content: '✔';
+.custom-checkbox-wrapper input[type="checkbox"]:checked + .custom-checkbox::after {
+  content: "✔";
   color: #373535;
   position: absolute;
   font-size: 21px;
@@ -346,6 +346,11 @@ footer a:hover {
 }
 
 @media (max-width: 375px) {
+  .error-message {
+    font-size: 10px;
+    bottom: -6px;
+    left: 4px;
+  }
   .logo {
     width: 48px;
   }
