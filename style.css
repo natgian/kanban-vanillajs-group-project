@@ -102,6 +102,15 @@ h1 {
 
 /* HEADER */
 header {
+  display: flex;
+  flex-grow: 1;
+  position: sticky;
+  box-shadow: 0 4px 4px rgb(0, 0, 0, 0.1);
+  background-color: var(--white-color);
+}
+
+.headerLimit{
+  max-width: 1920px;
   height: 96px;
   display: flex;
   justify-content: space-between;
@@ -109,10 +118,7 @@ header {
   padding: 20px 40px 20px 116px;
   color: var(--black-color);
   font-size: 20px;
-  background-color: var(--white-color);
-  box-shadow: 0 4px 4px rgb(0, 0, 0, 0.1);
   flex-grow: 1;
-  position: sticky;
   top: 0;
   left: 0;
   z-index: 999;
@@ -129,6 +135,7 @@ header {
   justify-content: space-between;
   align-items: center;
   gap: 16px;
+  position: relative;
 }
 
 .help-iconBox {
@@ -171,15 +178,19 @@ header {
 }
 
 #header-nav-dropdown {
-  position: fixed;
+  position: absolute;
   right: 20px;
   top: 96px;
   transform: translateX(150%);
   transition: var(--transition);
+  min-width: 152.68px;
+  transition: 700ms;
+  opacity: 0;
 }
 
 #header-nav-dropdown-toggle:checked ~ #header-nav-dropdown {
   transform: translateX(0);
+  opacity: 100;
 }
 
 #header-nav-dropdown a {
