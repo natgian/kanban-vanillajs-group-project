@@ -79,7 +79,7 @@
 
 @media (max-width: 672px) {
   .content {
-    padding: 24px;
+    padding: 24px 24px 104px 24px;
   }
 }
 

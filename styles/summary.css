@@ -372,4 +372,7 @@
   .summaryContent {
     padding: 60px 20px;
   }
+  .leftSection{
+    padding-bottom: 40px;
+  }
 }
