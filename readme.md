@@ -15,8 +15,9 @@
 Join provides an intuitive drag-and-drop interface and additional productivity tools:
 
 - **Task Management:** Create, edit, and delete tasks
+- **Subtasks:** Create, track, and mark subtasks as done
 - **Kanban Workflow:** Move tasks between stages such as _To-Do_, _In Progress_, _Awaiting Feedback_, and _Done_
-  **Due Dates:** Set and manage deadlines for tasks
+- **Due Dates:** Set and manage deadlines for tasks
 - **Contact Management:** Add, edit, and delete contacts
 - **Task Assignment:** Assign contacts to tasks
 - **User Management:** Register and login as a user
