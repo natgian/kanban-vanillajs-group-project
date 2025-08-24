@@ -111,8 +111,8 @@ header {
   z-index: 10;
 }
 
-.headerLimit{
-  max-width: 1920px;
+.headerLimit {
+  /* max-width: 1920px; */
   height: 96px;
   display: flex;
   justify-content: space-between;
@@ -179,14 +179,14 @@ header {
 }
 
 #header-nav-dropdown {
-  position: absolute;
-  right: -20px;
-  top: 77px;
+  display: block;
+  min-width: 152px;
+  position: fixed;
+  right: 24px;
+  top: 96px;
   transform: translateX(150%);
-  transition: var(--transition);
-  min-width: 152.68px;
-  transition: 700ms;
   opacity: 0;
+  transition: all 300ms ease-in-out;
   pointer-events: none;
 }
 
