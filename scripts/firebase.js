@@ -1,4 +1,4 @@
-const baseURL = "https://join-458-default-rtdb.europe-west1.firebasedatabase.app";
+const baseURL = "https://kanban-vanillajs-group-project-default-rtdb.europe-west1.firebasedatabase.app";
 
 /**
  * Fetchs Contacts from Firebase and converts them to an Array.

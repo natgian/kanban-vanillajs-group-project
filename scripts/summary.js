@@ -1,4 +1,4 @@
-const databasURL = "https://join-458-default-rtdb.europe-west1.firebasedatabase.app/";
+const databasURL = "https://kanban-vanillajs-group-project-default-rtdb.europe-west1.firebasedatabase.app/";
 
 /**
  * Loads the summary template into the main content area,
@@ -120,7 +120,7 @@ function toggleGreetingSections() {
 
 /**
  * Returns a greeting based on the current time of day.
- * 
+ *
  * @returns {string} One of "morning", "afternoon", "evening", or "night"
  */
 function getDaytimeGreeting() {
@@ -150,7 +150,7 @@ document.querySelector("#salutationGuest #dayTime").textContent = daytime;
  * Retrieves the current user's name from local storage.
  * If the user is "Guest", returns "Guest".
  * If a real user is stored, returns the trimmed full name.
- * 
+ *
  * @returns {string} The username or guest label
  */
 function getCurrentUserName() {
@@ -215,10 +215,10 @@ function scheduleFadeOut(modal, delay) {
  * and updates the content of the '.rightSection' accordingly, if both elements are found.
  */
 function transferUserName() {
-  const modalUserNameElement = document.querySelector('#greetingModal .greetingUser h2');
-  const modalUserName = modalUserNameElement ? modalUserNameElement.textContent : '';
+  const modalUserNameElement = document.querySelector("#greetingModal .greetingUser h2");
+  const modalUserName = modalUserNameElement ? modalUserNameElement.textContent : "";
 
-  const rightSectionUserNameElement = document.querySelector('.rightSection .greetingUser h2');
+  const rightSectionUserNameElement = document.querySelector(".rightSection .greetingUser h2");
   if (rightSectionUserNameElement && modalUserName) {
     rightSectionUserNameElement.textContent = modalUserName;
   }

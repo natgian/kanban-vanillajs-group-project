@@ -1,4 +1,4 @@
-const databasURL = "https://join-458-default-rtdb.europe-west1.firebasedatabase.app/";
+const databasURL = "https://kanban-vanillajs-group-project-default-rtdb.europe-west1.firebasedatabase.app/";
 
 /**
  * Initializes the page by handling the loader animation.
@@ -98,7 +98,7 @@ function changeToSignup() {
  */
 document.getElementById("guestLoginBtn").addEventListener("click", async () => {
   try {
-    const res = await fetch(`${databasURL}users/user1.json`);
+    const res = await fetch(`${databasURL}users/guestUser.json`);
     const user = await res.json();
     if (!res.ok || !user?.email || !user?.password) {
       alert("Guest data could not be loaded.");

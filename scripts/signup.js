@@ -2,7 +2,7 @@
  * The base URL of the Firebase Realtime Database.
  * @constant {string}
  */
-const databasURL = "https://join-458-default-rtdb.europe-west1.firebasedatabase.app/";
+const databasURL = "https://kanban-vanillajs-group-project-default-rtdb.europe-west1.firebasedatabase.app/";
 
 /** @type {HTMLButtonElement} */
 const signupbutton = document.getElementById("signupbutton");

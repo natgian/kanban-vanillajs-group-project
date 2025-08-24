@@ -4,7 +4,7 @@
  *
  * @constant {string}
  */
-const databaseURL = "https://join-458-default-rtdb.europe-west1.firebasedatabase.app/contacts";
+const databaseURL = "https://kanban-vanillajs-group-project-default-rtdb.europe-west1.firebasedatabase.app/contacts";
 
 /**
  * An object containing named color values used for contact monogram backgrounds.
@@ -167,7 +167,7 @@ async function deleteContact(event, id) {
  */
 async function removeContactFromAllTasks(contactToRemove) {
   try {
-    const response = await fetch(`https://join-458-default-rtdb.europe-west1.firebasedatabase.app/tasks.json`);
+    const response = await fetch(`https://kanban-vanillajs-group-project-default-rtdb.europe-west1.firebasedatabase.app/tasks.json`);
     const tasks = await response.json();
     if (!tasks) return;
 
@@ -209,7 +209,7 @@ async function fetchSpecificContact(id) {
  */
 async function updateTaskAssignedTo(taskId, updatedAssignedTo) {
   try {
-    await fetch(`https://join-458-default-rtdb.europe-west1.firebasedatabase.app/tasks/${taskId}.json`, {
+    await fetch(`https://kanban-vanillajs-group-project-default-rtdb.europe-west1.firebasedatabase.app/tasks/${taskId}.json`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ assignedTo: updatedAssignedTo }),
