@@ -1,6 +1,6 @@
 # JOIN: Kanban Tool
 
-![Join Desktop Table Mobile Mockup](assets/img/join_desktop_tablet_mobile.jpg)
+![Join Desktop Table Mobile Mockup](assets/img/join_desktop_tablet_mobile.png)
 
 **JOIN** is a web application developed as part of a student group project in a web development bootcamp at Developer Akademie GmbH. This project is intended for educational purposes only and is not designed for commercial use or extensive personal use.
 
